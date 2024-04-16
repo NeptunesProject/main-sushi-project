@@ -44,6 +44,22 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
     getFromLocaleStorage('personInfo-Street', ''),
   )
 
+  const getDisabledState = () => {
+    let isDisabled = false;
+
+    switch (true) {
+      case name.length === 0:
+      case phoneNumber.length === 0:
+      case (deliveryType !== 'pickup' && street.length === 0):
+        isDisabled = true;
+        break;
+      default:
+        isDisabled = false;
+        break;
+    }
+  
+    return isDisabled;
+  };
 
   function nameSetter(e: React.ChangeEvent<HTMLInputElement>) {
     setName(e.target.value.trim())
@@ -139,11 +155,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
             bg="none"
             borderRadius={25}
             onClick={() => setSelectedBasketType("pay")}
-            isDisabled={
-              name.length === 0 ||
-              phoneNumber.length === 0 ||
-              (deliveryType !== 'pickup' && street.length === 0)
-            }
+            isDisabled={getDisabledState()}
           >
             Continue
           </Button>
