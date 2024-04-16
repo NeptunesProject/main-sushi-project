@@ -14,10 +14,10 @@ const InfoToPay = () => {
           {Number(totalWeight.toFixed(2))} gram
         </Text>
       </Box>
-      <Flex flexBasis="50%" justify="space-between">
+      <Flex flexBasis="50%" justify="space-between" alignItems="center">
         <Text color="grey.200">Total price:</Text>
         {isVoucherActive && (
-          <Text color="blue.200" fontWeight={600}>
+          <Text color="orange.400" fontWeight={600} fontSize={20}>
             {Number(discountedPrice.toFixed(2))} zł
           </Text>
         )}
