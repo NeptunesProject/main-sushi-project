@@ -10,6 +10,7 @@ interface IMakeOrder {
     street: string,
     deliveryType: string,
     phoneNumber: string,
+    commentary: string,
     personCount: number,
     sticks: number,
     studySticks: number,
@@ -35,7 +36,7 @@ interface IHandleClick {
   (
     orderId: number,
     setSelectedBasketType: DispatchSetter<BasketTypes>,
-    setOrderId: DispatchSetter<number>,
+    setOrderId: DispatchSetter<number | undefined>,
     setName: DispatchSetter<string>,
     setPhoneNumber: DispatchSetter<string>,
     setDeliveryType: DispatchSetter<string>,
@@ -54,6 +55,7 @@ export const makeOrder: IMakeOrder = async (
   street,
   deliveryType,
   phoneNumber,
+  commentary,
   personCount,
   sticks,
   studySticks,
@@ -85,7 +87,7 @@ export const makeOrder: IMakeOrder = async (
       deliveryAddress: {
         clientAddress: street,
       },
-      comment: 'Leave at the door.', // Temporary default value
+      comment: commentary, 
       peopleCount: personCount,
       cartItems,
       studySticksCount: studySticks,
@@ -94,6 +96,7 @@ export const makeOrder: IMakeOrder = async (
       paymentType: payment.toUpperCase(),
     })
 
+    console.log(order)
     return order
   } catch (error) {
     console.error('Error occurred while making order:', error)

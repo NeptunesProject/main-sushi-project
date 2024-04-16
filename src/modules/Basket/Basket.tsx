@@ -12,6 +12,7 @@ import BasketType from './BasketType'
 import { useState } from 'react'
 import { useBasketContext } from '../../contexts/BasketContext'
 import { StatusForm } from './StatusForm'
+import PaymentMethod from './PaymentMethod'
 
 const Basket = () => {
   const [selectedBaketType, setSelectedBasketType] =
@@ -62,6 +63,11 @@ const Basket = () => {
           )}
           {selectedBaketType === 'delivery' && (
             <DeliveryForm
+              setSelectedBasketType={setSelectedBasketType}
+            />
+          )}
+          {selectedBaketType === 'pay' && (
+            <PaymentMethod
               setOrderId={setOrderId}
               setSelectedBasketType={setSelectedBasketType}
             />
