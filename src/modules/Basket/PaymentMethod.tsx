@@ -54,6 +54,11 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
     return storedValue ? JSON.parse(storedValue) : defaultValue
   }
 
+  function paymentSetter(value: string) {
+    setPayment(value)
+    localStorage.setItem('paymentType', JSON.stringify(value))
+  }
+
   const [name, setName] = useState(() =>
     getFromLocaleStorage('personInfo-Name', ''),
   )
@@ -143,6 +148,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
     if (order && order.paymentType === 'ONLINE') {
       createSession(order)
     }
+    nullifyVoucher()
   }
 
   async function validateVoucher() {
@@ -165,6 +171,14 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
     }
   }
 
+
+  function nullifyVoucher() {
+    setVoucherCode('')
+    setVoucher({
+      discount: 1,
+      error: '',
+    })
+  }
 
     const CancelVoucher = () => {
     setVoucher({
@@ -199,7 +213,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
           </Text>
 
           <Box mb={10}>
-            <RadioGroup onChange={setPayment} ml={1}>
+            <RadioGroup onChange={paymentSetter} ml={1}>
               {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
               {/* @ts-expect-error */}
               <Stack direction="column" value={payment}>
