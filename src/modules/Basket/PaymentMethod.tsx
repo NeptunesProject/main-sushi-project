@@ -32,96 +32,11 @@ interface Props {
 }
 
 const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
-  //   const [paymentType, setPaymentType] = useState('CASH')
   const [comment, setComment] = useState('')
-  //   const [voucherCode, setVoucherCode] = useState('')
     const [validVoucher, setValidVoucher] = useState(false)
     const [voucherMsg, setVoucherMsg] = useState('')
 
-  //   const {
-  //     products,
-  //     personCount,
-  //     sticks,
-  //     studySticks,
-  //     phoneNumber,
-  //     name,
-  //     street,
-  //     deliveryType,
-  //   } = useBasketContext()
-  //   const { clearCart, setDiscountPercentage } = useBasketDispatchContext()
-
-  //   const ValidateVoucher = () => {
-  //     const voucherObj = { voucherKey: voucherCode }
-  //     console.log('Voucjerobj ', voucherObj)
-  //     axios
-  //       .post('https://neptunessushi.com/api/vouchers/validate', voucherObj)
-  //       .then((response) => {
-  //         console.log('Response ', response)
-  //         setDiscountPercentage(response.data.discountPercentage)
-  //         setValidVoucher(true)
-  //         setVoucherMsg(
-  //           `Applied discount ${response.data.discountPercentage * 100}%`,
-  //         )
-  //       })
-  //       .catch((error) => {
-  //         console.log('Error ', error)
-  //         if (error.response && error.response.status === 404) {
-  //           console.log('Voucher is unknown')
-  //           setVoucherMsg('Voucher not found. Please enter a valid voucher code.')
-  //         } else if (error.response && error.response.status === 410) {
-  //           console.log('Voucher is expired')
-  //           setVoucherMsg(
-  //             'Voucher is expired. Please enter a valid voucher code.',
-  //           )
-  //         } else {
-  //           console.log(
-  //             'Other error:',
-  //             error.response ? error.response.status : error.message,
-  //           )
-  //         }
-  //       })
-  //   }
-
-  //   const CancelVoucher = () => {
-  //     setDiscountPercentage(0)
-  //     setValidVoucher(false)
-  //     setVoucherMsg(``)
-  //   }
-
-  //   const SendDataToBackend = () => {
-  //     const isoString = new Date().toISOString()
-  //     const userData = {
-  //       toDateTime: isoString.substring(0, isoString.length - 1) + 'Z',
-  //       clientInfo: {
-  //         phoneNumber: phoneNumber,
-  //         name: name,
-  //       },
-  //       deliveryAddress: {
-  //         clientAddress: street,
-  //       },
-  //       comment: comment,
-  //       peopleCount: personCount,
-  //       cartItems: products.map((product) => ({
-  //         id: product.id,
-  //         quantity: product.count,
-  //       })),
-  //       sticksCount: sticks,
-  //       studySticksCount: studySticks,
-  //       deliveryType: deliveryType,
-  //       paymentType: paymentType,
-  //     }
-  //     console.log(userData)
-  //     axios
-  //       .post('https://neptunessushi.com/api/orders', userData)
-  //       .then((response) => {
-  //         console.log(response)
-  //         clearCart()
-  //       })
-  //       .catch((error) => {
-  //         console.log(error)
-  //       })
-  //   }
-
+ 
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value)
   }
@@ -350,7 +265,6 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
             borderColor="turquoise.77"
             bg="none"
             borderRadius={25}
-            // onClick={() => SendDataToBackend()}
             onClick={() => createOrder()}
             isDisabled={payment === ""}
           >
