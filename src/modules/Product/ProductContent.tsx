@@ -63,14 +63,6 @@ const ProductContent = () => {
           />
 
           <Flex flexDir="column" gap={5} minW={{ md: 450 }}>
-            {/*<Text alignSelf="start">*/}
-            {/*  {product.map((descr) => (*/}
-            {/*    <Text fontSize={15} lineHeight="21px">*/}
-            {/*      {descr}*/}
-            {/*    </Text>*/}
-            {/*  ))}*/}
-            {/*</Text>*/}
-
             <Text fontWeight={700} fontSize={15}>
               <Text>Weight: {product.weight}</Text>
               <Text>Pieces: {product.cartCount}</Text>
@@ -80,7 +72,7 @@ const ProductContent = () => {
               <Text fontSize={30} fontWeight={700}>
                 {product.price}{' '}
                 <Text as="span" fontSize={15}>
-                  zl
+                  zł
                 </Text>
               </Text>
               <Button
