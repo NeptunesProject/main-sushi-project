@@ -70,7 +70,7 @@ interface ReturnedOrder {
   studySticksCount: number
   deliveryType: string
   paymentType: string
-  statusType: 'CREATED' //temporaly because there is no information
+  statusType: 'CREATED'
 }
 
 type OrderToPost = Omit<ReturnedOrder, 'statusType' | 'id'>
@@ -92,6 +92,13 @@ interface ValidatedVoucher {
   discountPercentage: number
 }
 
+interface DiscountObj {
+  id: number
+  discountPerQuantity: {
+    [key: number]: string
+  }
+}
+
 type BasketTypes = 'basket' | 'delivery' | 'pay' | 'orderResponse'
 
 export type {
@@ -106,4 +113,5 @@ export type {
   CartItem,
   Voucher,
   ValidatedVoucher,
+  DiscountObj,
 }
