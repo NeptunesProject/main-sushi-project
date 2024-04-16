@@ -33,8 +33,8 @@ interface Props {
 
 const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
   const [comment, setComment] = useState('')
-    const [validVoucher, setValidVoucher] = useState(false)
-    const [voucherMsg, setVoucherMsg] = useState('')
+    // const [validVoucher, setValidVoucher] = useState(false)
+    // const [voucherMsg, setVoucherMsg] = useState('')
 
  
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -151,6 +151,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
     nullifyVoucher()
   }
 
+
   async function validateVoucher() {
     try {
       if (voucherCode !== '') {
@@ -185,8 +186,8 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
         discount: 1,
         error: '',
       })
-      setValidVoucher(false)
-      setVoucherMsg(``)
+      // setValidVoucher(false)
+      // setVoucherMsg(``)
     }
 
 
@@ -214,9 +215,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
 
           <Box mb={10}>
             <RadioGroup onChange={paymentSetter} ml={1}>
-              {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-              {/* @ts-expect-error */}
-              <Stack direction="column" value={payment}>
+              <Stack direction="column" defaultValue={payment}>
                 <Radio id="terminal" value="TERMINAL">
                   By card upon receipt
                 </Radio>
@@ -246,24 +245,24 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
               onChange={handleInputChange}
             />
 
-            {!validVoucher ? (
-              <>
-                {voucherMsg !== '' && (
+            {voucher.discount === 1 ? (
+              <Flex alignItems="center" justifyContent="flex-end">
+                {voucher.error !== '' && (
                   <Text color="red.400" float={'right'} m={2}>
-                    {voucherMsg}
+                    {voucher.error}
                   </Text>
                 )}
                 <Button float={'right'} m={2} onClick={validateVoucher}>
                   Validate voucher
                 </Button>
-              </>
+              </Flex>
             ) : (
               <Flex alignItems="center" justifyContent="flex-end">
                 <Button m={2} onClick={CancelVoucher}>
                   Remove voucher
                 </Button>
                 <Text m={2} fontWeight={'bold'}>
-                  {voucherMsg}
+                  Applied discount {Math.round((1 - voucher.discount)*100)}%
                 </Text>
               </Flex>
             )}
