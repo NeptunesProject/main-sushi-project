@@ -33,9 +33,6 @@ interface Props {
 
 const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
   const [comment, setComment] = useState('')
-    // const [validVoucher, setValidVoucher] = useState(false)
-    // const [voucherMsg, setVoucherMsg] = useState('')
-
  
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value)
@@ -88,7 +85,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
 
   useEffect(() => {
     setVoucher({ discount: voucher.discount, error: '' })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, [])
 
   async function createSession(order: ReturnedOrder) {
@@ -186,8 +183,6 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
         discount: 1,
         error: '',
       })
-      // setValidVoucher(false)
-      // setVoucherMsg(``)
     }
 
 
