@@ -36,7 +36,7 @@ interface IHandleClick {
   (
     orderId: number,
     setSelectedBasketType: DispatchSetter<BasketTypes>,
-    setOrderId: DispatchSetter<number>,
+    setOrderId: DispatchSetter<number | undefined>,
     setName: DispatchSetter<string>,
     setPhoneNumber: DispatchSetter<string>,
     setDeliveryType: DispatchSetter<string>,
