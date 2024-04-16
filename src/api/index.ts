@@ -27,15 +27,6 @@ const postOrder = async (orderObj: OrderToPost): Promise<ReturnedOrder> => {
   })
 }
 
-// const postOrder = async (orderObj: OrderToPost): Promise<ReturnedOrder> => {
-//   try {
-//     const response = await apiClient.post('/orders', orderObj)
-//     return response.data
-//   } catch (error) {
-//     throw error
-//   }
-// };
-
 const postVoucher = async (voucher: string): Promise<ValidatedVoucher> => {
   return new Promise((resolve, reject) => {
     apiClient

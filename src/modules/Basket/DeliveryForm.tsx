@@ -23,7 +23,11 @@ interface Props {
 
 const getFromLocaleStorage = (key: string, defaultValue: string): string => {
   const storedValue = localStorage.getItem(key)
-  return storedValue ? JSON.parse(storedValue) : defaultValue
+  if (storedValue) {
+    return JSON.parse(storedValue)
+  }
+
+  return defaultValue
 }
 
 const DeliveryForm = ({ setSelectedBasketType }: Props) => {
@@ -40,6 +44,33 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
     getFromLocaleStorage('personInfo-Street', ''),
   )
 
+
+  function nameSetter(e: React.ChangeEvent<HTMLInputElement>) {
+    setName(e.target.value.trim())
+    localStorage.setItem(
+      'personInfo-Name',
+      JSON.stringify((e.target as HTMLInputElement).value.trim()),
+    )
+  }
+  function phoneSetter(e: React.ChangeEvent<HTMLInputElement>) {
+    setPhoneNumber((e.target as HTMLInputElement).value.trim())
+    localStorage.setItem(
+      'personInfo-Number',
+      JSON.stringify((e.target as HTMLInputElement).value.trim()),
+    )
+  }
+  function streetSetter(e: React.ChangeEvent<HTMLInputElement>) {
+    setStreet((e.target as HTMLInputElement).value.trim())
+    localStorage.setItem(
+      'personInfo-Street',
+      JSON.stringify((e.target as HTMLInputElement).value.trim()),
+    )
+  }
+
+  function deliverySetter(value: string) {
+    setDeliveryType(value)
+    localStorage.setItem('personInfo-Delivery', JSON.stringify(value))
+  }
 
   return (
     <>
@@ -69,41 +100,17 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
             </Text>
 
             <Flex flexDir="column" gap={3} align="start" mb={4}>
-              <Input
-                value={name}
-                onInput={(e) => {
-                  setName((e.target as HTMLInputElement).value.trim())
-                  localStorage.setItem(
-                    'personInfo-Name',
-                    JSON.stringify((e.target as HTMLInputElement).value.trim()),
-                  )
-                }}
-                placeholder="name"
-              />
+              <Input value={name} onChange={nameSetter} placeholder="name" />
               <Input
                 value={phoneNumber}
-                onInput={(e) => {
-                  setPhoneNumber((e.target as HTMLInputElement).value.trim())
-                  localStorage.setItem(
-                    'personInfo-Number',
-                    JSON.stringify((e.target as HTMLInputElement).value.trim()),
-                  )
-                }}
+                onChange={phoneSetter}
                 type="tel"
                 placeholder="phone number"
               />
               {deliveryType === 'delivery' && (
                 <Input
                   value={street}
-                  onInput={(e) => {
-                    setStreet((e.target as HTMLInputElement).value.trim())
-                    localStorage.setItem(
-                      'personInfo-Street',
-                      JSON.stringify(
-                        (e.target as HTMLInputElement).value.trim(),
-                      ),
-                    )
-                  }}
+                  onChange={streetSetter}
                   type="text"
                   placeholder="street"
                 />
@@ -111,13 +118,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
             </Flex>
 
             <RadioGroup
-              onChange={(value) => {
-                setDeliveryType(value)
-                localStorage.setItem(
-                  'personInfo-Delivery',
-                  JSON.stringify(value),
-                )
-              }}
+              onChange={(value) => deliverySetter(value)}
               value={deliveryType}
             >
               <Stack direction="column">
