@@ -3,7 +3,7 @@ import { Box, Flex } from '@chakra-ui/react'
 import AppHeader from './AppHeader'
 import Routes from '../router/Routes'
 import AppFooter from './AppFooter'
-import ImagesLayout from '../components/ImagesLayout'
+// import ImagesLayout from '../components/ImagesLayout'
 import AppSidebar from './AppSidebar'
 import AppMedia from './AppMedia'
 import Basket from 'modules/Basket'
@@ -20,7 +20,7 @@ const AppContainer = () => {
           </Box>
           <AppFooter />
           {/* absolute blocks */}
-          <ImagesLayout />
+          {/* <ImagesLayout /> */}
           <Box
             w={{ base: '100%', lg: 'auto' }}
             pos="fixed"

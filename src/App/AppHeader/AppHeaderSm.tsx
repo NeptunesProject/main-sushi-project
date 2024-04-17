@@ -2,7 +2,7 @@ import { Box, Flex, Image, Link } from '@chakra-ui/react'
 import Logo from 'components/Logo'
 import LanguageSelect from './LanguageSelect'
 import Place from './Place'
-import phone from 'assets/img/phone.svg'
+import phone from 'assets/icons/phone.svg'
 
 const AppHeaderSm = () => {
   return (
