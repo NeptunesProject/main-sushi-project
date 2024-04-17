@@ -100,22 +100,38 @@ const ProductCard = ({ product }: Props) => {
   return (
     <Flex
       fontFamily="'Roboto', sans-serif"
-      w={375}
+      flexDir="column"
+      alignItems="center"
+      w={328}
+      h={453}
       cursor="pointer"
       bg="white"
       borderRadius={10}
       boxShadow="1px 2px 10px rgba(0,0,0,.12)"
     >
-      <Image
-        fallback={<Image w={180} h={170} borderLeftRadius={10} src={stubImg} />}
+      <Text
         onClick={() => navigate(`/product/${product.id}`)}
-        w={180}
-        h={170}
+        fontSize={20}
+        lineHeight="19px"
+        fontWeight={700}
+        letterSpacing=".35px"
+        color="blue.200"
+        whiteSpace="nowrap"
+        my={6}
+      >
+        {product.name}
+      </Text>
+
+      <Image
+        fallback={<Image w={223} h={221} borderRadius={3} src={stubImg} />}
+        onClick={() => navigate(`/product/${product.id}`)}
+        w={223}
+        h={221}
         src={product.img}
         borderLeftRadius={10}
       />
 
-      <Flex
+      {/* <Flex
         w="100%"
         flexDir="column"
         align="start"
@@ -123,59 +139,58 @@ const ProductCard = ({ product }: Props) => {
         p={2.5}
         pl={{ base: 2, md: 4 }}
         overflow="hidden"
-      >
-        <Text
-          onClick={() => navigate(`/product/${product.id}`)}
-          fontSize={15}
-          lineHeight="19px"
-          fontWeight={700}
-          letterSpacing=".35px"
-          color="blue.200"
-          whiteSpace="nowrap"
-        >
-          {product.name}
-        </Text>
+      > */}
 
-        <Text fontSize={12} fontWeight={200} color="black" alignSelf="start">
-          {product.weight} / {product.cartCount}
-        </Text>
-
-        {isDiscounted && (
-          <Text color="blue.200" fontWeight={700}>
-            Discount: {currentDiscount * 100}%
+      <Flex justifyContent="space-between" w="80%" mt={4} flexGrow={1}>
+        <Flex flexDir="column">
+          <Text fontSize={12} fontWeight={200} color="black" alignSelf="start">
+            {product.weight} / {product.cartCount}
           </Text>
-        )}
-        <Flex align="center" justify="space-between" w="100%">
-          {isDiscounted && (
-            <Text color="blue.200" fontWeight={700}>
-              {discountedPrice} zł
+        </Flex>
+        <Flex flexDir="column">*Ingridients*</Flex>
+      </Flex>
+
+      {isDiscounted && (
+        <Text color="blue.200" fontWeight={700} alignSelf="end" marginRight="10%" mt={4}>
+          Discount: {currentDiscount * 100}%
+        </Text>
+      )}
+
+      <Flex justifyContent="space-between" w="80%" my ={4}>
+        <Flex flexDir="column">
+          <Flex align="center" justify="space-between" w="100%">
+            {isDiscounted && (
+              <Text color="blue.200" fontWeight={700}>
+                {discountedPrice} zł
+              </Text>
+            )}
+            <Text
+              color="blue.200"
+              fontWeight={700}
+              decoration={isDiscounted ? 'line-through' : 'none'}
+            >
+              {product.price} zł
             </Text>
-          )}
-          <Text
-            color="blue.200"
-            fontWeight={700}
-            decoration={isDiscounted ? 'line-through' : 'none'}
+            {/* <Flex gap={{ base: 0.5, md: 1 }}>
+          <CountButton
+            onClick={handleDecrement}
+            borderLeftRadius={20}
+            borderRightRadius={5}
           >
-            {product.price} zł
-          </Text>
-          <Flex gap={{ base: 0.5, md: 1 }}>
-            <CountButton
-              onClick={handleDecrement}
-              borderLeftRadius={20}
-              borderRightRadius={5}
-            >
-              -
-            </CountButton>
-            <Text>{quantity ? quantity : count}</Text>
-            <CountButton
-              onClick={handleIncrement}
-              borderRightRadius={20}
-              borderLeftRadius={5}
-            >
-              +
-            </CountButton>
+            -
+          </CountButton>
+          <Text>{quantity ? quantity : count}</Text>
+          <CountButton
+            onClick={handleIncrement}
+            borderRightRadius={20}
+            borderLeftRadius={5}
+          >
+            +
+          </CountButton>
+        </Flex> */}
           </Flex>
         </Flex>
+        <Flex>
         <Button
           w="100%"
           bg="turquoise.77"
@@ -191,6 +206,7 @@ const ProductCard = ({ product }: Props) => {
         </Button>
       </Flex>
     </Flex>
+     </Flex>
   )
 }
 
