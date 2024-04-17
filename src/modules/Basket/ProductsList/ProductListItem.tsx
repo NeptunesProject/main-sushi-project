@@ -2,7 +2,7 @@ import { Product } from 'types'
 import { Box, Flex, Image, Text } from '@chakra-ui/react'
 import stubImg from 'assets/img/stub.jpg'
 import CountButton from '../../../ui/CountButton'
-import closeIcon from 'assets/img/delete.svg'
+import closeIcon from 'assets/icons/delete.svg'
 import { useBasketDispatchContext } from '../../../contexts/BasketContext'
 
 interface Props {

@@ -4,7 +4,7 @@ import NavBar from './NavBar'
 import LanguageSelect from './LanguageSelect'
 import Place from './Place'
 import WorkHours from './WorkHours'
-import phone from 'assets/img/phone.svg'
+import phone from 'assets/icons/phone.svg'
 
 const AppHeaderLg = () => {
   return (

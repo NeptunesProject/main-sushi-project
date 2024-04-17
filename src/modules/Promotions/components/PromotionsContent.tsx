@@ -8,8 +8,8 @@ import {
   Box,
   chakra,
 } from '@chakra-ui/react'
-import neptunesLogo from 'assets/img/promotions/neptunesLogo.svg'
-import bannerBg from 'assets/img/promotions/bannerBg.svg'
+import neptunesLogo from 'assets/icons/promotions/neptunesLogo.svg'
+import bannerBg from 'assets/icons/promotions/bannerBg.svg'
 import { useTranslation } from 'react-i18next'
 
 const BannerButton = chakra(Button, {

@@ -5,7 +5,7 @@ import {
   Image,
   useDisclosure,
 } from '@chakra-ui/react'
-import basket from 'assets/img/basket.svg'
+import basket from 'assets/icons/basket.svg'
 import DeliveryForm from './DeliveryForm'
 import { BasketTypes } from '../../types'
 import BasketType from './BasketType'
@@ -62,9 +62,7 @@ const Basket = () => {
             <BasketType setSelectedBasketType={setSelectedBasketType} />
           )}
           {selectedBaketType === 'delivery' && (
-            <DeliveryForm
-              setSelectedBasketType={setSelectedBasketType}
-            />
+            <DeliveryForm setSelectedBasketType={setSelectedBasketType} />
           )}
           {selectedBaketType === 'pay' && (
             <PaymentMethod

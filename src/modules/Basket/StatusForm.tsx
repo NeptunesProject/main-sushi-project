@@ -5,7 +5,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { BasketTypes } from 'types'
-import svg from '../../assets/img/done.svg'
+import done from '../../assets/icons/done.svg'
 
 interface Props {
   setSelectedBasketType: React.Dispatch<React.SetStateAction<BasketTypes>>
@@ -22,7 +22,7 @@ export const StatusForm = ({ setSelectedBasketType, orderId }: Props) => {
       >
         <Text fontSize={28} display="flex" fontWeight={600} mt={5} ml={5}>
           <img
-            src={svg}
+            src={done}
             alt="Success image"
             width={40}
             height={40}

@@ -1,6 +1,4 @@
-import { Flex, Image } from '@chakra-ui/react'
-import bgLeft from 'assets/img/bg-left.svg'
-import bgRight from 'assets/img/bg-right.svg'
+import { Flex } from '@chakra-ui/react'
 
 const ImagesLayout = () => {
   return (
@@ -12,10 +10,7 @@ const ImagesLayout = () => {
       justify="space-between"
       align="end"
       zIndex={-1}
-    >
-      <Image src={bgLeft} />
-      <Image src={bgRight} />
-    </Flex>
+    ></Flex>
   )
 }
 

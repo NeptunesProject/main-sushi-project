@@ -1,4 +1,3 @@
-import React from 'react'
 import { Flex, Image, Box, Text } from '@chakra-ui/react'
 import mainScreenSliderImg from 'assets/img/home-screen-slider.jpg'
 import { useTranslation } from 'react-i18next'
