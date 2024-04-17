@@ -24,25 +24,27 @@ const Basket = () => {
     <>
       <Center
         cursor="pointer"
-        boxSize={50}
+        boxSize={77}
         borderTopLeftRadius={10}
         borderBottomLeftRadius={10}
         boxShadow="2px 7px 11px rgba(0,0,0,.28)"
-        bg="white"
+        // bg="white"
         onClick={onOpen}
         pos="relative"
+        bgColor="gray.800"
       >
-        <Image boxSize={30} src={basket} />
+        <Image boxSize={30} src={basket}/>
         {productsCount ? (
           <Center
             pos="absolute"
-            bottom={0}
-            right={0}
+            top={3}
+            right={2}
             borderRadius="50%"
-            bg="red"
+            // bg="red"
+            bg="orange"
             color="white"
             boxSize={4}
-            fontSize={12}
+            fontSize={14}
           >
             {productsCount}
           </Center>
