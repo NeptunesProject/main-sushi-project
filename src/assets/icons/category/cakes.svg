@@ -1,0 +1,31 @@
+<svg width="25" height="23" viewBox="0 0 25 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_6_1645)">
+<rect x="1" y="15" width="24" height="3" fill="#DBA4A4"/>
+<rect x="1" y="12" width="24" height="3" fill="#FF8A00"/>
+<rect x="1" y="9" width="24" height="3" fill="#AAB569"/>
+<path d="M25 9C25 8.47471 24.6896 7.95457 24.0866 7.46927C23.4835 6.98396 22.5996 6.54301 21.4853 6.17157C20.371 5.80014 19.0481 5.5055 17.5922 5.30448C16.1363 5.10346 14.5759 5 13 5C11.4241 5 9.86371 5.10346 8.4078 5.30448C6.95189 5.5055 5.62902 5.80014 4.51472 6.17157C3.40042 6.54301 2.5165 6.98396 1.91345 7.46927C1.31039 7.95457 1 8.47471 1 9L13 9H25Z" fill="#002034"/>
+<ellipse cx="13" cy="8" rx="11" ry="4" fill="#FDF2DC"/>
+<ellipse cx="13" cy="7" rx="7" ry="2" fill="#FFE9BD"/>
+<circle cx="7" cy="6" r="1" fill="#FE5925"/>
+<circle cx="19" cy="6" r="1" fill="#FE5925"/>
+<circle cx="9" cy="6" r="1" fill="#FE5925"/>
+<circle cx="11" cy="6" r="1" fill="#FE5925"/>
+<circle cx="10" cy="4" r="1" fill="#FE5925"/>
+<circle cx="12" cy="4" r="1" fill="#FE5925"/>
+<circle cx="12" cy="2" r="1" fill="#FE5925"/>
+<circle cx="14" cy="2" r="1" fill="#FE5925"/>
+<circle cx="13" cy="2" r="1" fill="#FE5925"/>
+<circle cx="14" cy="4" r="1" fill="#FE5925"/>
+<circle cx="16" cy="4" r="1" fill="#FE5925"/>
+<circle cx="13" cy="6" r="1" fill="#FE5925"/>
+<circle cx="15" cy="6" r="1" fill="#FE5925"/>
+<circle cx="17" cy="6" r="1" fill="#FE5925"/>
+<circle cx="7" cy="6" r="1" fill="#FE5925"/>
+<path d="M1 16C1 15.4477 1.44772 15 2 15H27C27.5523 15 28 15.4477 28 16V21C28 21.5523 27.5523 22 27 22H2C1.44771 22 1 21.5523 1 21V16Z" fill="#002034"/>
+</g>
+<defs>
+<clipPath id="clip0_6_1645">
+<rect width="25" height="23" fill="white"/>
+</clipPath>
+</defs>
+</svg>

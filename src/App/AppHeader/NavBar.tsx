@@ -10,13 +10,16 @@ const MainNavLink = chakra(NavLink, {
     transition: 'all 0.2s',
     fontWeight: 800,
     letterSpacing: '.35px',
-    color: 'grey.100',
+    // color: 'grey.100',
+    color: 'grey.700',
 
     _hover: {
-      color: 'blue.100',
+      // color: 'blue.100',
+      color: 'gray.300',
     },
     _activeLink: {
-      color: 'turquoise.77',
+      // color: 'turquoise.77',
+      color: 'gray.600',
     },
   },
 })

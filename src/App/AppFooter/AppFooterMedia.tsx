@@ -1,9 +1,9 @@
 import { Flex, Link, Image } from '@chakra-ui/react'
 import FooterTitle from 'ui/FooterTitle'
 import { FacebookIconFilled, InstagramIconFilled } from 'ui/icons'
-import mastercard from 'assets/img/payment/mastercard.svg'
-import visa from 'assets/img/payment/visa.svg'
-import payu from 'assets/img/payment/payu.svg'
+import mastercard from 'assets/icons/payment/mastercard.svg'
+import visa from 'assets/icons/payment/visa.svg'
+import payu from 'assets/icons/payment/payu.svg'
 import { useTranslation } from 'react-i18next'
 
 const AppFooterMedia = () => {
