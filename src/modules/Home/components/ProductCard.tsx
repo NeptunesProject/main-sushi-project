@@ -1,4 +1,4 @@
-import { DiscountObj, Product } from 'types'
+import { Product } from 'types'
 import { Button, Flex, Image, Text } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 import { useCallback, useEffect, useMemo, useState } from 'react'
@@ -26,15 +26,6 @@ const ProductCard = ({ product }: Props) => {
 
   const navigate = useNavigate()
 
-  const discount: DiscountObj = {
-    id: 1,
-    discountPerQuantity: {
-      1: '0.1',
-      5: '0.3',
-      10: '0.5',
-    },
-  }
-
   const isThisProductAdded = useMemo(
     () => isProductAdded(product),
     [isProductAdded, product],
@@ -49,7 +40,7 @@ const ProductCard = ({ product }: Props) => {
 
   const discountedPrice = calculateDiscountedPrice(
     product.price,
-    discount.discountPerQuantity,
+    product.discount?.discountPerQuantity ?? {},
     quantity ? quantity : count,
   )
 
@@ -69,25 +60,32 @@ const ProductCard = ({ product }: Props) => {
     }
   }
 
-  const isDiscounted = Boolean(currentDiscount) && currentDiscount !== 1
+  const isDiscounted =
+    product.discount &&
+    Object.keys(product.discount.discountPerQuantity).length > 0 &&
+    currentDiscount !== 1
 
   const setDiscount = useCallback(() => {
-    if (discount) {
-      const keys = Object.keys(discount.discountPerQuantity)
+    if (product.discount) {
+      const keys = Object.keys(product.discount.discountPerQuantity)
         .map(Number)
         .sort((a, b) => b - a)
 
       if (quantity) {
         for (const key of keys) {
           if (quantity >= key) {
-            setCurrentDiscount(parseFloat(discount.discountPerQuantity[key]))
+            setCurrentDiscount(
+              parseFloat(product.discount.discountPerQuantity[key]),
+            )
             break
           }
         }
       } else {
         for (const key of keys) {
           if (count >= key) {
-            setCurrentDiscount(parseFloat(discount.discountPerQuantity[key]))
+            setCurrentDiscount(
+              parseFloat(product.discount.discountPerQuantity[key]),
+            )
             break
           }
         }

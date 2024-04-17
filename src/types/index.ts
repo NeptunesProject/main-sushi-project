@@ -20,13 +20,21 @@ interface Product {
   url: string
   img: string
   status: number
-  cityId: number
+  description: string
+  descriptionRu: string
+  descriptionEn: string
+  descriptionUa: string
   size: number
   sale: number
-  iikoId: string
   cartCount: number
   sort: number
   box: number
+  discount: {
+    id: number
+    discountPerQuantity: Record<string, string>
+    discountType: string
+    relationId: number
+  }
 }
 
 interface Category {
@@ -92,13 +100,6 @@ interface ValidatedVoucher {
   discountPercentage: number
 }
 
-interface DiscountObj {
-  id: number
-  discountPerQuantity: {
-    [key: number]: string
-  }
-}
-
 type BasketTypes = 'basket' | 'delivery' | 'pay' | 'orderResponse'
 
 export type {
@@ -113,5 +114,4 @@ export type {
   CartItem,
   Voucher,
   ValidatedVoucher,
-  DiscountObj,
 }

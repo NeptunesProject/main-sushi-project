@@ -13,22 +13,15 @@ const ProductListItem = ({ product }: Props) => {
   const { addProduct, removeProduct, deleteProduct, calculateDiscountedPrice } =
     useBasketDispatchContext()
 
-  const discount = {
-    id: 1,
-    discountPerQuantity: {
-      1: '0.1',
-      5: '0.3',
-      10: '0.5',
-    },
-  }
+  const isDiscounted = Boolean(product.discount)
 
-  const discountPrice = calculateDiscountedPrice(
-    product.price,
-    discount.discountPerQuantity,
-    product.count,
-  )
-
-  const isDiscounted = Boolean(discount)
+  const price = isDiscounted
+    ? calculateDiscountedPrice(
+        product.price,
+        product.discount.discountPerQuantity,
+        product.count,
+      )
+    : null
 
   return (
     <Flex align="center" justify="space-between" w="100%" color="blue.200">
@@ -73,9 +66,11 @@ const ProductListItem = ({ product }: Props) => {
           </CountButton>
         </Flex>
 
-        <Text minW={10} fontWeight={600}>
-          {discountPrice * product.count} zł
-        </Text>
+        {price && (
+          <Text minW={10} fontWeight={600}>
+            {price * product.count} zł
+          </Text>
+        )}
 
         <Text
           minW={10}

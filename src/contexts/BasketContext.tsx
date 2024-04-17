@@ -224,34 +224,18 @@ const BasketProvider = ({ children }: { children: ReactNode }) => {
   }, [selectedProducts])
 
   const totalPrice = useMemo(() => {
-    // temporary
-    const discount = {
-      id: 1,
-      discountPerQuantity: {
-        1: '0.1',
-        5: '0.3',
-        10: '0.5',
-      },
-    }
-
     return Object.values(selectedProducts).reduce((acc, item) => {
-      /* if (item.product.discount) {
-      return acc + calculateDiscountedPrice(item.product.price,item.product.discount,item.count)
-      } else { */
+      let price = item.product.price
 
-      //* temporary
-      if (discount) {
-        return (
-          acc +
-          calculateDiscountedPrice(
-            item.product.price,
-            discount.discountPerQuantity,
-            item.count,
-          )
+      if (item.product.discount) {
+        price = calculateDiscountedPrice(
+          price,
+          item.product.discount.discountPerQuantity,
+          item.count,
         )
       }
-      return acc + item.product.price * item.count
-      /* } */
+
+      return acc + price * item.count
     }, 0)
   }, [selectedProducts, calculateDiscountedPrice])
 
