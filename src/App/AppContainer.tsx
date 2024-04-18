@@ -8,8 +8,18 @@ import AppSidebar from './AppSidebar'
 import AppMedia from './AppMedia'
 import Basket from 'modules/Basket'
 import { BasketProvider } from '../contexts/BasketContext'
+import { useDispatch } from 'react-redux'
+import { useEffect } from 'react'
+import { fetchProducts } from 'redux/products/operations'
+import { AppDispatch } from 'types'
 
 const AppContainer = () => {
+  const dispatch = useDispatch<AppDispatch>()
+
+  useEffect(() => {
+    dispatch(fetchProducts())
+  }, [dispatch])
+
   return (
     <AnimatedAppearance>
       <Flex flexDir="column" minH="100vh" pos="relative">

@@ -1,4 +1,4 @@
-import { Product } from 'types'
+import { AppDispatch, Product } from 'types'
 import { Button, Flex, Image, Text } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 import { useCallback, useEffect, useMemo, useState } from 'react'
@@ -8,23 +8,29 @@ import {
   useBasketDispatchContext,
 } from 'contexts/BasketContext'
 import CountButton from 'ui/CountButton'
+import { useDispatch } from 'react-redux'
+import { addProduct } from 'redux/products/ProductsSlice'
 
 interface Props {
   product: Product
 }
 
 const ProductCard = ({ product }: Props) => {
-  const {
-    addProduct,
-    isProductAdded,
-    calculateDiscountedPrice,
-    removeProduct,
-  } = useBasketDispatchContext()
+  const { isProductAdded, calculateDiscountedPrice, removeProduct } =
+    useBasketDispatchContext()
   const { products } = useBasketContext()
   const [count, setCount] = useState(1)
   const [currentDiscount, setCurrentDiscount] = useState(1)
 
   const navigate = useNavigate()
+
+  const dispatch = useDispatch<AppDispatch>()
+
+  const handleAdd = (product: Product, count: number) => {
+    console.log(product)
+
+    dispatch(addProduct({ product, count }))
+  }
 
   const isThisProductAdded = useMemo(
     () => isProductAdded(product),
@@ -183,7 +189,7 @@ const ProductCard = ({ product }: Props) => {
           h={8}
           borderRadius={20}
           onClick={() => {
-            addProduct(product, count)
+            handleAdd(product, count)
             setCount(1)
           }}
         >

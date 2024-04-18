@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import store from 'redux/store'
 
 enum Languages {
   en = 'EN',
@@ -100,7 +101,27 @@ interface ValidatedVoucher {
   discountPercentage: number
 }
 
+interface SelectedProduct {
+  product: Product
+  count: number
+}
+
+interface ProductsState {
+  selectedProducts: SelectedProduct[]
+  personCount: number
+  sticks: number
+  studySticks: number
+  voucher: { discount: number }
+  products: Product[]
+}
+
+type RootState = {
+  product: ProductsState
+}
+
 type BasketTypes = 'basket' | 'delivery' | 'pay' | 'orderResponse'
+
+type AppDispatch = typeof store.dispatch
 
 export type {
   Languages,
@@ -114,4 +135,8 @@ export type {
   CartItem,
   Voucher,
   ValidatedVoucher,
+  AppDispatch,
+  ProductsState,
+  RootState,
+  SelectedProduct,
 }

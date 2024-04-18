@@ -1,13 +1,15 @@
-import { Product } from 'types'
 import { Flex, Heading } from '@chakra-ui/react'
 import ProductCard from './ProductCard'
+import { useSelector } from 'react-redux'
+import { selectProducts } from 'redux/products/selectors'
 
-interface Props<T> {
+interface Props {
   title: string
-  products: T[]
 }
 
-const CategoryGrid = <T extends Product>({ title, products }: Props<T>) => {
+const CategoryGrid = ({ title }: Props) => {
+  const products = useSelector(selectProducts)
+
   return (
     <Flex flexDirection="column" gap={9}>
       <Heading
