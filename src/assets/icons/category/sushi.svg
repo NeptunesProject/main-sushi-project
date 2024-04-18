@@ -1,22 +1,16 @@
-<svg width="43" height="45" viewBox="0 0 43 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="6" y="21.7729" width="20" height="12.7611" rx="2" transform="rotate(-43.5234 6 21.7729)" fill="#002034"/>
+<rect x="6" y="17.7729" width="20" height="13" rx="2" transform="rotate(-43.5234 6 17.7729)" fill="#FF8A00"/>
 <g clip-path="url(#clip0_6_1671)">
-<rect x="17" y="16.7729" width="20" height="12.7611" rx="2" transform="rotate(-43.5234 17 16.7729)" fill="#002034"/>
-<rect x="16.1646" y="13.9462" width="20" height="12.7611" rx="2" transform="rotate(-43.5234 16.1646 13.9462)" fill="#FF8A00"/>
-<rect x="16" y="13.7729" width="20" height="13" rx="2" transform="rotate(-43.5234 16 13.7729)" fill="#FF8A00"/>
-<g clip-path="url(#clip1_6_1671)">
-<line x1="19.1318" y1="17.1501" x2="33.4938" y2="3.23132" stroke="#F8B15D"/>
-<line x1="20.5236" y1="18.5864" x2="34.8856" y2="4.6676" stroke="#F8B15D"/>
-<line x1="21.9155" y1="20.0225" x2="36.2775" y2="6.10376" stroke="#F8B15D"/>
-<line x1="23.3073" y1="21.4587" x2="37.6693" y2="7.53992" stroke="#F8B15D"/>
-<line x1="17.7398" y1="15.7139" x2="32.1018" y2="1.79517" stroke="#F8B15D"/>
-</g>
+<line x1="9.13177" y1="21.1502" x2="23.4938" y2="7.23144" stroke="#F8B15D"/>
+<line x1="10.5236" y1="22.5865" x2="24.8856" y2="8.66772" stroke="#F8B15D"/>
+<line x1="11.9155" y1="24.0227" x2="26.2775" y2="10.1039" stroke="#F8B15D"/>
+<line x1="13.3073" y1="25.4588" x2="27.6693" y2="11.54" stroke="#F8B15D"/>
+<line x1="7.7398" y1="19.7141" x2="22.1018" y2="5.79529" stroke="#F8B15D"/>
 </g>
 <defs>
 <clipPath id="clip0_6_1671">
-<rect width="43" height="45" fill="white"/>
-</clipPath>
-<clipPath id="clip1_6_1671">
-<rect width="20" height="13" fill="white" transform="translate(16 13.9187) rotate(-44.1021)"/>
+<rect width="20" height="13" fill="white" transform="translate(6 17.9188) rotate(-44.1021)"/>
 </clipPath>
 </defs>
 </svg>

@@ -19,7 +19,6 @@ const Logo = () => {
           h={{ base: '49px', xl: 'auto' }}
         />
         {/* <Image src={companyLogo} w={{ base: "60%", xl: 'auto' }} /> */}
-       
       </Flex>
     </Link>
   )
