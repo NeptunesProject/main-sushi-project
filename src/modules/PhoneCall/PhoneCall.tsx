@@ -14,7 +14,7 @@ const PhoneCall = () => {
       borderBottomLeftRadius={10}
       boxShadow="2px 7px 11px rgba(0,0,0,.28)"
       pos="relative"
-      bgColor="gray.800"
+      bgColor="#343330"
     >
       <Link href="tel:+404112">
         <Image src={phone} w={'31px'} h={'31px'} />

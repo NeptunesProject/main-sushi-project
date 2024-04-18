@@ -1,10 +1,9 @@
 import AnimatedAppearance from '../components/AnimatedAppearance'
-import { Box, Flex, Link, Image, Center } from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react'
 import AppHeader from './AppHeader'
 import Routes from '../router/Routes'
 import AppFooter from './AppFooter'
 import AppSidebar from './AppSidebar'
-import AppMedia from './AppMedia'
 import Basket from 'modules/Basket'
 import { BasketProvider } from '../contexts/BasketContext'
 import PhoneCall from 'modules/PhoneCall/PhoneCall'
@@ -28,9 +27,6 @@ const AppContainer = () => {
           >
             <AppSidebar />
           </Box>
-          {/* <Box pos="fixed" bottom="20%" right={0}>
-            <AppMedia />
-          </Box> */}
           <Box pos="fixed" top={300} right={0}>
             <Basket />
           </Box>

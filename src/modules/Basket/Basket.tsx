@@ -31,14 +31,14 @@ const Basket = () => {
         // bg="white"
         onClick={onOpen}
         pos="relative"
-        bgColor="gray.800"
+        bgColor="#343330"
       >
-        <Image boxSize={30} src={basket}/>
+        <Image boxSize={38} src={basket}/>
         {productsCount ? (
           <Center
             pos="absolute"
-            top={3}
-            right={2}
+            top={2.5}
+            right={1.5}
             borderRadius="50%"
             // bg="red"
             bg="orange"

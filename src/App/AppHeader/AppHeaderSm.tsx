@@ -1,8 +1,7 @@
-import { Box, Flex, Image, Link } from '@chakra-ui/react'
+import { Box, Flex} from '@chakra-ui/react'
 import Logo from 'components/Logo'
 import LanguageSelect from './LanguageSelect'
 import Place from './Place'
-import phone from 'assets/icons/phone.svg'
 
 const AppHeaderSm = () => {
   return (
@@ -17,9 +16,6 @@ const AppHeaderSm = () => {
       </Flex>
 
       <Flex w="33.3%" justify="end">
-        <Link href="tel:+404112">
-          <Image src={phone} />
-        </Link>
       </Flex>
     </Flex>
   )

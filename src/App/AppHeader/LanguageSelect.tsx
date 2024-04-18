@@ -29,7 +29,7 @@ const LanguageSelect = () => {
     <Menu>
       <MenuButton>
         {/* <Flex align="center" gap={0.5} color="grey.100"> */}
-        <Flex align="center" gap={0.5} color="grey.600">
+        <Flex align="center" gap={0.5} color="#343330">
           <Text textTransform="uppercase" fontSize={13} fontWeight={600}>
             {selectedLanguage}
           </Text>
