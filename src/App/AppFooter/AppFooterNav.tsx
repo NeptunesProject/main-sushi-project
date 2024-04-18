@@ -1,6 +1,6 @@
 import FooterTitle from '../../ui/FooterTitle'
 import { Flex } from '@chakra-ui/react'
-import { NAV_LINKS } from 'constants'
+import { NAV_LINKS } from '../../constants/index'
 import FooterLink from '../../ui/FooterLink'
 import { useTranslation } from 'react-i18next'
 
@@ -11,7 +11,7 @@ const AppFooterNav = () => {
       <FooterTitle>{t('footer.nav')}:</FooterTitle>
 
       <Flex flexDir="column" gap={4}>
-        {NAV_LINKS.map((route, idx) => (
+        {NAV_LINKS.map((route: string, idx: number) => (
           <FooterLink key={route} to={route}>
             {t(`navbar.${idx}`)}
           </FooterLink>
