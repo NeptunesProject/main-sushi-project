@@ -1,15 +1,8 @@
-<svg width="33" height="26" viewBox="0 0 33 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_17_205)">
-<circle cx="16" cy="10" r="4" fill="#FF8A00"/>
-<path d="M16.1049 26.0398L10.8256 18.5746L21.2848 18.5053L16.1049 26.0398Z" fill="#FACF7A"/>
-<ellipse cx="13" cy="16" rx="5" ry="4" fill="#F1C4AA"/>
-<ellipse cx="19.5" cy="16" rx="4.5" ry="4" fill="#AAB569"/>
-<circle cx="16" cy="7" r="1" fill="#FE5925"/>
-<path d="M16.001 6.45208C16.001 5.19683 16.7185 4.62514 17.7628 4.10303" stroke="#941F1F" stroke-width="0.5"/>
-</g>
-<defs>
-<clipPath id="clip0_17_205">
-<rect width="33" height="26" fill="white"/>
-</clipPath>
-</defs>
+<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M18.1049 29.0398L12.8256 21.5746L23.2848 21.5053L18.1049 29.0398Z" fill="#FACF7A"/>
+<ellipse cx="15" cy="19" rx="5" ry="4" fill="#F1C4AA"/>
+<ellipse cx="21.5" cy="19" rx="4.5" ry="4" fill="#AAB569"/>
+<path d="M22 14C22 16.2091 20.2091 18 18 18C15.7909 18 14 16.2091 14 14C14 11.7909 15.7909 10 18 10C20.2091 10 22 11.7909 22 14Z" fill="#FF8A00"/>
+<path d="M19 11C19 11.5523 18.5523 12 18 12C17.4477 12 17 11.5523 17 11C17 10.4477 17.4477 10 18 10C18.5523 10 19 10.4477 19 11Z" fill="#FE5925"/>
+<path d="M18 10.3491C18 9.0938 18.7176 8.52212 19.7618 8" stroke="#941F1F" stroke-width="0.5"/>
 </svg>
