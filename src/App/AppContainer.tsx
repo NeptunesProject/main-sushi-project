@@ -31,7 +31,7 @@ const AppContainer = () => {
             <Basket />
           </Box>
           <Box pos="fixed" top={400} right={0}>
-           <PhoneCall/>
+            <PhoneCall />
           </Box>
         </BasketProvider>
       </Flex>

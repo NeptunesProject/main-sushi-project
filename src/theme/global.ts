@@ -1,8 +1,9 @@
 const global = {
   body: {
     backgroundColor: 'white.200',
-    color: 'black',
-    fontWeight: 500,
+    color: 'cyanBlue.800',
+    fontWeight: 400,
+    fontSize: 16,
   },
 
   '::-webkit-scrollbar': {
