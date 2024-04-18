@@ -4,7 +4,6 @@ import AppHeader from './AppHeader'
 import Routes from '../router/Routes'
 import AppFooter from './AppFooter'
 import AppSidebar from './AppSidebar'
-import AppMedia from './AppMedia'
 import Basket from 'modules/Basket'
 import { BasketProvider } from '../contexts/BasketContext'
 
@@ -14,10 +13,12 @@ const AppContainer = () => {
       <Flex flexDir="column" minH="100vh" pos="relative">
         <BasketProvider>
           <AppHeader />
+
           <Box as="main" flex="1 0 auto">
             <Routes />
           </Box>
           <AppFooter />
+
           <Box
             w={{ base: '100%', lg: 'auto' }}
             pos="fixed"
@@ -26,9 +27,6 @@ const AppContainer = () => {
             overflowX="scroll"
           >
             <AppSidebar />
-          </Box>
-          <Box pos="fixed" bottom="20%" right={0}>
-            <AppMedia />
           </Box>
           <Box pos="fixed" top={200} right={0}>
             <Basket />

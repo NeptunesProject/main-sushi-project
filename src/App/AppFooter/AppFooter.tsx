@@ -1,39 +1,30 @@
-import { Container, Flex } from '@chakra-ui/react'
-import AppFooterLogo from './AppFooterLogo'
-import AppFooterNav from './AppFooterNav'
-import AppFooterAddress from './AppFooterAddress'
+import { Container, Divider, Flex } from '@chakra-ui/react'
 import AppFooterMedia from './AppFooterMedia'
+import AppFooterCopyright from './AppFooterCopyright'
+import AppFooterInfo from './AppFooterInfo'
 
 const AppFooter = () => {
   return (
-    <Container
-      as="footer"
-      maxW="container.xl"
-      display="flex"
-      justifyContent="center"
-      mb={40}
-    >
+    <Container as="footer" maxW="100%" display="flex" px={0}>
       <Flex
-        gap={8}
+        flexDir="column"
+        gap={6}
         flexWrap="wrap"
-        borderBottomRadius={10}
-        align="end"
+        align="center"
         justify="space-between"
-        maxW={{ base: 500, lg: 1150 }}
-        minW={{ base: 'auto', lg: '80%' }}
-        bg="white"
+        width="100%"
+        bg="cyanBlue.800"
         pt={6}
-        pb={10}
-        px={{ base: 10, lg: 20 }}
-        boxShadow="2px 7px 11px rgba(0,0,0,.07)"
+        pb={4}
+        color="white"
       >
-        <AppFooterLogo />
-
-        <AppFooterNav />
-
-        <AppFooterAddress />
-
         <AppFooterMedia />
+
+        <AppFooterInfo />
+
+        <Divider color="gray.300" />
+
+        <AppFooterCopyright />
       </Flex>
     </Container>
   )

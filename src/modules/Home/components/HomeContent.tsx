@@ -1,12 +1,11 @@
 import { Center, Container, Flex, Spinner } from '@chakra-ui/react'
 import CategoryGrid from './CategoryGrid'
 import HomeSlider from './HomeSlider'
-import Map from 'components/Map'
-import DeliveryInfo from './DeliveryInfo'
-import DeliveryAdvantages from './DeliveryAdvantages'
+import GratitudeNote from './GratitudeNote'
 import useProducts from 'hooks/useProducts'
 import { useMemo } from 'react'
 import useCategories from '../../../hooks/useCategories'
+import BottomLogo from './BottomLogo'
 
 const HomeContent = () => {
   const { products, isProductsLoading } = useProducts()
@@ -31,28 +30,33 @@ const HomeContent = () => {
   }, [categories, isDataEmpty, isLoading, products])
 
   return (
-    <Container maxW="container.lg" pb={10} pt={20} w="85%">
-      <HomeSlider />
-      {isLoading ? (
-        <Center h={400}>
-          <Spinner />
-        </Center>
-      ) : (
-        <Flex flexDirection="column" py={16} gap={20}>
-          {Object.entries(productsByCategory).map(([category, products]) => (
-            <CategoryGrid
-              key={category}
-              title={category}
-              products={products as never}
-            />
-          ))}
-        </Flex>
-      )}
-      <Map />
-      <Flex flexDir="column" gap={20} mt={16}>
-        <DeliveryInfo />
-        <DeliveryAdvantages />
-      </Flex>
+    <Container maxW="container.xl" pb={10} pt={20} w="100%">
+      <Container maxW="container.lg" w="85%">
+        <HomeSlider />
+        {isLoading ? (
+          <Center h={400}>
+            <Spinner />
+          </Center>
+        ) : (
+          <Flex
+            maxW="container.lg"
+            w="85%"
+            flexDirection="column"
+            gap={20}
+            mb={185}
+          >
+            {Object.entries(productsByCategory).map(([category, products]) => (
+              <CategoryGrid
+                key={category}
+                title={category}
+                products={products as never}
+              />
+            ))}
+          </Flex>
+        )}
+      </Container>
+      <GratitudeNote />
+      <BottomLogo />
     </Container>
   )
 }
