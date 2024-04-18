@@ -25,12 +25,13 @@ const MainNavLink = chakra(NavLink, {
   },
 })
 
-console.log(NAV_LINKS)
 
 const NavBar = () => {
   const { t } = useTranslation()
   return (
-    <Flex align="center" justify="space-between" gap={{ base: 6, xl: 12 }}>
+    <Flex align="center" 
+    // justify="space-between" 
+    gap={{ base: 5, xl: 12 }}>
       {NAV_LINKS.map((route: string, idx: number) => (
         <MainNavLink to={route} key={`navbar.${idx}`} fontWeight={600}>
           {t(`navbar.${idx}`)}

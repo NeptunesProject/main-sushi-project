@@ -5,20 +5,21 @@ import companyLogo from '@/assets/img/companyLogo.svg'
 
 const Logo = () => {
   return (
-    <Link to="/" as={RouterLink}>
-      <Flex flexDir={"column"} alignItems={"center"}>
+    <Link to="/" as={RouterLink} h="100%">
+      <Flex  alignItems={"center"}>
         {/* <Image src={logo} w={{ base: "60%", xl: 'auto' }} /> */}
         <Image
-          src={logo}
-          w={{ base: '256px', xl: 'auto' }}
-          h={{ base: '67px', xl: 'auto' }}
-        />
-        {/* <Image src={companyLogo} w={{ base: "60%", xl: 'auto' }} /> */}
-        <Image
           src={companyLogo}
-          w={{ base: '96px', xl: 'auto' }}
+          w={{ base: '78px', xl: 'auto' }}
           // h={{ base: '88px', xl: 'auto' }}
         />
+        <Image
+          src={logo}
+          w={{ base: '190px', xl: 'auto' }}
+          h={{ base: '49px', xl: 'auto' }}
+        />
+        {/* <Image src={companyLogo} w={{ base: "60%", xl: 'auto' }} /> */}
+       
       </Flex>
     </Link>
   )

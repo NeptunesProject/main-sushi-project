@@ -25,7 +25,7 @@ const AppContainer = () => {
             bottom={{ base: 0, lg: 'none' }}
             overflowX="scroll"
           >
-            <AppSidebar />
+            {/* <AppSidebar /> */}
           </Box>
           <Box pos="fixed" top={300} right={0}>
             <Basket />

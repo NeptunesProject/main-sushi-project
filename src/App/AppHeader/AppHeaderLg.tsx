@@ -15,10 +15,11 @@ const AppHeaderLg = () => {
       alignItems="center"
       justifyContent="center"
       w="100%"
-      h={171}
+      h={129}
       // gap={{ base: 5, xl: 16 }}
     >
-      <Box position={"fixed"} top={4} left={10} zIndex={10}>
+      <Box position={"fixed"}  left={10} zIndex={10}>
+      {/* <Box> */}
         <Logo/>
       </Box>
       <NavBar />
