@@ -40,7 +40,8 @@ const HomeContent = () => {
         ) : (
           <Flex
             maxW="container.lg"
-            w="85%"
+            // w="85%"
+            w="100%"
             flexDirection="column"
             gap={20}
             mb={185}

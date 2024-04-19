@@ -20,9 +20,8 @@ const CategoryGrid = <T extends Product>({ title, products }: Props<T>) => {
         {title}
       </Heading>
 
-      <Flex flexWrap="wrap" gap={5} 
+      <Flex flexWrap="wrap" gap="30px" w="1290px" 
       justify={{ base: 'center', md: 'start' }} 
-      // justify={'center'} 
       alignItems="center">
         {products.map((product, idx) => (
           <ProductCard key={`product_${idx}`} product={product} />
