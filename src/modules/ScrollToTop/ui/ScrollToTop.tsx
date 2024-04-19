@@ -35,13 +35,13 @@ const ScrollToTopButton = () => {
       display={visible ? 'inline-block' : 'hidden'}
     >
       <Center
-        boxSize={54}
+        boxSize="48px"
         borderRadius={10}
         bgColor="#343330"
         cursor="pointer"
         onClick={onScrollToTop}
       >
-        <ArrowUpIcon boxSize={42} color="white" />
+        <ArrowUpIcon boxSize="36px" color="white" />
       </Center>
     </Box>
   )
