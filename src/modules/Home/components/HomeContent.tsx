@@ -6,6 +6,7 @@ import useProducts from 'hooks/useProducts'
 import { useMemo } from 'react'
 import useCategories from '../../../hooks/useCategories'
 import BottomLogo from './BottomLogo'
+import ScrollToTopButton from 'modules/ScrollToTop/ui/ScrollToTop'
 
 const HomeContent = () => {
   const { products, isProductsLoading } = useProducts()
@@ -30,7 +31,7 @@ const HomeContent = () => {
   }, [categories, isDataEmpty, isLoading, products])
 
   return (
-    <Container maxW="container.xl" pb={10} pt={20} w="100%">
+    <Container maxW="container.xl" pb={10} pt={20} w="100%" pos="relative">
       <Container maxW="container.lg" w="85%">
         <HomeSlider />
         {isLoading ? (
@@ -57,6 +58,8 @@ const HomeContent = () => {
       </Container>
       <GratitudeNote />
       <BottomLogo />
+
+      <ScrollToTopButton />
     </Container>
   )
 }
