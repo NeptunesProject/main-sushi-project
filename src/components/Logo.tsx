@@ -8,7 +8,8 @@ const Logo = () => {
       <Flex  alignItems={"center"}>
         <Image
           src={companyLogo}
-          w={{ base: '78px', xl: 'auto' }}
+          // w={{ base: '55px', xl: 'auto' }}
+          w='55px'
         />
         <Flex flexDir={"column"} alignItems={"center"}>
         <h1

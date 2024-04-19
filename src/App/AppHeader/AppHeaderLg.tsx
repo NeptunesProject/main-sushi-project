@@ -8,20 +8,23 @@ const AppHeaderLg = () => {
   return (
     <Flex
       align="center"
-      pt={4}
-      px={2.5}
       alignItems="center"
-      justifyContent="center"
+      // justifyContent="center"
+      justifyContent="space-between"
       w="100%"
-      h={129}
+      h="64px"
+      px="75px"
+      py="8px"
+      gap="32px"
     >
-      <Box position={"fixed"}  left={10} zIndex={10}>
+      {/* <Box position={"fixed"}  left={10}> */}
+      <Box >
         <Logo/>
       </Box>
       <NavBar />
       <Flex alignItems="center" justify="space-between" 
-      gap={5} 
-      ml={4}>
+      gap="24px" 
+>
         <Place />
         <LanguageSelect />
       </Flex>

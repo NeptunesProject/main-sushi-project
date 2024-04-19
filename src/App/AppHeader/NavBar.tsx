@@ -8,9 +8,11 @@ const MainNavLink = chakra(NavLink, {
   baseStyle: {
     fontSize: 16,
     transition: 'all 0.2s',
-    fontWeight: 800,
+    fontWeight: 400,
     letterSpacing: '.35px',
     color: '#343330',
+    fontFamily: "Rubik",
+    p: "6px",
 
     _hover: {
       color: 'gray.300',
@@ -26,9 +28,11 @@ const NavBar = () => {
   const { t } = useTranslation()
   return (
     <Flex align="center" 
-    gap={{ base: 5, xl: 8 }}>
+    gap="24px"
+    px="81.5px">
+      
       {NAV_LINKS.map((route: string, idx: number) => (
-        <MainNavLink to={route} key={`navbar.${idx}`} fontWeight={600}>
+        <MainNavLink to={route} key={`navbar.${idx}`}>
           {t(`navbar.${idx}`)}
         </MainNavLink>
       ))}
