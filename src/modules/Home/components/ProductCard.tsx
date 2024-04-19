@@ -8,7 +8,6 @@ import {
   useBasketContext,
   useBasketDispatchContext,
 } from 'contexts/BasketContext'
-// import CountButton from 'ui/CountButton'
 
 interface Props {
   product: Product
@@ -19,7 +18,6 @@ const ProductCard = ({ product }: Props) => {
     addProduct,
     isProductAdded,
     calculateDiscountedPrice,
-    // removeProduct,
   } = useBasketDispatchContext()
   const { products } = useBasketContext()
   const [count, setCount] = useState(1)
@@ -53,21 +51,6 @@ const ProductCard = ({ product }: Props) => {
     quantity ? quantity : count,
   )
 
-  // const handleIncrement = () => {
-  //   if (quantity) {
-  //     addProduct(product)
-  //   } else {
-  //     setCount((prevCount) => prevCount + 1)
-  //   }
-  // }
-
-  // const handleDecrement = () => {
-  //   if (quantity && quantity > 1) {
-  //     removeProduct(product)
-  //   } else if (count > 1) {
-  //     setCount((prevCount) => prevCount - 1)
-  //   }
-  // }
   const isDiscounted = Boolean(currentDiscount) && currentDiscount !== 1
 
   const setDiscount = useCallback(() => {
@@ -132,18 +115,7 @@ const ProductCard = ({ product }: Props) => {
         borderLeftRadius={10}
       />
 
-      {/* <Flex
-        w="100%"
-        flexDir="column"
-        align="start"
-        justify="space-between"
-        p={2.5}
-        pl={{ base: 2, md: 4 }}
-        overflow="hidden"
-      > */}
-
       <Flex
-        // justifyContent="space-between"
         w="80%"
         mt={4}
         flexGrow={1}
@@ -192,31 +164,11 @@ const ProductCard = ({ product }: Props) => {
                 {discountedPrice} zł
               </Text>
             )}
-
-            {/* <Flex gap={{ base: 0.5, md: 1 }}>
-          <CountButton
-            onClick={handleDecrement}
-            borderLeftRadius={20}
-            borderRightRadius={5}
-          >
-            -
-          </CountButton>
-          <Text>{quantity ? quantity : count}</Text>
-          <CountButton
-            onClick={handleIncrement}
-            borderRightRadius={20}
-            borderLeftRadius={5}
-          >
-            +
-          </CountButton>
-        </Flex> */}
           </Flex>
         </Flex>
         <Flex>
           <Button
-            // w="100%"
             w="189px"
-            // bg="turquoise.77"
             justifyContent="space-around"
             bg="#002034"
             color="white"

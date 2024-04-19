@@ -13,7 +13,7 @@ const stickyStyle: CSSProperties = {
 
 const AppHeader = () => {
   return (
-    <Container as="header" maxW="container.xl" style={stickyStyle}>
+    <Container as="header" maxW="100%" style={stickyStyle}>
       <Box display={{ base: 'none', lg: 'block' }}>
         <AppHeaderLg />
       </Box>

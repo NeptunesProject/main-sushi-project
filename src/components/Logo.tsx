@@ -1,24 +1,33 @@
 import { Link, Image, Flex } from '@chakra-ui/react'
 import { Link as RouterLink } from 'react-router-dom'
-import logo from '@/assets/img/logo.svg'
 import companyLogo from '@/assets/img/companyLogo.svg'
 
 const Logo = () => {
   return (
-    <Link to="/" as={RouterLink} h="100%">
+    <Link to="/" as={RouterLink} h="100%" _hover="none">
       <Flex  alignItems={"center"}>
-        {/* <Image src={logo} w={{ base: "60%", xl: 'auto' }} /> */}
         <Image
           src={companyLogo}
           w={{ base: '78px', xl: 'auto' }}
-          // h={{ base: '88px', xl: 'auto' }}
         />
-        <Image
-          src={logo}
-          w={{ base: '190px', xl: 'auto' }}
-          h={{ base: '49px', xl: 'auto' }}
-        />
-        {/* <Image src={companyLogo} w={{ base: "60%", xl: 'auto' }} /> */}
+        <Flex flexDir={"column"} alignItems={"center"}>
+        <h1
+          style={{
+            width:'190px',
+            height: "49px",
+            fontSize: "36px",
+            marginBottom: -8
+          }}>
+            NEPTUNES
+            </h1>
+            <h1 
+            style={{
+              fontSize: "12px",
+              
+            }}>
+              SUSHI DELIVERY
+            </h1>
+        </Flex>
       </Flex>
     </Link>
   )
