@@ -18,36 +18,15 @@ const productSlice = createSlice({
     addProduct(state, action) {
       state.selectedProducts.push(action.payload)
     },
-    removeProduct(state, action) {
-      const { product } = action.payload
-      if (state.selectedProducts[product.id]?.count > 1) {
-        state.selectedProducts[product.id].count -= 1
-      } else {
-        delete state.selectedProducts[product.id]
+    setProductCount(state, action) {
+      const { id, count } = action.payload
+
+      const index = state.selectedProducts.findIndex(
+        (item) => item.product.id === id,
+      )
+      if (index !== -1) {
+        state.selectedProducts[index].count += count
       }
-    },
-    deleteProduct(state, action) {
-      const { product } = action.payload
-      delete state.selectedProducts[product.id]
-    },
-    setPersonCount(state, action) {
-      state.personCount = action.payload
-    },
-    setSticks(state, action) {
-      state.sticks = action.payload
-    },
-    setStudySticks(state, action) {
-      state.studySticks = action.payload
-    },
-    setVoucher(state, action) {
-      state.voucher = action.payload
-    },
-    clearBasket(state) {
-      state.selectedProducts = []
-      state.personCount = 1
-      state.sticks = 0
-      state.studySticks = 0
-      state.voucher = { discount: 1 }
     },
   },
   extraReducers: (builder) =>
@@ -56,15 +35,6 @@ const productSlice = createSlice({
     }),
 })
 
-export const {
-  addProduct,
-  removeProduct,
-  deleteProduct,
-  setPersonCount,
-  setSticks,
-  setStudySticks,
-  setVoucher,
-  clearBasket,
-} = productSlice.actions
+export const { addProduct, setProductCount } = productSlice.actions
 
 export default productSlice.reducer

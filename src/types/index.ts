@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import store from 'redux/store'
+import { store } from 'redux/store'
 
 enum Languages {
   en = 'EN',

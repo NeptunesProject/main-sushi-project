@@ -8,34 +8,36 @@ import {
   useBasketDispatchContext,
 } from 'contexts/BasketContext'
 import CountButton from 'ui/CountButton'
-import { useDispatch } from 'react-redux'
-import { addProduct } from 'redux/products/ProductsSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { addProduct, setProductCount } from 'redux/products/ProductsSlice'
+import { selectBasketProducts } from 'redux/products/selectors'
 
 interface Props {
   product: Product
 }
 
 const ProductCard = ({ product }: Props) => {
-  const { isProductAdded, calculateDiscountedPrice, removeProduct } =
-    useBasketDispatchContext()
+  const { calculateDiscountedPrice } = useBasketDispatchContext()
   const { products } = useBasketContext()
   const [count, setCount] = useState(1)
   const [currentDiscount, setCurrentDiscount] = useState(1)
+  const selectedProducts = useSelector(selectBasketProducts)
+
+  const index = selectedProducts.findIndex(
+    (item) => item.product.id === product.id,
+  )
 
   const navigate = useNavigate()
 
   const dispatch = useDispatch<AppDispatch>()
 
   const handleAdd = (product: Product, count: number) => {
-    console.log(product)
-
     dispatch(addProduct({ product, count }))
   }
 
-  const isThisProductAdded = useMemo(
-    () => isProductAdded(product),
-    [isProductAdded, product],
-  )
+  const isThisProductAdded = useMemo(() => {
+    return selectedProducts.some((item) => item.product.id === product.id)
+  }, [selectedProducts])
 
   const findProductById = (id: number) => {
     const product = products.find((item) => item.id === id)
@@ -47,20 +49,20 @@ const ProductCard = ({ product }: Props) => {
   const discountedPrice = calculateDiscountedPrice(
     product.price,
     product.discount?.discountPerQuantity ?? {},
-    quantity ? quantity : count,
+    isThisProductAdded ? selectedProducts[index].count : count,
   )
 
   const handleIncrement = () => {
-    if (quantity) {
-      addProduct(product)
+    if (isThisProductAdded) {
+      dispatch(setProductCount({ id: product.id, count: 1 }))
     } else {
       setCount((prevCount) => prevCount + 1)
     }
   }
 
   const handleDecrement = () => {
-    if (quantity && quantity > 1) {
-      removeProduct(product)
+    if (isThisProductAdded && selectedProducts[index].count > 1) {
+      dispatch(setProductCount({ id: product.id, count: -1 }))
     } else if (count > 1) {
       setCount((prevCount) => prevCount - 1)
     }
@@ -172,7 +174,9 @@ const ProductCard = ({ product }: Props) => {
             >
               -
             </CountButton>
-            <Text>{quantity ? quantity : count}</Text>
+            <Text>
+              {isThisProductAdded ? selectedProducts[index].count : count}
+            </Text>
             <CountButton
               onClick={handleIncrement}
               borderRightRadius={20}
