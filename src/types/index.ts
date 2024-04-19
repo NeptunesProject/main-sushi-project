@@ -39,6 +39,11 @@ interface Category {
   img: string
 }
 
+interface ConstCategory extends Omit<Category, 'id' | 'url'> {
+  route: string
+  translateId: string
+}
+
 interface ChakraFactoryComponent {
   className?: string
   children?: ReactNode | ReactNode[]
@@ -107,6 +112,7 @@ export type {
   ChakraFactoryComponent,
   BasketTypes,
   Category,
+  ConstCategory,
   OrderToPost,
   ProductObj,
   ReturnedOrder,

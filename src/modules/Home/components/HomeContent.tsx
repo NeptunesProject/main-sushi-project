@@ -6,6 +6,7 @@ import useProducts from 'hooks/useProducts'
 import { useMemo } from 'react'
 import useCategories from '../../../hooks/useCategories'
 import ScrollToTopButton from 'modules/ScrollToTop/ui/ScrollToTop'
+import AppSidebar from 'App/AppSidebar'
 
 const HomeContent = () => {
   const { products, isProductsLoading } = useProducts()
@@ -57,6 +58,7 @@ const HomeContent = () => {
       </Container>
       <GratitudeNote />
 
+      <AppSidebar />
       <ScrollToTopButton />
     </Container>
   )
