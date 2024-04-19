@@ -9,7 +9,7 @@ const PhoneCall = () => {
   return (
     <Center
       cursor="pointer"
-      boxSize={77}
+      boxSize="48px"
       borderTopLeftRadius={10}
       borderBottomLeftRadius={10}
       boxShadow="2px 7px 11px rgba(0,0,0,.28)"
@@ -17,7 +17,7 @@ const PhoneCall = () => {
       bgColor="#343330"
     >
       <Link href="tel:+404112">
-        <Image src={phone} w={'31px'} h={'31px'} />
+        <Image src={phone} w={'24px'} h={'24px'} />
       </Link>
     </Center>
   )

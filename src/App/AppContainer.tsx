@@ -27,7 +27,7 @@ const AppContainer = () => {
           >
             {/* <AppSidebar /> */}
           </Box>
-          <Box pos="fixed" top={300} right={0}>
+          <Box pos="fixed" top={327} right={0}>
             <Basket />
           </Box>
           <Box pos="fixed" top={400} right={0}>
