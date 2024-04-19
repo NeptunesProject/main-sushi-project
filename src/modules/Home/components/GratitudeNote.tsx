@@ -30,7 +30,9 @@ const GratitudeNote = () => {
 
         <UnorderedList>
           {THANK_NOTE_TEXT &&
-            THANK_NOTE_TEXT.map((item) => <ListItem>{item}</ListItem>)}
+            THANK_NOTE_TEXT.map((item) => (
+              <ListItem key={item}>{item}</ListItem>
+            ))}
         </UnorderedList>
       </Flex>
     </Container>
