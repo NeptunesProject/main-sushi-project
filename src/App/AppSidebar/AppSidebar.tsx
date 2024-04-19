@@ -1,13 +1,11 @@
 import { Flex, Image, Text } from '@chakra-ui/react'
 import { CATEGORY } from './constants'
 import { useTranslation } from 'react-i18next'
-import useCategories from '../../hooks/useCategories'
-import { useMemo, useRef } from 'react'
-import { Category } from '../../types'
+import { useRef } from 'react'
+import { ConstCategory } from '../../types'
 
 const AppSidebar = () => {
   const { i18n } = useTranslation()
-  const { categories } = useCategories()
 
   const currentLanguage = i18n.language
 
@@ -22,24 +20,7 @@ const AppSidebar = () => {
     }
   }
 
-  const categoriesWithMetadata = useMemo(() => {
-    if (!categories) return []
-
-    return categories.map((category) => {
-      const meta = CATEGORY.find((item) => category.name === item.name)
-
-      if (meta) {
-        return {
-          ...category,
-          ...meta,
-        }
-      }
-
-      return category
-    })
-  }, [categories])
-
-  const getNameByTranslate = (category: Category) => {
+  const getNameByTranslate = (category: ConstCategory) => {
     switch (currentLanguage) {
       case 'en':
         return category.nameEn
@@ -54,41 +35,35 @@ const AppSidebar = () => {
 
   return (
     <Flex
-      minW={{ base: 1000, lg: 'auto' }}
-      w="100%"
-      flexDir={{ base: 'row', lg: 'column' }}
-      gap={{ base: 1, lg: 6 }}
+      position="fixed"
+      top={142}
+      left="25%"
+      zIndex={10}
+      w={800}
+      p={2}
       bg="white"
-      as="aside"
-      py={2.5}
-      px={{ base: 4, lg: 0 }}
-      justify="space-between"
-      boxShadow="2px 7px 11px rgba(0,0,0,.07)"
-      borderBottomRadius={{ base: 0, lg: 10 }}
+      borderRadius={16}
+      boxShadow="0px 4px 20px #00203410"
       ref={sidebarRef}
     >
-      {categoriesWithMetadata.map((category) => (
+      {CATEGORY.map((category) => (
         <Flex
-          gap={1}
           flexDir="column"
           align="center"
-          key={category.id}
-          w={{ base: 77, lg: 105 }}
-          cursor="pointer"
+          key={category.name}
+          w={80}
           role="group"
+          cursor="pointer"
           onClick={() => scrollToSection(category.name)}
         >
-          <Image src={category.img} boxSize={19} />
+          <Image src={category.img} alt={category.name} boxSize="36px" />
           <Text
+            fontSize={14}
+            fontWeight={500}
+            color="grey.100"
             _groupHover={{
               color: 'blue.100',
             }}
-            textAlign="center"
-            fontSize={12}
-            lineHeight="12px"
-            letterSpacing=".15px"
-            color="grey.100"
-            fontWeight={800}
           >
             {getNameByTranslate(category)}
           </Text>

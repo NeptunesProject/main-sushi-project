@@ -5,7 +5,8 @@ import GratitudeNote from './GratitudeNote'
 import useProducts from 'hooks/useProducts'
 import { useMemo } from 'react'
 import useCategories from '../../../hooks/useCategories'
-import BottomLogo from './BottomLogo'
+import ScrollToTopButton from 'modules/ScrollToTop/ui/ScrollToTop'
+import AppSidebar from 'App/AppSidebar'
 
 const HomeContent = () => {
   const { products, isProductsLoading } = useProducts()
@@ -30,7 +31,7 @@ const HomeContent = () => {
   }, [categories, isDataEmpty, isLoading, products])
 
   return (
-    <Container maxW="container.xl" pb={10} pt={20} w="100%">
+    <Container maxW="container.xl" pt={180} pb={4} w="100%" pos="relative">
       <Container maxW="container.lg" w="85%">
         <HomeSlider />
         {isLoading ? (
@@ -44,7 +45,7 @@ const HomeContent = () => {
             w="100%"
             flexDirection="column"
             gap={20}
-            mb={185}
+            mb={42}
           >
             {Object.entries(productsByCategory).map(([category, products]) => (
               <CategoryGrid
@@ -57,7 +58,9 @@ const HomeContent = () => {
         )}
       </Container>
       <GratitudeNote />
-      <BottomLogo />
+
+      <AppSidebar />
+      <ScrollToTopButton />
     </Container>
   )
 }

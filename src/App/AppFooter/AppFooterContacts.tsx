@@ -4,7 +4,7 @@ import FooterTitle from 'ui/FooterTitle'
 
 const AppFooterContacts = () => {
   return (
-    <Flex flexDir="column" gap={3}>
+    <Flex flexDir="column" gap={2}>
       <FooterTitle>Accepting Orders:</FooterTitle>
 
       <Flex flexDir="column">
