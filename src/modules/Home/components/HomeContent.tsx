@@ -5,7 +5,6 @@ import GratitudeNote from './GratitudeNote'
 import useProducts from 'hooks/useProducts'
 import { useMemo } from 'react'
 import useCategories from '../../../hooks/useCategories'
-import BottomLogo from './BottomLogo'
 
 const HomeContent = () => {
   const { products, isProductsLoading } = useProducts()
@@ -30,7 +29,7 @@ const HomeContent = () => {
   }, [categories, isDataEmpty, isLoading, products])
 
   return (
-    <Container maxW="container.xl" pb={10} pt={20} w="100%">
+    <Container maxW="container.xl" pt={180} pb={14} w="100%">
       <Container maxW="container.lg" w="85%">
         <HomeSlider />
         {isLoading ? (
@@ -43,7 +42,7 @@ const HomeContent = () => {
             w="85%"
             flexDirection="column"
             gap={20}
-            mb={185}
+            mb={42}
           >
             {Object.entries(productsByCategory).map(([category, products]) => (
               <CategoryGrid
@@ -56,7 +55,6 @@ const HomeContent = () => {
         )}
       </Container>
       <GratitudeNote />
-      <BottomLogo />
     </Container>
   )
 }
