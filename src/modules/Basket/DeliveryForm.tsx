@@ -20,7 +20,7 @@ import {
   useBasketContext,
   useBasketDispatchContext,
 } from 'contexts/BasketContext'
-import { handleClick, makeOrder } from './makeOrderFuncs'
+import { handleClick, makeOrder } from './OrderFuncs'
 import { postVoucher } from 'api'
 
 const STRIPE_SK = import.meta.env.VITE_STRIPE_SECRET_KEY

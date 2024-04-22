@@ -188,13 +188,18 @@ const ProductCard = ({ product }: Props) => {
         </Flex>
         <Button
           w="100%"
-          bg="turquoise.77"
+          bg={isThisProductAdded ? 'gray.300' : 'turquoise.77'}
           color="white"
           h={8}
           borderRadius={20}
+          isDisabled={isThisProductAdded}
+          _hover={!isThisProductAdded && { bg: 'gray.300' }}
           onClick={() => {
             handleAdd(product, count)
             setCount(1)
+          }}
+          _disabled={{
+            cursor: 'not-allowed',
           }}
         >
           {isThisProductAdded ? 'Added to basket' : 'Buy'}

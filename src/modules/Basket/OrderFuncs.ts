@@ -48,6 +48,14 @@ interface IHandleClick {
   ): void
 }
 
+interface DiscountRecord {
+  [key: number]: string
+}
+
+export interface ICalculateDiscountedPrice {
+  (price: number, discounts: DiscountRecord, quantity: number): number
+}
+
 export const makeOrder: IMakeOrder = async (
   setSelectedBasketType,
   name,
@@ -159,4 +167,25 @@ export const handleClick: IHandleClick = async (
   )
   clearLocaleStorage()
   setSelectedBasketType('orderResponse')
+}
+
+export const calculateDiscountedPrice: ICalculateDiscountedPrice = (
+  price: number,
+  discounts: Record<number, string>,
+  quantity: number,
+) => {
+  let discount = 0
+
+  const keys = Object.keys(discounts)
+    .map(Number)
+    .sort((a, b) => b - a)
+
+  for (const key of keys) {
+    if (quantity >= key) {
+      discount = parseFloat(discounts[key])
+      break
+    }
+  }
+
+  return price * (1 - discount)
 }
