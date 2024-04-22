@@ -1,37 +1,35 @@
-import { Flex, Image, Box, Text } from '@chakra-ui/react'
-import mainScreenSliderImg from 'assets/img/home-screen-slider.jpg'
-import { useTranslation } from 'react-i18next'
+import { Flex, Image, Text, Button } from '@chakra-ui/react'
+import base from 'assets/img/hero@1x.webp'
+import retina from 'assets/img/hero@2x.webp'
+import gift from 'assets/icons/promotions/gift.svg'
 
 const HomeSlider = () => {
-  const { t } = useTranslation()
-
   return (
-    <Flex w="100%" justify="center" align="center" pos="relative" h={400}>
-      <Image
-        pos="absolute"
-        borderRadius={20}
-        src={mainScreenSliderImg}
-        width="100%"
-      />
-      <Box
-        borderRadius={20}
-        zIndex={2}
-        px={{ base: 1, md: 10 }}
-        py={{ base: 1, md: 10 }}
-        bgColor="turquoise.77"
-        opacity={0.7}
-      >
-        <Text
-          fontSize={{ base: 14, md: 20, xl: 35 }}
-          lineHeight="28px"
-          letterSpacing="0.36px"
-          color="white"
-          fontWeight={700}
-          textTransform="uppercase"
-        >
-          {t('homeSlider.title')}
-        </Text>
-      </Box>
+    <Flex justify="center" py={19}>
+      <Flex align="center" w={1070}>
+        <Flex flexDir="column" gap={6} w={520} color="gray.800">
+          <Text fontSize={48} fontWeight={500}>
+            Savor the Moment: Introducing our new menu
+          </Text>
+          <Text>
+            Where Every Bite Tells a Story of Tradition and Innovation
+          </Text>
+          <Button
+            w="max-content"
+            py={2}
+            px={4}
+            fontWeight={400}
+            color="white"
+            bgColor="cyanBlue.800"
+          >
+            <Flex gap="10px" alignItems="center">
+              <Image src={gift} />
+              <Text as="span">Get 10% off when you pick up in person!</Text>
+            </Flex>
+          </Button>
+        </Flex>
+        <Image srcSet={`${base} 1x, ${retina} 2x`} h={414} />
+      </Flex>
     </Flex>
   )
 }

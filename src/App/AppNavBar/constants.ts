@@ -1,83 +1,101 @@
-import sensual from 'assets/icons/category/sensual-menu.svg'
 import rolls from 'assets/icons/category/rolls.svg'
 import sets from 'assets/icons/category/sets.svg'
 import baked from 'assets/icons/category/baked.svg'
-import sushi from 'assets/icons/category/sushi.svg'
 import cakes from 'assets/icons/category/cakes.svg'
+import sushi from 'assets/icons/category/sushi.svg'
 import futomaki from 'assets/icons/category/futomaki.svg'
 import salads from 'assets/icons/category/salads.svg'
 import bowl from 'assets/icons/category/bowl.svg'
-import lenten from 'assets/icons/category/lenten.svg'
 import desserts from 'assets/icons/category/desserts.svg'
 import drinks from 'assets/icons/category/drinks.svg'
 
 const CATEGORY = [
   {
-    route: 'sezonowe_menu',
-    translateId: 'seasonal',
-    img: sensual,
-  },
-  {
     name: 'Rolka',
+    nameUa: 'Рол',
+    nameRu: 'Ролл',
+    nameEn: 'Roll',
     route: 'rolls',
     translateId: 'rolls',
     img: rolls,
   },
   {
     name: 'Zestaw',
+    nameUa: 'Набір',
+    nameRu: 'Набор',
+    nameEn: 'Set',
     route: 'sets',
     translateId: 'sets',
     img: sets,
   },
   {
     name: 'Pieczone',
+    nameUa: 'Запечений',
+    nameRu: 'Запеченный',
+    nameEn: 'Baked',
     route: 'baked',
     translateId: 'baked',
     img: baked,
   },
   {
-    name: 'Sushi',
-    route: 'sushi',
-    translateId: 'sushi',
-    img: sushi,
-  },
-  {
     name: 'Tort-sushi',
+    nameUa: 'Суші-торт',
+    nameRu: 'Суши-торт',
+    nameEn: 'Sushi-cake',
     route: 'sushi-cake',
     translateId: 'cakes',
     img: cakes,
   },
   {
+    name: 'Sushi',
+    nameUa: 'Суши',
+    nameRu: 'Сушы',
+    nameEn: 'Sushi',
+    route: 'sushi',
+    translateId: 'sushi',
+    img: sushi,
+  },
+  {
     name: 'Futomaki',
+    nameUa: 'Футомаки',
+    nameRu: 'Футомаки',
+    nameEn: 'Futomaki',
     route: 'futomaki',
     translateId: 'futomaki',
     img: futomaki,
   },
   {
     name: 'Salatka',
+    nameUa: 'Салат',
+    nameRu: 'Салат',
+    nameEn: 'Salad',
     route: 'salad',
     translateId: 'salad',
     img: salads,
   },
   {
     name: 'Miska',
+    nameUa: 'Миска',
+    nameRu: 'Миска',
+    nameEn: 'Bowl',
     route: 'bowl',
     translateId: 'bowl',
     img: bowl,
   },
   {
-    route: 'lenten_menu',
-    translateId: 'lenten_menu',
-    img: lenten,
-  },
-  {
     name: 'Deser',
+    nameUa: 'Десерт',
+    nameRu: 'Десерт',
+    nameEn: 'Dessert',
     route: 'dessert',
     translateId: 'dessert',
     img: desserts,
   },
   {
     name: 'Napój',
+    nameUa: 'Напиток',
+    nameRu: 'Напиток',
+    nameEn: 'Drink',
     route: 'drinks',
     translateId: 'drinks',
     img: drinks,

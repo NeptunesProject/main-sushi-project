@@ -3,10 +3,9 @@ import { Box, Flex } from '@chakra-ui/react'
 import AppHeader from './AppHeader'
 import Routes from '../router/Routes'
 import AppFooter from './AppFooter'
-import AppSidebar from './AppSidebar'
-import AppMedia from './AppMedia'
 import Basket from 'modules/Basket'
 import { BasketProvider } from '../contexts/BasketContext'
+import PhoneCall from 'modules/PhoneCall/PhoneCall'
 
 const AppContainer = () => {
   return (
@@ -24,14 +23,12 @@ const AppContainer = () => {
             top={{ base: 'none', lg: '20' }}
             bottom={{ base: 0, lg: 'none' }}
             overflowX="scroll"
-          >
-            <AppSidebar />
-          </Box>
-          <Box pos="fixed" bottom="20%" right={0}>
-            <AppMedia />
-          </Box>
-          <Box pos="fixed" top={200} right={0}>
+          ></Box>
+          <Box pos="fixed" top={327} right={0}>
             <Basket />
+          </Box>
+          <Box pos="fixed" top={400} right={0}>
+            <PhoneCall />
           </Box>
         </BasketProvider>
       </Flex>

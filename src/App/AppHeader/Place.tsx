@@ -8,8 +8,7 @@ const Place = () => {
   return (
     <Flex align="center" gap={2}>
       <Image src={point} />
-      {/* <Text fontSize={14} fontWeight={600} color="grey.100"> */}
-      <Text fontSize={14} fontWeight={600} color="grey.600">
+      <Text fontSize={16} fontWeight={400} color="#343330" fontFamily={"Rubik"}>
         {t('place')}
       </Text>
     </Flex>

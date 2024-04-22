@@ -1,8 +1,203 @@
+// import { DiscountObj, Product } from 'types'
+// import { Button, Flex, Image, Text } from '@chakra-ui/react'
+// import { useNavigate } from 'react-router-dom'
+// import { useCallback, useEffect, useMemo, useState } from 'react'
+// import stubImg from 'assets/img/stub.jpg'
+// import basket from "assets/icons/basket.svg"
+// import {
+//   useBasketContext,
+//   useBasketDispatchContext,
+// } from 'contexts/BasketContext'
+
+// interface Props {
+//   product: Product
+// }
+
+// const ProductCard = ({ product }: Props) => {
+//   const {
+//     addProduct,
+//     isProductAdded,
+//     calculateDiscountedPrice,
+//   } = useBasketDispatchContext()
+//   const { products } = useBasketContext()
+//   const [count, setCount] = useState(1)
+//   const [currentDiscount, setCurrentDiscount] = useState(1)
+
+//   const navigate = useNavigate()
+
+//   const discount: DiscountObj = {
+//     id: 1,
+//     discountPerQuantity: {
+//       1: '0.1',
+//       5: '0.3',
+//       10: '0.5',
+//     },
+//   }
+
+//   const isThisProductAdded = useMemo(
+//     () => isProductAdded(product),
+//     [isProductAdded, product],
+//   )
+
+//   const findProductById = (id: number) => {
+//     const product = products.find((item) => item.id === id)
+//     return product ? product.count : 0
+//   }
+//   const quantity = findProductById(product.id)
+
+//   const discountedPrice = calculateDiscountedPrice(
+//     product.price,
+//     discount.discountPerQuantity,
+//     quantity ? quantity : count,
+//   )
+
+//   const isDiscounted = Boolean(currentDiscount) && currentDiscount !== 1
+
+//   const setDiscount = useCallback(() => {
+//     if (discount) {
+//       const keys = Object.keys(discount.discountPerQuantity)
+//         .map(Number)
+//         .sort((a, b) => b - a)
+
+//       if (quantity) {
+//         for (const key of keys) {
+//           if (quantity >= key) {
+//             setCurrentDiscount(parseFloat(discount.discountPerQuantity[key]))
+//             break
+//           }
+//         }
+//       } else {
+//         for (const key of keys) {
+//           if (count >= key) {
+//             setCurrentDiscount(parseFloat(discount.discountPerQuantity[key]))
+//             break
+//           }
+//         }
+//       }
+//     }
+//   }, [count, quantity])
+
+//   useEffect(() => {
+//     setDiscount()
+//   }, [setDiscount, count])
+
+//   return (
+//     <Flex
+//       fontFamily="'Roboto', sans-serif"
+//       flexDir="column"
+//       alignItems="center"
+//       w={328}
+//       h={453}
+//       cursor="pointer"
+//       bg="white"
+//       borderRadius={10}
+//       boxShadow="1px 2px 10px rgba(0,0,0,.12)"
+//     >
+//       <Text
+//         onClick={() => navigate(`/product/${product.id}`)}
+//         fontSize={20}
+//         lineHeight="19px"
+//         fontWeight={800}
+//         letterSpacing=".35px"
+//         color="#002034"
+//         whiteSpace="nowrap"
+//         my={6}
+//       >
+//         {product.name}
+//       </Text>
+
+//       <Image
+//         fallback={<Image w={223} h={221} borderRadius={3} src={stubImg} />}
+//         onClick={() => navigate(`/product/${product.id}`)}
+//         w={223}
+//         h={221}
+//         src={product.img}
+//         borderLeftRadius={10}
+//       />
+
+//       <Flex
+//         w="80%"
+//         mt={4}
+//         flexGrow={1}
+//         gap={20}
+//       >
+//         <Flex flexDir="column">
+//           <Text fontSize={12} fontWeight={200} color="black" alignSelf="start" flexWrap="nowrap">
+//             {product.weight} / {product.cartCount}
+//           </Text>
+//         </Flex>
+//         <Flex flexDir="column">
+//           <Text color="#757575" fontSize={13} fontWeight={400}>
+//             Avocado, Flying fish caviar, Cream cheese, Fresh salmon, Nori,
+//             Cucumber, Rice
+//           </Text>
+//         </Flex>
+//       </Flex>
+
+//       {isDiscounted && (
+//         <Text
+//           color="#002034"
+//           fontWeight={400}
+//           fontSize={12}
+//           alignSelf="end"
+//           marginRight="10%"
+//           // mt={4}
+//         >
+//           (Discount: {currentDiscount * 100}%)
+//         </Text>
+//       )}
+
+//       <Flex justifyContent="space-between" w="90%" my={2} alignItems="center">
+//         <Flex flexDir="column">
+//           <Flex align="center" justify="space-between" w="100%">
+//             <Text
+//               color="#002034"
+//               fontSize={15}
+//               fontWeight={400}
+//               decoration={isDiscounted ? 'line-through' : 'none'}
+//             >
+//               {product.price} zł
+//             </Text>
+
+//             {isDiscounted && (
+//               <Text color="#154C8D" fontWeight={400} fontSize={15} ml={2}>
+//                 {discountedPrice} zł
+//               </Text>
+//             )}
+//           </Flex>
+//         </Flex>
+//         <Flex>
+//           <Button
+//             w="189px"
+//             justifyContent="space-around"
+//             bg="#002034"
+//             color="white"
+//             h={8}
+//             borderRadius={20}
+//             onClick={() => {
+//               addProduct(product, count)
+//               setCount(1)
+//             }}
+//           >
+//             <Text fontSize={12} fontWeight={400}>
+//               {isThisProductAdded ? 'Added to basket' : 'Add to cart' }
+//             </Text>
+//             <Image src={basket} h={22} w={19}/>
+//           </Button>
+//         </Flex>
+//       </Flex>
+//     </Flex>
+//   )
+// }
+
+// export default ProductCard
+
 import { DiscountObj, Product } from 'types'
 import { Button, Flex, Image, Text } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import stubImg from 'assets/img/stub.jpg'
+import basket from 'assets/icons/basket.svg'
 import {
   useBasketContext,
   useBasketDispatchContext,
@@ -14,12 +209,8 @@ interface Props {
 }
 
 const ProductCard = ({ product }: Props) => {
-  const {
-    addProduct,
-    isProductAdded,
-    calculateDiscountedPrice,
-    removeProduct,
-  } = useBasketDispatchContext()
+  const { addProduct, removeProduct, isProductAdded, calculateDiscountedPrice } =
+    useBasketDispatchContext()
   const { products } = useBasketContext()
   const [count, setCount] = useState(1)
   const [currentDiscount, setCurrentDiscount] = useState(1)
@@ -52,21 +243,6 @@ const ProductCard = ({ product }: Props) => {
     quantity ? quantity : count,
   )
 
-  const handleIncrement = () => {
-    if (quantity) {
-      addProduct(product)
-    } else {
-      setCount((prevCount) => prevCount + 1)
-    }
-  }
-
-  const handleDecrement = () => {
-    if (quantity && quantity > 1) {
-      removeProduct(product)
-    } else if (count > 1) {
-      setCount((prevCount) => prevCount - 1)
-    }
-  }
   const isDiscounted = Boolean(currentDiscount) && currentDiscount !== 1
 
   const setDiscount = useCallback(() => {
@@ -100,96 +276,169 @@ const ProductCard = ({ product }: Props) => {
   return (
     <Flex
       fontFamily="'Roboto', sans-serif"
-      w={375}
+      flexDir="column"
+      alignItems="center"
+      w={300}
+      h={330}
       cursor="pointer"
       bg="white"
       borderRadius={10}
       boxShadow="1px 2px 10px rgba(0,0,0,.12)"
     >
       <Image
-        fallback={<Image w={180} h={170} borderLeftRadius={10} src={stubImg} />}
+        fallback={<Image w="100%" h={152} borderRadius={3} src={stubImg} />}
         onClick={() => navigate(`/product/${product.id}`)}
-        w={180}
-        h={170}
+        h={152}
+        w="100%"
         src={product.img}
         borderLeftRadius={10}
       />
 
-      <Flex
-        w="100%"
-        flexDir="column"
-        align="start"
-        justify="space-between"
-        p={2.5}
-        pl={{ base: 2, md: 4 }}
-        overflow="hidden"
-      >
+      <Flex flexDir={'column'} gap="8px" p="16px" w="100%">
         <Text
           onClick={() => navigate(`/product/${product.id}`)}
-          fontSize={15}
-          lineHeight="19px"
-          fontWeight={700}
+          fontSize={20}
+          fontWeight={500}
           letterSpacing=".35px"
-          color="blue.200"
+          color="#002034"
           whiteSpace="nowrap"
+          fontFamily={'Rubik'}
         >
           {product.name}
         </Text>
 
-        <Text fontSize={12} fontWeight={200} color="black" alignSelf="start">
-          {product.weight} / {product.cartCount}
+        <Text
+          fontSize={14}
+          fontWeight={400}
+          color="#002034"
+          alignSelf="start"
+          flexWrap="nowrap"
+          fontFamily={'Rubik'}
+        >
+          {product.weight} gram / {product.cartCount} pieces
         </Text>
 
-        {isDiscounted && (
-          <Text color="blue.200" fontWeight={700}>
-            Discount: {currentDiscount * 100}%
-          </Text>
-        )}
-        <Flex align="center" justify="space-between" w="100%">
-          {isDiscounted && (
-            <Text color="blue.200" fontWeight={700}>
-              {discountedPrice} zł
-            </Text>
-          )}
+        <Flex align="center" gap="8px">
           <Text
-            color="blue.200"
-            fontWeight={700}
+            color="#002034"
+            fontSize={20}
+            fontWeight={500}
             decoration={isDiscounted ? 'line-through' : 'none'}
+            fontFamily={'Rubik'}
           >
             {product.price} zł
           </Text>
-          <Flex gap={{ base: 0.5, md: 1 }}>
+
+          {isDiscounted && (
+            <Text
+              color="#9090A4"
+              fontWeight={400}
+              fontSize={16}
+              p="2px"
+              fontFamily={'Rubik'}
+            >
+              {discountedPrice} zł
+            </Text>
+          )}
+        </Flex>
+
+        {!isThisProductAdded ? (
+          <Button
+            w="100%"
+            h="40px"
+            justifyContent="center"
+            gap="8px"
+            bg="#002034"
+            color="white"
+            borderRadius={20}
+            onClick={() => {
+              addProduct(product, count)
+              setCount(1)
+            }}
+          >
+            <Text fontSize={16} fontWeight={400} fontFamily={'Rubik'}>
+              Add to cart
+            </Text>
+            <Image src={basket} h={22} w={19} />
+          </Button>
+        ) : (
+          <Flex
+            w="100%"
+            h="40px"
+            bg="#002034"
+            color="white"
+            borderRadius={20}
+            alignItems="center"
+            gap={{ base: 0.5, md: 1 }}
+          >
             <CountButton
-              onClick={handleDecrement}
+              onClick={(e) => {
+                e.preventDefault()
+                if (count > 1) {
+                  setCount((prev) => prev - 1)
+                  removeProduct(product)
+                }
+              }}
               borderLeftRadius={20}
               borderRightRadius={5}
+              bg='none'
+              h="100%"
+
+
             >
               -
             </CountButton>
-            <Text>{quantity ? quantity : count}</Text>
+            <Text flex={1} align="center">{count}</Text>
+
             <CountButton
-              onClick={handleIncrement}
+              onClick={(e) => {
+                e.preventDefault()
+                setCount((prev) => prev + 1)
+                addProduct(product)
+              }}
               borderRightRadius={20}
               borderLeftRadius={5}
+              bg='none'
+              h="100%"
             >
               +
             </CountButton>
           </Flex>
-        </Flex>
-        <Button
-          w="100%"
-          bg="turquoise.77"
-          color="white"
-          h={8}
-          borderRadius={20}
-          onClick={() => {
-            addProduct(product, count)
-            setCount(1)
-          }}
-        >
-          {isThisProductAdded ? 'Added to basket' : 'Buy'}
-        </Button>
+        )}
       </Flex>
+
+      {/* <Flex w="80%" mt={4} flexGrow={1} gap={20}>
+        <Flex flexDir="column">
+         
+        </Flex>
+        <Flex flexDir="column">
+          <Text color="#757575" fontSize={13} fontWeight={400}>
+            Avocado, Flying fish caviar, Cream cheese, Fresh salmon, Nori,
+            Cucumber, Rice
+          </Text>
+        </Flex>
+      </Flex> */}
+
+      {/* {isDiscounted && (
+        <Text
+          color="#002034"
+          fontWeight={400}
+          fontSize={12}
+          alignSelf="end"
+          marginRight="10%"
+        >
+          (Discount: {currentDiscount * 100}%)
+        </Text>
+      )} */}
+
+      {/* <Flex justifyContent="space-between" w="90%" my={2} alignItems="center">
+        <Flex flexDir="column">
+        
+        </Flex>
+        <Flex>
+         
+        </Flex>
+      </Flex> */}
     </Flex>
   )
 }

@@ -28,9 +28,8 @@ const LanguageSelect = () => {
   return (
     <Menu>
       <MenuButton>
-        {/* <Flex align="center" gap={0.5} color="grey.100"> */}
-        <Flex align="center" gap={0.5} color="grey.600">
-          <Text textTransform="uppercase" fontSize={13} fontWeight={600}>
+        <Flex align="center" gap={0.5} color="#343330">
+          <Text textTransform="uppercase" fontSize={16} fontWeight={400} fontFamily={"Rubik"}>
             {selectedLanguage}
           </Text>
           <ChevronDownIcon />
@@ -44,6 +43,7 @@ const LanguageSelect = () => {
               key={language}
               onClick={() => handleLanguageChange(language)}
               textTransform="uppercase"
+              fontFamily={"Rubik"}
             >
               {language}
             </MenuItem>
