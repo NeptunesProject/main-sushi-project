@@ -1,4 +1,4 @@
-import { Box, Flex} from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react'
 import Logo from 'components/Logo'
 import NavBar from './NavBar'
 import LanguageSelect from './LanguageSelect'
@@ -9,7 +9,6 @@ const AppHeaderLg = () => {
     <Flex
       align="center"
       alignItems="center"
-      // justifyContent="center"
       justifyContent="space-between"
       w="100%"
       h="64px"
@@ -17,14 +16,11 @@ const AppHeaderLg = () => {
       py="8px"
       gap="32px"
     >
-      {/* <Box position={"fixed"}  left={10}> */}
-      <Box >
-        <Logo/>
+      <Box>
+        <Logo />
       </Box>
       <NavBar />
-      <Flex alignItems="center" justify="space-between" 
-      gap="24px" 
->
+      <Flex alignItems="center" justify="space-between" gap="24px">
         <Place />
         <LanguageSelect />
       </Flex>
