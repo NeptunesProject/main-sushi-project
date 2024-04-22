@@ -1,31 +1,31 @@
 import { ArrowUpIcon } from '@chakra-ui/icons'
 import { Box, Center } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const ScrollToTopButton = () => {
   const [visible, setVisible] = useState(false)
+  const windowRef = useRef(window)
 
-  const toggleVisibility = () => {
-    if (window.scrollY > 300) {
-      setVisible(true)
-    } else {
-      setVisible(false)
+  useEffect(() => {
+    const currentWindow = windowRef.current
+
+    const toggleVisibility = () => {
+      const isScrollVisible = currentWindow.scrollY > 300
+      setVisible(isScrollVisible)
     }
-  }
+
+    currentWindow.addEventListener('scroll', toggleVisibility)
+    return () => {
+      currentWindow.removeEventListener('scroll', toggleVisibility)
+    }
+  }, [])
 
   const onScrollToTop = () => {
-    window.scrollTo({
+    windowRef.current.scrollTo({
       top: 0,
       behavior: 'smooth',
     })
   }
-
-  useEffect(() => {
-    window.addEventListener('scroll', toggleVisibility)
-    return () => {
-      window.removeEventListener('scroll', toggleVisibility)
-    }
-  }, [])
 
   return (
     <Box
