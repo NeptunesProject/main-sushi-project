@@ -36,40 +36,47 @@ const AppNavBar = () => {
   return (
     <Flex
       position="fixed"
-      top={77}
-      left="50%"
-      transform="translate( -50%)"
+      top={{ base: 'unset', lg: 77 }}
+      bottom={{ base: 0, lg: 'unset' }}
+      left={{ base: 0, lg: '50%' }}
+      transform={{ base: 'none', lg: 'translate( -50%)' }}
       zIndex={10}
-      w={800}
+      w={{ base: '100%', lg: 800 }}
       p={2}
       bg="white"
-      borderRadius={16}
-      boxShadow="0px 4px 20px #00203410"
+      borderRadius={{ base: 'none', lg: 16 }}
+      boxShadow={{
+        base: 'inset 0px 4px 4px #00000025',
+        lg: '0px 4px 20px #00203410',
+      }}
       ref={sidebarRef}
+      overflow={{ base: 'scroll', lg: 'hidden' }}
     >
-      {CATEGORY.map((category) => (
-        <Flex
-          flexDir="column"
-          align="center"
-          key={category.name}
-          w={80}
-          role="group"
-          cursor="pointer"
-          onClick={() => scrollToSection(category.name)}
-        >
-          <Image src={category.img} alt={category.name} boxSize="36px" />
-          <Text
-            fontSize={14}
-            fontWeight={500}
-            color="grey.100"
-            _groupHover={{
-              color: 'blue.100',
-            }}
+      <Flex w={{ base: 'unset', sm: '100%' }} justifyContent="space-evenly">
+        {CATEGORY.map((category) => (
+          <Flex
+            flexDir="column"
+            align="center"
+            key={category.name}
+            w={{ base: 65, lg: 80 }}
+            role="group"
+            cursor="pointer"
+            onClick={() => scrollToSection(category.name)}
           >
-            {getNameByTranslate(category)}
-          </Text>
-        </Flex>
-      ))}
+            <Image src={category.img} alt={category.name} boxSize="36px" />
+            <Text
+              fontSize={{ base: 10, lg: 14 }}
+              fontWeight={{ base: 700, lg: 500 }}
+              color="grey.100"
+              _groupHover={{
+                color: 'blue.100',
+              }}
+            >
+              {getNameByTranslate(category)}
+            </Text>
+          </Flex>
+        ))}
+      </Flex>
     </Flex>
   )
 }

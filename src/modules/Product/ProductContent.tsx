@@ -59,7 +59,7 @@ const ProductContent = () => {
           <Image
             src={product.img}
             fallback={<Image src={stubImg} />}
-            boxSize={{ base: 250, sm: 490 }}
+            boxSize={{ base: 250, xs: 490 }}
           />
 
           <Flex flexDir="column" gap={5} minW={{ md: 450 }}>
