@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useRef } from 'react'
 import { ConstCategory } from '../../types'
 
-const AppSidebar = () => {
+const AppNavBar = () => {
   const { i18n } = useTranslation()
 
   const currentLanguage = i18n.language
@@ -36,8 +36,9 @@ const AppSidebar = () => {
   return (
     <Flex
       position="fixed"
-      top={142}
-      left="25%"
+      top={77}
+      left="50%"
+      transform="translate( -50%)"
       zIndex={10}
       w={800}
       p={2}
@@ -73,4 +74,4 @@ const AppSidebar = () => {
   )
 }
 
-export default AppSidebar
+export default AppNavBar
