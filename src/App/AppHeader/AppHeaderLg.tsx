@@ -9,15 +9,12 @@ const AppHeaderLg = () => {
     <Flex
       align="center"
       alignItems="center"
-      // justifyContent="center"
       justifyContent="space-between"
       w="100%"
       h="64px"
       px="75px"
       py="8px"
-      gap="32px"
     >
-      {/* <Box position={"fixed"}  left={10}> */}
       <Box >
         <Logo/>
       </Box>
