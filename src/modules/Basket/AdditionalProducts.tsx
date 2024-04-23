@@ -1,44 +1,52 @@
-import React from 'react'
 import { Flex, Text } from '@chakra-ui/react'
 import CountButton from '../../ui/CountButton'
+import { useDispatch, useSelector } from 'react-redux'
 import {
-  useBasketContext,
-  useBasketDispatchContext,
-} from 'contexts/BasketContext'
+  selectPersonCount,
+  selectSticks,
+  selectStudySticks,
+} from 'redux/products/selectors'
+import { AppDispatch } from 'types'
+import {
+  setPersonCount,
+  setSticks,
+  setStudySticks,
+} from 'redux/products/ProductsSlice'
 
 const AdditionalProducts = () => {
-  const { personCount, sticks, studySticks } = useBasketContext()
-  const { setPersonCount, setSticks, setStudySticks } =
-    useBasketDispatchContext()
+  const dispatch = useDispatch<AppDispatch>()
+  const personCount = useSelector(selectPersonCount)
+  const sticks = useSelector(selectSticks)
+  const studySticks = useSelector(selectStudySticks)
 
   const handlePersonCountDecrement = () => {
     if (personCount > 1) {
-      setPersonCount(personCount - 1)
+      dispatch(setPersonCount(-1))
     }
   }
 
   const handlePersonCountIncrement = () => {
-    setPersonCount(personCount + 1)
+    dispatch(setPersonCount(+1))
   }
 
   const handleSticksDecrement = () => {
     if (sticks > 0) {
-      setSticks(sticks - 1)
+      dispatch(setSticks(-1))
     }
   }
 
   const handleSticksIncrement = () => {
-    setSticks(sticks + 1)
+    dispatch(setSticks(+1))
   }
 
   const handleStudySticksDecrement = () => {
     if (studySticks > 0) {
-      setStudySticks(studySticks - 1)
+      dispatch(setStudySticks(-1))
     }
   }
 
   const handleStudySticksIncrement = () => {
-    setStudySticks(studySticks + 1)
+    dispatch(setStudySticks(+1))
   }
 
   return (

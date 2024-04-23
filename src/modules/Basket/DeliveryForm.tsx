@@ -16,7 +16,6 @@ import { BasketTypes } from '../../types'
 import { ArrowBackIcon } from '@chakra-ui/icons'
 import InfoToPay from './InfoToPay'
 
-
 interface Props {
   setSelectedBasketType: React.Dispatch<React.SetStateAction<BasketTypes>>
 }
@@ -45,21 +44,21 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
   )
 
   const getDisabledState = () => {
-    let isDisabled = false;
+    let isDisabled = false
 
     switch (true) {
       case name.length === 0:
       case phoneNumber.length === 0:
-      case (deliveryType !== 'pickup' && street.length === 0):
-        isDisabled = true;
-        break;
+      case deliveryType !== 'pickup' && street.length === 0:
+        isDisabled = true
+        break
       default:
-        isDisabled = false;
-        break;
+        isDisabled = false
+        break
     }
-  
-    return isDisabled;
-  };
+
+    return isDisabled
+  }
 
   function nameSetter(e: React.ChangeEvent<HTMLInputElement>) {
     setName(e.target.value.trim())
@@ -142,7 +141,6 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
                 <Radio value="delivery">Delivery to address</Radio>
               </Stack>
             </RadioGroup>
-
           </Box>
 
           <InfoToPay />
@@ -154,7 +152,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
             borderColor="turquoise.77"
             bg="none"
             borderRadius={25}
-            onClick={() => setSelectedBasketType("pay")}
+            onClick={() => setSelectedBasketType('pay')}
             isDisabled={getDisabledState()}
           >
             Continue

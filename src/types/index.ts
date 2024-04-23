@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import { store } from 'redux/store'
 
 enum Languages {
   en = 'EN',
@@ -20,13 +21,21 @@ interface Product {
   url: string
   img: string
   status: number
-  cityId: number
+  description: string
+  descriptionRu: string
+  descriptionEn: string
+  descriptionUa: string
   size: number
   sale: number
-  iikoId: string
   cartCount: number
   sort: number
   box: number
+  discount: {
+    id: number
+    discountPerQuantity: Record<string, string>
+    discountType: string
+    relationId: number
+  }
 }
 
 interface Category {
@@ -37,11 +46,6 @@ interface Category {
   nameEn: string
   url: string
   img: string
-}
-
-interface ConstCategory extends Omit<Category, 'id' | 'url'> {
-  route: string
-  translateId: string
 }
 
 interface ChakraFactoryComponent {
@@ -97,14 +101,29 @@ interface ValidatedVoucher {
   discountPercentage: number
 }
 
-interface DiscountObj {
-  id: number
-  discountPerQuantity: {
-    [key: number]: string
+interface SelectedProduct {
+  product: Product
+  count: number
+}
+
+interface ProductsState {
+  selectedProducts: SelectedProduct[]
+  additionalInfo: {
+    personCount: number
+    sticks: number
+    studySticks: number
   }
+  voucher: { discount: number }
+  products: Product[]
+}
+
+type RootState = {
+  product: ProductsState
 }
 
 type BasketTypes = 'basket' | 'delivery' | 'pay' | 'orderResponse'
+
+type AppDispatch = typeof store.dispatch
 
 export type {
   Languages,
@@ -112,12 +131,14 @@ export type {
   ChakraFactoryComponent,
   BasketTypes,
   Category,
-  ConstCategory,
   OrderToPost,
   ProductObj,
   ReturnedOrder,
   CartItem,
   Voucher,
   ValidatedVoucher,
-  DiscountObj,
+  AppDispatch,
+  ProductsState,
+  RootState,
+  SelectedProduct,
 }

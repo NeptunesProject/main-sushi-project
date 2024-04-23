@@ -1,10 +1,22 @@
 import { Box, Flex, Text } from '@chakra-ui/react'
 import { useBasketContext } from '../../contexts/BasketContext'
+import { selectBasketProducts } from 'redux/products/selectors'
+import { useSelector } from 'react-redux'
+import { useTotalPrice, useTotalWeight } from './InfoToPayHooks'
+import { calculateDiscountedPrice } from './OrderFuncs'
 
 const InfoToPay = () => {
-  const { totalPrice, totalWeight, voucher } = useBasketContext()
+  const { voucher } = useBasketContext()
+  const selectedProducts = useSelector(selectBasketProducts)
+  const totalPrice = useTotalPrice(selectedProducts, calculateDiscountedPrice)
+  const totalWeight = useTotalWeight(selectedProducts)
+
   const discountedPrice = totalPrice * voucher.discount
-  const isVoucherActive = totalPrice !== 0 && voucher.discount !== 1
+
+  let isVoucherActive = false
+  if (totalPrice !== 0 && voucher.discount !== 1) {
+    isVoucherActive = true
+  }
 
   return (
     <Flex w="100%" justify="space-between" align="end">
@@ -14,10 +26,10 @@ const InfoToPay = () => {
           {Number(totalWeight.toFixed(2))} gram
         </Text>
       </Box>
-      <Flex flexBasis="50%" justify="space-between" alignItems="center">
+      <Flex flexBasis="50%" justify="space-between">
         <Text color="grey.200">Total price:</Text>
         {isVoucherActive && (
-          <Text color="orange.400" fontWeight={600} fontSize={20}>
+          <Text color="blue.200" fontWeight={600}>
             {Number(discountedPrice.toFixed(2))} zł
           </Text>
         )}

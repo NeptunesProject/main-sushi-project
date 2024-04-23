@@ -1,79 +1,106 @@
-import { DiscountObj, Product } from 'types'
+import { AppDispatch, Product } from 'types'
 import { Button, Flex, Image, Text } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import basket from 'assets/icons/basket.svg'
-import sushiImg from "assets/img/SuhsiTestImg.jpg"
+import sushiImg from 'assets/img/SuhsiTestImg.jpg'
 import {
   useBasketContext,
   useBasketDispatchContext,
 } from 'contexts/BasketContext'
 import CountButton from 'ui/CountButton'
+import { useDispatch, useSelector } from 'react-redux'
+import { addProduct, setProductCount } from 'redux/products/ProductsSlice'
+import { selectBasketProducts } from 'redux/products/selectors'
 
 interface Props {
   product: Product
 }
 
 const ProductCard = ({ product }: Props) => {
-  const { addProduct, removeProduct, isProductAdded, calculateDiscountedPrice } =
-    useBasketDispatchContext()
+  const { calculateDiscountedPrice } = useBasketDispatchContext()
   const { products } = useBasketContext()
   const [count, setCount] = useState(1)
   const [currentDiscount, setCurrentDiscount] = useState(1)
+  const selectedProducts = useSelector(selectBasketProducts)
+
+  const index = selectedProducts.findIndex(
+    (item) => item.product.id === product.id,
+  )
 
   const navigate = useNavigate()
 
-  const discount: DiscountObj = {
-    id: 1,
-    discountPerQuantity: {
-      1: '0.1',
-      5: '0.3',
-      10: '0.5',
-    },
+  const dispatch = useDispatch<AppDispatch>()
+
+  const handleAdd = (product: Product, count: number) => {
+    dispatch(addProduct({ product, count }))
   }
 
-  const isThisProductAdded = useMemo(
-    () => isProductAdded(product),
-    [isProductAdded, product],
-  )
+  const isThisProductAdded = useMemo(() => {
+    return selectedProducts.some((item) => item.product.id === product.id)
+  }, [selectedProducts])
 
   const findProductById = (id: number) => {
     const product = products.find((item) => item.id === id)
     return product ? product.count : 0
   }
+
   const quantity = findProductById(product.id)
 
   const discountedPrice = calculateDiscountedPrice(
     product.price,
-    discount.discountPerQuantity,
-    quantity ? quantity : count,
+    product.discount?.discountPerQuantity ?? {},
+    isThisProductAdded ? selectedProducts[index].count : count,
   )
 
-  const isDiscounted = Boolean(currentDiscount) && currentDiscount !== 1
+  const handleIncrement = () => {
+    if (isThisProductAdded) {
+      dispatch(setProductCount({ id: product.id, count: 1 }))
+    } else {
+      setCount((prevCount) => prevCount + 1)
+    }
+  }
+
+  const handleDecrement = () => {
+    if (isThisProductAdded && selectedProducts[index].count > 1) {
+      dispatch(setProductCount({ id: product.id, count: -1 }))
+    } else if (count > 1) {
+      setCount((prevCount) => prevCount - 1)
+    }
+  }
+
+  const isDiscounted =
+    product.discount &&
+    Object.keys(product.discount.discountPerQuantity).length > 0 &&
+    currentDiscount !== 1
 
   const setDiscount = useCallback(() => {
-    if (discount) {
-      const keys = Object.keys(discount.discountPerQuantity)
+    if (product.discount) {
+      const keys = Object.keys(product.discount.discountPerQuantity)
         .map(Number)
         .sort((a, b) => b - a)
 
       if (quantity) {
         for (const key of keys) {
           if (quantity >= key) {
-            setCurrentDiscount(parseFloat(discount.discountPerQuantity[key]))
+            setCurrentDiscount(
+              parseFloat(product.discount.discountPerQuantity[key]),
+            )
             break
           }
         }
       } else {
         for (const key of keys) {
           if (count >= key) {
-            setCurrentDiscount(parseFloat(discount.discountPerQuantity[key]))
+            setCurrentDiscount(
+              parseFloat(product.discount.discountPerQuantity[key]),
+            )
             break
           }
         }
       }
     }
-  }, [count, discount, quantity])
+  }, [count, quantity])
 
   useEffect(() => {
     setDiscount()
@@ -156,9 +183,14 @@ const ProductCard = ({ product }: Props) => {
             bg="#002034"
             color="white"
             borderRadius={20}
+            isDisabled={isThisProductAdded}
+            _hover={!isThisProductAdded && { bg: 'gray.300' }}
             onClick={() => {
-              addProduct(product, count)
+              handleAdd(product, count)
               setCount(1)
+            }}
+            _disabled={{
+              cursor: 'not-allowed',
             }}
           >
             <Text fontSize={16} fontWeight={400} fontFamily={'Rubik'}>
@@ -177,33 +209,23 @@ const ProductCard = ({ product }: Props) => {
             gap={{ base: 0.5, md: 1 }}
           >
             <CountButton
-              onClick={(e) => {
-                e.preventDefault()
-                if (count > 1) {
-                  setCount((prev) => prev - 1)
-                  removeProduct(product)
-                }
-              }}
+              onClick={handleDecrement}
               borderLeftRadius={20}
               borderRightRadius={5}
-              bg='none'
+              bg="none"
               h="100%"
-
-
             >
               -
             </CountButton>
-            <Text flex={1} align="center">{count}</Text>
+            <Text flex={1} align="center">
+              {isThisProductAdded ? selectedProducts[index].count : count}
+            </Text>
 
             <CountButton
-              onClick={(e) => {
-                e.preventDefault()
-                setCount((prev) => prev + 1)
-                addProduct(product)
-              }}
+              onClick={handleIncrement}
               borderRightRadius={20}
               borderLeftRadius={5}
-              bg='none'
+              bg="none"
               h="100%"
             >
               +

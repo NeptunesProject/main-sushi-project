@@ -23,7 +23,7 @@ import {
 import Stripe from 'stripe'
 
 import { ReturnedOrder } from '../../types'
-import { handleClick, makeOrder } from './makeOrderFuncs'
+import { handleClick, makeOrder } from './OrderFuncs'
 import { postVoucher } from 'api'
 
 interface Props {
@@ -33,7 +33,7 @@ interface Props {
 
 const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
   const [comment, setComment] = useState('')
- 
+
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value)
   }
@@ -85,7 +85,6 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
 
   useEffect(() => {
     setVoucher({ discount: voucher.discount, error: '' })
-   
   }, [])
 
   async function createSession(order: ReturnedOrder) {
@@ -122,16 +121,16 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
       street,
       deliveryType,
       phoneNumber,
-      comment,
       personCount,
       sticks,
       studySticks,
       payment,
+      comment,
     )
     handleClick(
       order.id,
       setSelectedBasketType,
-      setOrderId,
+      setOrderId as React.Dispatch<React.SetStateAction<number>>,
       setName,
       setPhoneNumber,
       setDeliveryType,
@@ -147,7 +146,6 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
     }
     nullifyVoucher()
   }
-
 
   async function validateVoucher() {
     try {
@@ -169,7 +167,6 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
     }
   }
 
-
   function nullifyVoucher() {
     setVoucherCode('')
     setVoucher({
@@ -178,13 +175,12 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
     })
   }
 
-    const CancelVoucher = () => {
+  const CancelVoucher = () => {
     setVoucher({
-        discount: 1,
-        error: '',
-      })
-    }
-
+      discount: 1,
+      error: '',
+    })
+  }
 
   return (
     <>
@@ -257,7 +253,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
                   Remove voucher
                 </Button>
                 <Text m={2} fontWeight={'bold'}>
-                  Applied discount {Math.round((1 - voucher.discount)*100)}%
+                  Applied discount {Math.round((1 - voucher.discount) * 100)}%
                 </Text>
               </Flex>
             )}
@@ -274,7 +270,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
             bg="none"
             borderRadius={25}
             onClick={() => createOrder()}
-            isDisabled={payment === ""}
+            isDisabled={payment === ''}
           >
             Continue
           </Button>
@@ -285,6 +281,3 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
 }
 
 export default PaymentMethod
-
-
-

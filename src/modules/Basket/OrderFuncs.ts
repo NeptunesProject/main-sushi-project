@@ -10,11 +10,11 @@ interface IMakeOrder {
     street: string,
     deliveryType: string,
     phoneNumber: string,
-    commentary: string,
     personCount: number,
     sticks: number,
     studySticks: number,
     payment: string,
+    commentary: string,
   ): Promise<ReturnedOrder>
 }
 
@@ -36,7 +36,7 @@ interface IHandleClick {
   (
     orderId: number,
     setSelectedBasketType: DispatchSetter<BasketTypes>,
-    setOrderId: DispatchSetter<number | undefined>,
+    setOrderId: DispatchSetter<number>,
     setName: DispatchSetter<string>,
     setPhoneNumber: DispatchSetter<string>,
     setDeliveryType: DispatchSetter<string>,
@@ -49,17 +49,25 @@ interface IHandleClick {
   ): void
 }
 
+interface DiscountRecord {
+  [key: number]: string
+}
+
+export interface ICalculateDiscountedPrice {
+  (price: number, discounts: DiscountRecord, quantity: number): number
+}
+
 export const makeOrder: IMakeOrder = async (
   setSelectedBasketType,
   name,
   street,
   deliveryType,
   phoneNumber,
-  commentary,
   personCount,
   sticks,
   studySticks,
   payment,
+  commentary,
 ) => {
   setSelectedBasketType('delivery')
 
@@ -87,7 +95,7 @@ export const makeOrder: IMakeOrder = async (
       deliveryAddress: {
         clientAddress: street,
       },
-      comment: commentary, 
+      comment: commentary,
       peopleCount: personCount,
       cartItems,
       studySticksCount: studySticks,
@@ -96,7 +104,6 @@ export const makeOrder: IMakeOrder = async (
       paymentType: payment.toUpperCase(),
     })
 
-    console.log(order)
     return order
   } catch (error) {
     console.error('Error occurred while making order:', error)
@@ -162,4 +169,25 @@ export const handleClick: IHandleClick = async (
   )
   clearLocaleStorage()
   setSelectedBasketType('orderResponse')
+}
+
+export const calculateDiscountedPrice: ICalculateDiscountedPrice = (
+  price: number,
+  discounts: Record<number, string>,
+  quantity: number,
+) => {
+  let discount = 0
+
+  const keys = Object.keys(discounts)
+    .map(Number)
+    .sort((a, b) => b - a)
+
+  for (const key of keys) {
+    if (quantity >= key) {
+      discount = parseFloat(discounts[key])
+      break
+    }
+  }
+
+  return price * (1 - discount)
 }

@@ -32,7 +32,7 @@ const Basket = () => {
         pos="relative"
         bgColor="#343330"
       >
-        <Image boxSize="24px" src={basket}/>
+        <Image boxSize="24px" src={basket} />
         {productsCount ? (
           <Center
             pos="absolute"
