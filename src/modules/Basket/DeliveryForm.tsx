@@ -13,7 +13,7 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react'
-import { BasketTypes, ReturnedOrder } from '../../types'
+import { BasketTypes, ReturnedOrder, AppDispatch } from '../../types'
 import { ArrowBackIcon } from '@chakra-ui/icons'
 import InfoToPay from './InfoToPay'
 import {
@@ -22,6 +22,8 @@ import {
 } from 'contexts/BasketContext'
 import { handleClick, makeOrder } from './OrderFuncs'
 import { postVoucher } from 'api'
+import { useDispatch } from 'react-redux'
+import { eraseAfterOrder } from 'redux/products/ProductsSlice'
 
 const STRIPE_SK = import.meta.env.VITE_STRIPE_SECRET_KEY
 const BASE_URL = import.meta.env.VITE_APP_BASE_URL
@@ -137,8 +139,10 @@ const DeliveryForm = ({ setSelectedBasketType, setOrderId }: Props) => {
     )
     if (order && order.paymentType === 'ONLINE') {
       createSession(order)
+      
     }
-    nullifyVoucher()
+    handleEraseCart();
+    nullifyVoucher();
   }
 
   async function validateVoucher() {
@@ -193,6 +197,10 @@ const DeliveryForm = ({ setSelectedBasketType, setOrderId }: Props) => {
     localStorage.setItem('paymentType', JSON.stringify(value))
   }
 
+  const dispatch = useDispatch<AppDispatch>()
+  const handleEraseCart = () => {
+    dispatch(eraseAfterOrder())
+  }
   return (
     <>
       <DrawerHeader
