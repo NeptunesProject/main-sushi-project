@@ -1,12 +1,14 @@
-import { SelectedProduct, AppDispatch} from 'types'
+import { SelectedProduct, AppDispatch } from 'types'
 import { Box, Flex, Image, Text } from '@chakra-ui/react'
 import stubImg from 'assets/img/stub.jpg'
 import CountButton from '../../../ui/CountButton'
 import closeIcon from 'assets/img/delete.svg'
 import { useBasketDispatchContext } from '../../../contexts/BasketContext'
 import { useDispatch } from 'react-redux'
-import { setSelectedProductCount, deleteSelectedProduct } from 'redux/products/ProductsSlice'
-
+import {
+  setSelectedProductCount,
+  deleteSelectedProduct,
+} from 'redux/products/ProductsSlice'
 
 interface Props {
   item: SelectedProduct
@@ -14,19 +16,18 @@ interface Props {
 
 const ProductListItem = ({ item }: Props) => {
   const { calculateDiscountedPrice } = useBasketDispatchContext()
-    let count: number = item.count
-    const itemId: number = item.product.id;
-   
+  let count: number = item.count
+  const itemId: number = item.product.id
 
-   
-    const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useDispatch<AppDispatch>()
 
-    const handleCount = (id: number, count: number) => {
-      dispatch(setSelectedProductCount({id, count}))
-    }
-    const handleDelete = (id: number) => {
-      dispatch(deleteSelectedProduct ({id}))
-    }
+  const handleCount = (id: number, count: number) => {
+    dispatch(setSelectedProductCount({ id, count }))
+  }
+
+  const handleDelete = (id: number) => {
+    dispatch(deleteSelectedProduct({ id }))
+  }
 
   const isDiscounted = Boolean(item.product.discount)
 
@@ -64,11 +65,11 @@ const ProductListItem = ({ item }: Props) => {
             borderLeftRadius={20}
             borderRightRadius={5}
             onClick={() => {
-              if(count>1){
-              count = count-1
-              handleCount(itemId, count)
-            }
-          }}
+              if (count > 1) {
+                count = count - 1
+                handleCount(itemId, count)
+              }
+            }}
           >
             -
           </CountButton>
@@ -82,7 +83,8 @@ const ProductListItem = ({ item }: Props) => {
             borderLeftRadius={5}
             onClick={() => {
               count = count + 1
-              handleCount(itemId, count)}}
+              handleCount(itemId, count)
+            }}
           >
             +
           </CountButton>

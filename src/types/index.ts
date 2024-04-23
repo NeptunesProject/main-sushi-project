@@ -108,9 +108,11 @@ interface SelectedProduct {
 
 interface ProductsState {
   selectedProducts: SelectedProduct[]
-  personCount: number
-  sticks: number
-  studySticks: number
+  additionalInfo: {
+    personCount: number
+    sticks: number
+    studySticks: number
+  }
   voucher: { discount: number }
   products: Product[]
 }

@@ -4,9 +4,11 @@ import { ProductsState } from 'types'
 
 export const initialState: ProductsState = {
   selectedProducts: [],
-  personCount: 1,
-  sticks: 0,
-  studySticks: 0,
+  additionalInfo: {
+    personCount: 1,
+    sticks: 0,
+    studySticks: 0,
+  },
   voucher: { discount: 1 },
   products: [],
 }
@@ -27,7 +29,15 @@ const productSlice = createSlice({
       if (index !== -1) {
         state.selectedProducts[index].count += count
       }
-
+    },
+    setPersonCount(state, action) {
+      state.additionalInfo.personCount += action.payload
+    },
+    setSticks(state, action) {
+      state.additionalInfo.sticks += action.payload
+    },
+    setStudySticks(state, action) {
+      state.additionalInfo.studySticks += action.payload
     },
     setSelectedProductCount(state, action) {
       const { id, count } = action.payload
@@ -35,31 +45,39 @@ const productSlice = createSlice({
       const index = state.selectedProducts.findIndex(
         (item) => item.product.id === id,
       )
-      if (index !== -1 ) {
+      if (index !== -1) {
         state.selectedProducts[index].count = count
       }
     },
     deleteSelectedProduct(state, action) {
-      const { id} = action.payload
+      const { id } = action.payload
       const index = state.selectedProducts.findIndex(
-        (item) => item.product.id === id
+        (item) => item.product.id === id,
       )
-    state.selectedProducts.splice(index, 1)
+      state.selectedProducts.splice(index, 1)
     },
-    eraseAfterOrder(state){
-      state.selectedProducts=[];
-
-    }
+    eraseAfterOrder(state) {
+      state.selectedProducts = []
+      state.additionalInfo.personCount = 1
+      state.additionalInfo.sticks = 0
+      state.additionalInfo.studySticks = 0
+    },
   },
   extraReducers: (builder) =>
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
       state.products = action.payload
-      state.personCount= 1;
-      state.sticks= 0;
-      state.studySticks= 0;
     }),
 })
 
-export const { addProduct, setProductCount, setSelectedProductCount, deleteSelectedProduct, eraseAfterOrder } = productSlice.actions
+export const {
+  addProduct,
+  setProductCount,
+  setSelectedProductCount,
+  deleteSelectedProduct,
+  eraseAfterOrder,
+  setPersonCount,
+  setSticks,
+  setStudySticks,
+} = productSlice.actions
 
 export default productSlice.reducer
