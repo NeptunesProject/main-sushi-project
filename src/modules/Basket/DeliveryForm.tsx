@@ -13,15 +13,17 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react'
-import { BasketTypes, ReturnedOrder } from '../../types'
+import { BasketTypes, ReturnedOrder, AppDispatch } from '../../types'
 import { ArrowBackIcon } from '@chakra-ui/icons'
 import InfoToPay from './InfoToPay'
 import {
   useBasketContext,
   useBasketDispatchContext,
 } from 'contexts/BasketContext'
-import { handleClick, makeOrder } from './makeOrderFuncs'
+import { handleClick, makeOrder } from './OrderFuncs'
 import { postVoucher } from 'api'
+import { useDispatch } from 'react-redux'
+import { eraseAfterOrder } from 'redux/products/ProductsSlice'
 
 const STRIPE_SK = import.meta.env.VITE_STRIPE_SECRET_KEY
 const BASE_URL = import.meta.env.VITE_APP_BASE_URL
@@ -33,7 +35,11 @@ interface Props {
 
 const getFromLocaleStorage = (key: string, defaultValue: string): string => {
   const storedValue = localStorage.getItem(key)
-  return storedValue ? JSON.parse(storedValue) : defaultValue
+  if (storedValue) {
+    return JSON.parse(storedValue)
+  }
+
+  return defaultValue
 }
 
 const DeliveryForm = ({ setSelectedBasketType, setOrderId }: Props) => {
@@ -51,7 +57,7 @@ const DeliveryForm = ({ setSelectedBasketType, setOrderId }: Props) => {
   )
 
   const [payment, setPayment] = useState(() =>
-    getFromLocaleStorage('paymentType', ''),
+    getFromLocaleStorage('paymentType', 'cash'),
   )
   const [voucherCode, setVoucherCode] = useState('')
 
@@ -68,8 +74,15 @@ const DeliveryForm = ({ setSelectedBasketType, setOrderId }: Props) => {
 
   useEffect(() => {
     setVoucher({ discount: voucher.discount, error: '' })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [setVoucher, voucher.discount])
+
+  function nullifyVoucher() {
+    setVoucherCode('')
+    setVoucher({
+      discount: 1,
+      error: '',
+    })
+  }
 
   async function createSession(order: ReturnedOrder) {
     try {
@@ -98,23 +111,6 @@ const DeliveryForm = ({ setSelectedBasketType, setOrderId }: Props) => {
     }
   }
 
-  /* 
-  ? 
-  async function checkSession() {
-    try {
-      const queryString = window.location.search
-      const urlParams = new URLSearchParams(queryString)
-      const sessionId = urlParams.get('session_id')
-      if (sessionId) {
-        const session = await stripe.checkout.sessions.retrieve(sessionId)
-        console.log('session.status >>> ', session.status)
-        console.log('session.payment_status >>> ', session.payment_status)
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  } */
-
   async function createOrder() {
     const order = await makeOrder(
       setSelectedBasketType,
@@ -130,7 +126,7 @@ const DeliveryForm = ({ setSelectedBasketType, setOrderId }: Props) => {
     handleClick(
       order.id,
       setSelectedBasketType,
-      setOrderId,
+      setOrderId as React.Dispatch<React.SetStateAction<number>>,
       setName,
       setPhoneNumber,
       setDeliveryType,
@@ -143,7 +139,10 @@ const DeliveryForm = ({ setSelectedBasketType, setOrderId }: Props) => {
     )
     if (order && order.paymentType === 'ONLINE') {
       createSession(order)
+      
     }
+    handleEraseCart();
+    nullifyVoucher();
   }
 
   async function validateVoucher() {
@@ -166,6 +165,42 @@ const DeliveryForm = ({ setSelectedBasketType, setOrderId }: Props) => {
     }
   }
 
+  function nameSetter(e: React.ChangeEvent<HTMLInputElement>) {
+    setName(e.target.value.trim())
+    localStorage.setItem(
+      'personInfo-Name',
+      JSON.stringify((e.target as HTMLInputElement).value.trim()),
+    )
+  }
+  function phoneSetter(e: React.ChangeEvent<HTMLInputElement>) {
+    setPhoneNumber((e.target as HTMLInputElement).value.trim())
+    localStorage.setItem(
+      'personInfo-Number',
+      JSON.stringify((e.target as HTMLInputElement).value.trim()),
+    )
+  }
+  function streetSetter(e: React.ChangeEvent<HTMLInputElement>) {
+    setStreet((e.target as HTMLInputElement).value.trim())
+    localStorage.setItem(
+      'personInfo-Street',
+      JSON.stringify((e.target as HTMLInputElement).value.trim()),
+    )
+  }
+
+  function deliverySetter(value: string) {
+    setDeliveryType(value)
+    localStorage.setItem('personInfo-Delivery', JSON.stringify(value))
+  }
+
+  function paymentSetter(value: string) {
+    setPayment(value)
+    localStorage.setItem('paymentType', JSON.stringify(value))
+  }
+
+  const dispatch = useDispatch<AppDispatch>()
+  const handleEraseCart = () => {
+    dispatch(eraseAfterOrder())
+  }
   return (
     <>
       <DrawerHeader
@@ -194,41 +229,17 @@ const DeliveryForm = ({ setSelectedBasketType, setOrderId }: Props) => {
             </Text>
 
             <Flex flexDir="column" gap={3} align="start" mb={4}>
-              <Input
-                value={name}
-                onInput={(e) => {
-                  setName((e.target as HTMLInputElement).value.trim())
-                  localStorage.setItem(
-                    'personInfo-Name',
-                    JSON.stringify((e.target as HTMLInputElement).value.trim()),
-                  )
-                }}
-                placeholder="name"
-              />
+              <Input value={name} onChange={nameSetter} placeholder="name" />
               <Input
                 value={phoneNumber}
-                onInput={(e) => {
-                  setPhoneNumber((e.target as HTMLInputElement).value.trim())
-                  localStorage.setItem(
-                    'personInfo-Number',
-                    JSON.stringify((e.target as HTMLInputElement).value.trim()),
-                  )
-                }}
+                onChange={phoneSetter}
                 type="tel"
                 placeholder="phone number"
               />
               {deliveryType === 'delivery' && (
                 <Input
                   value={street}
-                  onInput={(e) => {
-                    setStreet((e.target as HTMLInputElement).value.trim())
-                    localStorage.setItem(
-                      'personInfo-Street',
-                      JSON.stringify(
-                        (e.target as HTMLInputElement).value.trim(),
-                      ),
-                    )
-                  }}
+                  onChange={streetSetter}
                   type="text"
                   placeholder="street"
                 />
@@ -236,13 +247,7 @@ const DeliveryForm = ({ setSelectedBasketType, setOrderId }: Props) => {
             </Flex>
 
             <RadioGroup
-              onChange={(value) => {
-                setDeliveryType(value)
-                localStorage.setItem(
-                  'personInfo-Delivery',
-                  JSON.stringify(value),
-                )
-              }}
+              onChange={(value) => deliverySetter(value)}
               value={deliveryType}
             >
               <Stack direction="column">
@@ -255,14 +260,13 @@ const DeliveryForm = ({ setSelectedBasketType, setOrderId }: Props) => {
               Payment method:
             </Text>
             <RadioGroup
-              onChange={(value) => {
-                setPayment(value)
-                localStorage.setItem('paymentType', JSON.stringify(value))
-              }}
+              onChange={(value) => paymentSetter(value)}
               value={payment}
             >
               <Stack direction="column">
-                <Radio value="cash">Cash on delivery</Radio>
+                <Radio defaultChecked value="cash">
+                  Cash on delivery
+                </Radio>
                 <Radio value="terminal">Card on delivery</Radio>
                 <Radio value="online">Online</Radio>
               </Stack>
@@ -298,7 +302,7 @@ const DeliveryForm = ({ setSelectedBasketType, setOrderId }: Props) => {
                   borderColor="turquoise.77"
                   bg="none"
                   borderRadius={25}
-                  onClick={() => validateVoucher()}
+                  onClick={validateVoucher}
                 >
                   Apply
                 </Button>
@@ -309,13 +313,7 @@ const DeliveryForm = ({ setSelectedBasketType, setOrderId }: Props) => {
                   borderColor="turquoise.77"
                   bg="none"
                   borderRadius={25}
-                  onClick={() => {
-                    setVoucherCode('')
-                    setVoucher({
-                      discount: 1,
-                      error: '',
-                    })
-                  }}
+                  onClick={nullifyVoucher}
                 >
                   Cancel
                 </Button>
@@ -336,19 +334,6 @@ const DeliveryForm = ({ setSelectedBasketType, setOrderId }: Props) => {
           >
             Continue
           </Button>
-          {/* <Button
-            alignSelf="end"
-            w="60%"
-            border="2px solid"
-            borderColor="turquoise.77"
-            bg="none"
-            borderRadius={25}
-            onClick={() => {
-              checkSession()
-            }}
-          >
-            Check
-          </Button> */}
         </Flex>
       </DrawerBody>
     </>

@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import { store } from 'redux/store'
 
 enum Languages {
   en = 'EN',
@@ -20,13 +21,21 @@ interface Product {
   url: string
   img: string
   status: number
-  cityId: number
+  description: string
+  descriptionRu: string
+  descriptionEn: string
+  descriptionUa: string
   size: number
   sale: number
-  iikoId: string
   cartCount: number
   sort: number
   box: number
+  discount: {
+    id: number
+    discountPerQuantity: Record<string, string>
+    discountType: string
+    relationId: number
+  }
 }
 
 interface Category {
@@ -70,7 +79,7 @@ interface ReturnedOrder {
   studySticksCount: number
   deliveryType: string
   paymentType: string
-  statusType: 'CREATED' //temporaly because there is no information
+  statusType: 'CREATED'
 }
 
 type OrderToPost = Omit<ReturnedOrder, 'statusType' | 'id'>
@@ -92,7 +101,29 @@ interface ValidatedVoucher {
   discountPercentage: number
 }
 
+interface SelectedProduct {
+  product: Product
+  count: number
+}
+
+interface ProductsState {
+  selectedProducts: SelectedProduct[]
+  additionalInfo: {
+    personCount: number
+    sticks: number
+    studySticks: number
+  }
+  voucher: { discount: number }
+  products: Product[]
+}
+
+type RootState = {
+  product: ProductsState
+}
+
 type BasketTypes = 'basket' | 'delivery' | 'pay' | 'orderResponse'
+
+type AppDispatch = typeof store.dispatch
 
 export type {
   Languages,
@@ -106,4 +137,8 @@ export type {
   CartItem,
   Voucher,
   ValidatedVoucher,
+  AppDispatch,
+  ProductsState,
+  RootState,
+  SelectedProduct,
 }

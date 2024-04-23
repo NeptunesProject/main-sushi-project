@@ -72,7 +72,7 @@ const AppSidebar = () => {
           gap={1}
           flexDir="column"
           align="center"
-          key={category.name}
+          key={category.id}
           w={{ base: 77, lg: 105 }}
           cursor="pointer"
           role="group"

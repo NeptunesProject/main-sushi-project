@@ -1,10 +1,22 @@
 import { Box, Flex, Text } from '@chakra-ui/react'
 import { useBasketContext } from '../../contexts/BasketContext'
+import { selectBasketProducts } from 'redux/products/selectors'
+import { useSelector } from 'react-redux'
+import { useTotalPrice, useTotalWeight } from './InfoToPayHooks'
+import { calculateDiscountedPrice } from './OrderFuncs'
 
 const InfoToPay = () => {
-  const { totalPrice, totalWeight, voucher } = useBasketContext()
+  const { voucher } = useBasketContext()
+  const selectedProducts = useSelector(selectBasketProducts)
+  const totalPrice = useTotalPrice(selectedProducts, calculateDiscountedPrice)
+  const totalWeight = useTotalWeight(selectedProducts)
+
   const discountedPrice = totalPrice * voucher.discount
-  const isDiscounted = voucher.discount !== 1
+
+  let isVoucherActive = false
+  if (totalPrice !== 0 && voucher.discount !== 1) {
+    isVoucherActive = true
+  }
 
   return (
     <Flex w="100%" justify="space-between" align="end">
@@ -16,17 +28,18 @@ const InfoToPay = () => {
       </Box>
       <Flex flexBasis="50%" justify="space-between">
         <Text color="grey.200">Total price:</Text>
-        {isDiscounted && (
+        {isVoucherActive && (
           <Text color="blue.200" fontWeight={600}>
-            {Number(discountedPrice.toFixed(2))} zl
+            {Number(discountedPrice.toFixed(2))} zł
           </Text>
         )}
+
         <Text
           color="blue.200"
           fontWeight={600}
-          decoration={isDiscounted ? 'line-through' : 'none'}
+          decoration={isVoucherActive ? 'line-through' : 'none'}
         >
-          {Number(totalPrice.toFixed(2))} zl
+          {Number(totalPrice.toFixed(2))} zł
         </Text>
       </Flex>
     </Flex>

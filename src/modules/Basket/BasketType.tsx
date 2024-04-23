@@ -11,15 +11,16 @@ import {
 import ProductsList from './ProductsList/ProductsList'
 import AdditionalProducts from './AdditionalProducts'
 import InfoToPay from './InfoToPay'
-import { useBasketContext } from '../../contexts/BasketContext'
 import { BasketTypes } from 'types'
+import { useSelector } from 'react-redux'
+import { selectBasketProducts } from 'redux/products/selectors'
 
 interface Props {
   setSelectedBasketType: React.Dispatch<React.SetStateAction<BasketTypes>>
 }
 
 const BasketType = ({ setSelectedBasketType }: Props) => {
-  const { productsCount } = useBasketContext()
+  const products = useSelector(selectBasketProducts)
 
   return (
     <>
@@ -55,7 +56,7 @@ const BasketType = ({ setSelectedBasketType }: Props) => {
             borderColor="turquoise.77"
             bg="none"
             borderRadius={25}
-            isDisabled={productsCount === 0}
+            isDisabled={products.length === 0}
             onClick={() => setSelectedBasketType('delivery')}
           >
             Continue
