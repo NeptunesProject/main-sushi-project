@@ -31,8 +31,8 @@ const HomeContent = () => {
   }, [categories, isDataEmpty, isLoading, products])
 
   return (
-    <Container maxW="container.xl" pt={180} pb={4} w="100%" pos="relative">
-      <Container maxW="container.lg" w="85%">
+    <Container maxW="container.xl" pt="96px" w="100%" pos="relative">
+      <Container maxW="container.md" w="100%">
         <HomeSlider />
         {isLoading ? (
           <Center h={400}>

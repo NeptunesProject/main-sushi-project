@@ -1,4 +1,4 @@
-import { Box, Flex} from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react'
 import Logo from 'components/Logo'
 import NavBar from './NavBar'
 import LanguageSelect from './LanguageSelect'
@@ -15,13 +15,11 @@ const AppHeaderLg = () => {
       px="75px"
       py="8px"
     >
-      <Box >
-        <Logo/>
+      <Box>
+        <Logo />
       </Box>
       <NavBar />
-      <Flex alignItems="center" justify="space-between" 
-      gap="24px" 
->
+      <Flex alignItems="center" justify="space-between" gap="24px">
         <Place />
         <LanguageSelect />
       </Flex>
