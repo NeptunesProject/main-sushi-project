@@ -45,15 +45,21 @@ const productSlice = createSlice({
         (item) => item.product.id === id
       )
     state.selectedProducts.splice(index, 1)
-
     },
+    eraseAfterOrder(state){
+      state.selectedProducts=[];
+
+    }
   },
   extraReducers: (builder) =>
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
       state.products = action.payload
+      state.personCount= 1;
+      state.sticks= 0;
+      state.studySticks= 0;
     }),
 })
 
-export const { addProduct, setProductCount, setSelectedProductCount, deleteSelectedProduct } = productSlice.actions
+export const { addProduct, setProductCount, setSelectedProductCount, deleteSelectedProduct, eraseAfterOrder } = productSlice.actions
 
 export default productSlice.reducer
