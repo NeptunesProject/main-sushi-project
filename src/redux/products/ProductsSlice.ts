@@ -27,6 +27,25 @@ const productSlice = createSlice({
       if (index !== -1) {
         state.selectedProducts[index].count += count
       }
+
+    },
+    setSelectedProductCount(state, action) {
+      const { id, count } = action.payload
+
+      const index = state.selectedProducts.findIndex(
+        (item) => item.product.id === id,
+      )
+      if (index !== -1 ) {
+        state.selectedProducts[index].count = count
+      }
+    },
+    deleteSelectedProduct(state, action) {
+      const { id} = action.payload
+      const index = state.selectedProducts.findIndex(
+        (item) => item.product.id === id
+      )
+    state.selectedProducts.splice(index, 1)
+
     },
   },
   extraReducers: (builder) =>
@@ -35,6 +54,6 @@ const productSlice = createSlice({
     }),
 })
 
-export const { addProduct, setProductCount } = productSlice.actions
+export const { addProduct, setProductCount, setSelectedProductCount, deleteSelectedProduct } = productSlice.actions
 
 export default productSlice.reducer

@@ -1,17 +1,32 @@
-import { SelectedProduct } from 'types'
+import { SelectedProduct, AppDispatch} from 'types'
 import { Box, Flex, Image, Text } from '@chakra-ui/react'
 import stubImg from 'assets/img/stub.jpg'
 import CountButton from '../../../ui/CountButton'
 import closeIcon from 'assets/img/delete.svg'
 import { useBasketDispatchContext } from '../../../contexts/BasketContext'
+import { useDispatch } from 'react-redux'
+import { setSelectedProductCount, deleteSelectedProduct } from 'redux/products/ProductsSlice'
+
 
 interface Props {
   item: SelectedProduct
 }
 
 const ProductListItem = ({ item }: Props) => {
-  const { addProduct, removeProduct, deleteProduct, calculateDiscountedPrice } =
-    useBasketDispatchContext()
+  const { calculateDiscountedPrice } = useBasketDispatchContext()
+    let count: number = item.count
+    const itemId: number = item.product.id;
+   
+
+   
+    const dispatch = useDispatch<AppDispatch>()
+
+    const handleCount = (id: number, count: number) => {
+      dispatch(setSelectedProductCount({id, count}))
+    }
+    const handleDelete = (id: number) => {
+      dispatch(deleteSelectedProduct ({id}))
+    }
 
   const isDiscounted = Boolean(item.product.discount)
 
@@ -48,7 +63,12 @@ const ProductListItem = ({ item }: Props) => {
           <CountButton
             borderLeftRadius={20}
             borderRightRadius={5}
-            onClick={() => removeProduct(item.product)}
+            onClick={() => {
+              if(count>1){
+              count = count-1
+              handleCount(itemId, count)
+            }
+          }}
           >
             -
           </CountButton>
@@ -60,7 +80,9 @@ const ProductListItem = ({ item }: Props) => {
           <CountButton
             borderRightRadius={20}
             borderLeftRadius={5}
-            onClick={() => addProduct(item.product)}
+            onClick={() => {
+              count = count + 1
+              handleCount(itemId, count)}}
           >
             +
           </CountButton>
@@ -83,7 +105,7 @@ const ProductListItem = ({ item }: Props) => {
         <Image
           cursor="pointer"
           src={closeIcon}
-          onClick={() => deleteProduct(item.product)}
+          onClick={() => handleDelete(itemId)}
         />
       </Flex>
     </Flex>

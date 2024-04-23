@@ -15,7 +15,7 @@ import { AppDispatch } from 'types'
 
 const AppContainer = () => {
   const dispatch = useDispatch<AppDispatch>()
-
+  
   useEffect(() => {
     dispatch(fetchProducts())
   }, [dispatch])
