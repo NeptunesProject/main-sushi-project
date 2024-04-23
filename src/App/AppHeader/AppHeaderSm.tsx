@@ -1,4 +1,4 @@
-import { chakra, Box, Flex, useMediaQuery } from '@chakra-ui/react'
+import { chakra, Box, Flex } from '@chakra-ui/react'
 import Logo from 'components/Logo'
 import LanguageSelect from './LanguageSelect'
 import Place from './Place'
