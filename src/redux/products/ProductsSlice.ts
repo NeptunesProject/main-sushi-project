@@ -11,6 +11,7 @@ export const initialState: ProductsState = {
   },
   voucher: { discount: 1 },
   products: [],
+  isProductsLoading: false,
 }
 
 const productSlice = createSlice({
@@ -64,9 +65,14 @@ const productSlice = createSlice({
     },
   },
   extraReducers: (builder) =>
-    builder.addCase(fetchProducts.fulfilled, (state, action) => {
-      state.products = action.payload
-    }),
+    builder
+      .addCase(fetchProducts.fulfilled, (state, action) => {
+        state.products = action.payload
+        state.isProductsLoading = false
+      })
+      .addCase(fetchProducts.pending, (state) => {
+        state.isProductsLoading = true
+      }),
 })
 
 export const {

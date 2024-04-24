@@ -10,16 +10,19 @@ import DeliveryForm from './DeliveryForm'
 import { BasketTypes } from '../../types'
 import BasketType from './BasketType'
 import { useState } from 'react'
-import { useBasketContext } from '../../contexts/BasketContext'
 import { StatusForm } from './StatusForm'
 import PaymentMethod from './PaymentMethod'
+import { selectBasketProducts } from 'redux/products/selectors'
+import { useSelector } from 'react-redux'
 
 const Basket = () => {
   const [selectedBaketType, setSelectedBasketType] =
     useState<BasketTypes>('basket')
   const [orderId, setOrderId] = useState<number | undefined>()
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { productsCount } = useBasketContext()
+  const products = useSelector(selectBasketProducts)
+  const productsCount = products.length
+
   return (
     <>
       <Center

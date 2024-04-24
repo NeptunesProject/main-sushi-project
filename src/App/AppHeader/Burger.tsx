@@ -1,5 +1,5 @@
 import React from 'react'
-import burger from '../../assets/icons/burger.svg'
+import burger from '../../assets/icons/menu.svg'
 import close from '../../assets/icons/close.svg'
 import { Box, Image } from '@chakra-ui/react'
 

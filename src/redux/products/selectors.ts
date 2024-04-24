@@ -13,3 +13,6 @@ export const selectStudySticks = (state: RootState) =>
 
 export const selectPersonCount = (state: RootState) =>
   state.product.additionalInfo.personCount
+
+export const selectLoading = (state: RootState) =>
+  state.product.isProductsLoading

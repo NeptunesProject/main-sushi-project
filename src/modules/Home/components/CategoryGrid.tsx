@@ -20,11 +20,13 @@ const CategoryGrid = <T extends Product>({ title, products }: Props<T>) => {
         {title}
       </Heading>
 
-      <Flex flexWrap="wrap" 
-      rowGap="30px" 
-      justify={{ base: 'center', md: 'start' }}
-      justifyContent={"space-between"} 
-      alignItems="center">
+      <Flex
+        flexWrap="wrap"
+        rowGap="30px"
+        justify={{ base: 'center', md: 'start' }}
+        justifyContent={'space-between'}
+        alignItems="center"
+      >
         {products.map((product, idx) => (
           <ProductCard key={`product_${idx}`} product={product} />
         ))}

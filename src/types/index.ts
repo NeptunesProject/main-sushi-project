@@ -115,6 +115,7 @@ interface ProductsState {
   }
   voucher: { discount: number }
   products: Product[]
+  isProductsLoading: boolean
 }
 
 type RootState = {

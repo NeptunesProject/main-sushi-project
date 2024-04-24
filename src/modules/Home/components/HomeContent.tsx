@@ -3,12 +3,21 @@ import CategoryGrid from './CategoryGrid'
 import HomeSlider from './HomeSlider'
 import GratitudeNote from './GratitudeNote'
 import useProducts from 'hooks/useProducts'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import useCategories from '../../../hooks/useCategories'
 import ScrollToTopButton from 'modules/ScrollToTop/ui/ScrollToTop'
 import AppNavBar from 'App/AppNavBar'
+import { useDispatch } from 'react-redux'
+import { fetchProducts } from 'redux/products/operations'
+import { AppDispatch } from 'types'
 
 const HomeContent = () => {
+  const dispatch = useDispatch<AppDispatch>()
+
+  useEffect(() => {
+    dispatch(fetchProducts())
+  }, [dispatch])
+
   const { products, isProductsLoading } = useProducts()
   const { categories, isCategoriesLoading } = useCategories()
 

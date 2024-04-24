@@ -23,6 +23,7 @@ const ProductCard = ({ product }: Props) => {
   const [count, setCount] = useState(1)
   const [currentDiscount, setCurrentDiscount] = useState(1)
   const selectedProducts = useSelector(selectBasketProducts)
+  console.log(product)
 
   const index = selectedProducts.findIndex(
     (item) => item.product.id === product.id,
