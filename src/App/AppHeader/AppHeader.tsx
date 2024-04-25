@@ -4,7 +4,6 @@ import AppHeaderLg from './AppHeaderLg'
 import AppHeaderSm from './AppHeaderSm'
 
 const stickyStyle: CSSProperties = {
-  position: 'sticky',
   top: 0,
   zIndex: 1000,
   backgroundColor: 'white',
@@ -13,7 +12,7 @@ const stickyStyle: CSSProperties = {
 
 const AppHeader = () => {
   return (
-    <Container as="header" maxWidth="100%" style={stickyStyle}>
+    <Container pos="fixed" as="header" maxWidth="100%" style={stickyStyle}>
       <Box display={{ base: 'none', lg: 'block' }}>
         <AppHeaderLg />
       </Box>
