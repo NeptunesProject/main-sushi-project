@@ -5,7 +5,7 @@ import ListItem from 'ui/ListItem'
 const GratitudeNote = () => {
   return (
     <Container maxW="container.xl" w="100%" mb={10}>
-      <Flex
+      {/* <Flex
         flexDirection="column"
         align="center"
         gap={6}
@@ -34,7 +34,7 @@ const GratitudeNote = () => {
               <ListItem key={item}>{item}</ListItem>
             ))}
         </UnorderedList>
-      </Flex>
+      </Flex> */}
     </Container>
   )
 }

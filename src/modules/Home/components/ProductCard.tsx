@@ -1,5 +1,5 @@
 import { AppDispatch, Product } from 'types'
-import { Button, Flex, Image, Text } from '@chakra-ui/react'
+import { Button, Flex, Image, Text, useMediaQuery } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import basket from 'assets/icons/basket.svg'
@@ -18,6 +18,7 @@ interface Props {
 }
 
 const ProductCard = ({ product }: Props) => {
+  const [isLargerThan768] = useMediaQuery('(min-width: 768px)')
   const { calculateDiscountedPrice } = useBasketDispatchContext()
   const { products } = useBasketContext()
   const [count, setCount] = useState(1)
@@ -112,29 +113,36 @@ const ProductCard = ({ product }: Props) => {
       fontFamily="'Roboto', sans-serif"
       flexDir="column"
       alignItems="center"
-      w={300}
-      h={330}
+      w={isLargerThan768 ? 300 : 161}
+      h={isLargerThan768 ? 330 : 260}
       cursor="pointer"
       bg="white"
       borderRadius={10}
       boxShadow="1px 2px 10px rgba(0,0,0,.12)"
+      borderLeftRadius={10}
+      borderRightRadius={10}
+      overflow={'hidden'}
     >
       <Image
         fallback={<Image w="300px" h={152} borderRadius={3} src={sushiImg} />}
         onClick={() => navigate(`/product/${product.id}`)}
         w="300px"
+        h={isLargerThan768 ? 152 : 109}
         src={product.img}
-        borderLeftRadius={10}
       />
 
-      <Flex flexDir={'column'} gap="8px" p="16px" w="100%">
+      <Flex
+        flexDir={'column'}
+        gap="8px"
+        p={isLargerThan768 ? '16px' : '6px'}
+        w="100%"
+      >
         <Text
           onClick={() => navigate(`/product/${product.id}`)}
-          fontSize={20}
-          fontWeight={500}
+          fontSize={isLargerThan768 ? 20 : 16}
+          fontWeight={isLargerThan768 ? 500 : 600}
           letterSpacing=".35px"
           color="#002034"
-          whiteSpace="nowrap"
           fontFamily={'Rubik'}
         >
           {product.name}
@@ -154,7 +162,7 @@ const ProductCard = ({ product }: Props) => {
         <Flex align="center" gap="8px">
           <Text
             color="#002034"
-            fontSize={20}
+            fontSize={isLargerThan768 ? 20 : 16}
             fontWeight={500}
             decoration={isDiscounted ? 'line-through' : 'none'}
             fontFamily={'Rubik'}
@@ -178,7 +186,7 @@ const ProductCard = ({ product }: Props) => {
         {!isThisProductAdded ? (
           <Button
             w="100%"
-            h="40px"
+            h={isLargerThan768 ? '40px' : '36px'}
             justifyContent="center"
             gap="8px"
             bg="#002034"

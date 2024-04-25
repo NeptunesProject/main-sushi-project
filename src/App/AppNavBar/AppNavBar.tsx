@@ -52,7 +52,7 @@ const AppNavBar = () => {
       ref={sidebarRef}
       overflow={{ base: 'scroll', lg: 'hidden' }}
     >
-      <Flex w={{ base: 'unset', sm: '100%' }} justifyContent="space-evenly">
+      {/* <Flex w={{ base: 'unset', sm: '100%' }} justifyContent="space-evenly">
         {CATEGORY.map((category) => (
           <Flex
             flexDir="column"
@@ -76,7 +76,7 @@ const AppNavBar = () => {
             </Text>
           </Flex>
         ))}
-      </Flex>
+      </Flex> */}
     </Flex>
   )
 }

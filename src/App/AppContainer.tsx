@@ -16,7 +16,7 @@ const AppContainer = () => {
           <Box as="main" flex="1 0 auto">
             <Routes />
           </Box>
-          <AppFooter />
+          {/* <AppFooter /> */}
           <Box
             w={{ base: '100%', lg: 'auto' }}
             pos="fixed"
@@ -24,12 +24,12 @@ const AppContainer = () => {
             bottom={{ base: 0, lg: 'none' }}
             overflowX="scroll"
           ></Box>
-          <Box pos="fixed" top={327} right={0}>
+          {/* <Box pos="fixed" top={327} right={0}>
             <Basket />
           </Box>
           <Box pos="fixed" top={400} right={0}>
             <PhoneCall />
-          </Box>
+          </Box> */}
         </BasketProvider>
       </Flex>
     </AnimatedAppearance>
