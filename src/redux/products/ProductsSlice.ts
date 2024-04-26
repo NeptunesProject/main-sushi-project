@@ -9,7 +9,7 @@ export const initialState: ProductsState = {
     sticks: 0,
     studySticks: 0,
   },
-  voucher: { discount: 1 },
+  voucher: { discount: 1, error: '' },
   products: [],
   isProductsLoading: false,
 }
@@ -63,6 +63,10 @@ const productSlice = createSlice({
       state.additionalInfo.sticks = 0
       state.additionalInfo.studySticks = 0
     },
+    setVoucher(state, action) {
+      state.voucher = action.payload
+      console.log(state.voucher)
+    },
   },
   extraReducers: (builder) =>
     builder
@@ -84,6 +88,7 @@ export const {
   setPersonCount,
   setSticks,
   setStudySticks,
+  setVoucher,
 } = productSlice.actions
 
 export default productSlice.reducer

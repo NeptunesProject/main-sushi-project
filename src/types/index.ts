@@ -48,6 +48,11 @@ interface Category {
   img: string
 }
 
+interface ConstCategory extends Omit<Category, 'id' | 'url'> {
+  route: string
+  translateId: string
+}
+
 interface ChakraFactoryComponent {
   className?: string
   children?: ReactNode | ReactNode[]
@@ -80,6 +85,7 @@ interface ReturnedOrder {
   deliveryType: string
   paymentType: string
   statusType: 'CREATED'
+  code: string
 }
 
 type OrderToPost = Omit<ReturnedOrder, 'statusType' | 'id'>
@@ -113,7 +119,7 @@ interface ProductsState {
     sticks: number
     studySticks: number
   }
-  voucher: { discount: number }
+  voucher: { discount: number; error: string }
   products: Product[]
   isProductsLoading: boolean
 }
@@ -142,4 +148,5 @@ export type {
   ProductsState,
   RootState,
   SelectedProduct,
+  ConstCategory,
 }

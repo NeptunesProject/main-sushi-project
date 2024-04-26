@@ -13,18 +13,25 @@ import {
   Text,
   Textarea,
 } from '@chakra-ui/react'
-import { BasketTypes } from '../../types'
+import { AppDispatch, BasketTypes } from '../../types'
 import { ArrowBackIcon } from '@chakra-ui/icons'
 import InfoToPay from './InfoToPay'
-import {
-  useBasketContext,
-  useBasketDispatchContext,
-} from 'contexts/BasketContext'
 import Stripe from 'stripe'
 
 import { ReturnedOrder } from '../../types'
-import { handleClick, makeOrder } from './OrderFuncs'
+import { calculateDiscountedPrice, handleClick, makeOrder } from './OrderFuncs'
 import { postVoucher } from 'api'
+import { setVoucher } from 'redux/products/ProductsSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  selectBasketProducts,
+  selectPersonCount,
+  selectSticks,
+  selectStudySticks,
+  selectVoucher,
+} from 'redux/products/selectors'
+import { useTotalPrice } from './InfoToPayHooks'
+import { eraseAfterOrder } from 'redux/products/ProductsSlice'
 
 interface Props {
   setSelectedBasketType: React.Dispatch<React.SetStateAction<BasketTypes>>
@@ -32,7 +39,11 @@ interface Props {
 }
 
 const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
+  const dispatch = useDispatch<AppDispatch>()
+
   const [comment, setComment] = useState('')
+
+  const selectedProducts = useSelector(selectBasketProducts)
 
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value)
@@ -71,21 +82,19 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
   const [payment, setPayment] = useState(() =>
     getFromLocaleStorage('paymentType', ''),
   )
+
   const [voucherCode, setVoucherCode] = useState('')
 
-  const { personCount, sticks, studySticks, totalPrice, voucher } =
-    useBasketContext()
-  const {
-    setPersonCount,
-    setSticks,
-    clearProductList,
-    setStudySticks,
-    setVoucher,
-  } = useBasketDispatchContext()
+  const totalPrice = useTotalPrice(selectedProducts, calculateDiscountedPrice)
+
+  const personCount = useSelector(selectPersonCount)
+  const sticks = useSelector(selectSticks)
+  const studySticks = useSelector(selectStudySticks)
+  const voucher = useSelector(selectVoucher)
 
   useEffect(() => {
     setVoucher({ discount: voucher.discount, error: '' })
-  }, [])
+  }, [voucher])
 
   async function createSession(order: ReturnedOrder) {
     try {
@@ -126,6 +135,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
       studySticks,
       payment,
       comment,
+      voucherCode,
     )
     handleClick(
       order.id,
@@ -135,12 +145,9 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
       setPhoneNumber,
       setDeliveryType,
       setStreet,
-      setPersonCount as React.Dispatch<React.SetStateAction<number>>,
-      setSticks as React.Dispatch<React.SetStateAction<number>>,
-      clearProductList,
-      setStudySticks as React.Dispatch<React.SetStateAction<number>>,
-      setPayment,
+      setPayment as React.Dispatch<React.SetStateAction<string>>,
     )
+    dispatch(eraseAfterOrder())
     if (order && order.paymentType === 'ONLINE') {
       createSession(order)
     }
@@ -152,34 +159,40 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
       if (voucherCode !== '') {
         const result = await postVoucher(voucherCode)
         if (result) {
-          setVoucherCode('')
-          setVoucher({
-            discount: 1 - result.discountPercentage,
-            error: '',
-          })
+          setVoucherCode(result.code)
+          dispatch(
+            setVoucher({
+              discount: 1 - result.discountPercentage,
+              error: '',
+            }),
+          )
         }
       }
     } catch (error) {
       console.error(error)
       if (error === 'Voucher not found.') {
-        setVoucher({ discount: 1, error })
+        dispatch(setVoucher({ discount: 1, error }))
       }
     }
   }
 
   function nullifyVoucher() {
     setVoucherCode('')
-    setVoucher({
-      discount: 1,
-      error: '',
-    })
+    dispatch(
+      setVoucher({
+        discount: 1,
+        error: '',
+      }),
+    )
   }
 
   const CancelVoucher = () => {
-    setVoucher({
-      discount: 1,
-      error: '',
-    })
+    dispatch(
+      setVoucher({
+        discount: 1,
+        error: '',
+      }),
+    )
   }
 
   return (

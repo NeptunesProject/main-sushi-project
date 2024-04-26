@@ -15,6 +15,7 @@ interface IMakeOrder {
     studySticks: number,
     payment: string,
     commentary: string,
+    voucherCode: string,
   ): Promise<ReturnedOrder>
 }
 
@@ -24,10 +25,6 @@ interface IClearCard {
     setPhoneNumber: DispatchSetter<string>,
     setDeliveryType: DispatchSetter<string>,
     setStreet: DispatchSetter<string>,
-    setPersonCount: DispatchSetter<number>,
-    setSticks: DispatchSetter<number>,
-    clearProductList: () => void,
-    setStudySticks: DispatchSetter<number>,
     setPayment: DispatchSetter<string>,
   ): void
 }
@@ -41,10 +38,6 @@ interface IHandleClick {
     setPhoneNumber: DispatchSetter<string>,
     setDeliveryType: DispatchSetter<string>,
     setStreet: DispatchSetter<string>,
-    setPersonCount: DispatchSetter<number>,
-    setSticks: DispatchSetter<number>,
-    clearProductList: () => void,
-    setStudySticks: DispatchSetter<number>,
     setPayment: DispatchSetter<string>,
   ): void
 }
@@ -68,6 +61,7 @@ export const makeOrder: IMakeOrder = async (
   studySticks,
   payment,
   commentary,
+  voucherCode,
 ) => {
   setSelectedBasketType('delivery')
 
@@ -102,6 +96,7 @@ export const makeOrder: IMakeOrder = async (
       sticksCount: sticks,
       deliveryType: deliveryType.toUpperCase(),
       paymentType: payment.toUpperCase(),
+      code: voucherCode,
     })
 
     return order
@@ -116,20 +111,12 @@ export const clearCard: IClearCard = (
   setPhoneNumber,
   setDeliveryType,
   setStreet,
-  setPersonCount,
-  setSticks,
-  clearProductList,
-  setStudySticks,
   setPayment,
 ) => {
   setName('')
   setPhoneNumber('')
   setDeliveryType('pickup')
   setStreet('')
-  setPersonCount(1)
-  setSticks(0)
-  clearProductList()
-  setStudySticks(0)
   setPayment('')
 }
 
@@ -149,24 +136,10 @@ export const handleClick: IHandleClick = async (
   setPhoneNumber,
   setDeliveryType,
   setStreet,
-  setPersonCount,
-  setSticks,
-  clearProductList,
-  setStudySticks,
   setPayment,
 ) => {
   setOrderId(orderId)
-  clearCard(
-    setName,
-    setPhoneNumber,
-    setDeliveryType,
-    setStreet,
-    setPersonCount,
-    setSticks,
-    clearProductList,
-    setStudySticks,
-    setPayment,
-  )
+  clearCard(setName, setPhoneNumber, setDeliveryType, setStreet, setPayment)
   clearLocaleStorage()
   setSelectedBasketType('orderResponse')
 }

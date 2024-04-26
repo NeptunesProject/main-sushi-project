@@ -16,3 +16,5 @@ export const selectPersonCount = (state: RootState) =>
 
 export const selectLoading = (state: RootState) =>
   state.product.isProductsLoading
+
+export const selectVoucher = (state: RootState) => state.product.voucher

@@ -4,27 +4,22 @@ import { useNavigate } from 'react-router-dom'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import basket from 'assets/icons/basket.svg'
 import sushiImg from 'assets/img/SuhsiTestImg.jpg'
-import {
-  useBasketContext,
-  useBasketDispatchContext,
-} from 'contexts/BasketContext'
 import CountButton from 'ui/CountButton'
 import { useDispatch, useSelector } from 'react-redux'
 import { addProduct, setProductCount } from 'redux/products/ProductsSlice'
 import { selectBasketProducts } from 'redux/products/selectors'
+import { calculateDiscountedPrice } from 'modules/Basket/OrderFuncs'
 
 interface Props {
   product: Product
 }
 
 const ProductCard = ({ product }: Props) => {
+  const dispatch = useDispatch<AppDispatch>()
   const [isLargerThan768] = useMediaQuery('(min-width: 768px)')
-  const { calculateDiscountedPrice } = useBasketDispatchContext()
-  const { products } = useBasketContext()
   const [count, setCount] = useState(1)
   const [currentDiscount, setCurrentDiscount] = useState(1)
   const selectedProducts = useSelector(selectBasketProducts)
-  console.log(product)
 
   const index = selectedProducts.findIndex(
     (item) => item.product.id === product.id,
@@ -32,22 +27,17 @@ const ProductCard = ({ product }: Props) => {
 
   const navigate = useNavigate()
 
-  const dispatch = useDispatch<AppDispatch>()
-
   const handleAdd = (product: Product, count: number) => {
     dispatch(addProduct({ product, count }))
   }
 
   const isThisProductAdded = useMemo(() => {
     return selectedProducts.some((item) => item.product.id === product.id)
-  }, [selectedProducts])
+  }, [selectedProducts, product.id])
 
-  const findProductById = (id: number) => {
-    const product = products.find((item) => item.id === id)
-    return product ? product.count : 0
-  }
-
-  const quantity = findProductById(product.id)
+  const quantity = selectedProducts[index]?.count
+    ? selectedProducts[index].count
+    : 0
 
   const discountedPrice = calculateDiscountedPrice(
     product.price,
@@ -102,11 +92,11 @@ const ProductCard = ({ product }: Props) => {
         }
       }
     }
-  }, [count, quantity])
+  }, [count, quantity, product.discount])
 
   useEffect(() => {
     setDiscount()
-  }, [setDiscount, count])
+  }, [product, count, setDiscount])
 
   return (
     <Flex

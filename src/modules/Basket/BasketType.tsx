@@ -56,7 +56,7 @@ const BasketType = ({ setSelectedBasketType }: Props) => {
             borderColor="turquoise.77"
             bg="none"
             borderRadius={25}
-            isDisabled={products.length === 0}
+            isDisabled={!products.length}
             onClick={() => setSelectedBasketType('delivery')}
           >
             Continue

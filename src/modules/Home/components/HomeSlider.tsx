@@ -35,7 +35,7 @@ const HomeSlider = () => {
             Where Every Bite Tells a Story of Tradition and Innovation
           </Text>
           <Button
-            minWidth={isLargerThan768 ? 'max-content' : '343px'}
+            minWidth={isLargerThan768 ? 'max-content' : 'fit-content'}
             py={2}
             px={isLargerThan768 ? '4' : '2,5'}
             fontWeight={400}
@@ -44,7 +44,9 @@ const HomeSlider = () => {
           >
             <Flex gap="10px" alignItems="center">
               <Image src={gift} />
-              <Text as="span">Get 10% off when you pick up in person!</Text>
+              <Text as="p" whiteSpace={'break-spaces'}>
+                Get 10% off when you pick up in person!
+              </Text>
             </Flex>
           </Button>
         </Flex>

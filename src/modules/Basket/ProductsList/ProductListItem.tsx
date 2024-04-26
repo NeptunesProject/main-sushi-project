@@ -3,19 +3,18 @@ import { Box, Flex, Image, Text } from '@chakra-ui/react'
 import stubImg from 'assets/img/stub.jpg'
 import CountButton from '../../../ui/CountButton'
 import closeIcon from 'assets/icons/delete.svg'
-import { useBasketDispatchContext } from '../../../contexts/BasketContext'
 import { useDispatch } from 'react-redux'
 import {
   setSelectedProductCount,
   deleteSelectedProduct,
 } from 'redux/products/ProductsSlice'
+import { calculateDiscountedPrice } from '../OrderFuncs'
 
 interface Props {
   item: SelectedProduct
 }
 
 const ProductListItem = ({ item }: Props) => {
-  const { calculateDiscountedPrice } = useBasketDispatchContext()
   let count: number = item.count
   const itemId: number = item.product.id
 
@@ -25,8 +24,20 @@ const ProductListItem = ({ item }: Props) => {
     dispatch(setSelectedProductCount({ id, count }))
   }
 
-  const handleDelete = (id: number) => {
-    dispatch(deleteSelectedProduct({ id }))
+  const handleDelete = () => {
+    dispatch(deleteSelectedProduct({ itemId }))
+  }
+
+  const increaseCount = () => {
+    count = count + 1
+    handleCount(itemId, count)
+  }
+
+  const decreaseCount = () => {
+    if (count > 1) {
+      count = count - 1
+      handleCount(itemId, count)
+    }
   }
 
   const isDiscounted = Boolean(item.product.discount)
@@ -64,12 +75,7 @@ const ProductListItem = ({ item }: Props) => {
           <CountButton
             borderLeftRadius={20}
             borderRightRadius={5}
-            onClick={() => {
-              if (count > 1) {
-                count = count - 1
-                handleCount(itemId, count)
-              }
-            }}
+            onClick={decreaseCount}
           >
             -
           </CountButton>
@@ -81,10 +87,7 @@ const ProductListItem = ({ item }: Props) => {
           <CountButton
             borderRightRadius={20}
             borderLeftRadius={5}
-            onClick={() => {
-              count = count + 1
-              handleCount(itemId, count)
-            }}
+            onClick={increaseCount}
           >
             +
           </CountButton>
@@ -104,11 +107,7 @@ const ProductListItem = ({ item }: Props) => {
           {item.product.price * item.count} zł
         </Text>
 
-        <Image
-          cursor="pointer"
-          src={closeIcon}
-          onClick={() => handleDelete(itemId)}
-        />
+        <Image cursor="pointer" src={closeIcon} onClick={handleDelete} />
       </Flex>
     </Flex>
   )

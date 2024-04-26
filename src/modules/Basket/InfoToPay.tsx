@@ -1,12 +1,11 @@
 import { Box, Flex, Text } from '@chakra-ui/react'
-import { useBasketContext } from '../../contexts/BasketContext'
-import { selectBasketProducts } from 'redux/products/selectors'
+import { selectBasketProducts, selectVoucher } from 'redux/products/selectors'
 import { useSelector } from 'react-redux'
 import { useTotalPrice, useTotalWeight } from './InfoToPayHooks'
 import { calculateDiscountedPrice } from './OrderFuncs'
 
 const InfoToPay = () => {
-  const { voucher } = useBasketContext()
+  const voucher = useSelector(selectVoucher)
   const selectedProducts = useSelector(selectBasketProducts)
   const totalPrice = useTotalPrice(selectedProducts, calculateDiscountedPrice)
   const totalWeight = useTotalWeight(selectedProducts)
