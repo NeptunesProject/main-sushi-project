@@ -1,22 +1,22 @@
+import React, { useState } from 'react'
 import {
   Center,
-  Drawer,
-  DrawerContent,
   Image,
   useDisclosure,
+  Modal,
+  ModalContent,
+  ModalBody,
 } from '@chakra-ui/react'
 import basket from 'assets/icons/basket.svg'
 import DeliveryForm from './DeliveryForm'
 import { BasketTypes } from '../../types'
 import BasketType from './BasketType'
-import { useState } from 'react'
-import { StatusForm } from './StatusForm'
 import PaymentMethod from './PaymentMethod'
 import { selectBasketProducts } from 'redux/products/selectors'
 import { useSelector } from 'react-redux'
 
 const Basket = () => {
-  const [selectedBaketType, setSelectedBasketType] =
+  const [selectedBasketType, setSelectedBasketType] =
     useState<BasketTypes>('basket')
   const [orderId, setOrderId] = useState<number | undefined>()
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -51,36 +51,31 @@ const Basket = () => {
           </Center>
         )}
       </Center>
-      <Drawer
-        isOpen={isOpen}
-        placement="right"
-        onClose={onClose}
-        blockScrollOnMount={false}
-        isFullHeight={false}
-        autoFocus={false}
-        size="sm"
-      >
-        <DrawerContent>
-          {selectedBaketType === 'basket' && (
-            <BasketType setSelectedBasketType={setSelectedBasketType} />
-          )}
-          {selectedBaketType === 'delivery' && (
-            <DeliveryForm setSelectedBasketType={setSelectedBasketType} />
-          )}
-          {selectedBaketType === 'pay' && (
-            <PaymentMethod
-              setOrderId={setOrderId}
-              setSelectedBasketType={setSelectedBasketType}
-            />
-          )}
-          {selectedBaketType === 'orderResponse' && (
-            <StatusForm
-              orderId={orderId}
-              setSelectedBasketType={setSelectedBasketType}
-            />
-          )}
-        </DrawerContent>
-      </Drawer>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalContent
+          style={{
+            backgroundColor: '#FFFFFF',
+            position: 'absolute',
+            top: '169px',
+            right: '75px',
+          }}
+        >
+          <ModalBody>
+            {selectedBasketType === 'basket' && (
+              <BasketType setSelectedBasketType={setSelectedBasketType} />
+            )}
+            {selectedBasketType === 'delivery' && (
+              <DeliveryForm setSelectedBasketType={setSelectedBasketType} />
+            )}
+            {selectedBasketType === 'pay' && (
+              <PaymentMethod
+                setOrderId={setOrderId}
+                setSelectedBasketType={setSelectedBasketType}
+              />
+            )}
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </>
   )
 }
