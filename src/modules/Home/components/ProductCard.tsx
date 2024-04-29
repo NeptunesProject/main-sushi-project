@@ -17,6 +17,9 @@ interface Props {
 const ProductCard = ({ product }: Props) => {
   const dispatch = useDispatch<AppDispatch>()
   const [isLargerThan768] = useMediaQuery('(min-width: 768px)')
+  const [isLargerThan650] = useMediaQuery('(min-width: 650px)')
+  const [isLargerThan1258] = useMediaQuery('(min-width: 1253px)')
+  const [isLessThan325] = useMediaQuery('(max-width: 325px)')
   const [count, setCount] = useState(1)
   const [currentDiscount, setCurrentDiscount] = useState(1)
   const selectedProducts = useSelector(selectBasketProducts)
@@ -98,13 +101,22 @@ const ProductCard = ({ product }: Props) => {
     setDiscount()
   }, [product, count, setDiscount])
 
+  const flexBasis = useMemo(() => {
+    let items = 2
+    if (isLargerThan650) items = 3
+    if (isLargerThan768) items = 4
+    if (isLessThan325) items = 1
+
+    const indent = isLargerThan650 ? 30 : 20
+
+    return `calc((100% - ${indent}px * (${items} - 1)) / ${items})`
+  }, [isLargerThan650, isLargerThan768, isLessThan325])
+
   return (
     <Flex
       fontFamily="'Roboto', sans-serif"
       flexDir="column"
       alignItems="center"
-      w={isLargerThan768 ? 300 : 161}
-      h={isLargerThan768 ? 330 : 260}
       cursor="pointer"
       bg="white"
       borderRadius={10}
@@ -112,11 +124,12 @@ const ProductCard = ({ product }: Props) => {
       borderLeftRadius={10}
       borderRightRadius={10}
       overflow={'hidden'}
+      flexBasis={flexBasis}
     >
       <Image
-        fallback={<Image w="300px" h={152} borderRadius={3} src={sushiImg} />}
+        fallback={<Image h={152} borderRadius={3} src={sushiImg} />}
         onClick={() => navigate(`/product/${product.id}`)}
-        w="300px"
+        minWidth="288px"
         h={isLargerThan768 ? 152 : 109}
         src={product.img}
       />
@@ -134,6 +147,7 @@ const ProductCard = ({ product }: Props) => {
           letterSpacing=".35px"
           color="#002034"
           fontFamily={'Rubik'}
+          height={isLargerThan1258 ? 8 : 12}
         >
           {product.name}
         </Text>
@@ -195,7 +209,7 @@ const ProductCard = ({ product }: Props) => {
             <Text fontSize={16} fontWeight={400} fontFamily={'Rubik'}>
               Add to cart
             </Text>
-            <Image src={basket} h={22} w={19} />
+            <Image src={basket} h={22} />
           </Button>
         ) : (
           <Flex

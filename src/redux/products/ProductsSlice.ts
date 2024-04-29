@@ -65,7 +65,6 @@ const productSlice = createSlice({
     },
     setVoucher(state, action) {
       state.voucher = action.payload
-      console.log(state.voucher)
     },
   },
   extraReducers: (builder) =>

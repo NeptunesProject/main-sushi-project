@@ -42,13 +42,13 @@ const ProductListItem = ({ item }: Props) => {
 
   const isDiscounted = Boolean(item.product.discount)
 
-  const price = isDiscounted
-    ? calculateDiscountedPrice(
-        item.product.price,
-        item.product.discount.discountPerQuantity,
-        item.count,
-      )
-    : null
+  const price =
+    isDiscounted &&
+    calculateDiscountedPrice(
+      item.product.price,
+      item.product.discount.discountPerQuantity,
+      item.count,
+    )
 
   return (
     <Flex align="center" justify="space-between" w="100%" color="blue.200">

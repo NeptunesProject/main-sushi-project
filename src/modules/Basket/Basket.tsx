@@ -36,7 +36,7 @@ const Basket = () => {
         bgColor="#002034"
       >
         <Image boxSize="24px" src={basket} />
-        {productsCount ? (
+        {productsCount && (
           <Center
             pos="absolute"
             top="7.5px"
@@ -49,7 +49,7 @@ const Basket = () => {
           >
             {productsCount}
           </Center>
-        ) : null}
+        )}
       </Center>
       <Drawer
         isOpen={isOpen}
