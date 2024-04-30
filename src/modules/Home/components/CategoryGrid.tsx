@@ -37,9 +37,6 @@ const CategoryGrid = <T extends Product>({ title, products }: Props<T>) => {
         flexWrap="wrap"
         rowGap={isLargerThan768 ? '30px' : '19px'}
         columnGap={isLargerThan768 ? '30px' : '20px'}
-        // justify={{ base: 'center', md: 'start' }}
-        // alignContent="center"
-        // justifyContent={'flex-start'}
       >
         {products.map((product, idx) => (
           <ProductCard key={`product_${idx}`} product={product} />

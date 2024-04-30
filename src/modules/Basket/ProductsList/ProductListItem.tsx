@@ -1,7 +1,10 @@
 import { SelectedProduct, AppDispatch } from 'types'
 import { Box, Flex, Image, Text } from '@chakra-ui/react'
 import stubImg from 'assets/img/stub.jpg'
-import CountButton from '../../../ui/CountButton'
+import {
+  CountButtonBasketInc,
+  CountButtonBasketDec,
+} from '../../../ui/CountButton'
 import closeIcon from 'assets/icons/delete.svg'
 import { useDispatch } from 'react-redux'
 import {
@@ -51,62 +54,115 @@ const ProductListItem = ({ item }: Props) => {
     )
 
   return (
-    <Flex align="center" justify="space-between" w="100%" color="blue.200">
-      <Flex gap={2} align="center">
+    <Flex
+      align="center"
+      justify="space-between"
+      w="100%"
+      color="blue.200"
+      backgroundColor={'#ECECF5'}
+      borderRadius={'9px'}
+    >
+      <Flex gap={3} align="center">
         <Image
           src={item.product.img}
-          boxSize={12}
-          fallback={<Image boxSize={12} src={stubImg} />}
+          width={'69px'}
+          height={'92px'}
+          // boxSize={12}
+          fallback={<Image boxSize={19} src={stubImg} />}
+          overflow={'hidden'}
+          borderLeftRadius={'9px'}
         />
-
-        <Box>
-          <Text maxW={130} fontSize={14} lineHeight="14px" fontWeight={600}>
-            {item.product.name}
-          </Text>
-          <Text fontSize={13}>
-            {Number(item.product.weight * item.count).toFixed(2)} gram /{' '}
-            {item.product.size * item.count} шт.
-          </Text>
-        </Box>
-      </Flex>
-
-      <Flex align="center" gap={3}>
-        <Flex align="center" gap={2}>
-          <CountButton
-            borderLeftRadius={20}
-            borderRightRadius={5}
-            onClick={decreaseCount}
-          >
-            -
-          </CountButton>
-
-          <Text fontSize={12} fontWeight={600}>
-            {item.count}
-          </Text>
-
-          <CountButton
-            borderRightRadius={20}
-            borderLeftRadius={5}
-            onClick={increaseCount}
-          >
-            +
-          </CountButton>
+        <Flex gap={'8px'}>
+          <Box>
+            <Text
+              maxW={130}
+              fontSize={16}
+              lineHeight="24px"
+              fontWeight={400}
+              fontFamily={'Rubik'}
+              color={'#002034'}
+              fontStyle={'normal'}
+            >
+              {item.product.name}
+            </Text>
+            <Text
+              fontSize={14}
+              fontFamily={'Rubik'}
+              fontStyle={'normal'}
+              fontWeight={400}
+              lineHeight="21px"
+              color={'#9090A4'}
+            >
+              {Number(item.product.weight * item.count).toFixed(2)} gram /{' '}
+              {item.product.size * item.count} шт.
+            </Text>
+            <Flex>
+              <Text
+                fontSize={'16px'}
+                minW={10}
+                fontWeight={400}
+                // decoration={isDiscounted ? 'line-through' : 'none'}
+                lineHeight={'24px'}
+                color={'#002034'}
+                fontFamily={'Rubik'}
+              >
+                {item.product.price * item.count} zł
+              </Text>
+              {/* {price && (
+              <Text
+                minW={10}
+                fontSize={'16px'}
+                fontWeight={400}
+                lineHeight={'24px'}
+                color={'#002034'}
+                fontFamily={'Rubik'}
+              >
+                {price * item.count} zł
+              </Text>
+            )} */}
+            </Flex>
+          </Box>
         </Flex>
 
-        {price && (
-          <Text minW={10} fontWeight={600}>
-            {price * item.count} zł
-          </Text>
-        )}
+        <Flex align="center" gap={3} mr={'16px'}>
+          <Flex
+            align="center"
+            gap={2}
+            backgroundColor={'#FFFFFF'}
+            overflow={'hidden'}
+            borderRightRadius={5}
+            borderLeftRadius={5}
+            borderColor={'#B7B7B7'}
+            borderWidth={'1px'}
+          >
+            <CountButtonBasketDec
+              borderLeftRadius={5}
+              borderRightRadius={5}
+              onClick={decreaseCount}
+            >
+              -
+            </CountButtonBasketDec>
 
-        <Text
-          minW={10}
-          fontWeight={600}
-          decoration={isDiscounted ? 'line-through' : 'none'}
-        >
-          {item.product.price * item.count} zł
-        </Text>
+            <Text
+              fontSize={16}
+              fontWeight={400}
+              fontFamily={'Rubik'}
+              lineHeight={'24px'}
+              color={'#002034'}
+              fontStyle={'normal'}
+            >
+              {item.count}
+            </Text>
 
+            <CountButtonBasketInc
+              borderRightRadius={5}
+              borderLeftRadius={5}
+              onClick={increaseCount}
+            >
+              +
+            </CountButtonBasketInc>
+          </Flex>
+        </Flex>
         <Image cursor="pointer" src={closeIcon} onClick={handleDelete} />
       </Flex>
     </Flex>

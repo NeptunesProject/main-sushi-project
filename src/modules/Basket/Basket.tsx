@@ -58,9 +58,15 @@ const Basket = () => {
             position: 'absolute',
             top: '169px',
             right: '75px',
+            maxWidth: '410px',
+            borderRadius: '16px',
+            paddingLeft: '12px',
+            paddingRight: '12px',
+            paddingTop: '15px',
+            paddingBottom: '15px',
           }}
         >
-          <ModalBody>
+          <ModalBody pl={'0px'} pt={'0px'} pr={'0px'} pb={'0px'}>
             {selectedBasketType === 'basket' && (
               <BasketType setSelectedBasketType={setSelectedBasketType} />
             )}

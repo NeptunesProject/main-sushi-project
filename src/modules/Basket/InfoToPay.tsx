@@ -3,14 +3,15 @@ import { selectBasketProducts, selectVoucher } from 'redux/products/selectors'
 import { useSelector } from 'react-redux'
 import { useTotalPrice, useTotalWeight } from './InfoToPayHooks'
 import { calculateDiscountedPrice } from './OrderFuncs'
+import { calculateTotalPrice } from 'utils/calculateDiscountedPrice'
 
 const InfoToPay = () => {
   const voucher = useSelector(selectVoucher)
   const selectedProducts = useSelector(selectBasketProducts)
-  const totalPrice = useTotalPrice(selectedProducts, calculateDiscountedPrice)
   const totalWeight = useTotalWeight(selectedProducts)
-
-  const discountedPrice = totalPrice * voucher.discount
+  const totalPrice = calculateTotalPrice(selectedProducts)
+  //  const totalPriceWithDiscount = useTotalPrice(selectedProducts, calculateDiscountedPrice)
+  // const discountedPriceWithVoucher = totalPrice * voucher.discount
 
   let isVoucherActive = false
   if (totalPrice !== 0 && voucher.discount !== 1) {
@@ -18,21 +19,24 @@ const InfoToPay = () => {
   }
 
   return (
-    <Flex w="100%" justify="space-between" align="end">
-      <Box>
+    <Flex direction="column" w="100%" justify="space-between" align="end">
+      {/* <Box>
         <Text color="grey.200">Total weight:</Text>
         <Text color="blue.200" fontWeight={600}>
           {Number(totalWeight.toFixed(2))} gram
         </Text>
-      </Box>
-      <Flex flexBasis="50%" justify="space-between">
-        <Text color="grey.200">Total price:</Text>
-        {isVoucherActive && (
-          <Text color="blue.200" fontWeight={600}>
-            {Number(discountedPrice.toFixed(2))} zł
-          </Text>
-        )}
-
+      </Box> */}
+      <Flex dir="column" justify="space-between">
+        <Text
+          color="#9090A4"
+          fontFamily={'Rubik'}
+          fontStyle={'normal'}
+          fontWeight={'500'}
+          fontSize={'16px'}
+          lineHeight={'24px'}
+        >
+          Discount:
+        </Text>
         <Text
           color="blue.200"
           fontWeight={600}
@@ -40,6 +44,13 @@ const InfoToPay = () => {
         >
           {Number(totalPrice.toFixed(2))} zł
         </Text>
+
+        <Text color="grey.200">Total:</Text>
+        {isVoucherActive && (
+          <Text color="blue.200" fontWeight={600}>
+            {Number(totalPrice.toFixed(2))} zł
+          </Text>
+        )}
       </Flex>
     </Flex>
   )

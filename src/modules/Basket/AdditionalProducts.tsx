@@ -1,5 +1,5 @@
 import { Flex, Text } from '@chakra-ui/react'
-import CountButton from '../../ui/CountButton'
+import { CountButton } from '../../ui/CountButton'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   selectPersonCount,

@@ -1,6 +1,6 @@
 import { Button, chakra } from '@chakra-ui/react'
 
-const CountButton = chakra(Button, {
+export const CountButton = chakra(Button, {
   baseStyle: {
     bg: 'turquoise.77',
     borderLeftRadius: 20,
@@ -11,4 +11,38 @@ const CountButton = chakra(Button, {
   },
 })
 
-export default CountButton
+export const CountButtonBasketDec = chakra(Button, {
+  baseStyle: {
+    bg: '#FFFFFF',
+    h: 10,
+    width: 7,
+    pl: '0px',
+    pr: '8px',
+    pt: '12px',
+    pb: '12px',
+    fontSize: '16px',
+    fontWeight: '400',
+    fontFamily: 'Rubik',
+    lineHeight: '24px',
+    color: '#002034',
+    fontStyle: 'normal',
+  },
+})
+
+export const CountButtonBasketInc = chakra(Button, {
+  baseStyle: {
+    bg: '#FFFFFF',
+    h: 10,
+    width: 7,
+    pr: '0px',
+    pl: '8px',
+    pt: '12px',
+    pb: '12px',
+    fontSize: '16px',
+    fontWeight: '400',
+    fontFamily: 'Rubik',
+    lineHeight: '24px',
+    color: '#002034',
+    fontStyle: 'normal',
+  },
+})

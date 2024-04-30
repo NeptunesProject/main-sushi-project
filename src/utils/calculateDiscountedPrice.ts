@@ -1,3 +1,5 @@
+import { SelectedProduct } from 'types'
+
 export const calculateDiscountedPrice = (
   price: number,
   discounts: Record<number, string>,
@@ -17,4 +19,8 @@ export const calculateDiscountedPrice = (
   }
 
   return price * (1 - discount)
+}
+
+export function calculateTotalPrice(products: SelectedProduct[]): number {
+  return products.reduce((total, product) => total + product.product.price, 0)
 }
