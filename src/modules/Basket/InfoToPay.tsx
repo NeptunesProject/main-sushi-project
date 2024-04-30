@@ -10,23 +10,30 @@ const InfoToPay = () => {
   const selectedProducts = useSelector(selectBasketProducts)
   const totalWeight = useTotalWeight(selectedProducts)
   const totalPrice = calculateTotalPrice(selectedProducts)
-  //  const totalPriceWithDiscount = useTotalPrice(selectedProducts, calculateDiscountedPrice)
+  const totalPriceWithDiscount = useTotalPrice(
+    selectedProducts,
+    calculateDiscountedPrice,
+  )
   // const discountedPriceWithVoucher = totalPrice * voucher.discount
 
   let isVoucherActive = false
+  let isDiscounted = false
+
+  if (totalPrice - totalPriceWithDiscount > 0) isDiscounted = true
+
   if (totalPrice !== 0 && voucher.discount !== 1) {
     isVoucherActive = true
   }
 
   return (
-    <Flex direction="column" w="100%" justify="space-between" align="end">
+    <Flex direction="column">
       {/* <Box>
         <Text color="grey.200">Total weight:</Text>
         <Text color="blue.200" fontWeight={600}>
           {Number(totalWeight.toFixed(2))} gram
         </Text>
       </Box> */}
-      <Flex dir="column" justify="space-between">
+      <Flex alignSelf={'center'}>
         <Text
           color="#9090A4"
           fontFamily={'Rubik'}
@@ -37,6 +44,26 @@ const InfoToPay = () => {
         >
           Discount:
         </Text>
+        {/* <Text
+          color="blue.200"
+          fontWeight={600}
+          decoration={isVoucherActive ? 'line-through' : 'none'}
+        >
+          {Number(totalPrice.toFixed(2))} zł
+        </Text> */}
+      </Flex>
+
+      <Flex alignSelf={'center'}>
+        <Text
+          color="#002034"
+          fontFamily={'Rubik'}
+          fontStyle={'normal'}
+          fontWeight={'500'}
+          fontSize={'16px'}
+          lineHeight={'24px'}
+        >
+          Total:
+        </Text>
         <Text
           color="blue.200"
           fontWeight={600}
@@ -44,13 +71,11 @@ const InfoToPay = () => {
         >
           {Number(totalPrice.toFixed(2))} zł
         </Text>
-
-        <Text color="grey.200">Total:</Text>
-        {isVoucherActive && (
+        {/* {isVoucherActive && (
           <Text color="blue.200" fontWeight={600}>
             {Number(totalPrice.toFixed(2))} zł
           </Text>
-        )}
+        )} */}
       </Flex>
     </Flex>
   )
