@@ -22,5 +22,9 @@ export const calculateDiscountedPrice = (
 }
 
 export function calculateTotalPrice(products: SelectedProduct[]): number {
-  return products.reduce((total, product) => total + product.product.price, 0)
+  return products.reduce(
+    (total, selectedProduct) =>
+      total + selectedProduct.product.price * selectedProduct.count,
+    0,
+  )
 }

@@ -64,6 +64,7 @@ const BasketType = ({ setSelectedBasketType }: Props) => {
           lineHeight={'24px'}
           fontFamily={'Rubik'}
           fontStyle={'normal'}
+          mt={'9px'}
         >
           Checkout
         </Button>

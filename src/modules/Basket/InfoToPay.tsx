@@ -14,16 +14,25 @@ const InfoToPay = () => {
     selectedProducts,
     calculateDiscountedPrice,
   )
-  // const discountedPriceWithVoucher = totalPrice * voucher.discount
 
-  let isVoucherActive = false
   let isDiscounted = false
 
   if (totalPrice - totalPriceWithDiscount > 0) isDiscounted = true
 
+  const priceWithVoucher = isDiscounted
+    ? totalPriceWithDiscount * voucher.discount
+    : totalPrice * voucher.discount
+
+  let isVoucherActive = false
+
   if (totalPrice !== 0 && voucher.discount !== 1) {
     isVoucherActive = true
   }
+
+  let discount = 0
+
+  if (isVoucherActive) discount = totalPrice - priceWithVoucher
+  else if (isDiscounted) discount = totalPrice - totalPriceWithDiscount
 
   return (
     <Flex direction="column">
@@ -33,25 +42,31 @@ const InfoToPay = () => {
           {Number(totalWeight.toFixed(2))} gram
         </Text>
       </Box> */}
-      <Flex alignSelf={'center'}>
-        <Text
-          color="#9090A4"
-          fontFamily={'Rubik'}
-          fontStyle={'normal'}
-          fontWeight={'500'}
-          fontSize={'16px'}
-          lineHeight={'24px'}
-        >
-          Discount:
-        </Text>
-        {/* <Text
-          color="blue.200"
-          fontWeight={600}
-          decoration={isVoucherActive ? 'line-through' : 'none'}
-        >
-          {Number(totalPrice.toFixed(2))} zł
-        </Text> */}
-      </Flex>
+      {(isVoucherActive || isDiscounted) && (
+        <Flex alignSelf={'center'}>
+          <Text
+            color="#9090A4"
+            fontFamily={'Rubik'}
+            fontStyle={'normal'}
+            fontWeight={'500'}
+            fontSize={'16px'}
+            lineHeight={'24px'}
+            pr={'9px'}
+          >
+            Discount:
+          </Text>
+          <Text
+            color="#9090A4"
+            fontFamily={'Rubik'}
+            fontStyle={'normal'}
+            fontWeight={'400'}
+            fontSize={'16px'}
+            lineHeight={'24px'}
+          >
+            {Number(discount.toFixed(2))} zł
+          </Text>
+        </Flex>
+      )}
 
       <Flex alignSelf={'center'}>
         <Text
@@ -61,21 +76,38 @@ const InfoToPay = () => {
           fontWeight={'500'}
           fontSize={'16px'}
           lineHeight={'24px'}
+          pr={'5px'}
         >
           Total:
         </Text>
         <Text
-          color="blue.200"
-          fontWeight={600}
-          decoration={isVoucherActive ? 'line-through' : 'none'}
+          fontFamily={'Rubik'}
+          color={isVoucherActive || isDiscounted ? '#9090A4' : '#002034'}
+          fontWeight={400}
+          decoration={isVoucherActive || isDiscounted ? 'line-through' : 'none'}
+          fontSize={'16px'}
+          lineHeight={'24px'}
+          pr={'5px'}
         >
           {Number(totalPrice.toFixed(2))} zł
         </Text>
-        {/* {isVoucherActive && (
+        {isVoucherActive && (
           <Text color="blue.200" fontWeight={600}>
-            {Number(totalPrice.toFixed(2))} zł
+            {Number(priceWithVoucher.toFixed(2))} zł
           </Text>
-        )} */}
+        )}
+        {isDiscounted && (
+          <Text
+            fontFamily={'Rubik'}
+            color={'#002034'}
+            fontWeight={400}
+            decoration={'none'}
+            fontSize={'16px'}
+            lineHeight={'24px'}
+          >
+            {Number(priceWithVoucher.toFixed(2))} zł
+          </Text>
+        )}
       </Flex>
     </Flex>
   )
