@@ -14,7 +14,7 @@ export const CountButton = chakra(Button, {
 export const CountButtonBasketDec = chakra(Button, {
   baseStyle: {
     bg: '#FFFFFF',
-    h: 10,
+    h: 9,
     width: 7,
     pl: '0px',
     pr: '8px',
@@ -32,7 +32,7 @@ export const CountButtonBasketDec = chakra(Button, {
 export const CountButtonBasketInc = chakra(Button, {
   baseStyle: {
     bg: '#FFFFFF',
-    h: 10,
+    h: 9,
     width: 7,
     pr: '0px',
     pl: '8px',

@@ -6,7 +6,6 @@ import {
   DrawerCloseButton,
   DrawerHeader,
   Flex,
-  Input,
   Radio,
   RadioGroup,
   Stack,
@@ -20,7 +19,6 @@ import Stripe from 'stripe'
 
 import { ReturnedOrder } from '../../types'
 import { calculateDiscountedPrice, handleClick, makeOrder } from './OrderFuncs'
-import { postVoucher } from 'api'
 import { setVoucher } from 'redux/products/ProductsSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import {
@@ -47,10 +45,6 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
 
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value)
-  }
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setVoucherCode(e.target.value)
   }
 
   const STRIPE_SK = import.meta.env.VITE_STRIPE_SECRET_KEY
@@ -82,8 +76,6 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
   const [payment, setPayment] = useState(() =>
     getFromLocaleStorage('paymentType', ''),
   )
-
-  const [voucherCode, setVoucherCode] = useState('')
 
   const totalPrice = useTotalPrice(selectedProducts, calculateDiscountedPrice)
 
@@ -154,39 +146,8 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
     nullifyVoucher()
   }
 
-  async function validateVoucher() {
-    try {
-      if (voucherCode !== '') {
-        const result = await postVoucher(voucherCode)
-        if (result) {
-          setVoucherCode(result.code)
-          dispatch(
-            setVoucher({
-              discount: 1 - result.discountPercentage,
-              error: '',
-            }),
-          )
-        }
-      }
-    } catch (error) {
-      console.error(error)
-      if (error === 'Voucher not found.') {
-        dispatch(setVoucher({ discount: 1, error }))
-      }
-    }
-  }
-
   function nullifyVoucher() {
     setVoucherCode('')
-    dispatch(
-      setVoucher({
-        discount: 1,
-        error: '',
-      }),
-    )
-  }
-
-  const CancelVoucher = () => {
     dispatch(
       setVoucher({
         discount: 1,
@@ -239,37 +200,6 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
               value={comment}
               onChange={handleTextareaChange}
             />
-
-            <Input
-              variant="flushed"
-              placeholder="Enter voucher code"
-              mt={5}
-              px={1.5}
-              value={voucherCode}
-              onChange={handleInputChange}
-            />
-
-            {voucher.discount === 1 ? (
-              <Flex alignItems="center" justifyContent="flex-end">
-                {voucher.error !== '' && (
-                  <Text color="red.400" float={'right'} m={2}>
-                    {voucher.error}
-                  </Text>
-                )}
-                <Button float={'right'} m={2} onClick={validateVoucher}>
-                  Validate voucher
-                </Button>
-              </Flex>
-            ) : (
-              <Flex alignItems="center" justifyContent="flex-end">
-                <Button m={2} onClick={CancelVoucher}>
-                  Remove voucher
-                </Button>
-                <Text m={2} fontWeight={'bold'}>
-                  Applied discount {Math.round((1 - voucher.discount) * 100)}%
-                </Text>
-              </Flex>
-            )}
           </Box>
 
           <InfoToPay />

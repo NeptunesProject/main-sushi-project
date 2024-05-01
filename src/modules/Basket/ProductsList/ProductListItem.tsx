@@ -11,7 +11,6 @@ import {
   setSelectedProductCount,
   deleteSelectedProduct,
 } from 'redux/products/ProductsSlice'
-import { calculateDiscountedPrice } from '../OrderFuncs'
 
 interface Props {
   item: SelectedProduct
@@ -43,16 +42,6 @@ const ProductListItem = ({ item }: Props) => {
     }
   }
 
-  const isDiscounted = Boolean(item.product.discount)
-
-  const price =
-    isDiscounted &&
-    calculateDiscountedPrice(
-      item.product.price,
-      item.product.discount.discountPerQuantity,
-      item.count,
-    )
-
   return (
     <Flex
       align="center"
@@ -67,7 +56,6 @@ const ProductListItem = ({ item }: Props) => {
           src={item.product.img}
           width={'69px'}
           height={'92px'}
-          // boxSize={12}
           fallback={<Image boxSize={19} src={stubImg} />}
           overflow={'hidden'}
           borderLeftRadius={'9px'}
@@ -101,30 +89,17 @@ const ProductListItem = ({ item }: Props) => {
                 fontSize={'16px'}
                 minW={10}
                 fontWeight={400}
-                // decoration={isDiscounted ? 'line-through' : 'none'}
                 lineHeight={'24px'}
                 color={'#002034'}
                 fontFamily={'Rubik'}
               >
                 {item.product.price * item.count} zł
               </Text>
-              {/* {price && (
-              <Text
-                minW={10}
-                fontSize={'16px'}
-                fontWeight={400}
-                lineHeight={'24px'}
-                color={'#002034'}
-                fontFamily={'Rubik'}
-              >
-                {price * item.count} zł
-              </Text>
-            )} */}
             </Flex>
           </Box>
         </Flex>
 
-        <Flex align="center" gap={3} mr={'16px'}>
+        <Flex align="center" gap={3} mr={'6px'}>
           <Flex
             align="center"
             gap={2}

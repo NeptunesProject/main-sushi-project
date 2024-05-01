@@ -2,19 +2,17 @@ import React, { useState } from 'react'
 import {
   Box,
   Button,
-  DrawerBody,
   DrawerCloseButton,
-  DrawerHeader,
   Flex,
-  Input,
   Radio,
   RadioGroup,
   Stack,
   Text,
 } from '@chakra-ui/react'
 import { BasketTypes } from '../../types'
-import { ArrowBackIcon } from '@chakra-ui/icons'
 import InfoToPay from './InfoToPay'
+import { BasketInput } from 'components/BasketInput'
+import AdditionalProducts from './AdditionalProducts'
 
 interface Props {
   setSelectedBasketType: React.Dispatch<React.SetStateAction<BasketTypes>>
@@ -42,7 +40,9 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
   const [street, setStreet] = useState(() =>
     getFromLocaleStorage('personInfo-Street', ''),
   )
-
+  const [email, setEmail] = useState(() =>
+    getFromLocaleStorage('personInfo-Email', ''),
+  )
   const getDisabledState = () => {
     let isDisabled = false
 
@@ -87,78 +87,147 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
     localStorage.setItem('personInfo-Delivery', JSON.stringify(value))
   }
 
+  function emailSetter(e: React.ChangeEvent<HTMLInputElement>) {
+    setEmail(e.target.value.trim())
+    localStorage.setItem(
+      'personInfo-Email',
+      JSON.stringify((e.target as HTMLInputElement).value.trim()),
+    )
+  }
   return (
     <>
-      <DrawerHeader
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-      >
+      <Flex justifyContent="space-between" alignItems="center">
         <Text
-          cursor="pointer"
-          onClick={() => setSelectedBasketType('basket')}
-          fontSize={15}
+          fontSize={'24px'}
+          fontFamily={'Rubik'}
+          fontStyle={'normal'}
+          fontWeight={'600'}
+          lineHeight={'36px'}
+          color={'#002034'}
         >
-          <ArrowBackIcon /> back{' '}
+          Order Details
         </Text>
         <DrawerCloseButton pos="static" />
-      </DrawerHeader>
-      <DrawerBody color="blue.200" pr="2">
-        <Flex flexDir="column" gap={5}>
-          <Text fontSize={18} fontWeight={600} mb={5}>
-            Confirm order
-          </Text>
+      </Flex>
 
-          <Box mb={10}>
-            <Text fontWeight={600} mb={2}>
-              Personal data:
-            </Text>
-
-            <Flex flexDir="column" gap={3} align="start" mb={4}>
-              <Input value={name} onChange={nameSetter} placeholder="name" />
-              <Input
-                value={phoneNumber}
-                onChange={phoneSetter}
-                type="tel"
-                placeholder="phone number"
-              />
-              {deliveryType === 'delivery' && (
-                <Input
-                  value={street}
-                  onChange={streetSetter}
-                  type="text"
-                  placeholder="street"
-                />
-              )}
-            </Flex>
-
-            <RadioGroup
-              onChange={(value) => deliverySetter(value)}
-              value={deliveryType}
+      <Flex flexDir="column">
+        <Text
+          fontSize={16}
+          fontWeight={400}
+          color={'#002034'}
+          lineHeight={'24px'}
+          fontFamily={'Rubik'}
+          fontStyle={'normal'}
+          mb={'4px'}
+        >
+          Personal Data:
+        </Text>
+        <Flex flexDir="column" gap={'10px'} align="start" mb={'8px'}>
+          <BasketInput
+            value={name}
+            setter={nameSetter}
+            type="text"
+            placeholder="User Name"
+          />
+          <BasketInput
+            value={phoneNumber}
+            setter={phoneSetter}
+            type="tel"
+            placeholder="Phone"
+          />
+          <BasketInput
+            value={email}
+            setter={emailSetter}
+            type="email"
+            placeholder="Email"
+          />
+          {deliveryType === 'delivery' && (
+            <BasketInput
+              value={street}
+              setter={streetSetter}
+              type="text"
+              placeholder="Delivery Address"
+            />
+          )}
+        </Flex>
+        <Text
+          fontSize={16}
+          fontWeight={400}
+          color={'#002034'}
+          lineHeight={'24px'}
+          fontFamily={'Rubik'}
+          fontStyle={'normal'}
+          mb={'1px'}
+        >
+          Choose Delivery Type:
+        </Text>
+        <RadioGroup
+          onChange={(value) => deliverySetter(value)}
+          value={deliveryType}
+        >
+          <Stack direction="column" spacing={'3px'}>
+            <Radio
+              style={{
+                borderColor: deliveryType === 'pickup' ? 'black' : 'grey',
+              }}
+              value="pickup"
             >
-              <Stack direction="column">
-                <Radio value="pickup">Self pick-up</Radio>
-                <Radio value="delivery">Delivery to address</Radio>
-              </Stack>
-            </RadioGroup>
-          </Box>
+              Self pick-up
+            </Radio>
+            <Radio
+              style={{
+                borderColor: deliveryType === 'delivery' ? 'black' : 'grey',
+              }}
+              value="delivery"
+            >
+              Delivery
+            </Radio>
+          </Stack>
+        </RadioGroup>
 
-          <InfoToPay />
+        <Box w="100%" h="1px" bg="grey" opacity={0.6} mt={'15px'} mb={'10px'} />
+
+        <AdditionalProducts />
+
+        <Box w="100%" h="1px" bg="grey" opacity={0.6} mt={'10px'} mb={'13px'} />
+
+        <InfoToPay />
+        <Flex justifyContent={'center'} gap={'8px'}>
+          <Button
+            bg="#002034"
+            borderRadius={25}
+            color={'#FFFFFF'}
+            fontSize={16}
+            fontWeight={400}
+            lineHeight={'24px'}
+            fontFamily={'Rubik'}
+            fontStyle={'normal'}
+            mt={'9px'}
+            alignSelf="end"
+            onClick={() => setSelectedBasketType('basket')}
+            width={'99px'}
+          >
+            Back
+          </Button>
 
           <Button
-            alignSelf="end"
-            w="60%"
-            border="2px solid"
-            borderColor="turquoise.77"
-            bg="none"
+            bg="#002034"
             borderRadius={25}
+            color={'#FFFFFF'}
+            fontSize={16}
+            fontWeight={400}
+            lineHeight={'24px'}
+            fontFamily={'Rubik'}
+            fontStyle={'normal'}
+            mt={'9px'}
+            alignSelf="end"
             onClick={() => setSelectedBasketType('pay')}
             isDisabled={getDisabledState()}
           >
             Continue
           </Button>
         </Flex>
-      </DrawerBody>
+      </Flex>
     </>
   )
 }

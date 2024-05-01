@@ -1,22 +1,16 @@
 import { Flex, Text } from '@chakra-ui/react'
-import { CountButton } from '../../ui/CountButton'
+import {
+  CountButtonBasketDec,
+  CountButtonBasketInc,
+} from '../../ui/CountButton'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-  selectPersonCount,
-  selectSticks,
-  selectStudySticks,
-} from 'redux/products/selectors'
+import { selectPersonCount, selectStudySticks } from 'redux/products/selectors'
 import { AppDispatch } from 'types'
-import {
-  setPersonCount,
-  setSticks,
-  setStudySticks,
-} from 'redux/products/ProductsSlice'
+import { setPersonCount, setStudySticks } from 'redux/products/ProductsSlice'
 
 const AdditionalProducts = () => {
   const dispatch = useDispatch<AppDispatch>()
   const personCount = useSelector(selectPersonCount)
-  const sticks = useSelector(selectSticks)
   const studySticks = useSelector(selectStudySticks)
 
   const handlePersonCountDecrement = () => {
@@ -27,16 +21,6 @@ const AdditionalProducts = () => {
 
   const handlePersonCountIncrement = () => {
     dispatch(setPersonCount(+1))
-  }
-
-  const handleSticksDecrement = () => {
-    if (sticks > 0) {
-      dispatch(setSticks(-1))
-    }
-  }
-
-  const handleSticksIncrement = () => {
-    dispatch(setSticks(+1))
   }
 
   const handleStudySticksDecrement = () => {
@@ -50,81 +34,106 @@ const AdditionalProducts = () => {
   }
 
   return (
-    <Flex flexDir="column" fontWeight={600} gap={3}>
-      <Flex w="100%" justify="space-between">
-        <Text>Кількість персон</Text>
+    <Flex flexDir="column" fontWeight={600} gap={'5px'}>
+      <Flex w="100%" alignItems={'center'} gap={'75px'}>
+        <Text
+          fontSize={16}
+          fontWeight={400}
+          color={'#002034'}
+          lineHeight={'24px'}
+          fontFamily={'Rubik'}
+          fontStyle={'normal'}
+        >
+          Number of people
+        </Text>
 
-        <Flex align="center" gap={2}>
-          <CountButton
-            borderLeftRadius={20}
+        <Flex
+          align="center"
+          gap={2}
+          backgroundColor={'#FFFFFF'}
+          overflow={'hidden'}
+          borderRightRadius={5}
+          borderLeftRadius={5}
+          borderColor={'#B7B7B7'}
+          borderWidth={'1px'}
+        >
+          <CountButtonBasketDec
             borderRightRadius={5}
+            borderLeftRadius={5}
             onClick={handlePersonCountDecrement}
           >
             -
-          </CountButton>
+          </CountButtonBasketDec>
 
-          <Text fontSize={12} fontWeight={600}>
+          <Text
+            fontSize={16}
+            fontWeight={400}
+            fontFamily={'Rubik'}
+            lineHeight={'24px'}
+            color={'#002034'}
+            fontStyle={'normal'}
+          >
             {personCount}
           </Text>
 
-          <CountButton
-            borderRightRadius={20}
+          <CountButtonBasketInc
+            borderRightRadius={5}
             borderLeftRadius={5}
             onClick={handlePersonCountIncrement}
           >
             +
-          </CountButton>
+          </CountButtonBasketInc>
         </Flex>
       </Flex>
 
-      <Flex w="100%" justify="space-between">
-        <Text>Кількість паличок</Text>
+      <Flex w="100%" alignItems={'center'} gap={'20px'}>
+        <Text
+          fontSize={16}
+          fontWeight={400}
+          color={'#002034'}
+          lineHeight={'24px'}
+          fontFamily={'Rubik'}
+          fontStyle={'normal'}
+        >
+          Number of training sticks
+        </Text>
 
-        <Flex align="center" gap={2}>
-          <CountButton
-            borderLeftRadius={20}
-            borderRightRadius={5}
-            onClick={handleSticksDecrement}
-          >
-            -
-          </CountButton>
-
-          <Text fontSize={12} fontWeight={600}>
-            {sticks}
-          </Text>
-
-          <CountButton
-            borderRightRadius={20}
+        <Flex
+          align="center"
+          gap={2}
+          backgroundColor={'#FFFFFF'}
+          overflow={'hidden'}
+          borderRightRadius={5}
+          borderLeftRadius={5}
+          borderColor={'#B7B7B7'}
+          borderWidth={'1px'}
+        >
+          <CountButtonBasketDec
             borderLeftRadius={5}
-            onClick={handleSticksIncrement}
-          >
-            +
-          </CountButton>
-        </Flex>
-      </Flex>
-      <Flex w="100%" justify="space-between">
-        <Text>Кількість навчальних паличок</Text>
-
-        <Flex align="center" gap={2}>
-          <CountButton
-            borderLeftRadius={20}
             borderRightRadius={5}
             onClick={handleStudySticksDecrement}
           >
             -
-          </CountButton>
+          </CountButtonBasketDec>
 
-          <Text fontSize={12} fontWeight={600}>
+          <Text
+            fontSize={16}
+            fontWeight={400}
+            fontFamily={'Rubik'}
+            lineHeight={'24px'}
+            color={'#002034'}
+            fontStyle={'normal'}
+          >
             {studySticks}
           </Text>
 
-          <CountButton
-            borderRightRadius={20}
+          <CountButtonBasketInc
+            borderRightRadius={5}
             borderLeftRadius={5}
             onClick={handleStudySticksIncrement}
           >
             +
-          </CountButton>
+          </CountButtonBasketInc>
         </Flex>
       </Flex>
     </Flex>

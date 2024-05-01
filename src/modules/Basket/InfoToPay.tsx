@@ -1,14 +1,13 @@
-import { Box, Flex, Text } from '@chakra-ui/react'
+import { Flex, Text } from '@chakra-ui/react'
 import { selectBasketProducts, selectVoucher } from 'redux/products/selectors'
 import { useSelector } from 'react-redux'
-import { useTotalPrice, useTotalWeight } from './InfoToPayHooks'
+import { useTotalPrice } from './InfoToPayHooks'
 import { calculateDiscountedPrice } from './OrderFuncs'
 import { calculateTotalPrice } from 'utils/calculateDiscountedPrice'
 
 const InfoToPay = () => {
   const voucher = useSelector(selectVoucher)
   const selectedProducts = useSelector(selectBasketProducts)
-  const totalWeight = useTotalWeight(selectedProducts)
   const totalPrice = calculateTotalPrice(selectedProducts)
   const totalPriceWithDiscount = useTotalPrice(
     selectedProducts,
@@ -36,12 +35,6 @@ const InfoToPay = () => {
 
   return (
     <Flex direction="column">
-      {/* <Box>
-        <Text color="grey.200">Total weight:</Text>
-        <Text color="blue.200" fontWeight={600}>
-          {Number(totalWeight.toFixed(2))} gram
-        </Text>
-      </Box> */}
       {(isVoucherActive || isDiscounted) && (
         <Flex alignSelf={'center'}>
           <Text
@@ -91,12 +84,8 @@ const InfoToPay = () => {
         >
           {Number(totalPrice.toFixed(2))} zł
         </Text>
-        {isVoucherActive && (
-          <Text color="blue.200" fontWeight={600}>
-            {Number(priceWithVoucher.toFixed(2))} zł
-          </Text>
-        )}
-        {isDiscounted && (
+
+        {(isDiscounted || isVoucherActive) && (
           <Text
             fontFamily={'Rubik'}
             color={'#002034'}

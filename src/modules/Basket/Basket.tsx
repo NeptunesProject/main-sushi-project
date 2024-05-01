@@ -60,8 +60,8 @@ const Basket = () => {
             right: '75px',
             maxWidth: '410px',
             borderRadius: '16px',
-            paddingLeft: '12px',
-            paddingRight: '12px',
+            paddingLeft: '19px',
+            paddingRight: '19px',
             paddingTop: '15px',
             paddingBottom: '15px',
           }}
