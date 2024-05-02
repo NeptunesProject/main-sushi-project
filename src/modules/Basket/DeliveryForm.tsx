@@ -13,6 +13,7 @@ import { BasketTypes } from '../../types'
 import InfoToPay from './InfoToPay'
 import { BasketInput } from 'components/BasketInput'
 import AdditionalProducts from './AdditionalProducts'
+import point from '../../assets/icons/point.svg'
 
 interface Props {
   setSelectedBasketType: React.Dispatch<React.SetStateAction<BasketTypes>>
@@ -35,7 +36,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
     getFromLocaleStorage('personInfo-Number', ''),
   )
   const [deliveryType, setDeliveryType] = useState(() =>
-    getFromLocaleStorage('personInfo-Delivery', 'pickup'),
+    getFromLocaleStorage('personInfo-Delivery', ''),
   )
   const [street, setStreet] = useState(() =>
     getFromLocaleStorage('personInfo-Street', ''),
@@ -75,15 +76,28 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
     )
   }
   function streetSetter(e: React.ChangeEvent<HTMLInputElement>) {
-    setStreet((e.target as HTMLInputElement).value.trim())
+    setStreet(
+      deliveryType === 'delivery'
+        ? (e.target as HTMLInputElement).value.trim()
+        : '',
+    )
     localStorage.setItem(
       'personInfo-Street',
-      JSON.stringify((e.target as HTMLInputElement).value.trim()),
+      JSON.stringify(
+        deliveryType === 'delivery'
+          ? (e.target as HTMLInputElement).value.trim()
+          : '',
+      ),
     )
   }
 
   function deliverySetter(value: string) {
     setDeliveryType(value)
+    if (value === 'pickup') {
+      setStreet('')
+      localStorage.setItem('personInfo-Street', JSON.stringify(''))
+    }
+
     localStorage.setItem('personInfo-Delivery', JSON.stringify(value))
   }
 
@@ -184,8 +198,24 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
             </Radio>
           </Stack>
         </RadioGroup>
+        {deliveryType === 'pickup' && (
+          <Flex gap={'3px'}>
+            <img src={point}></img>
+            <Text
+              fontSize={16}
+              fontWeight={400}
+              color={'#002034'}
+              lineHeight={'24px'}
+              fontFamily={'Rubik'}
+              fontStyle={'normal'}
+              mb={'1px'}
+            >
+              Warsaw, Chrystiana Piotra Aignera 6, 00-710
+            </Text>
+          </Flex>
+        )}
 
-        <Box w="100%" h="1px" bg="grey" opacity={0.6} mt={'15px'} mb={'10px'} />
+        <Box w="100%" h="1px" bg="grey" opacity={0.6} mt={'10px'} mb={'10px'} />
 
         <AdditionalProducts />
 

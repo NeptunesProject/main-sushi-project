@@ -1,5 +1,5 @@
 import { postOrder } from 'api'
-import { BasketTypes, CartItem, ProductObj, ReturnedOrder } from 'types'
+import { BasketTypes, CartItem, ReturnedOrder, SelectedProduct } from 'types'
 
 type DispatchSetter<T> = React.Dispatch<React.SetStateAction<T>>
 
@@ -11,11 +11,12 @@ interface IMakeOrder {
     deliveryType: string,
     phoneNumber: string,
     personCount: number,
-    sticks: number,
     studySticks: number,
     payment: string,
     commentary: string,
     voucherCode: string,
+    email: string,
+    selectedProducts: SelectedProduct[],
   ): Promise<ReturnedOrder>
 }
 
@@ -26,6 +27,7 @@ interface IClearCard {
     setDeliveryType: DispatchSetter<string>,
     setStreet: DispatchSetter<string>,
     setPayment: DispatchSetter<string>,
+    setEmail: DispatchSetter<string>,
   ): void
 }
 
@@ -39,6 +41,7 @@ interface IHandleClick {
     setDeliveryType: DispatchSetter<string>,
     setStreet: DispatchSetter<string>,
     setPayment: DispatchSetter<string>,
+    setEmail: DispatchSetter<string>,
   ): void
 }
 
@@ -57,27 +60,21 @@ export const makeOrder: IMakeOrder = async (
   deliveryType,
   phoneNumber,
   personCount,
-  sticks,
   studySticks,
   payment,
   commentary,
   voucherCode,
+  email,
+  selectedProducts,
 ) => {
   setSelectedBasketType('delivery')
 
-  const productsList: Record<string, ProductObj> = JSON.parse(
-    localStorage.getItem('selectedProducts') || '{}',
-  )
-
-  const cartItems: CartItem[] = Object.keys(productsList).map(
-    (productId: string) => {
-      const product = productsList[productId]
-      return {
-        id: productId,
-        quantity: product.count,
-      }
-    },
-  )
+  const cartItems: CartItem[] = selectedProducts.map((item) => {
+    return {
+      id: item.product.id.toString(),
+      quantity: item.count,
+    }
+  })
 
   try {
     const order = await postOrder({
@@ -93,10 +90,10 @@ export const makeOrder: IMakeOrder = async (
       peopleCount: personCount,
       cartItems,
       studySticksCount: studySticks,
-      sticksCount: sticks,
       deliveryType: deliveryType.toUpperCase(),
       paymentType: payment.toUpperCase(),
       code: voucherCode,
+      email,
     })
 
     return order
@@ -112,19 +109,22 @@ export const clearCard: IClearCard = (
   setDeliveryType,
   setStreet,
   setPayment,
+  setEmail,
 ) => {
   setName('')
   setPhoneNumber('')
-  setDeliveryType('pickup')
+  setDeliveryType('')
   setStreet('')
   setPayment('')
+  setEmail('')
 }
 
 export const clearLocaleStorage = () => {
   localStorage.setItem('personInfo-Name', JSON.stringify(''))
   localStorage.setItem('personInfo-Number', JSON.stringify(''))
-  localStorage.setItem('personInfo-Delivery', JSON.stringify('pickup'))
+  localStorage.setItem('personInfo-Delivery', JSON.stringify(''))
   localStorage.setItem('personInfo-Street', JSON.stringify(''))
+  localStorage.setItem('personInfo-Email', JSON.stringify(''))
   localStorage.setItem('paymentType', JSON.stringify(''))
 }
 
@@ -137,9 +137,17 @@ export const handleClick: IHandleClick = async (
   setDeliveryType,
   setStreet,
   setPayment,
+  setEmail,
 ) => {
   setOrderId(orderId)
-  clearCard(setName, setPhoneNumber, setDeliveryType, setStreet, setPayment)
+  clearCard(
+    setName,
+    setPhoneNumber,
+    setDeliveryType,
+    setStreet,
+    setPayment,
+    setEmail,
+  )
   clearLocaleStorage()
   setSelectedBasketType('orderResponse')
 }

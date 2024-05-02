@@ -24,6 +24,7 @@ export const PromoCode = () => {
             setVoucher({
               discount: 1 - result.discountPercentage,
               error: '',
+              code: result.code,
             }),
           )
         }
@@ -31,7 +32,7 @@ export const PromoCode = () => {
     } catch (error) {
       console.error(error)
       if (error === 'Voucher not found.') {
-        dispatch(setVoucher({ discount: 1, error }))
+        dispatch(setVoucher({ discount: 1, error, code: '' }))
       }
     }
   }
@@ -41,12 +42,13 @@ export const PromoCode = () => {
       setVoucher({
         discount: 1,
         error: '',
+        code: '',
       }),
     )
   }
 
   useEffect(() => {
-    setVoucher({ discount: voucher.discount, error: '' })
+    setVoucher({ discount: voucher.discount, error: '', code: voucher.code })
   }, [voucher])
 
   return (

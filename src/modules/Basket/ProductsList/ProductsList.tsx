@@ -6,7 +6,11 @@ import { selectBasketProducts } from 'redux/products/selectors'
 const ProductsList = () => {
   const selectedProducts = useSelector(selectBasketProducts)
   return (
-    <Flex flexDir="column" gap={'10px'}>
+    <Flex
+      flexDir="column"
+      gap={'10px'}
+      style={{ maxHeight: '312px', overflowY: 'auto' }}
+    >
       {selectedProducts.map((item) => (
         <ProductListItem key={item.product.id} item={item} />
       ))}

@@ -80,12 +80,12 @@ interface ReturnedOrder {
   comment: string
   peopleCount: number
   cartItems: CartItem[]
-  sticksCount: number
   studySticksCount: number
   deliveryType: string
   paymentType: string
   statusType: 'CREATED'
   code: string
+  email: string
 }
 
 type OrderToPost = Omit<ReturnedOrder, 'statusType' | 'id'>
@@ -119,7 +119,7 @@ interface ProductsState {
     sticks: number
     studySticks: number
   }
-  voucher: { discount: number; error: string }
+  voucher: { discount: number; error: string; code: string }
   products: Product[]
   isProductsLoading: boolean
 }

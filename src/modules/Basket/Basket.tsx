@@ -14,6 +14,7 @@ import BasketType from './BasketType'
 import PaymentMethod from './PaymentMethod'
 import { selectBasketProducts } from 'redux/products/selectors'
 import { useSelector } from 'react-redux'
+import { StatusForm } from './StatusForm'
 
 const Basket = () => {
   const [selectedBasketType, setSelectedBasketType] =
@@ -76,6 +77,12 @@ const Basket = () => {
             {selectedBasketType === 'pay' && (
               <PaymentMethod
                 setOrderId={setOrderId}
+                setSelectedBasketType={setSelectedBasketType}
+              />
+            )}
+            {selectedBasketType === 'orderResponse' && (
+              <StatusForm
+                orderId={orderId}
                 setSelectedBasketType={setSelectedBasketType}
               />
             )}

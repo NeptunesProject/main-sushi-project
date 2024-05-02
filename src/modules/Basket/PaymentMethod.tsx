@@ -2,9 +2,7 @@ import React, { useEffect, useState } from 'react'
 import {
   Box,
   Button,
-  DrawerBody,
   DrawerCloseButton,
-  DrawerHeader,
   Flex,
   Radio,
   RadioGroup,
@@ -13,7 +11,6 @@ import {
   Textarea,
 } from '@chakra-ui/react'
 import { AppDispatch, BasketTypes } from '../../types'
-import { ArrowBackIcon } from '@chakra-ui/icons'
 import InfoToPay from './InfoToPay'
 import Stripe from 'stripe'
 
@@ -24,7 +21,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
   selectBasketProducts,
   selectPersonCount,
-  selectSticks,
   selectStudySticks,
   selectVoucher,
 } from 'redux/products/selectors'
@@ -68,7 +64,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
     getFromLocaleStorage('personInfo-Number', ''),
   )
   const [deliveryType, setDeliveryType] = useState(() =>
-    getFromLocaleStorage('personInfo-Delivery', 'pickup'),
+    getFromLocaleStorage('personInfo-Delivery', ''),
   )
   const [street, setStreet] = useState(() =>
     getFromLocaleStorage('personInfo-Street', ''),
@@ -77,10 +73,13 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
     getFromLocaleStorage('paymentType', ''),
   )
 
+  const [email, setEmail] = useState(() =>
+    getFromLocaleStorage('personInfo-Email', ''),
+  )
+
   const totalPrice = useTotalPrice(selectedProducts, calculateDiscountedPrice)
 
   const personCount = useSelector(selectPersonCount)
-  const sticks = useSelector(selectSticks)
   const studySticks = useSelector(selectStudySticks)
   const voucher = useSelector(selectVoucher)
 
@@ -123,11 +122,12 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
       deliveryType,
       phoneNumber,
       personCount,
-      sticks,
       studySticks,
       payment,
       comment,
-      voucherCode,
+      voucher.code,
+      email,
+      selectedProducts,
     )
     handleClick(
       order.id,
@@ -138,6 +138,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
       setDeliveryType,
       setStreet,
       setPayment as React.Dispatch<React.SetStateAction<string>>,
+      setEmail,
     )
     dispatch(eraseAfterOrder())
     if (order && order.paymentType === 'ONLINE') {
@@ -147,78 +148,145 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
   }
 
   function nullifyVoucher() {
-    setVoucherCode('')
     dispatch(
       setVoucher({
         discount: 1,
         error: '',
+        code: '',
       }),
     )
   }
 
   return (
     <>
-      <DrawerHeader
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-      >
+      <Flex justifyContent="space-between" alignItems="center" mb={'10px'}>
         <Text
-          cursor="pointer"
-          onClick={() => setSelectedBasketType('delivery')}
-          fontSize={15}
+          fontSize={'24px'}
+          fontFamily={'Rubik'}
+          fontStyle={'normal'}
+          fontWeight={'600'}
+          lineHeight={'36px'}
+          color={'#002034'}
         >
-          <ArrowBackIcon /> back{' '}
+          Choose payment method
         </Text>
         <DrawerCloseButton pos="static" />
-      </DrawerHeader>
-      <DrawerBody color="blue.200">
-        <Flex flexDir="column" gap={5}>
-          <Text fontSize={18} fontWeight={600} mb={5}>
-            Choose payment method
+      </Flex>
+      <Flex
+        flexDir="column"
+        fontSize={'16px'}
+        fontFamily={'Rubik'}
+        fontStyle={'normal'}
+        fontWeight={'400'}
+        lineHeight={'24px'}
+        color={'rgba(0, 0, 0, 0.4)'}
+      >
+        <Text fontWeight={'500'} color={'#002034'}>
+          Verify your order details:
+        </Text>
+        <Text>{name}</Text>
+        <Text>{phoneNumber}</Text>
+        <Text>{email}</Text>
+        <Text color={'rgba(0, 0, 0, 0.28)'}>{street}</Text>
+        <Flex gap={'3px'}>
+          <Text fontWeight={'500'}>Delivery Type:</Text>
+          <Text>
+            {deliveryType.charAt(0).toUpperCase() + deliveryType.slice(1)}
           </Text>
-
-          <Box mb={10}>
-            <RadioGroup onChange={paymentSetter} ml={1}>
-              <Stack direction="column" defaultValue={payment}>
-                <Radio id="terminal" value="TERMINAL">
-                  By card upon receipt
-                </Radio>
-                <Radio id="cash" value="CASH">
-                  In cash
-                </Radio>
-                <Radio id="online" value="ONLINE">
-                  Online
-                </Radio>
-              </Stack>
-            </RadioGroup>
-
-            <Textarea
-              placeholder="Leave a comment"
-              mt={5}
-              p={1}
-              value={comment}
-              onChange={handleTextareaChange}
-            />
-          </Box>
-
-          <InfoToPay />
-
-          <Button
-            id="button-continue"
-            alignSelf="end"
-            w="60%"
-            border="2px solid"
-            borderColor="turquoise.77"
-            bg="none"
-            borderRadius={25}
-            onClick={() => createOrder()}
-            isDisabled={payment === ''}
-          >
-            Continue
-          </Button>
         </Flex>
-      </DrawerBody>
+        {deliveryType === 'pickup' && (
+          <Flex gap={'3px'}>
+            <Text lineHeight={'21px'} fontSize={'14px'}>
+              Self Pickup on Warsaw, Chrystiana Piotra Aignera 6, 00-710
+            </Text>
+          </Flex>
+        )}
+      </Flex>
+
+      <Box w="100%" h="1px" bg="grey" opacity={0.6} mt={'6px'} mb={'6px'} />
+
+      <Box mb={'26px'}>
+        <RadioGroup onChange={paymentSetter} value={payment} mb={'5px'}>
+          <Stack direction="column" defaultValue={payment} spacing={'3px'}>
+            <Radio
+              style={{
+                borderColor: payment === 'CASH' ? 'black' : 'grey',
+              }}
+              id="cash"
+              value="CASH"
+            >
+              Cash
+            </Radio>
+            <Radio
+              style={{
+                borderColor: payment === 'TERMINAL' ? 'black' : 'grey',
+              }}
+              id="terminal"
+              value="TERMINAL"
+            >
+              Card
+            </Radio>
+
+            <Radio
+              style={{
+                borderColor: payment === 'ONLINE' ? 'black' : 'grey',
+              }}
+              id="online"
+              value="ONLINE"
+            >
+              Online
+            </Radio>
+          </Stack>
+        </RadioGroup>
+        <Text fontWeight={'500'} color={'#002034'}>
+          Comments:
+        </Text>
+        <Textarea
+          placeholder="Leave a comment"
+          mt={'2px'}
+          p={'8px'}
+          value={comment}
+          onChange={handleTextareaChange}
+          style={{ resize: 'none' }}
+        />
+      </Box>
+
+      <InfoToPay />
+      <Flex justifyContent={'center'} gap={'8px'}>
+        <Button
+          bg="#002034"
+          borderRadius={25}
+          color={'#FFFFFF'}
+          fontSize={16}
+          fontWeight={400}
+          lineHeight={'24px'}
+          fontFamily={'Rubik'}
+          fontStyle={'normal'}
+          mt={'9px'}
+          alignSelf="end"
+          onClick={() => setSelectedBasketType('delivery')}
+          width={'99px'}
+        >
+          Back
+        </Button>
+
+        <Button
+          bg="#002034"
+          borderRadius={25}
+          color={'#FFFFFF'}
+          fontSize={16}
+          fontWeight={400}
+          lineHeight={'24px'}
+          fontFamily={'Rubik'}
+          fontStyle={'normal'}
+          mt={'9px'}
+          alignSelf="end"
+          onClick={() => createOrder()}
+          isDisabled={payment === ''}
+        >
+          Submit Order
+        </Button>
+      </Flex>
     </>
   )
 }

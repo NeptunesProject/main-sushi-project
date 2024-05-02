@@ -9,7 +9,7 @@ export const initialState: ProductsState = {
     sticks: 0,
     studySticks: 0,
   },
-  voucher: { discount: 1, error: '' },
+  voucher: { discount: 1, error: '', code: '' },
   products: [],
   isProductsLoading: false,
 }
