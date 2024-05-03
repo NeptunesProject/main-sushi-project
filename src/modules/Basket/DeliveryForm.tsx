@@ -108,6 +108,9 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
       JSON.stringify((e.target as HTMLInputElement).value.trim()),
     )
   }
+
+  const pickupBorderColor = deliveryType === 'pickup' ? 'black' : 'grey'
+  const deliveryBorderColor = deliveryType === 'delivery' ? 'black' : 'grey'
   return (
     <>
       <Flex justifyContent="space-between" alignItems="center">
@@ -180,18 +183,11 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
           value={deliveryType}
         >
           <Stack direction="column" spacing={'3px'}>
-            <Radio
-              style={{
-                borderColor: deliveryType === 'pickup' ? 'black' : 'grey',
-              }}
-              value="pickup"
-            >
+            <Radio style={{ borderColor: pickupBorderColor }} value="pickup">
               Self pick-up
             </Radio>
             <Radio
-              style={{
-                borderColor: deliveryType === 'delivery' ? 'black' : 'grey',
-              }}
+              style={{ borderColor: deliveryBorderColor }}
               value="delivery"
             >
               Delivery

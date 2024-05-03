@@ -33,9 +33,11 @@ const InfoToPay = () => {
   if (isVoucherActive) discount = totalPrice - priceWithVoucher
   else if (isDiscounted) discount = totalPrice - totalPriceWithDiscount
 
+  const showDiscounted = isVoucherActive || isDiscounted
+
   return (
     <Flex direction="column">
-      {(isVoucherActive || isDiscounted) && (
+      {showDiscounted && (
         <Flex alignSelf={'center'}>
           <Text
             color="#9090A4"
@@ -75,9 +77,9 @@ const InfoToPay = () => {
         </Text>
         <Text
           fontFamily={'Rubik'}
-          color={isVoucherActive || isDiscounted ? '#9090A4' : '#002034'}
+          color={showDiscounted ? '#9090A4' : '#002034'}
           fontWeight={400}
-          decoration={isVoucherActive || isDiscounted ? 'line-through' : 'none'}
+          decoration={showDiscounted ? 'line-through' : 'none'}
           fontSize={'16px'}
           lineHeight={'24px'}
           pr={'5px'}
@@ -85,7 +87,7 @@ const InfoToPay = () => {
           {Number(totalPrice.toFixed(2))} zł
         </Text>
 
-        {(isDiscounted || isVoucherActive) && (
+        {showDiscounted && (
           <Text
             fontFamily={'Rubik'}
             color={'#002034'}

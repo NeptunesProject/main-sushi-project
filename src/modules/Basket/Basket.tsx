@@ -24,6 +24,31 @@ const Basket = () => {
   const products = useSelector(selectBasketProducts)
   const productsCount = products.length
 
+  const renderSelectedComponent = () => {
+    switch (selectedBasketType) {
+      case 'basket':
+        return <BasketType setSelectedBasketType={setSelectedBasketType} />
+      case 'delivery':
+        return <DeliveryForm setSelectedBasketType={setSelectedBasketType} />
+      case 'pay':
+        return (
+          <PaymentMethod
+            setOrderId={setOrderId}
+            setSelectedBasketType={setSelectedBasketType}
+          />
+        )
+      case 'orderResponse':
+        return (
+          <StatusForm
+            orderId={orderId}
+            setSelectedBasketType={setSelectedBasketType}
+          />
+        )
+      default:
+        return <BasketType setSelectedBasketType={setSelectedBasketType} />
+    }
+  }
+
   return (
     <>
       <Center
@@ -52,12 +77,12 @@ const Basket = () => {
           </Center>
         )}
       </Center>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} blockScrollOnMount={false}>
         <ModalContent
           style={{
             backgroundColor: '#FFFFFF',
-            position: 'absolute',
-            top: '169px',
+            position: 'fixed',
+            top: '120px',
             right: '75px',
             maxWidth: '410px',
             borderRadius: '16px',
@@ -68,24 +93,7 @@ const Basket = () => {
           }}
         >
           <ModalBody pl={'0px'} pt={'0px'} pr={'0px'} pb={'0px'}>
-            {selectedBasketType === 'basket' && (
-              <BasketType setSelectedBasketType={setSelectedBasketType} />
-            )}
-            {selectedBasketType === 'delivery' && (
-              <DeliveryForm setSelectedBasketType={setSelectedBasketType} />
-            )}
-            {selectedBasketType === 'pay' && (
-              <PaymentMethod
-                setOrderId={setOrderId}
-                setSelectedBasketType={setSelectedBasketType}
-              />
-            )}
-            {selectedBasketType === 'orderResponse' && (
-              <StatusForm
-                orderId={orderId}
-                setSelectedBasketType={setSelectedBasketType}
-              />
-            )}
+            {renderSelectedComponent()}
           </ModalBody>
         </ModalContent>
       </Modal>
