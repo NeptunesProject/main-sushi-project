@@ -1,4 +1,4 @@
-import { Button, Flex, Input, Text } from '@chakra-ui/react'
+import { Button, Flex, Input, Text, useMediaQuery } from '@chakra-ui/react'
 import { postVoucher } from 'api'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -51,6 +51,8 @@ export const PromoCode = () => {
     setVoucher({ discount: voucher.discount, error: '', code: voucher.code })
   }, [voucher])
 
+  const [isLessThan768] = useMediaQuery('(max-width: 768px)')
+
   return (
     <>
       <Flex
@@ -65,8 +67,8 @@ export const PromoCode = () => {
           fontFamily={'Rubik'}
           fontStyle={'normal'}
           fontWeight={'500'}
-          fontSize={'16px'}
-          lineHeight={'24px'}
+          fontSize={isLessThan768 ? '14px' : '16px'}
+          lineHeight={isLessThan768 ? '21px' : '24px'}
         >
           Promocode
         </Text>
@@ -77,7 +79,8 @@ export const PromoCode = () => {
             border: '1px solid #B7B7B7',
             borderRadius: '4px',
             padding: '6px',
-            maxWidth: '128px',
+            maxWidth: isLessThan768 ? '114px' : '128px',
+            maxHeight: isLessThan768 ? '36px' : '40px',
             boxSizing: 'border-box',
           }}
         />
@@ -90,7 +93,7 @@ export const PromoCode = () => {
               bg="#002034"
               borderRadius={25}
               color={'#FFFFFF'}
-              fontSize={16}
+              fontSize={isLessThan768 ? 14 : 16}
               fontWeight={400}
               lineHeight={'24px'}
               fontFamily={'Rubik'}
@@ -124,8 +127,8 @@ export const PromoCode = () => {
           fontFamily="Rubik"
           fontStyle="normal"
           fontWeight="400"
-          fontSize="16px"
-          lineHeight="24px"
+          fontSize={isLessThan768 ? '14px' : '16px'}
+          lineHeight={isLessThan768 ? '21px' : '24px'}
           pl={'40px'}
         >
           {voucher.error}

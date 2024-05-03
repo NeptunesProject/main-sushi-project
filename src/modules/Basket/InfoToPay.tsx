@@ -1,4 +1,4 @@
-import { Flex, Text } from '@chakra-ui/react'
+import { Flex, Text, useMediaQuery } from '@chakra-ui/react'
 import { selectBasketProducts, selectVoucher } from 'redux/products/selectors'
 import { useSelector } from 'react-redux'
 import { useTotalPrice } from './InfoToPayHooks'
@@ -35,6 +35,8 @@ const InfoToPay = () => {
 
   const showDiscounted = isVoucherActive || isDiscounted
 
+  const [isLessThan768] = useMediaQuery('(max-width: 768px)')
+
   return (
     <Flex direction="column">
       {showDiscounted && (
@@ -44,8 +46,8 @@ const InfoToPay = () => {
             fontFamily={'Rubik'}
             fontStyle={'normal'}
             fontWeight={'500'}
-            fontSize={'16px'}
-            lineHeight={'24px'}
+            fontSize={isLessThan768 ? '14px' : '16px'}
+            lineHeight={isLessThan768 ? '21px' : '24px'}
             pr={'9px'}
           >
             Discount:
@@ -55,22 +57,24 @@ const InfoToPay = () => {
             fontFamily={'Rubik'}
             fontStyle={'normal'}
             fontWeight={'400'}
-            fontSize={'16px'}
-            lineHeight={'24px'}
+            fontSize={isLessThan768 ? '14px' : '16px'}
+            lineHeight={isLessThan768 ? '21px' : '24px'}
           >
             {Number(discount.toFixed(2))} zł
           </Text>
         </Flex>
       )}
 
-      <Flex alignSelf={'center'}>
+      <Flex
+        alignSelf={'center'}
+        fontSize={isLessThan768 ? '14px' : '16px'}
+        lineHeight={isLessThan768 ? '21px' : '24px'}
+      >
         <Text
           color="#002034"
           fontFamily={'Rubik'}
           fontStyle={'normal'}
           fontWeight={'500'}
-          fontSize={'16px'}
-          lineHeight={'24px'}
           pr={'5px'}
         >
           Total:
@@ -80,8 +84,6 @@ const InfoToPay = () => {
           color={showDiscounted ? '#9090A4' : '#002034'}
           fontWeight={400}
           decoration={showDiscounted ? 'line-through' : 'none'}
-          fontSize={'16px'}
-          lineHeight={'24px'}
           pr={'5px'}
         >
           {Number(totalPrice.toFixed(2))} zł
@@ -93,8 +95,6 @@ const InfoToPay = () => {
             color={'#002034'}
             fontWeight={400}
             decoration={'none'}
-            fontSize={'16px'}
-            lineHeight={'24px'}
           >
             {Number(priceWithVoucher.toFixed(2))} zł
           </Text>

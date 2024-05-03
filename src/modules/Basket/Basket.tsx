@@ -6,6 +6,8 @@ import {
   Modal,
   ModalContent,
   ModalBody,
+  useMediaQuery,
+  ModalOverlay,
 } from '@chakra-ui/react'
 import basket from 'assets/icons/basket.svg'
 import DeliveryForm from './DeliveryForm'
@@ -23,6 +25,7 @@ const Basket = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const products = useSelector(selectBasketProducts)
   const productsCount = products.length
+  const [isLessThan768] = useMediaQuery('(max-width: 768px)')
 
   const renderSelectedComponent = () => {
     switch (selectedBasketType) {
@@ -77,19 +80,24 @@ const Basket = () => {
           </Center>
         )}
       </Center>
-      <Modal isOpen={isOpen} onClose={onClose} blockScrollOnMount={false}>
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        blockScrollOnMount={isLessThan768 ? true : false}
+      >
+        {isLessThan768 && <ModalOverlay />}
         <ModalContent
           style={{
             backgroundColor: '#FFFFFF',
             position: 'fixed',
-            top: '120px',
-            right: '75px',
-            maxWidth: '410px',
+            top: isLessThan768 ? '30px' : '120px',
+            right: isLessThan768 ? 'auto' : '75px',
+            maxWidth: isLessThan768 ? '340px' : '410px',
             borderRadius: '16px',
-            paddingLeft: '19px',
-            paddingRight: '19px',
-            paddingTop: '15px',
-            paddingBottom: '15px',
+            paddingLeft: isLessThan768 ? '7px' : '19px',
+            paddingRight: isLessThan768 ? '7px' : '19px',
+            paddingTop: isLessThan768 ? '10px' : '15px',
+            paddingBottom: isLessThan768 ? '13px' : '15px',
           }}
         >
           <ModalBody pl={'0px'} pt={'0px'} pr={'0px'} pb={'0px'}>

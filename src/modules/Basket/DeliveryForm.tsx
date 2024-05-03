@@ -8,6 +8,7 @@ import {
   RadioGroup,
   Stack,
   Text,
+  useMediaQuery,
 } from '@chakra-ui/react'
 import { BasketTypes } from '../../types'
 import InfoToPay from './InfoToPay'
@@ -111,15 +112,18 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
 
   const pickupBorderColor = deliveryType === 'pickup' ? 'black' : 'grey'
   const deliveryBorderColor = deliveryType === 'delivery' ? 'black' : 'grey'
+
+  const [isLessThan768] = useMediaQuery('(max-width: 768px)')
+
   return (
     <>
       <Flex justifyContent="space-between" alignItems="center">
         <Text
-          fontSize={'24px'}
+          fontSize={isLessThan768 ? '16px' : '24px'}
           fontFamily={'Rubik'}
           fontStyle={'normal'}
           fontWeight={'600'}
-          lineHeight={'36px'}
+          lineHeight={isLessThan768 ? '21px' : '36px'}
           color={'#002034'}
         >
           Order Details
@@ -129,10 +133,10 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
 
       <Flex flexDir="column">
         <Text
-          fontSize={16}
+          fontSize={isLessThan768 ? 14 : 16}
           fontWeight={400}
           color={'#002034'}
-          lineHeight={'24px'}
+          lineHeight={isLessThan768 ? '21px' : '24px'}
           fontFamily={'Rubik'}
           fontStyle={'normal'}
           mb={'4px'}
@@ -168,10 +172,10 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
           )}
         </Flex>
         <Text
-          fontSize={16}
+          fontSize={isLessThan768 ? 14 : 16}
           fontWeight={400}
           color={'#002034'}
-          lineHeight={'24px'}
+          lineHeight={isLessThan768 ? '21px' : '24px'}
           fontFamily={'Rubik'}
           fontStyle={'normal'}
           mb={'1px'}
@@ -183,11 +187,20 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
           value={deliveryType}
         >
           <Stack direction="column" spacing={'3px'}>
-            <Radio style={{ borderColor: pickupBorderColor }} value="pickup">
+            <Radio
+              style={{
+                borderColor: pickupBorderColor,
+              }}
+              size={isLessThan768 ? 'sm' : 'md'}
+              value="pickup"
+            >
               Self pick-up
             </Radio>
             <Radio
-              style={{ borderColor: deliveryBorderColor }}
+              style={{
+                borderColor: deliveryBorderColor,
+              }}
+              size={isLessThan768 ? 'sm' : 'md'}
               value="delivery"
             >
               Delivery
@@ -198,10 +211,10 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
           <Flex gap={'3px'}>
             <img src={point}></img>
             <Text
-              fontSize={16}
+              fontSize={isLessThan768 ? 14 : 16}
               fontWeight={400}
               color={'#002034'}
-              lineHeight={'24px'}
+              lineHeight={isLessThan768 ? '21px' : '24px'}
               fontFamily={'Rubik'}
               fontStyle={'normal'}
               mb={'1px'}

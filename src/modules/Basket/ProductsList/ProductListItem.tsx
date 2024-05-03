@@ -1,5 +1,5 @@
 import { SelectedProduct, AppDispatch } from 'types'
-import { Box, Flex, Image, Text } from '@chakra-ui/react'
+import { Box, Flex, Image, Text, useMediaQuery } from '@chakra-ui/react'
 import stubImg from 'assets/img/stub.jpg'
 import {
   CountButtonBasketInc,
@@ -11,6 +11,8 @@ import {
   setSelectedProductCount,
   deleteSelectedProduct,
 } from 'redux/products/ProductsSlice'
+import inc from 'assets/icons/inc.svg'
+import dec from 'assets/icons/dec.svg'
 
 interface Props {
   item: SelectedProduct
@@ -42,6 +44,8 @@ const ProductListItem = ({ item }: Props) => {
     }
   }
 
+  const [isLessThan768] = useMediaQuery('(max-width: 768px)')
+
   return (
     <Flex
       align="center"
@@ -51,10 +55,10 @@ const ProductListItem = ({ item }: Props) => {
       backgroundColor={'#ECECF5'}
       borderRadius={'9px'}
     >
-      <Flex gap={3} align="center">
+      <Flex gap={isLessThan768 ? '5px' : 3} align="center">
         <Image
           src={item.product.img}
-          width={'69px'}
+          width={'72px'}
           height={'92px'}
           fallback={<Image boxSize={19} src={stubImg} />}
           overflow={'hidden'}
@@ -64,8 +68,8 @@ const ProductListItem = ({ item }: Props) => {
           <Box>
             <Text
               maxW={130}
-              fontSize={16}
-              lineHeight="24px"
+              fontSize={isLessThan768 ? 14 : 16}
+              lineHeight={isLessThan768 ? '21px' : '24px'}
               fontWeight={400}
               fontFamily={'Rubik'}
               color={'#002034'}
@@ -74,22 +78,23 @@ const ProductListItem = ({ item }: Props) => {
               {item.product.name}
             </Text>
             <Text
-              fontSize={14}
+              fontSize={isLessThan768 ? 12 : 14}
               fontFamily={'Rubik'}
               fontStyle={'normal'}
               fontWeight={400}
-              lineHeight="21px"
+              lineHeight={isLessThan768 ? '18px' : '21px'}
               color={'#9090A4'}
+              pr={isLessThan768 ? '40px' : 0}
             >
               {Number(item.product.weight * item.count).toFixed(2)} gram /{' '}
               {item.product.size * item.count} шт.
             </Text>
             <Flex>
               <Text
-                fontSize={'16px'}
+                fontSize={isLessThan768 ? '14px' : '16px'}
                 minW={10}
                 fontWeight={400}
-                lineHeight={'24px'}
+                lineHeight={isLessThan768 ? '21px' : '24px'}
                 color={'#002034'}
                 fontFamily={'Rubik'}
               >
@@ -110,32 +115,61 @@ const ProductListItem = ({ item }: Props) => {
             borderColor={'#B7B7B7'}
             borderWidth={'1px'}
           >
-            <CountButtonBasketDec
-              borderLeftRadius={5}
-              borderRightRadius={5}
-              onClick={decreaseCount}
-            >
-              -
-            </CountButtonBasketDec>
+            {isLessThan768 ? (
+              <img
+                src={dec}
+                alt="Decrement image"
+                onClick={decreaseCount}
+                style={{
+                  cursor: 'pointer',
+                  paddingTop: '14px',
+                  paddingBottom: '14px',
+                  paddingLeft: '5px',
+                  paddingRight: '10px',
+                }}
+              />
+            ) : (
+              <CountButtonBasketDec
+                borderRightRadius={5}
+                borderLeftRadius={5}
+                onClick={decreaseCount}
+              >
+                -
+              </CountButtonBasketDec>
+            )}
 
             <Text
-              fontSize={16}
+              fontSize={isLessThan768 ? 13 : 16}
               fontWeight={400}
               fontFamily={'Rubik'}
-              lineHeight={'24px'}
+              lineHeight={isLessThan768 ? '20px' : '24px'}
               color={'#002034'}
               fontStyle={'normal'}
             >
               {item.count}
             </Text>
-
-            <CountButtonBasketInc
-              borderRightRadius={5}
-              borderLeftRadius={5}
-              onClick={increaseCount}
-            >
-              +
-            </CountButtonBasketInc>
+            {isLessThan768 ? (
+              <img
+                src={inc}
+                alt="Increment image"
+                onClick={increaseCount}
+                style={{
+                  cursor: 'pointer',
+                  paddingTop: '14px',
+                  paddingBottom: '14px',
+                  paddingRight: '5px',
+                  paddingLeft: '10px',
+                }}
+              />
+            ) : (
+              <CountButtonBasketInc
+                borderRightRadius={5}
+                borderLeftRadius={5}
+                onClick={increaseCount}
+              >
+                +
+              </CountButtonBasketInc>
+            )}
           </Flex>
         </Flex>
         <Image cursor="pointer" src={closeIcon} onClick={handleDelete} />

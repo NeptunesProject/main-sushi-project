@@ -1,5 +1,11 @@
 import React from 'react'
-import { Button, DrawerCloseButton, Flex, Text } from '@chakra-ui/react'
+import {
+  Button,
+  DrawerCloseButton,
+  Flex,
+  Text,
+  useMediaQuery,
+} from '@chakra-ui/react'
 import ProductsList from './ProductsList/ProductsList'
 import InfoToPay from './InfoToPay'
 import { BasketTypes } from 'types'
@@ -13,17 +19,19 @@ interface Props {
 
 const BasketType = ({ setSelectedBasketType }: Props) => {
   const products = useSelector(selectBasketProducts)
+  const [isLessThan768] = useMediaQuery('(max-width: 768px)')
 
   return (
     <>
       <Flex justifyContent="space-between" alignItems="center">
         <Text
-          fontSize={'24px'}
+          fontSize={isLessThan768 ? '16px' : '24px'}
           fontFamily={'Rubik'}
           fontStyle={'normal'}
           fontWeight={'600'}
-          lineHeight={'36px'}
+          lineHeight={isLessThan768 ? '21px' : '36px'}
           color={'#002034'}
+          pl={'5px'}
         >
           Basket
         </Text>
@@ -32,13 +40,14 @@ const BasketType = ({ setSelectedBasketType }: Props) => {
 
       <Flex flexDir="column">
         <Text
-          fontSize={16}
+          fontSize={isLessThan768 ? 14 : 16}
           fontWeight={400}
           color={'#002034'}
-          lineHeight={'24px'}
+          lineHeight={isLessThan768 ? '21px' : '24px'}
           fontFamily={'Rubik'}
           fontStyle={'normal'}
-          mb={'16px'}
+          mb={isLessThan768 ? '18px' : '16px'}
+          pl={'5px'}
         >
           Your order:
         </Text>
