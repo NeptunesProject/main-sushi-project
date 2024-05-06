@@ -1,4 +1,4 @@
-import { DrawerCloseButton, Flex, Text } from '@chakra-ui/react'
+import { DrawerCloseButton, Flex, Text, useMediaQuery } from '@chakra-ui/react'
 import { BasketTypes } from 'types'
 import logo from '../../assets/icons/logoBasket.svg'
 
@@ -8,6 +8,8 @@ interface Props {
 }
 
 export const StatusForm = ({ setSelectedBasketType, orderId }: Props) => {
+  const [isLessThan768] = useMediaQuery('(max-width: 768px)')
+
   return (
     <>
       <Flex
@@ -21,13 +23,13 @@ export const StatusForm = ({ setSelectedBasketType, orderId }: Props) => {
         gap={'23px'}
         pl={'23px'}
         pr={'23px'}
-        pb={'108px'}
+        pb={isLessThan768 ? '119px' : '108px'}
       >
         <DrawerCloseButton
           pos="static"
           onClick={() => setSelectedBasketType('basket')}
           alignSelf="end"
-          mb={'85px'}
+          mb={isLessThan768 ? '21px' : '85px'}
         />
         <img
           src={logo}

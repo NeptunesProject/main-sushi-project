@@ -1,18 +1,13 @@
 import { SelectedProduct, AppDispatch } from 'types'
 import { Box, Flex, Image, Text, useMediaQuery } from '@chakra-ui/react'
 import stubImg from 'assets/img/stub.jpg'
-import {
-  CountButtonBasketInc,
-  CountButtonBasketDec,
-} from '../../../ui/CountButton'
 import closeIcon from 'assets/icons/delete.svg'
 import { useDispatch } from 'react-redux'
 import {
   setSelectedProductCount,
   deleteSelectedProduct,
 } from 'redux/products/ProductsSlice'
-import inc from 'assets/icons/inc.svg'
-import dec from 'assets/icons/dec.svg'
+import { DecBtn, IncBtn } from '../IncDecBtn'
 
 interface Props {
   item: SelectedProduct
@@ -54,8 +49,9 @@ const ProductListItem = ({ item }: Props) => {
       color="blue.200"
       backgroundColor={'#ECECF5'}
       borderRadius={'9px'}
+      pr={'16px'}
     >
-      <Flex gap={isLessThan768 ? '5px' : 3} align="center">
+      <Flex gap={isLessThan768 ? '5px' : 3}>
         <Image
           src={item.product.img}
           width={'72px'}
@@ -64,7 +60,7 @@ const ProductListItem = ({ item }: Props) => {
           overflow={'hidden'}
           borderLeftRadius={'9px'}
         />
-        <Flex gap={'8px'}>
+        <Flex gap={'8px'} alignItems={'center'}>
           <Box>
             <Text
               maxW={130}
@@ -84,7 +80,6 @@ const ProductListItem = ({ item }: Props) => {
               fontWeight={400}
               lineHeight={isLessThan768 ? '18px' : '21px'}
               color={'#9090A4'}
-              pr={isLessThan768 ? '40px' : 0}
             >
               {Number(item.product.weight * item.count).toFixed(2)} gram /{' '}
               {item.product.size * item.count} шт.
@@ -103,74 +98,32 @@ const ProductListItem = ({ item }: Props) => {
             </Flex>
           </Box>
         </Flex>
+      </Flex>
 
-        <Flex align="center" gap={3} mr={'6px'}>
-          <Flex
-            align="center"
-            gap={2}
-            backgroundColor={'#FFFFFF'}
-            overflow={'hidden'}
-            borderRightRadius={5}
-            borderLeftRadius={5}
-            borderColor={'#B7B7B7'}
-            borderWidth={'1px'}
+      <Flex align="center" gap={3}>
+        <Flex
+          align="center"
+          gap={2}
+          backgroundColor={'#FFFFFF'}
+          overflow={'hidden'}
+          borderRightRadius={5}
+          borderLeftRadius={5}
+          borderColor={'#B7B7B7'}
+          borderWidth={'1px'}
+        >
+          <DecBtn onClick={decreaseCount} text={'-'}></DecBtn>
+
+          <Text
+            fontSize={isLessThan768 ? 13 : 16}
+            fontWeight={400}
+            fontFamily={'Rubik'}
+            lineHeight={isLessThan768 ? '20px' : '24px'}
+            color={'#002034'}
+            fontStyle={'normal'}
           >
-            {isLessThan768 ? (
-              <img
-                src={dec}
-                alt="Decrement image"
-                onClick={decreaseCount}
-                style={{
-                  cursor: 'pointer',
-                  paddingTop: '14px',
-                  paddingBottom: '14px',
-                  paddingLeft: '5px',
-                  paddingRight: '10px',
-                }}
-              />
-            ) : (
-              <CountButtonBasketDec
-                borderRightRadius={5}
-                borderLeftRadius={5}
-                onClick={decreaseCount}
-              >
-                -
-              </CountButtonBasketDec>
-            )}
-
-            <Text
-              fontSize={isLessThan768 ? 13 : 16}
-              fontWeight={400}
-              fontFamily={'Rubik'}
-              lineHeight={isLessThan768 ? '20px' : '24px'}
-              color={'#002034'}
-              fontStyle={'normal'}
-            >
-              {item.count}
-            </Text>
-            {isLessThan768 ? (
-              <img
-                src={inc}
-                alt="Increment image"
-                onClick={increaseCount}
-                style={{
-                  cursor: 'pointer',
-                  paddingTop: '14px',
-                  paddingBottom: '14px',
-                  paddingRight: '5px',
-                  paddingLeft: '10px',
-                }}
-              />
-            ) : (
-              <CountButtonBasketInc
-                borderRightRadius={5}
-                borderLeftRadius={5}
-                onClick={increaseCount}
-              >
-                +
-              </CountButtonBasketInc>
-            )}
-          </Flex>
+            {item.count}
+          </Text>
+          <IncBtn onClick={increaseCount} text={'+'}></IncBtn>
         </Flex>
         <Image cursor="pointer" src={closeIcon} onClick={handleDelete} />
       </Flex>

@@ -117,7 +117,12 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
 
   return (
     <>
-      <Flex justifyContent="space-between" alignItems="center">
+      <Flex
+        pl={isLessThan768 ? '5px' : '0px'}
+        pr={isLessThan768 ? '5px' : '0px'}
+        justifyContent="space-between"
+        alignItems="center"
+      >
         <Text
           fontSize={isLessThan768 ? '16px' : '24px'}
           fontFamily={'Rubik'}
@@ -131,7 +136,11 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
         <DrawerCloseButton pos="static" />
       </Flex>
 
-      <Flex flexDir="column">
+      <Flex
+        pl={isLessThan768 ? '5px' : '0px'}
+        pr={isLessThan768 ? '5px' : '0px'}
+        flexDir="column"
+      >
         <Text
           fontSize={isLessThan768 ? 14 : 16}
           fontWeight={400}
@@ -209,7 +218,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
         </RadioGroup>
         {deliveryType === 'pickup' && (
           <Flex gap={'3px'}>
-            <img src={point}></img>
+            <img width={isLessThan768 ? '13px' : '18px'} src={point}></img>
             <Text
               fontSize={isLessThan768 ? 14 : 16}
               fontWeight={400}
@@ -224,7 +233,14 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
           </Flex>
         )}
 
-        <Box w="100%" h="1px" bg="grey" opacity={0.6} mt={'10px'} mb={'10px'} />
+        <Box
+          w="100%"
+          h="1px"
+          bg="grey"
+          opacity={0.6}
+          mb={'10px'}
+          mt={isLessThan768 ? '19px' : '10px'}
+        />
 
         <AdditionalProducts />
 

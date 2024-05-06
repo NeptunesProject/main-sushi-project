@@ -9,6 +9,7 @@ import {
   Stack,
   Text,
   Textarea,
+  useMediaQuery,
 } from '@chakra-ui/react'
 import { AppDispatch, BasketTypes } from '../../types'
 import InfoToPay from './InfoToPay'
@@ -157,15 +158,23 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
     )
   }
 
+  const [isLessThan768] = useMediaQuery('(max-width: 768px)')
+
   return (
     <>
-      <Flex justifyContent="space-between" alignItems="center" mb={'10px'}>
+      <Flex
+        justifyContent="space-between"
+        alignItems="center"
+        mb={isLessThan768 ? '9px' : '10px'}
+        pl={isLessThan768 ? '5px' : '0px'}
+        pr={isLessThan768 ? '5px' : '0px'}
+      >
         <Text
-          fontSize={'24px'}
+          fontSize={isLessThan768 ? '16px' : '24px'}
           fontFamily={'Rubik'}
           fontStyle={'normal'}
           fontWeight={'600'}
-          lineHeight={'36px'}
+          lineHeight={isLessThan768 ? '21px' : '36px'}
           color={'#002034'}
         >
           Choose payment method
@@ -174,22 +183,28 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
       </Flex>
       <Flex
         flexDir="column"
-        fontSize={'16px'}
+        fontSize={isLessThan768 ? '14px' : '16px'}
         fontFamily={'Rubik'}
         fontStyle={'normal'}
         fontWeight={'400'}
-        lineHeight={'24px'}
+        lineHeight={isLessThan768 ? '21px' : '24px'}
         color={'rgba(0, 0, 0, 0.4)'}
+        pl={isLessThan768 ? '5px' : '0px'}
+        pr={isLessThan768 ? '5px' : '0px'}
       >
-        <Text fontWeight={'500'} color={'#002034'}>
+        <Text fontWeight={'500'} color={'#002034'} mb={'3px'}>
           Verify your order details:
         </Text>
-        <Text>{name}</Text>
-        <Text>{phoneNumber}</Text>
-        <Text>{email}</Text>
-        <Text color={'rgba(0, 0, 0, 0.28)'}>{street}</Text>
-        <Flex gap={'3px'}>
-          <Text fontWeight={'500'}>Delivery Type:</Text>
+        <Text mb={'3px'}>{name}</Text>
+        <Text mb={'3px'}>{phoneNumber}</Text>
+        <Text mb={'3px'}>{email}</Text>
+        <Text mb={'3px'} color={'rgba(0, 0, 0, 0.28)'}>
+          {street}
+        </Text>
+        <Flex gap={'3px'} pt={isLessThan768 ? '11px' : '10px'}>
+          <Text fontWeight={'500'} mb={'5px'}>
+            Delivery Type:
+          </Text>
           <Text>
             {deliveryType.charAt(0).toUpperCase() + deliveryType.slice(1)}
           </Text>
@@ -202,16 +217,29 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
           </Flex>
         )}
       </Flex>
+      <Flex
+        pl={isLessThan768 ? '5px' : '0px'}
+        pr={isLessThan768 ? '5px' : '0px'}
+      >
+        <Box w="100%" h="1px" bg="grey" opacity={0.6} mb={'6px'} />
+      </Flex>
 
-      <Box w="100%" h="1px" bg="grey" opacity={0.6} mt={'6px'} mb={'6px'} />
-
-      <Box mb={'26px'}>
+      <Box
+        mb={isLessThan768 ? '31px' : '26px'}
+        pl={isLessThan768 ? '5px' : '0px'}
+        pr={isLessThan768 ? '5px' : '0px'}
+      >
         <RadioGroup onChange={paymentSetter} value={payment} mb={'5px'}>
-          <Stack direction="column" defaultValue={payment} spacing={'3px'}>
+          <Stack
+            direction="column"
+            defaultValue={payment}
+            spacing={isLessThan768 ? '6px' : '3px'}
+          >
             <Radio
               style={{
                 borderColor: payment === 'CASH' ? 'black' : 'grey',
               }}
+              size={isLessThan768 ? 'sm' : 'md'}
               id="cash"
               value="CASH"
             >
@@ -221,6 +249,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
               style={{
                 borderColor: payment === 'TERMINAL' ? 'black' : 'grey',
               }}
+              size={isLessThan768 ? 'sm' : 'md'}
               id="terminal"
               value="TERMINAL"
             >
@@ -231,6 +260,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
               style={{
                 borderColor: payment === 'ONLINE' ? 'black' : 'grey',
               }}
+              size={isLessThan768 ? 'sm' : 'md'}
               id="online"
               value="ONLINE"
             >
@@ -238,16 +268,29 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
             </Radio>
           </Stack>
         </RadioGroup>
-        <Text fontWeight={'500'} color={'#002034'}>
+        <Text
+          fontWeight={'500'}
+          color={'#002034'}
+          fontSize={isLessThan768 ? '14px' : '16px'}
+          fontFamily={'Rubik'}
+          fontStyle={'normal'}
+          lineHeight={isLessThan768 ? '21px' : '24px'}
+          mb={'5px'}
+        >
           Comments:
         </Text>
         <Textarea
           placeholder="Leave a comment"
           mt={'2px'}
-          p={'8px'}
+          p={isLessThan768 ? '10px' : '8px'}
           value={comment}
+          height={'91px'}
           onChange={handleTextareaChange}
           style={{ resize: 'none' }}
+          fontSize={isLessThan768 ? '14px' : '16px'}
+          fontFamily={'Rubik'}
+          fontStyle={'normal'}
+          lineHeight={isLessThan768 ? '21px' : '24px'}
         />
       </Box>
 
