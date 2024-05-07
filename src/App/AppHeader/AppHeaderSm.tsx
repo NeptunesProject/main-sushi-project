@@ -35,7 +35,7 @@ const AppHeaderSm = () => {
   const [isOpen, setIsOpen] = useState(false)
   return (
     <>
-      <Flex py={6} justifyContent="space-between">
+      <Flex py={6} justifyContent="space-between" alignItems={'center'}>
         <Logo />
         <Place />
         <Burger isOpen={isOpen} setIsOpen={setIsOpen} />

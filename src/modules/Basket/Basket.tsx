@@ -65,7 +65,7 @@ const Basket = () => {
         bgColor="#002034"
       >
         <Image boxSize="24px" src={basket} />
-        {productsCount && (
+        {productsCount > 0 && (
           <Center
             pos="absolute"
             top="7.5px"

@@ -43,7 +43,6 @@ export const StatusForm = ({ setSelectedBasketType, orderId }: Props) => {
           display="flex"
           fontWeight={600}
           mt={5}
-          ml={5}
           lineHeight={'36px'}
         >
           Thank you!
