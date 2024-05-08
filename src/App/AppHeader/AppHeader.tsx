@@ -46,8 +46,8 @@ const AppHeader = () => {
         justifyContent="space-between"
         w="100%"
         h="64px"
-        px={{ base: 4, lg: '75px' }}
-        py={{ base: 6, lg: '8px' }}
+        px={{ base: 0, lg: '75px' }}
+        py={{ base: 0, lg: '8px' }}
       >
         <Logo />
         {isLargerScreen ? (
