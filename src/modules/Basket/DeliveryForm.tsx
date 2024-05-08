@@ -2,20 +2,19 @@ import React, { useState } from 'react'
 import {
   Box,
   Button,
-  DrawerBody,
   DrawerCloseButton,
-  DrawerHeader,
   Flex,
-  Input,
   Radio,
   RadioGroup,
   Stack,
   Text,
+  useMediaQuery,
 } from '@chakra-ui/react'
 import { BasketTypes } from '../../types'
-import { ArrowBackIcon } from '@chakra-ui/icons'
 import InfoToPay from './InfoToPay'
-
+import { BasketInput } from 'components/BasketInput'
+import AdditionalProducts from './AdditionalProducts'
+import point from '../../assets/icons/point.svg'
 
 interface Props {
   setSelectedBasketType: React.Dispatch<React.SetStateAction<BasketTypes>>
@@ -38,28 +37,30 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
     getFromLocaleStorage('personInfo-Number', ''),
   )
   const [deliveryType, setDeliveryType] = useState(() =>
-    getFromLocaleStorage('personInfo-Delivery', 'pickup'),
+    getFromLocaleStorage('personInfo-Delivery', ''),
   )
   const [street, setStreet] = useState(() =>
     getFromLocaleStorage('personInfo-Street', ''),
   )
-
+  const [email, setEmail] = useState(() =>
+    getFromLocaleStorage('personInfo-Email', ''),
+  )
   const getDisabledState = () => {
-    let isDisabled = false;
+    let isDisabled = false
 
     switch (true) {
       case name.length === 0:
       case phoneNumber.length === 0:
-      case (deliveryType !== 'pickup' && street.length === 0):
-        isDisabled = true;
-        break;
+      case deliveryType !== 'pickup' && street.length === 0:
+        isDisabled = true
+        break
       default:
-        isDisabled = false;
-        break;
+        isDisabled = false
+        break
     }
-  
-    return isDisabled;
-  };
+
+    return isDisabled
+  }
 
   function nameSetter(e: React.ChangeEvent<HTMLInputElement>) {
     setName(e.target.value.trim())
@@ -76,91 +77,212 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
     )
   }
   function streetSetter(e: React.ChangeEvent<HTMLInputElement>) {
-    setStreet((e.target as HTMLInputElement).value.trim())
+    setStreet(
+      deliveryType === 'delivery'
+        ? (e.target as HTMLInputElement).value.trim()
+        : '',
+    )
     localStorage.setItem(
       'personInfo-Street',
-      JSON.stringify((e.target as HTMLInputElement).value.trim()),
+      JSON.stringify(
+        deliveryType === 'delivery'
+          ? (e.target as HTMLInputElement).value.trim()
+          : '',
+      ),
     )
   }
 
   function deliverySetter(value: string) {
     setDeliveryType(value)
+    if (value === 'pickup') {
+      setStreet('')
+      localStorage.setItem('personInfo-Street', JSON.stringify(''))
+    }
+
     localStorage.setItem('personInfo-Delivery', JSON.stringify(value))
   }
 
+  function emailSetter(e: React.ChangeEvent<HTMLInputElement>) {
+    setEmail(e.target.value.trim())
+    localStorage.setItem(
+      'personInfo-Email',
+      JSON.stringify((e.target as HTMLInputElement).value.trim()),
+    )
+  }
+
+  const pickupBorderColor = deliveryType === 'pickup' ? 'black' : 'grey'
+  const deliveryBorderColor = deliveryType === 'delivery' ? 'black' : 'grey'
+
+  const [isLessThan768] = useMediaQuery('(max-width: 768px)')
+
   return (
     <>
-      <DrawerHeader
-        display="flex"
+      <Flex
+        pl={isLessThan768 ? '5px' : '0px'}
+        pr={isLessThan768 ? '5px' : '0px'}
         justifyContent="space-between"
         alignItems="center"
       >
         <Text
-          cursor="pointer"
-          onClick={() => setSelectedBasketType('basket')}
-          fontSize={15}
+          fontSize={isLessThan768 ? '16px' : '24px'}
+          fontFamily={'Rubik'}
+          fontStyle={'normal'}
+          fontWeight={'600'}
+          lineHeight={isLessThan768 ? '21px' : '36px'}
+          color={'#002034'}
         >
-          <ArrowBackIcon /> back{' '}
+          Order Details
         </Text>
         <DrawerCloseButton pos="static" />
-      </DrawerHeader>
-      <DrawerBody color="blue.200" pr="2">
-        <Flex flexDir="column" gap={5}>
-          <Text fontSize={18} fontWeight={600} mb={5}>
-            Confirm order
-          </Text>
+      </Flex>
 
-          <Box mb={10}>
-            <Text fontWeight={600} mb={2}>
-              Personal data:
-            </Text>
-
-            <Flex flexDir="column" gap={3} align="start" mb={4}>
-              <Input value={name} onChange={nameSetter} placeholder="name" />
-              <Input
-                value={phoneNumber}
-                onChange={phoneSetter}
-                type="tel"
-                placeholder="phone number"
-              />
-              {deliveryType === 'delivery' && (
-                <Input
-                  value={street}
-                  onChange={streetSetter}
-                  type="text"
-                  placeholder="street"
-                />
-              )}
-            </Flex>
-
-            <RadioGroup
-              onChange={(value) => deliverySetter(value)}
-              value={deliveryType}
+      <Flex
+        pl={isLessThan768 ? '5px' : '0px'}
+        pr={isLessThan768 ? '5px' : '0px'}
+        flexDir="column"
+      >
+        <Text
+          fontSize={isLessThan768 ? 14 : 16}
+          fontWeight={400}
+          color={'#002034'}
+          lineHeight={isLessThan768 ? '21px' : '24px'}
+          fontFamily={'Rubik'}
+          fontStyle={'normal'}
+          mb={'4px'}
+        >
+          Personal Data:
+        </Text>
+        <Flex flexDir="column" gap={'10px'} align="start" mb={'8px'}>
+          <BasketInput
+            value={name}
+            setter={nameSetter}
+            type="text"
+            placeholder="User Name"
+          />
+          <BasketInput
+            value={phoneNumber}
+            setter={phoneSetter}
+            type="tel"
+            placeholder="Phone"
+          />
+          <BasketInput
+            value={email}
+            setter={emailSetter}
+            type="email"
+            placeholder="Email"
+          />
+          {deliveryType === 'delivery' && (
+            <BasketInput
+              value={street}
+              setter={streetSetter}
+              type="text"
+              placeholder="Delivery Address"
+            />
+          )}
+        </Flex>
+        <Text
+          fontSize={isLessThan768 ? 14 : 16}
+          fontWeight={400}
+          color={'#002034'}
+          lineHeight={isLessThan768 ? '21px' : '24px'}
+          fontFamily={'Rubik'}
+          fontStyle={'normal'}
+          mb={'1px'}
+        >
+          Choose Delivery Type:
+        </Text>
+        <RadioGroup
+          onChange={(value) => deliverySetter(value)}
+          value={deliveryType}
+        >
+          <Stack direction="column" spacing={'3px'}>
+            <Radio
+              style={{
+                borderColor: pickupBorderColor,
+              }}
+              size={isLessThan768 ? 'sm' : 'md'}
+              value="pickup"
             >
-              <Stack direction="column">
-                <Radio value="pickup">Self pick-up</Radio>
-                <Radio value="delivery">Delivery to address</Radio>
-              </Stack>
-            </RadioGroup>
+              Self pick-up
+            </Radio>
+            <Radio
+              style={{
+                borderColor: deliveryBorderColor,
+              }}
+              size={isLessThan768 ? 'sm' : 'md'}
+              value="delivery"
+            >
+              Delivery
+            </Radio>
+          </Stack>
+        </RadioGroup>
+        {deliveryType === 'pickup' && (
+          <Flex gap={'3px'}>
+            <img width={isLessThan768 ? '13px' : '18px'} src={point}></img>
+            <Text
+              fontSize={isLessThan768 ? 14 : 16}
+              fontWeight={400}
+              color={'#002034'}
+              lineHeight={isLessThan768 ? '21px' : '24px'}
+              fontFamily={'Rubik'}
+              fontStyle={'normal'}
+              mb={'1px'}
+            >
+              Warsaw, Chrystiana Piotra Aignera 6, 00-710
+            </Text>
+          </Flex>
+        )}
 
-          </Box>
+        <Box
+          w="100%"
+          h="1px"
+          bg="grey"
+          opacity={0.6}
+          mb={'10px'}
+          mt={isLessThan768 ? '19px' : '10px'}
+        />
 
-          <InfoToPay />
+        <AdditionalProducts />
+
+        <Box w="100%" h="1px" bg="grey" opacity={0.6} mt={'10px'} mb={'13px'} />
+
+        <InfoToPay />
+        <Flex justifyContent={'center'} gap={'8px'}>
+          <Button
+            bg="#002034"
+            borderRadius={25}
+            color={'#FFFFFF'}
+            fontSize={16}
+            fontWeight={400}
+            lineHeight={'24px'}
+            fontFamily={'Rubik'}
+            fontStyle={'normal'}
+            mt={'9px'}
+            alignSelf="end"
+            onClick={() => setSelectedBasketType('basket')}
+            width={'99px'}
+          >
+            Back
+          </Button>
 
           <Button
-            alignSelf="end"
-            w="60%"
-            border="2px solid"
-            borderColor="turquoise.77"
-            bg="none"
+            bg="#002034"
             borderRadius={25}
-            onClick={() => setSelectedBasketType("pay")}
+            color={'#FFFFFF'}
+            fontSize={16}
+            fontWeight={400}
+            lineHeight={'24px'}
+            fontFamily={'Rubik'}
+            fontStyle={'normal'}
+            mt={'9px'}
+            alignSelf="end"
+            onClick={() => setSelectedBasketType('pay')}
             isDisabled={getDisabledState()}
           >
             Continue
           </Button>
         </Flex>
-      </DrawerBody>
+      </Flex>
     </>
   )
 }

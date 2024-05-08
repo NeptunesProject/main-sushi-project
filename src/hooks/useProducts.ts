@@ -1,18 +1,9 @@
-import { getProducts } from '../api'
-import { useQuery, UseQueryOptions } from '@tanstack/react-query'
-import { Product } from '../types'
+import { useSelector } from 'react-redux'
+import { selectLoading, selectProducts } from 'redux/products/selectors'
 
-const useProducts = (
-  options?: Omit<
-    UseQueryOptions<Product[], unknown, Product[], string[]>,
-    'initialData'
-  >,
-) => {
-  const { data: products, isLoading: isProductsLoading } = useQuery({
-    queryKey: ['products'],
-    queryFn: getProducts,
-    ...options,
-  })
+const useProducts = () => {
+  const products = useSelector(selectProducts)
+  const isProductsLoading = useSelector(selectLoading)
 
   return {
     products,

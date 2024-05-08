@@ -28,12 +28,7 @@ const ScrollToTopButton = () => {
   }
 
   return (
-    <Box
-      pos={visible ? 'sticky' : 'unset'}
-      bottom={15}
-      left="100%"
-      display={visible ? 'inline-block' : 'none'}
-    >
+    <Box bottom={15} left="100%" display={visible ? 'inline-block' : 'none'}>
       <Center
         boxSize="48px"
         borderRadius={10}

@@ -3,12 +3,21 @@ import CategoryGrid from './CategoryGrid'
 import HomeSlider from './HomeSlider'
 import GratitudeNote from './GratitudeNote'
 import useProducts from 'hooks/useProducts'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import useCategories from '../../../hooks/useCategories'
 import ScrollToTopButton from 'modules/ScrollToTop/ui/ScrollToTop'
 import AppNavBar from 'App/AppNavBar'
+import { useDispatch } from 'react-redux'
+import { fetchProducts } from 'redux/products/operations'
+import { AppDispatch } from 'types'
 
 const HomeContent = () => {
+  const dispatch = useDispatch<AppDispatch>()
+
+  useEffect(() => {
+    dispatch(fetchProducts())
+  }, [dispatch])
+
   const { products, isProductsLoading } = useProducts()
   const { categories, isCategoriesLoading } = useCategories()
 
@@ -32,7 +41,7 @@ const HomeContent = () => {
 
   return (
     <Container maxW="container.xl" pt="96px" w="100%" pos="relative">
-      <Container maxW="container.md" w="100%">
+      <Container maxW="container.md" w="100%" pl={0} pr={0}>
         <HomeSlider />
         {isLoading ? (
           <Center h={400}>
@@ -43,6 +52,7 @@ const HomeContent = () => {
             maxW="container.lg"
             w="100%"
             flexDirection="column"
+            flexWrap={'wrap'}
             gap={20}
             mb={42}
           >

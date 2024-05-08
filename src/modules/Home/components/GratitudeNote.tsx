@@ -1,8 +1,16 @@
-import { Container, Flex, Text, UnorderedList } from '@chakra-ui/react'
+import {
+  Container,
+  Flex,
+  Text,
+  UnorderedList,
+  useMediaQuery,
+} from '@chakra-ui/react'
 import { THANK_NOTE_TEXT } from '../../../constants'
 import ListItem from 'ui/ListItem'
 
 const GratitudeNote = () => {
+  const [isLessThan768] = useMediaQuery('(max-width: 768px)')
+
   return (
     <Container maxW="container.xl" w="100%" mb={10}>
       <Flex
@@ -10,7 +18,7 @@ const GratitudeNote = () => {
         align="center"
         gap={6}
         py={9}
-        px={221}
+        px={isLessThan768 ? 16 : 221}
         bg="rgba(255, 255, 255, 0.7)"
         borderRadius={16}
       >

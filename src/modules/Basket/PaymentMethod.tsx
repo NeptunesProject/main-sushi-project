@@ -2,29 +2,31 @@ import React, { useEffect, useState } from 'react'
 import {
   Box,
   Button,
-  DrawerBody,
   DrawerCloseButton,
-  DrawerHeader,
   Flex,
-  Input,
   Radio,
   RadioGroup,
   Stack,
   Text,
   Textarea,
+  useMediaQuery,
 } from '@chakra-ui/react'
-import { BasketTypes } from '../../types'
-import { ArrowBackIcon } from '@chakra-ui/icons'
+import { AppDispatch, BasketTypes } from '../../types'
 import InfoToPay from './InfoToPay'
-import {
-  useBasketContext,
-  useBasketDispatchContext,
-} from 'contexts/BasketContext'
 import Stripe from 'stripe'
 
 import { ReturnedOrder } from '../../types'
-import { handleClick, makeOrder } from './makeOrderFuncs'
-import { postVoucher } from 'api'
+import { calculateDiscountedPrice, handleClick, makeOrder } from './OrderFuncs'
+import { setVoucher } from 'redux/products/ProductsSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  selectBasketProducts,
+  selectPersonCount,
+  selectStudySticks,
+  selectVoucher,
+} from 'redux/products/selectors'
+import { useTotalPrice } from './InfoToPayHooks'
+import { eraseAfterOrder } from 'redux/products/ProductsSlice'
 
 interface Props {
   setSelectedBasketType: React.Dispatch<React.SetStateAction<BasketTypes>>
@@ -32,14 +34,14 @@ interface Props {
 }
 
 const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
+  const dispatch = useDispatch<AppDispatch>()
+
   const [comment, setComment] = useState('')
- 
+
+  const selectedProducts = useSelector(selectBasketProducts)
+
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value)
-  }
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setVoucherCode(e.target.value)
   }
 
   const STRIPE_SK = import.meta.env.VITE_STRIPE_SECRET_KEY
@@ -63,7 +65,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
     getFromLocaleStorage('personInfo-Number', ''),
   )
   const [deliveryType, setDeliveryType] = useState(() =>
-    getFromLocaleStorage('personInfo-Delivery', 'pickup'),
+    getFromLocaleStorage('personInfo-Delivery', ''),
   )
   const [street, setStreet] = useState(() =>
     getFromLocaleStorage('personInfo-Street', ''),
@@ -71,22 +73,20 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
   const [payment, setPayment] = useState(() =>
     getFromLocaleStorage('paymentType', ''),
   )
-  const [voucherCode, setVoucherCode] = useState('')
 
-  const { personCount, sticks, studySticks, totalPrice, voucher } =
-    useBasketContext()
-  const {
-    setPersonCount,
-    setSticks,
-    clearProductList,
-    setStudySticks,
-    setVoucher,
-  } = useBasketDispatchContext()
+  const [email, setEmail] = useState(() =>
+    getFromLocaleStorage('personInfo-Email', ''),
+  )
+
+  const totalPrice = useTotalPrice(selectedProducts, calculateDiscountedPrice)
+
+  const personCount = useSelector(selectPersonCount)
+  const studySticks = useSelector(selectStudySticks)
+  const voucher = useSelector(selectVoucher)
 
   useEffect(() => {
     setVoucher({ discount: voucher.discount, error: '' })
-   
-  }, [])
+  }, [voucher])
 
   async function createSession(order: ReturnedOrder) {
     try {
@@ -122,169 +122,216 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
       street,
       deliveryType,
       phoneNumber,
-      comment,
       personCount,
-      sticks,
       studySticks,
       payment,
+      comment,
+      voucher.code,
+      email,
+      selectedProducts,
     )
     handleClick(
       order.id,
       setSelectedBasketType,
-      setOrderId,
+      setOrderId as React.Dispatch<React.SetStateAction<number>>,
       setName,
       setPhoneNumber,
       setDeliveryType,
       setStreet,
-      setPersonCount as React.Dispatch<React.SetStateAction<number>>,
-      setSticks as React.Dispatch<React.SetStateAction<number>>,
-      clearProductList,
-      setStudySticks as React.Dispatch<React.SetStateAction<number>>,
-      setPayment,
+      setPayment as React.Dispatch<React.SetStateAction<string>>,
+      setEmail,
     )
+    dispatch(eraseAfterOrder())
     if (order && order.paymentType === 'ONLINE') {
       createSession(order)
     }
     nullifyVoucher()
   }
 
-
-  async function validateVoucher() {
-    try {
-      if (voucherCode !== '') {
-        const result = await postVoucher(voucherCode)
-        if (result) {
-          setVoucherCode('')
-          setVoucher({
-            discount: 1 - result.discountPercentage,
-            error: '',
-          })
-        }
-      }
-    } catch (error) {
-      console.error(error)
-      if (error === 'Voucher not found.') {
-        setVoucher({ discount: 1, error })
-      }
-    }
-  }
-
-
   function nullifyVoucher() {
-    setVoucherCode('')
-    setVoucher({
-      discount: 1,
-      error: '',
-    })
-  }
-
-    const CancelVoucher = () => {
-    setVoucher({
+    dispatch(
+      setVoucher({
         discount: 1,
         error: '',
-      })
-    }
+        code: '',
+      }),
+    )
+  }
 
+  const [isLessThan768] = useMediaQuery('(max-width: 768px)')
 
   return (
     <>
-      <DrawerHeader
-        display="flex"
+      <Flex
         justifyContent="space-between"
         alignItems="center"
+        mb={isLessThan768 ? '9px' : '10px'}
+        pl={isLessThan768 ? '5px' : '0px'}
+        pr={isLessThan768 ? '5px' : '0px'}
       >
         <Text
-          cursor="pointer"
-          onClick={() => setSelectedBasketType('delivery')}
-          fontSize={15}
+          fontSize={isLessThan768 ? '16px' : '24px'}
+          fontFamily={'Rubik'}
+          fontStyle={'normal'}
+          fontWeight={'600'}
+          lineHeight={isLessThan768 ? '21px' : '36px'}
+          color={'#002034'}
         >
-          <ArrowBackIcon /> back{' '}
+          Choose payment method
         </Text>
         <DrawerCloseButton pos="static" />
-      </DrawerHeader>
-      <DrawerBody color="blue.200">
-        <Flex flexDir="column" gap={5}>
-          <Text fontSize={18} fontWeight={600} mb={5}>
-            Choose payment method
+      </Flex>
+      <Flex
+        flexDir="column"
+        fontSize={isLessThan768 ? '14px' : '16px'}
+        fontFamily={'Rubik'}
+        fontStyle={'normal'}
+        fontWeight={'400'}
+        lineHeight={isLessThan768 ? '21px' : '24px'}
+        color={'rgba(0, 0, 0, 0.4)'}
+        pl={isLessThan768 ? '5px' : '0px'}
+        pr={isLessThan768 ? '5px' : '0px'}
+      >
+        <Text fontWeight={'500'} color={'#002034'} mb={'3px'}>
+          Verify your order details:
+        </Text>
+        <Text mb={'3px'}>{name}</Text>
+        <Text mb={'3px'}>{phoneNumber}</Text>
+        <Text mb={'3px'}>{email}</Text>
+        <Text mb={'3px'} color={'rgba(0, 0, 0, 0.28)'}>
+          {street}
+        </Text>
+        <Flex gap={'3px'} pt={isLessThan768 ? '11px' : '10px'}>
+          <Text fontWeight={'500'} mb={'5px'}>
+            Delivery Type:
           </Text>
-
-          <Box mb={10}>
-            <RadioGroup onChange={paymentSetter} ml={1}>
-              <Stack direction="column" defaultValue={payment}>
-                <Radio id="terminal" value="TERMINAL">
-                  By card upon receipt
-                </Radio>
-                <Radio id="cash" value="CASH">
-                  In cash
-                </Radio>
-                <Radio id="online" value="ONLINE">
-                  Online
-                </Radio>
-              </Stack>
-            </RadioGroup>
-
-            <Textarea
-              placeholder="Leave a comment"
-              mt={5}
-              p={1}
-              value={comment}
-              onChange={handleTextareaChange}
-            />
-
-            <Input
-              variant="flushed"
-              placeholder="Enter voucher code"
-              mt={5}
-              px={1.5}
-              value={voucherCode}
-              onChange={handleInputChange}
-            />
-
-            {voucher.discount === 1 ? (
-              <Flex alignItems="center" justifyContent="flex-end">
-                {voucher.error !== '' && (
-                  <Text color="red.400" float={'right'} m={2}>
-                    {voucher.error}
-                  </Text>
-                )}
-                <Button float={'right'} m={2} onClick={validateVoucher}>
-                  Validate voucher
-                </Button>
-              </Flex>
-            ) : (
-              <Flex alignItems="center" justifyContent="flex-end">
-                <Button m={2} onClick={CancelVoucher}>
-                  Remove voucher
-                </Button>
-                <Text m={2} fontWeight={'bold'}>
-                  Applied discount {Math.round((1 - voucher.discount)*100)}%
-                </Text>
-              </Flex>
-            )}
-          </Box>
-
-          <InfoToPay />
-
-          <Button
-            id="button-continue"
-            alignSelf="end"
-            w="60%"
-            border="2px solid"
-            borderColor="turquoise.77"
-            bg="none"
-            borderRadius={25}
-            onClick={() => createOrder()}
-            isDisabled={payment === ""}
-          >
-            Continue
-          </Button>
+          <Text>
+            {deliveryType.charAt(0).toUpperCase() + deliveryType.slice(1)}
+          </Text>
         </Flex>
-      </DrawerBody>
+        {deliveryType === 'pickup' && (
+          <Flex gap={'3px'}>
+            <Text lineHeight={'21px'} fontSize={'14px'}>
+              Self Pickup on Warsaw, Chrystiana Piotra Aignera 6, 00-710
+            </Text>
+          </Flex>
+        )}
+      </Flex>
+      <Flex
+        pl={isLessThan768 ? '5px' : '0px'}
+        pr={isLessThan768 ? '5px' : '0px'}
+      >
+        <Box w="100%" h="1px" bg="grey" opacity={0.6} mb={'6px'} />
+      </Flex>
+
+      <Box
+        mb={isLessThan768 ? '31px' : '26px'}
+        pl={isLessThan768 ? '5px' : '0px'}
+        pr={isLessThan768 ? '5px' : '0px'}
+      >
+        <RadioGroup onChange={paymentSetter} value={payment} mb={'5px'}>
+          <Stack
+            direction="column"
+            defaultValue={payment}
+            spacing={isLessThan768 ? '6px' : '3px'}
+          >
+            <Radio
+              style={{
+                borderColor: payment === 'CASH' ? 'black' : 'grey',
+              }}
+              size={isLessThan768 ? 'sm' : 'md'}
+              id="cash"
+              value="CASH"
+            >
+              Cash
+            </Radio>
+            <Radio
+              style={{
+                borderColor: payment === 'TERMINAL' ? 'black' : 'grey',
+              }}
+              size={isLessThan768 ? 'sm' : 'md'}
+              id="terminal"
+              value="TERMINAL"
+            >
+              Card
+            </Radio>
+
+            <Radio
+              style={{
+                borderColor: payment === 'ONLINE' ? 'black' : 'grey',
+              }}
+              size={isLessThan768 ? 'sm' : 'md'}
+              id="online"
+              value="ONLINE"
+            >
+              Online
+            </Radio>
+          </Stack>
+        </RadioGroup>
+        <Text
+          fontWeight={'500'}
+          color={'#002034'}
+          fontSize={isLessThan768 ? '14px' : '16px'}
+          fontFamily={'Rubik'}
+          fontStyle={'normal'}
+          lineHeight={isLessThan768 ? '21px' : '24px'}
+          mb={'5px'}
+        >
+          Comments:
+        </Text>
+        <Textarea
+          placeholder="Leave a comment"
+          mt={'2px'}
+          p={isLessThan768 ? '10px' : '8px'}
+          value={comment}
+          height={'91px'}
+          onChange={handleTextareaChange}
+          style={{ resize: 'none' }}
+          fontSize={isLessThan768 ? '14px' : '16px'}
+          fontFamily={'Rubik'}
+          fontStyle={'normal'}
+          lineHeight={isLessThan768 ? '21px' : '24px'}
+        />
+      </Box>
+
+      <InfoToPay />
+      <Flex justifyContent={'center'} gap={'8px'}>
+        <Button
+          bg="#002034"
+          borderRadius={25}
+          color={'#FFFFFF'}
+          fontSize={16}
+          fontWeight={400}
+          lineHeight={'24px'}
+          fontFamily={'Rubik'}
+          fontStyle={'normal'}
+          mt={'9px'}
+          alignSelf="end"
+          onClick={() => setSelectedBasketType('delivery')}
+          width={'99px'}
+        >
+          Back
+        </Button>
+
+        <Button
+          bg="#002034"
+          borderRadius={25}
+          color={'#FFFFFF'}
+          fontSize={16}
+          fontWeight={400}
+          lineHeight={'24px'}
+          fontFamily={'Rubik'}
+          fontStyle={'normal'}
+          mt={'9px'}
+          alignSelf="end"
+          onClick={() => createOrder()}
+          isDisabled={payment === ''}
+        >
+          Submit Order
+        </Button>
+      </Flex>
     </>
   )
 }
 
 export default PaymentMethod
-
-
-

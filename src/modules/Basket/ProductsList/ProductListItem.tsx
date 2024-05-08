@@ -1,95 +1,131 @@
-import { Product } from 'types'
-import { Box, Flex, Image, Text } from '@chakra-ui/react'
+import { SelectedProduct, AppDispatch } from 'types'
+import { Box, Flex, Image, Text, useMediaQuery } from '@chakra-ui/react'
 import stubImg from 'assets/img/stub.jpg'
-import CountButton from '../../../ui/CountButton'
 import closeIcon from 'assets/icons/delete.svg'
-import { useBasketDispatchContext } from '../../../contexts/BasketContext'
+import { useDispatch } from 'react-redux'
+import {
+  setSelectedProductCount,
+  deleteSelectedProduct,
+} from 'redux/products/ProductsSlice'
+import { DecBtn, IncBtn } from '../IncDecBtn'
 
 interface Props {
-  product: Product & { count: number }
+  item: SelectedProduct
 }
 
-const ProductListItem = ({ product }: Props) => {
-  const { addProduct, removeProduct, deleteProduct, calculateDiscountedPrice } =
-    useBasketDispatchContext()
+const ProductListItem = ({ item }: Props) => {
+  let count: number = item.count
+  const itemId: number = item.product.id
 
-  const discount = {
-    id: 1,
-    discountPerQuantity: {
-      1: '0.1',
-      5: '0.3',
-      10: '0.5',
-    },
+  const dispatch = useDispatch<AppDispatch>()
+
+  const handleCount = (id: number, count: number) => {
+    dispatch(setSelectedProductCount({ id, count }))
   }
 
-  const discountPrice = calculateDiscountedPrice(
-    product.price,
-    discount.discountPerQuantity,
-    product.count,
-  )
+  const handleDelete = () => {
+    dispatch(deleteSelectedProduct({ itemId }))
+  }
 
-  const isDiscounted = Boolean(discount)
+  const increaseCount = () => {
+    count = count + 1
+    handleCount(itemId, count)
+  }
+
+  const decreaseCount = () => {
+    if (count > 1) {
+      count = count - 1
+      handleCount(itemId, count)
+    }
+  }
+
+  const [isLessThan768] = useMediaQuery('(max-width: 768px)')
 
   return (
-    <Flex align="center" justify="space-between" w="100%" color="blue.200">
-      <Flex gap={2} align="center">
+    <Flex
+      align="center"
+      justify="space-between"
+      w="100%"
+      color="blue.200"
+      backgroundColor={'#ECECF5'}
+      borderRadius={'9px'}
+      pr={'16px'}
+    >
+      <Flex gap={isLessThan768 ? '5px' : 3}>
         <Image
-          src={product.img}
-          boxSize={12}
-          fallback={<Image boxSize={12} src={stubImg} />}
+          src={item.product.img}
+          width={'72px'}
+          height={'92px'}
+          fallback={<Image boxSize={19} src={stubImg} />}
+          overflow={'hidden'}
+          borderLeftRadius={'9px'}
         />
-
-        <Box>
-          <Text maxW={130} fontSize={14} lineHeight="14px" fontWeight={600}>
-            {product.name}
-          </Text>
-          <Text fontSize={13}>
-            {Number(product.weight * product.count).toFixed(2)} gram /{' '}
-            {product.size * product.count} шт.
-          </Text>
-        </Box>
+        <Flex gap={'8px'} alignItems={'center'}>
+          <Box>
+            <Text
+              maxW={130}
+              fontSize={isLessThan768 ? 14 : 16}
+              lineHeight={isLessThan768 ? '21px' : '24px'}
+              fontWeight={400}
+              fontFamily={'Rubik'}
+              color={'#002034'}
+              fontStyle={'normal'}
+            >
+              {item.product.name}
+            </Text>
+            <Text
+              fontSize={isLessThan768 ? 12 : 14}
+              fontFamily={'Rubik'}
+              fontStyle={'normal'}
+              fontWeight={400}
+              lineHeight={isLessThan768 ? '18px' : '21px'}
+              color={'#9090A4'}
+            >
+              {Number(item.product.weight * item.count).toFixed(2)} gram /{' '}
+              {item.product.size * item.count} шт.
+            </Text>
+            <Flex>
+              <Text
+                fontSize={isLessThan768 ? '14px' : '16px'}
+                minW={10}
+                fontWeight={400}
+                lineHeight={isLessThan768 ? '21px' : '24px'}
+                color={'#002034'}
+                fontFamily={'Rubik'}
+              >
+                {item.product.price * item.count} zł
+              </Text>
+            </Flex>
+          </Box>
+        </Flex>
       </Flex>
 
       <Flex align="center" gap={3}>
-        <Flex align="center" gap={2}>
-          <CountButton
-            borderLeftRadius={20}
-            borderRightRadius={5}
-            onClick={() => removeProduct(product)}
-          >
-            -
-          </CountButton>
-
-          <Text fontSize={12} fontWeight={600}>
-            {product.count}
-          </Text>
-
-          <CountButton
-            borderRightRadius={20}
-            borderLeftRadius={5}
-            onClick={() => addProduct(product)}
-          >
-            +
-          </CountButton>
-        </Flex>
-
-        <Text minW={10} fontWeight={600}>
-          {discountPrice * product.count} zł
-        </Text>
-
-        <Text
-          minW={10}
-          fontWeight={600}
-          decoration={isDiscounted ? 'line-through' : 'none'}
+        <Flex
+          align="center"
+          gap={2}
+          backgroundColor={'#FFFFFF'}
+          overflow={'hidden'}
+          borderRightRadius={5}
+          borderLeftRadius={5}
+          borderColor={'#B7B7B7'}
+          borderWidth={'1px'}
         >
-          {product.price * product.count} zł
-        </Text>
+          <DecBtn onClick={decreaseCount} text={'-'}></DecBtn>
 
-        <Image
-          cursor="pointer"
-          src={closeIcon}
-          onClick={() => deleteProduct(product)}
-        />
+          <Text
+            fontSize={isLessThan768 ? 13 : 16}
+            fontWeight={400}
+            fontFamily={'Rubik'}
+            lineHeight={isLessThan768 ? '20px' : '24px'}
+            color={'#002034'}
+            fontStyle={'normal'}
+          >
+            {item.count}
+          </Text>
+          <IncBtn onClick={increaseCount} text={'+'}></IncBtn>
+        </Flex>
+        <Image cursor="pointer" src={closeIcon} onClick={handleDelete} />
       </Flex>
     </Flex>
   )

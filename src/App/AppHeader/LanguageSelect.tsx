@@ -11,9 +11,13 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { ChevronDownIcon } from '@chakra-ui/icons'
 
+interface Props {
+  text?: string
+}
+
 const LANGUAGES = ['en', 'ua', 'pl', 'ru']
 
-const LanguageSelect = () => {
+const LanguageSelect = ({ text }: Props) => {
   const location = useLocation()
   const navigate = useNavigate()
   const { i18n } = useTranslation()
@@ -29,21 +33,26 @@ const LanguageSelect = () => {
     <Menu>
       <MenuButton>
         <Flex align="center" gap={0.5} color="#343330">
-          <Text textTransform="uppercase" fontSize={16} fontWeight={400} fontFamily={"Rubik"}>
-            {selectedLanguage}
+          <Text
+            textTransform={text ? undefined : 'uppercase'}
+            fontSize={16}
+            fontWeight={400}
+            fontFamily={'Rubik'}
+          >
+            {text ? text : selectedLanguage}
           </Text>
-          <ChevronDownIcon />
+          {!text && <ChevronDownIcon />}
         </Flex>
       </MenuButton>
 
-      <MenuList ml={-2}>
+      <MenuList ml={text ? 16 : -2}>
         {LANGUAGES.filter((lang) => lang !== selectedLanguage).map(
           (language) => (
             <MenuItem
               key={language}
               onClick={() => handleLanguageChange(language)}
               textTransform="uppercase"
-              fontFamily={"Rubik"}
+              fontFamily={'Rubik'}
             >
               {language}
             </MenuItem>

@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import { store } from 'redux/store'
 
 enum Languages {
   en = 'EN',
@@ -20,13 +21,21 @@ interface Product {
   url: string
   img: string
   status: number
-  cityId: number
+  description: string
+  descriptionRu: string
+  descriptionEn: string
+  descriptionUa: string
   size: number
   sale: number
-  iikoId: string
   cartCount: number
   sort: number
   box: number
+  discount: {
+    id: number
+    discountPerQuantity: Record<string, string>
+    discountType: string
+    relationId: number
+  }
 }
 
 interface Category {
@@ -71,11 +80,12 @@ interface ReturnedOrder {
   comment: string
   peopleCount: number
   cartItems: CartItem[]
-  sticksCount: number
   studySticksCount: number
   deliveryType: string
   paymentType: string
   statusType: 'CREATED'
+  code: string
+  email: string
 }
 
 type OrderToPost = Omit<ReturnedOrder, 'statusType' | 'id'>
@@ -97,14 +107,30 @@ interface ValidatedVoucher {
   discountPercentage: number
 }
 
-interface DiscountObj {
-  id: number
-  discountPerQuantity: {
-    [key: number]: string
+interface SelectedProduct {
+  product: Product
+  count: number
+}
+
+interface ProductsState {
+  selectedProducts: SelectedProduct[]
+  additionalInfo: {
+    personCount: number
+    sticks: number
+    studySticks: number
   }
+  voucher: { discount: number; error: string; code: string }
+  products: Product[]
+  isProductsLoading: boolean
+}
+
+type RootState = {
+  product: ProductsState
 }
 
 type BasketTypes = 'basket' | 'delivery' | 'pay' | 'orderResponse'
+
+type AppDispatch = typeof store.dispatch
 
 export type {
   Languages,
@@ -112,12 +138,15 @@ export type {
   ChakraFactoryComponent,
   BasketTypes,
   Category,
-  ConstCategory,
   OrderToPost,
   ProductObj,
   ReturnedOrder,
   CartItem,
   Voucher,
   ValidatedVoucher,
-  DiscountObj,
+  AppDispatch,
+  ProductsState,
+  RootState,
+  SelectedProduct,
+  ConstCategory,
 }

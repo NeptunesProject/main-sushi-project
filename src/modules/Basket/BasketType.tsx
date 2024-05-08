@@ -1,67 +1,80 @@
 import React from 'react'
 import {
-  Box,
   Button,
-  DrawerBody,
   DrawerCloseButton,
-  DrawerHeader,
   Flex,
   Text,
+  useMediaQuery,
 } from '@chakra-ui/react'
 import ProductsList from './ProductsList/ProductsList'
-import AdditionalProducts from './AdditionalProducts'
 import InfoToPay from './InfoToPay'
-import { useBasketContext } from '../../contexts/BasketContext'
 import { BasketTypes } from 'types'
+import { useSelector } from 'react-redux'
+import { selectBasketProducts } from 'redux/products/selectors'
+import { PromoCode } from './PromoCode'
 
 interface Props {
   setSelectedBasketType: React.Dispatch<React.SetStateAction<BasketTypes>>
 }
 
 const BasketType = ({ setSelectedBasketType }: Props) => {
-  const { productsCount } = useBasketContext()
+  const products = useSelector(selectBasketProducts)
+  const [isLessThan768] = useMediaQuery('(max-width: 768px)')
 
   return (
     <>
-      <DrawerHeader
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-      >
-        <Text fontSize={23}>Basket</Text>
+      <Flex justifyContent="space-between" alignItems="center">
+        <Text
+          fontSize={isLessThan768 ? '16px' : '24px'}
+          fontFamily={'Rubik'}
+          fontStyle={'normal'}
+          fontWeight={'600'}
+          lineHeight={isLessThan768 ? '21px' : '36px'}
+          color={'#002034'}
+          pl={'5px'}
+        >
+          Basket
+        </Text>
         <DrawerCloseButton pos="static" />
-      </DrawerHeader>
+      </Flex>
 
-      <DrawerBody pr="2">
-        <Flex flexDir="column" gap={5}>
-          <Text fontSize={15} fontWeight={600}>
-            Your order
-          </Text>
+      <Flex flexDir="column">
+        <Text
+          fontSize={isLessThan768 ? 14 : 16}
+          fontWeight={400}
+          color={'#002034'}
+          lineHeight={isLessThan768 ? '21px' : '24px'}
+          fontFamily={'Rubik'}
+          fontStyle={'normal'}
+          mb={isLessThan768 ? '18px' : '16px'}
+          pl={'5px'}
+        >
+          Your order:
+        </Text>
 
-          <ProductsList />
+        <ProductsList />
 
-          <Box w="100%" h="1px" bg="grey" opacity={0.6} />
+        <PromoCode />
 
-          <AdditionalProducts />
+        <InfoToPay />
 
-          <Box w="100%" h="1px" bg="grey" opacity={0.6} />
-
-          <InfoToPay />
-
-          <Button
-            alignSelf="end"
-            w="60%"
-            border="2px solid"
-            borderColor="turquoise.77"
-            bg="none"
-            borderRadius={25}
-            isDisabled={productsCount === 0}
-            onClick={() => setSelectedBasketType('delivery')}
-          >
-            Continue
-          </Button>
-        </Flex>
-      </DrawerBody>
+        <Button
+          alignSelf="center"
+          bg="#002034"
+          borderRadius={25}
+          isDisabled={!products.length}
+          onClick={() => setSelectedBasketType('delivery')}
+          color={'#FFFFFF'}
+          fontSize={16}
+          fontWeight={400}
+          lineHeight={'24px'}
+          fontFamily={'Rubik'}
+          fontStyle={'normal'}
+          mt={'9px'}
+        >
+          Checkout
+        </Button>
+      </Flex>
     </>
   )
 }

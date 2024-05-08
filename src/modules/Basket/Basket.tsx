@@ -1,25 +1,57 @@
+import React, { useState } from 'react'
 import {
   Center,
-  Drawer,
-  DrawerContent,
   Image,
   useDisclosure,
+  Modal,
+  ModalContent,
+  ModalBody,
+  useMediaQuery,
+  ModalOverlay,
 } from '@chakra-ui/react'
 import basket from 'assets/icons/basket.svg'
 import DeliveryForm from './DeliveryForm'
 import { BasketTypes } from '../../types'
 import BasketType from './BasketType'
-import { useState } from 'react'
-import { useBasketContext } from '../../contexts/BasketContext'
-import { StatusForm } from './StatusForm'
 import PaymentMethod from './PaymentMethod'
+import { selectBasketProducts } from 'redux/products/selectors'
+import { useSelector } from 'react-redux'
+import { StatusForm } from './StatusForm'
 
 const Basket = () => {
-  const [selectedBaketType, setSelectedBasketType] =
+  const [selectedBasketType, setSelectedBasketType] =
     useState<BasketTypes>('basket')
   const [orderId, setOrderId] = useState<number | undefined>()
   const { isOpen, onOpen, onClose } = useDisclosure()
-  const { productsCount } = useBasketContext()
+  const products = useSelector(selectBasketProducts)
+  const productsCount = products.length
+  const [isLessThan768] = useMediaQuery('(max-width: 768px)')
+
+  const renderSelectedComponent = () => {
+    switch (selectedBasketType) {
+      case 'basket':
+        return <BasketType setSelectedBasketType={setSelectedBasketType} />
+      case 'delivery':
+        return <DeliveryForm setSelectedBasketType={setSelectedBasketType} />
+      case 'pay':
+        return (
+          <PaymentMethod
+            setOrderId={setOrderId}
+            setSelectedBasketType={setSelectedBasketType}
+          />
+        )
+      case 'orderResponse':
+        return (
+          <StatusForm
+            orderId={orderId}
+            setSelectedBasketType={setSelectedBasketType}
+          />
+        )
+      default:
+        return <BasketType setSelectedBasketType={setSelectedBasketType} />
+    }
+  }
+
   return (
     <>
       <Center
@@ -30,10 +62,10 @@ const Basket = () => {
         boxShadow="2px 7px 11px rgba(0,0,0,.28)"
         onClick={onOpen}
         pos="relative"
-        bgColor="#343330"
+        bgColor="#002034"
       >
-        <Image boxSize="24px" src={basket}/>
-        {productsCount ? (
+        <Image boxSize="24px" src={basket} />
+        {productsCount > 0 && (
           <Center
             pos="absolute"
             top="7.5px"
@@ -46,38 +78,33 @@ const Basket = () => {
           >
             {productsCount}
           </Center>
-        ) : null}
+        )}
       </Center>
-      <Drawer
+      <Modal
         isOpen={isOpen}
-        placement="right"
         onClose={onClose}
-        blockScrollOnMount={false}
-        isFullHeight={false}
-        autoFocus={false}
-        size="sm"
+        blockScrollOnMount={isLessThan768 ? true : false}
       >
-        <DrawerContent>
-          {selectedBaketType === 'basket' && (
-            <BasketType setSelectedBasketType={setSelectedBasketType} />
-          )}
-          {selectedBaketType === 'delivery' && (
-            <DeliveryForm setSelectedBasketType={setSelectedBasketType} />
-          )}
-          {selectedBaketType === 'pay' && (
-            <PaymentMethod
-              setOrderId={setOrderId}
-              setSelectedBasketType={setSelectedBasketType}
-            />
-          )}
-          {selectedBaketType === 'orderResponse' && (
-            <StatusForm
-              orderId={orderId}
-              setSelectedBasketType={setSelectedBasketType}
-            />
-          )}
-        </DrawerContent>
-      </Drawer>
+        {isLessThan768 && <ModalOverlay />}
+        <ModalContent
+          style={{
+            backgroundColor: '#FFFFFF',
+            position: 'fixed',
+            top: isLessThan768 ? '30px' : '120px',
+            right: isLessThan768 ? 'auto' : '75px',
+            maxWidth: isLessThan768 ? '340px' : '410px',
+            borderRadius: '16px',
+            paddingLeft: isLessThan768 ? '7px' : '19px',
+            paddingRight: isLessThan768 ? '7px' : '19px',
+            paddingTop: isLessThan768 ? '10px' : '15px',
+            paddingBottom: isLessThan768 ? '13px' : '15px',
+          }}
+        >
+          <ModalBody pl={'0px'} pt={'0px'} pr={'0px'} pb={'0px'}>
+            {renderSelectedComponent()}
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </>
   )
 }

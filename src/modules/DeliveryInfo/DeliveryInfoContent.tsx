@@ -1,4 +1,12 @@
-import { Box, chakra, Container, Flex, Heading, Text } from '@chakra-ui/react'
+import {
+  Box,
+  chakra,
+  Container,
+  Flex,
+  Heading,
+  Text,
+  useMediaQuery,
+} from '@chakra-ui/react'
 import { ChakraFactoryComponent } from 'types'
 import { useTranslation } from 'react-i18next'
 import Map from 'components/Map'
@@ -31,6 +39,7 @@ const CustomCard = chakra(({ className, title, subtitle }: CustomCardProps) => (
 
 const DeliveryInfoContent = () => {
   const { t } = useTranslation()
+  const [isLessThan768] = useMediaQuery('(max-width: 768px)')
 
   return (
     <Container
@@ -53,7 +62,13 @@ const DeliveryInfoContent = () => {
           {t('deliveryPageInfo.title')}
         </Heading>
 
-        <Flex justifyContent="center" gap={10} align="end" mb={100}>
+        <Flex
+          justifyContent="center"
+          gap={10}
+          align="end"
+          mb={100}
+          flexDirection={isLessThan768 ? 'column' : 'row'}
+        >
           <Flex flexDir="column" gap={5}>
             <Text fontSize={30} fontWeight={700} color="turquoise.77">
               {t('deliveryPageInfo.firstCard.title')}
