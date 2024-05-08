@@ -2,7 +2,7 @@ import AnimatedAppearance from '../components/AnimatedAppearance'
 import { Box, Flex } from '@chakra-ui/react'
 import AppHeader from './AppHeader'
 import Routes from '../router/Routes'
-// import AppFooter from './AppFooter'
+import AppFooter from './AppFooter'
 import Basket from 'modules/Basket'
 import { BasketProvider } from '../contexts/BasketContext'
 import PhoneCall from 'modules/PhoneCall/PhoneCall'
@@ -16,7 +16,7 @@ const AppContainer = () => {
           <Box as="main" flex="1 0 auto">
             <Routes />
           </Box>
-          {/* <AppFooter /> */}
+          <AppFooter />
           <Box
             w={{ base: '100%', lg: 'auto' }}
             pos="fixed"

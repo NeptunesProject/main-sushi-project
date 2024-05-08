@@ -1,7 +1,7 @@
 import { Center, Container, Flex, Spinner } from '@chakra-ui/react'
 import CategoryGrid from './CategoryGrid'
 import HomeSlider from './HomeSlider'
-// import GratitudeNote from './GratitudeNote'
+import GratitudeNote from './GratitudeNote'
 import useProducts from 'hooks/useProducts'
 import { useEffect, useMemo } from 'react'
 import useCategories from '../../../hooks/useCategories'
@@ -66,7 +66,7 @@ const HomeContent = () => {
           </Flex>
         )}
       </Container>
-      {/* <GratitudeNote /> */}
+      <GratitudeNote />
 
       <AppNavBar />
       <ScrollToTopButton />
