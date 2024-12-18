@@ -7,7 +7,7 @@ const ContactsContent = () => {
   return (
     <Container
       maxW="container.xl"
-      my={14}
+      my={24}
       display="flex"
       justifyContent="center"
       fontFamily="'Roboto', sans-serif"

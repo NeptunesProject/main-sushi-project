@@ -193,7 +193,7 @@ const ProductCard = ({ product }: Props) => {
             h={isLargerThan768 ? '40px' : '36px'}
             justifyContent="center"
             gap="8px"
-            bg="#002034"
+            bg="#418a91"
             color="white"
             borderRadius={20}
             isDisabled={isThisProductAdded}
@@ -215,7 +215,7 @@ const ProductCard = ({ product }: Props) => {
           <Flex
             w="100%"
             h="40px"
-            bg="#002034"
+            bg="#418a91"
             color="white"
             borderRadius={20}
             alignItems="center"

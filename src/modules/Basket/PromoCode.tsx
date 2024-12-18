@@ -90,7 +90,7 @@ export const PromoCode = () => {
             <Button
               float={'right'}
               onClick={validateVoucher}
-              bg="#002034"
+              bg="#418a91"
               borderRadius={25}
               color={'#FFFFFF'}
               fontSize={isLessThan768 ? 14 : 16}

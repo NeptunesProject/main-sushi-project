@@ -54,8 +54,8 @@ const ProductListItem = ({ item }: Props) => {
       <Flex gap={isLessThan768 ? '5px' : 3}>
         <Image
           src={item.product.img}
-          width={'72px'}
-          height={'92px'}
+          width={'auto'}
+          height={"92px"}
           fallback={<Image boxSize={19} src={stubImg} />}
           overflow={'hidden'}
           borderLeftRadius={'9px'}
@@ -64,7 +64,7 @@ const ProductListItem = ({ item }: Props) => {
           <Box>
             <Text
               maxW={130}
-              fontSize={isLessThan768 ? 14 : 16}
+              fontSize={isLessThan768 ? 14 : "0.83rem"}
               lineHeight={isLessThan768 ? '21px' : '24px'}
               fontWeight={400}
               fontFamily={'Rubik'}
@@ -74,7 +74,7 @@ const ProductListItem = ({ item }: Props) => {
               {item.product.name}
             </Text>
             <Text
-              fontSize={isLessThan768 ? 12 : 14}
+              fontSize={isLessThan768 ? 14 : "0.83rem"}
               fontFamily={'Rubik'}
               fontStyle={'normal'}
               fontWeight={400}
@@ -86,7 +86,7 @@ const ProductListItem = ({ item }: Props) => {
             </Text>
             <Flex>
               <Text
-                fontSize={isLessThan768 ? '14px' : '16px'}
+                fontSize={isLessThan768 ? 14 : "0.83rem"}
                 minW={10}
                 fontWeight={400}
                 lineHeight={isLessThan768 ? '21px' : '24px'}
@@ -114,7 +114,7 @@ const ProductListItem = ({ item }: Props) => {
           <DecBtn onClick={decreaseCount} text={'-'}></DecBtn>
 
           <Text
-            fontSize={isLessThan768 ? 13 : 16}
+            fontSize={isLessThan768 ? 13 : "0.83rem"}
             fontWeight={400}
             fontFamily={'Rubik'}
             lineHeight={isLessThan768 ? '20px' : '24px'}

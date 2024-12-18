@@ -62,7 +62,7 @@ const Basket = () => {
         boxShadow="2px 7px 11px rgba(0,0,0,.28)"
         onClick={onOpen}
         pos="relative"
-        bgColor="#002034"
+        bgColor="#418a91"
       >
         <Image boxSize="24px" src={basket} />
         {productsCount > 0 && (
@@ -87,18 +87,25 @@ const Basket = () => {
       >
         {isLessThan768 && <ModalOverlay />}
         <ModalContent
-          style={{
-            backgroundColor: '#FFFFFF',
-            position: 'fixed',
-            top: isLessThan768 ? '30px' : '120px',
-            right: isLessThan768 ? 'auto' : '75px',
-            maxWidth: isLessThan768 ? '340px' : '410px',
-            borderRadius: '16px',
-            paddingLeft: isLessThan768 ? '7px' : '19px',
-            paddingRight: isLessThan768 ? '7px' : '19px',
-            paddingTop: isLessThan768 ? '10px' : '15px',
-            paddingBottom: isLessThan768 ? '13px' : '15px',
-          }}
+          position="fixed"
+          top={'12vh'}
+          right="9.7vh"
+          bgColor="white"
+          padding={3}
+          borderRadius="16px"
+          maxW={"31.35rem"}
+          // style={{
+          //   backgroundColor: '#FFFFFF',
+          //   position: 'fixed',
+          //   top: isLessThan768 ? '30px' : '120px',
+          //   right: isLessThan768 ? 'auto' : '75px',
+          //   maxWidth: isLessThan768 ? '340px' : '410px',
+          //   borderRadius: '16px',
+          //   paddingLeft: isLessThan768 ? '7px' : '19px',
+          //   paddingRight: isLessThan768 ? '7px' : '19px',
+          //   paddingTop: isLessThan768 ? '10px' : '15px',
+          //   paddingBottom: isLessThan768 ? '13px' : '15px',
+          // }}
         >
           <ModalBody pl={'0px'} pt={'0px'} pr={'0px'} pb={'0px'}>
             {renderSelectedComponent()}

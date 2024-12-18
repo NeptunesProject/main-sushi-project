@@ -25,11 +25,11 @@ const BasketType = ({ setSelectedBasketType }: Props) => {
     <>
       <Flex justifyContent="space-between" alignItems="center">
         <Text
-          fontSize={isLessThan768 ? '16px' : '24px'}
+          fontSize={isLessThan768 ? '14px' : '24px'}
           fontFamily={'Rubik'}
           fontStyle={'normal'}
           fontWeight={'600'}
-          lineHeight={isLessThan768 ? '21px' : '36px'}
+          lineHeight={isLessThan768 ? '19px' : '36px'}
           color={'#002034'}
           pl={'5px'}
         >
@@ -60,7 +60,7 @@ const BasketType = ({ setSelectedBasketType }: Props) => {
 
         <Button
           alignSelf="center"
-          bg="#002034"
+          bg="#418a91"
           borderRadius={25}
           isDisabled={!products.length}
           onClick={() => setSelectedBasketType('delivery')}

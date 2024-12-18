@@ -314,7 +314,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
         </Button>
 
         <Button
-          bg="#002034"
+          bg="#418a91"
           borderRadius={25}
           color={'#FFFFFF'}
           fontSize={16}

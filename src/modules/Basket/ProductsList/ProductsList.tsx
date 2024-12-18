@@ -9,7 +9,7 @@ const ProductsList = () => {
     <Flex
       flexDir="column"
       gap={'10px'}
-      style={{ maxHeight: '312px', overflowY: 'auto' }}
+      style={{ maxHeight: '42vh', overflowY: 'auto' }}
     >
       {selectedProducts.map((item) => (
         <ProductListItem key={item.product.id} item={item} />

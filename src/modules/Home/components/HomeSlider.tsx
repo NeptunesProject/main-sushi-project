@@ -7,7 +7,7 @@ const HomeSlider = () => {
   const [isLargerThan768] = useMediaQuery('(min-width: 768px)')
 
   return (
-    <Flex justify="center" py={isLargerThan768 ? 19 : 0}>
+    <Flex justify="center" py={isLargerThan768 ? 19 : 0} my={'5vh'}>
       <Flex
         align="center"
         direction={isLargerThan768 ? 'row' : 'column'}

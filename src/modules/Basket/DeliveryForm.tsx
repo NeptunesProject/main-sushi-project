@@ -36,8 +36,9 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
   const [phoneNumber, setPhoneNumber] = useState(() =>
     getFromLocaleStorage('personInfo-Number', ''),
   )
+  // DEFAULT VALUE SELECTED! Remove it from braces if multiple options available yet
   const [deliveryType, setDeliveryType] = useState(() =>
-    getFromLocaleStorage('personInfo-Delivery', ''),
+    getFromLocaleStorage('personInfo-Delivery', 'delivery'),
   )
   const [street, setStreet] = useState(() =>
     getFromLocaleStorage('personInfo-Street', ''),
@@ -196,15 +197,15 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
           value={deliveryType}
         >
           <Stack direction="column" spacing={'3px'}>
-            <Radio
-              style={{
-                borderColor: pickupBorderColor,
-              }}
-              size={isLessThan768 ? 'sm' : 'md'}
-              value="pickup"
-            >
-              Self pick-up
-            </Radio>
+            {/*<Radio*/}
+            {/*  style={{*/}
+            {/*    borderColor: pickupBorderColor,*/}
+            {/*  }}*/}
+            {/*  size={isLessThan768 ? 'sm' : 'md'}*/}
+            {/*  value="pickup"*/}
+            {/*>*/}
+            {/*  Self pick-up*/}
+            {/*</Radio>*/}
             <Radio
               style={{
                 borderColor: deliveryBorderColor,
@@ -216,22 +217,22 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
             </Radio>
           </Stack>
         </RadioGroup>
-        {deliveryType === 'pickup' && (
-          <Flex gap={'3px'}>
-            <img width={isLessThan768 ? '13px' : '18px'} src={point}></img>
-            <Text
-              fontSize={isLessThan768 ? 14 : 16}
-              fontWeight={400}
-              color={'#002034'}
-              lineHeight={isLessThan768 ? '21px' : '24px'}
-              fontFamily={'Rubik'}
-              fontStyle={'normal'}
-              mb={'1px'}
-            >
-              Warsaw, Chrystiana Piotra Aignera 6, 00-710
-            </Text>
-          </Flex>
-        )}
+        {/*{deliveryType === 'pickup' && (*/}
+        {/*  <Flex gap={'3px'}>*/}
+        {/*    <img width={isLessThan768 ? '13px' : '18px'} src={point}></img>*/}
+        {/*    <Text*/}
+        {/*      fontSize={isLessThan768 ? 14 : 16}*/}
+        {/*      fontWeight={400}*/}
+        {/*      color={'#002034'}*/}
+        {/*      lineHeight={isLessThan768 ? '21px' : '24px'}*/}
+        {/*      fontFamily={'Rubik'}*/}
+        {/*      fontStyle={'normal'}*/}
+        {/*      mb={'1px'}*/}
+        {/*    >*/}
+        {/*      Warsaw, Chrystiana Piotra Aignera 6, 00-710*/}
+        {/*    </Text>*/}
+        {/*  </Flex>*/}
+        {/*)}*/}
 
         <Box
           w="100%"
@@ -266,7 +267,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
           </Button>
 
           <Button
-            bg="#002034"
+            bg="#418a91"
             borderRadius={25}
             color={'#FFFFFF'}
             fontSize={16}
