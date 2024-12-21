@@ -87,13 +87,15 @@ const Basket = () => {
       >
         {isLessThan768 && <ModalOverlay />}
         <ModalContent
-          position="fixed"
-          top={'12vh'}
-          right="9.7vh"
+          position={isLessThan768 ? "relative" : "fixed"}
+          top={isLessThan768 ? "5vh" : '12vh'}
+          right={{xs: '0px', lg: "6vh", xl: "7vh"}}
           bgColor="white"
           padding={3}
           borderRadius="16px"
-          maxW={"31.35rem"}
+          marginX={"16px"}
+          maxW={{xs: "100%", xl: "31.35rem", lg: "31rem", md: "31rem", sm: "31rem"}}
+          // maxW={"31.35rem"}
           // style={{
           //   backgroundColor: '#FFFFFF',
           //   position: 'fixed',

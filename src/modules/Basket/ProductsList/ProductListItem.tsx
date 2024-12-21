@@ -54,8 +54,10 @@ const ProductListItem = ({ item }: Props) => {
       <Flex gap={isLessThan768 ? '5px' : 3}>
         <Image
           src={item.product.img}
-          width={'auto'}
-          height={"92px"}
+          maxW={isLessThan768 ? "70px" : 'auto'}
+          objectFit={'cover'}
+          height={"auto"}
+          maxHeight={"92px"}
           fallback={<Image boxSize={19} src={stubImg} />}
           overflow={'hidden'}
           borderLeftRadius={'9px'}
@@ -64,8 +66,8 @@ const ProductListItem = ({ item }: Props) => {
           <Box>
             <Text
               maxW={130}
-              fontSize={isLessThan768 ? 14 : "0.83rem"}
-              lineHeight={isLessThan768 ? '21px' : '24px'}
+              fontSize={isLessThan768 ? "0.72rem" : "0.83rem"}
+              lineHeight={isLessThan768 ? '1.09rem' : '24px'}
               fontWeight={400}
               fontFamily={'Rubik'}
               color={'#002034'}
@@ -74,11 +76,11 @@ const ProductListItem = ({ item }: Props) => {
               {item.product.name}
             </Text>
             <Text
-              fontSize={isLessThan768 ? 14 : "0.83rem"}
+              fontSize={isLessThan768 ? "0.62rem" : "0.83rem"}
               fontFamily={'Rubik'}
               fontStyle={'normal'}
               fontWeight={400}
-              lineHeight={isLessThan768 ? '18px' : '21px'}
+              lineHeight={isLessThan768 ? '0.93rem' : '21px'}
               color={'#9090A4'}
             >
               {Number(item.product.weight * item.count).toFixed(2)} gram /{' '}
@@ -86,10 +88,10 @@ const ProductListItem = ({ item }: Props) => {
             </Text>
             <Flex>
               <Text
-                fontSize={isLessThan768 ? 14 : "0.83rem"}
+                fontSize={isLessThan768 ? '0.72rem' : "0.83rem"}
                 minW={10}
                 fontWeight={400}
-                lineHeight={isLessThan768 ? '21px' : '24px'}
+                lineHeight={isLessThan768 ? '1.09rem' : '24px'}
                 color={'#002034'}
                 fontFamily={'Rubik'}
               >
@@ -117,7 +119,7 @@ const ProductListItem = ({ item }: Props) => {
             fontSize={isLessThan768 ? 13 : "0.83rem"}
             fontWeight={400}
             fontFamily={'Rubik'}
-            lineHeight={isLessThan768 ? '20px' : '24px'}
+            lineHeight={isLessThan768 ? '14px' : '24px'}
             color={'#002034'}
             fontStyle={'normal'}
           >

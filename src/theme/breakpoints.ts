@@ -5,6 +5,7 @@ const breakpoints = {
   lg: '1050px',
   xl: '1440px',
   '2xl': '1280px',
+  iphone: '812px',
 }
 
 export default breakpoints

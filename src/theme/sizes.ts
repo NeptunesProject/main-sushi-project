@@ -3,6 +3,7 @@ const sizes = {
     xl: '1790px',
     lg: '1440px',
     md: '1290px',
+    xs: '540px'
   },
 }
 

@@ -35,7 +35,13 @@ const AppNavBar = () => {
 
   return (
     <Flex
+      className="asdfafqwefqwefq"
       position="fixed"
+      sx={{
+        '@media screen and (max-device-width: 576px) and (-webkit-min-device-pixel-ratio: 2)': {
+          height: '12vh',
+        },
+      }}
       top={{ base: 'unset', lg: 77 }}
       bottom={{ base: 0, lg: 'unset' }}
       left={{ base: 0, lg: '50%' }}
@@ -63,9 +69,18 @@ const AppNavBar = () => {
             cursor="pointer"
             onClick={() => scrollToSection(category.name)}
           >
-            <Image src={category.img} alt={category.name} boxSize="36px" />
+            <Image
+              src={category.img}
+              alt={category.name}
+              boxSize="36px"
+              sx={{
+                '@media screen and (max-device-width: 576px) and (-webkit-min-device-pixel-ratio: 2)': {
+                  boxSize: '46px',
+                },
+              }}
+            />
             <Text
-              fontSize={{ base: 10, lg: 14 }}
+              fontSize={{ base: "0.72rem", lg: "0.72rem" }}
               fontWeight={{ base: 700, lg: 500 }}
               color="grey.100"
               _groupHover={{
