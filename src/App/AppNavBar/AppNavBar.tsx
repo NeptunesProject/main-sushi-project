@@ -37,13 +37,8 @@ const AppNavBar = () => {
     <Flex
       className="asdfafqwefqwefq"
       position="fixed"
-      sx={{
-        '@media screen and (max-device-width: 576px) and (-webkit-min-device-pixel-ratio: 2)': {
-          height: '12vh',
-        },
-      }}
-      top={{ base: 'unset', lg: 77 }}
-      bottom={{ base: 0, lg: 'unset' }}
+      top={{ base: 'unset', xxs: "64px", lg: 77 }}
+      bottom={{ base: 0, xxs: "unset", lg: 'unset' }}
       left={{ base: 0, lg: '50%' }}
       transform={{ base: 'none', lg: 'translate( -50%)' }}
       zIndex={10}
