@@ -8,7 +8,7 @@ import { DecBtn, IncBtn } from './IncDecBtn'
 const AdditionalProducts = () => {
   const dispatch = useDispatch<AppDispatch>()
   const personCount = useSelector(selectPersonCount)
-  const studySticks = useSelector(selectStudySticks)
+  // const studySticks = useSelector(selectStudySticks)
 
   const handlePersonCountDecrement = () => {
     if (personCount > 1) {
@@ -20,15 +20,15 @@ const AdditionalProducts = () => {
     dispatch(setPersonCount(+1))
   }
 
-  const handleStudySticksDecrement = () => {
-    if (studySticks > 0) {
-      dispatch(setStudySticks(-1))
-    }
-  }
-
-  const handleStudySticksIncrement = () => {
-    dispatch(setStudySticks(+1))
-  }
+  // const handleStudySticksDecrement = () => {
+  //   if (studySticks > 0) {
+  //     dispatch(setStudySticks(-1))
+  //   }
+  // }
+  //
+  // const handleStudySticksIncrement = () => {
+  //   dispatch(setStudySticks(+1))
+  // }
 
   const [isLessThan768] = useMediaQuery('(max-width: 768px)')
 
@@ -79,50 +79,50 @@ const AdditionalProducts = () => {
         </Flex>
       </Flex>
 
-      <Flex
-        w="100%"
-        alignItems={'center'}
-        justifyContent={'space-between'}
-        pr={isLessThan768 ? '20px' : '40px'}
-      >
-        <Text
-          fontSize={isLessThan768 ? 14 : 16}
-          fontWeight={400}
-          color={'#002034'}
-          lineHeight={isLessThan768 ? '21px' : '24px'}
-          fontFamily={'Rubik'}
-          fontStyle={'normal'}
-        >
-          Number of training sticks
-        </Text>
+      {/*<Flex*/}
+      {/*  w="100%"*/}
+      {/*  alignItems={'center'}*/}
+      {/*  justifyContent={'space-between'}*/}
+      {/*  pr={isLessThan768 ? '20px' : '40px'}*/}
+      {/*>*/}
+      {/*  <Text*/}
+      {/*    fontSize={isLessThan768 ? 14 : 16}*/}
+      {/*    fontWeight={400}*/}
+      {/*    color={'#002034'}*/}
+      {/*    lineHeight={isLessThan768 ? '21px' : '24px'}*/}
+      {/*    fontFamily={'Rubik'}*/}
+      {/*    fontStyle={'normal'}*/}
+      {/*  >*/}
+      {/*    Number of training sticks*/}
+      {/*  </Text>*/}
 
-        <Flex
-          align="center"
-          gap={2}
-          backgroundColor={'#FFFFFF'}
-          overflow={'hidden'}
-          borderRightRadius={5}
-          borderLeftRadius={5}
-          borderColor={'#B7B7B7'}
-          borderWidth={'1px'}
-        >
-          <DecBtn onClick={handleStudySticksDecrement} text={'-'}></DecBtn>
+      {/*  <Flex*/}
+      {/*    align="center"*/}
+      {/*    gap={2}*/}
+      {/*    backgroundColor={'#FFFFFF'}*/}
+      {/*    overflow={'hidden'}*/}
+      {/*    borderRightRadius={5}*/}
+      {/*    borderLeftRadius={5}*/}
+      {/*    borderColor={'#B7B7B7'}*/}
+      {/*    borderWidth={'1px'}*/}
+      {/*  >*/}
+      {/*    <DecBtn onClick={handleStudySticksDecrement} text={'-'}></DecBtn>*/}
 
-          <Text
-            fontSize={isLessThan768 ? 13 : 16}
-            fontWeight={400}
-            fontFamily={'Rubik'}
-            lineHeight={isLessThan768 ? '20px' : '24px'}
-            color={'#002034'}
-            fontStyle={'normal'}
-            minWidth={isLessThan768 ? '20px' : '20px'}
-            textAlign={'center'}
-          >
-            {studySticks}
-          </Text>
-          <IncBtn onClick={handleStudySticksIncrement} text={'+'}></IncBtn>
-        </Flex>
-      </Flex>
+      {/*    <Text*/}
+      {/*      fontSize={isLessThan768 ? 13 : 16}*/}
+      {/*      fontWeight={400}*/}
+      {/*      fontFamily={'Rubik'}*/}
+      {/*      lineHeight={isLessThan768 ? '20px' : '24px'}*/}
+      {/*      color={'#002034'}*/}
+      {/*      fontStyle={'normal'}*/}
+      {/*      minWidth={isLessThan768 ? '20px' : '20px'}*/}
+      {/*      textAlign={'center'}*/}
+      {/*    >*/}
+      {/*      {studySticks}*/}
+      {/*    </Text>*/}
+      {/*    <IncBtn onClick={handleStudySticksIncrement} text={'+'}></IncBtn>*/}
+      {/*  </Flex>*/}
+      {/*</Flex>*/}
     </Flex>
   )
 }

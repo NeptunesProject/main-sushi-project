@@ -33,11 +33,15 @@ const ProductListItem = ({ item }: Props) => {
   }
 
   const decreaseCount = () => {
-    if (count > 1) {
-      count = count - 1
-      handleCount(itemId, count)
+    if (count > 0) {
+      count -= 1;
+      handleCount(itemId, count);
     }
-  }
+    if (count === 0) {
+      handleDelete();
+    }
+  };
+
 
   const [isLessThan768] = useMediaQuery('(max-width: 768px)')
 
