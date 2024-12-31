@@ -7,10 +7,10 @@ import { NAV_LINKS } from '../../constants/index'
 const MainNavLink = chakra(NavLink, {
   baseStyle: {
     fontSize: "0.83rem",
-    transition: 'all 0.2s',
+    transition: 'all 0.24s',
     fontWeight: 400,
     letterSpacing: '.35px',
-    color: '#343330',
+    color: '#343331',
     fontFamily: "Rubik",
     p: "6px",
 
@@ -18,7 +18,7 @@ const MainNavLink = chakra(NavLink, {
       color: 'gray.300',
     },
     _activeLink: {
-      color: 'blue.600',
+      color: 'blue.100',
     },
   },
 })
@@ -29,7 +29,7 @@ const NavBar = () => {
   return (
     <Flex align="center"
     gap="24px"
-    px="81.5px">
+    px="81.6px">
 
       {NAV_LINKS.map((route: string, idx: number) => (
         <MainNavLink to={route} key={`navbar.${idx}`}>
