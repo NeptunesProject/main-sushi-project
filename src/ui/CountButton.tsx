@@ -22,7 +22,7 @@ export const CountButtonBasketDec = chakra(Button, {
     fontWeight: '400',
     fontFamily: 'Rubik',
     lineHeight: '24px',
-    color: '#002034',
+    color: 'white',
     fontStyle: 'normal',
   },
 })
@@ -38,7 +38,7 @@ export const CountButtonBasketInc = chakra(Button, {
     fontWeight: '400',
     fontFamily: 'Rubik',
     lineHeight: '24px',
-    color: '#002034',
+    color: 'white',
     fontStyle: 'normal',
   },
 })

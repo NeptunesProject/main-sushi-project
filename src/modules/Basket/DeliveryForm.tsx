@@ -100,7 +100,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
       localStorage.setItem('personInfo-Street', JSON.stringify(''))
     }
 
-    localStorage.setItem('personInfo-Delivery', JSON.stringify(value))
+    localStorage.setItem('personInfo-Delivery', "delivery")
   }
 
   function emailSetter(e: React.ChangeEvent<HTMLInputElement>) {

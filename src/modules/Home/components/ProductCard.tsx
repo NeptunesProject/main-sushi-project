@@ -197,7 +197,7 @@ const ProductCard = ({ product }: Props) => {
             color="white"
             borderRadius={20}
             isDisabled={isThisProductAdded}
-            _hover={!isThisProductAdded && { bg: 'gray.300' }}
+            _hover={!isThisProductAdded && { bg: 'gray.200' }}
             onClick={() => {
               handleAdd(product, count)
               setCount(1)

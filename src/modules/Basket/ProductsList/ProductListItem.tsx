@@ -129,7 +129,7 @@ const ProductListItem = ({ item }: Props) => {
           >
             {item.count}
           </Text>
-          <IncBtn onClick={increaseCount} text={'+'}></IncBtn>
+          <IncBtn onClick={increaseCount} text={'+'} ></IncBtn>
         </Flex>
         <Image cursor="pointer" src={closeIcon} onClick={handleDelete} />
       </Flex>
