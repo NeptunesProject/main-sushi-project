@@ -65,7 +65,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
     getFromLocaleStorage('personInfo-Number', ''),
   )
   const [deliveryType, setDeliveryType] = useState(() =>
-    getFromLocaleStorage('personInfo-Delivery', ''),
+    getFromLocaleStorage('personInfo-Delivery', 'delivery'),
   )
   const [street, setStreet] = useState(() =>
     getFromLocaleStorage('personInfo-Street', ''),
@@ -112,6 +112,8 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
       }
     } catch (error) {
       console.error(error)
+    } finally {
+      console.log(order, 'order')
     }
   }
 
@@ -143,7 +145,14 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
     )
     dispatch(eraseAfterOrder())
     if (order && order.paymentType === 'ONLINE') {
-      createSession(order)
+      console.log(order, "order");
+      if (order.urlForPayment) {
+        window.location.href = order.urlForPayment;
+      } else {
+        createSession(order);
+      }
+    } else {
+      console.log('Order is not ONLINE or failed to create.');
     }
     nullifyVoucher()
   }

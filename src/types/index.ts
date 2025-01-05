@@ -73,6 +73,7 @@ interface CartItem {
 }
 
 interface ReturnedOrder {
+  urlForPayment?: string
   id: number
   toDateTime: string
   clientInfo: ClientInfo
