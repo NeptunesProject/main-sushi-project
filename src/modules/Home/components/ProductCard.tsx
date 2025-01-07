@@ -102,7 +102,7 @@ const ProductCard = ({ product }: Props) => {
   }, [product, count, setDiscount])
 
   const flexBasis = useMemo(() => {
-    let items = 2
+    let items = 1
     if (isLargerThan650) items = 3
     if (isLargerThan768) items = 4
     if (isLessThan325) items = 1
@@ -125,19 +125,21 @@ const ProductCard = ({ product }: Props) => {
       borderRightRadius={10}
       overflow={'hidden'}
       flexBasis={flexBasis}
+      p={isLargerThan768 ? "0px" : "15px"}
     >
       <Image
         fallback={<Image h={152} borderRadius={3} src={sushiImg} />}
         onClick={() => navigate(`/product/${product.id}`)}
         minWidth="288px"
-        h={isLargerThan768 ? 152 : 109}
+        h={isLargerThan768 ? 152 : "auto"}
         src={product.img}
+        objectFit="cover"
       />
 
       <Flex
         flexDir={'column'}
         gap="8px"
-        p={isLargerThan768 ? '16px' : '6px'}
+        p={isLargerThan768 ? '16px' : '0'}
         w="100%"
       >
         <Text
