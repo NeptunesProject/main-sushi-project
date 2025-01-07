@@ -113,7 +113,7 @@ export const clearCard: IClearCard = (
 ) => {
   setName('')
   setPhoneNumber('')
-  setDeliveryType('')
+  setDeliveryType('delivery')
   setStreet('')
   setPayment('')
   setEmail('')
@@ -122,7 +122,7 @@ export const clearCard: IClearCard = (
 export const clearLocaleStorage = () => {
   localStorage.setItem('personInfo-Name', JSON.stringify(''))
   localStorage.setItem('personInfo-Number', JSON.stringify(''))
-  localStorage.setItem('personInfo-Delivery', JSON.stringify(''))
+  localStorage.setItem('personInfo-Delivery', JSON.stringify('delivery'))
   localStorage.setItem('personInfo-Street', JSON.stringify(''))
   localStorage.setItem('personInfo-Email', JSON.stringify(''))
   localStorage.setItem('paymentType', JSON.stringify(''))
