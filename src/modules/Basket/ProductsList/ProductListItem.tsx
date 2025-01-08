@@ -38,7 +38,7 @@ const ProductListItem = ({ item }: Props) => {
       handleCount(itemId, count);
     }
     if (count === 0) {
-      handleDelete();
+      dispatch(deleteSelectedProduct({ id: item.product.id }));
     }
   };
 
@@ -77,7 +77,7 @@ const ProductListItem = ({ item }: Props) => {
               color={'#002034'}
               fontStyle={'normal'}
             >
-              {item.product.name}
+              {item.product.name.trim()}
             </Text>
             <Text
               fontSize={isLessThan768 ? "0.62rem" : "0.83rem"}

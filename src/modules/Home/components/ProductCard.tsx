@@ -56,13 +56,24 @@ const ProductCard = ({ product }: Props) => {
     }
   }
 
+  // const handleDecrement = () => {
+  //   if (isThisProductAdded && selectedProducts[index].count > 1) {
+  //     dispatch(setProductCount({ id: product.id, count: -1 }))
+  //   } else if (count > 1) {
+  //     setCount((prevCount) => prevCount - 1)
+  //   }
+  // }
   const handleDecrement = () => {
     if (isThisProductAdded && selectedProducts[index].count > 1) {
-      dispatch(setProductCount({ id: product.id, count: -1 }))
+      dispatch(setProductCount({ id: product.id, count: -1 }));
+    } else if (isThisProductAdded && selectedProducts[index].count === 1) {
+      dispatch(setProductCount({ id: product.id, count: -1 }));
+      setCount(1);
     } else if (count > 1) {
-      setCount((prevCount) => prevCount - 1)
+      setCount((prevCount) => prevCount - 1);
     }
-  }
+  };
+
 
   const isDiscounted =
     product.discount &&
@@ -112,6 +123,8 @@ const ProductCard = ({ product }: Props) => {
     return `calc((100% - ${indent}px * (${items} - 1)) / ${items})`
   }, [isLargerThan650, isLargerThan768, isLessThan325])
 
+  console.log(product, 'product')
+
   return (
     <Flex
       fontFamily="'Roboto', sans-serif"
@@ -126,6 +139,7 @@ const ProductCard = ({ product }: Props) => {
       overflow={'hidden'}
       flexBasis={flexBasis}
       p={isLargerThan768 ? "0px" : "15px"}
+      // h={isLargerThan768 ? 400 : "auto"}
     >
       <Image
         fallback={<Image h={152} borderRadius={3} src={sushiImg} />}
@@ -141,17 +155,31 @@ const ProductCard = ({ product }: Props) => {
         gap="8px"
         p={isLargerThan768 ? '16px' : '0'}
         w="100%"
+        h="100%"
+        justifyContent={'space-between'}
       >
         <Text
           onClick={() => navigate(`/product/${product.id}`)}
-          fontSize={isLargerThan768 ? 20 : 16}
+          fontSize={isLargerThan768 ? "1.16rem" : "0.83rem"}
           fontWeight={isLargerThan768 ? 500 : 600}
           letterSpacing=".35px"
           color="#002034"
           fontFamily={'Rubik'}
-          height={isLargerThan1258 ? 8 : 12}
+          // height={isLargerThan1258 ? 8 : 12}
         >
           {product.name}
+        </Text>
+
+        <Text
+          onClick={() => navigate(`/product/${product.id}`)}
+          fontSize={isLargerThan768 ? "0.78rem" : "0.57rem"}
+          fontWeight={isLargerThan768 ? 500 : 600}
+          opacity={0.7}
+          color="#002034"
+          fontFamily={'Rubik'}
+          // height={isLargerThan1258 ? 8 : 12}
+        >
+          {product.description}
         </Text>
 
         <Text
@@ -162,7 +190,7 @@ const ProductCard = ({ product }: Props) => {
           flexWrap="nowrap"
           fontFamily={'Rubik'}
         >
-          {product.weight} gram / {product.cartCount} pieces
+          {product.cartCount} pieces
         </Text>
 
         <Flex align="center" gap="8px">
@@ -189,7 +217,7 @@ const ProductCard = ({ product }: Props) => {
           )}
         </Flex>
 
-        {!isThisProductAdded ? (
+        {!isThisProductAdded || count === 0? (
           <Button
             w="100%"
             h={isLargerThan768 ? '40px' : '36px'}
@@ -232,9 +260,9 @@ const ProductCard = ({ product }: Props) => {
             >
               -
             </CountButton>
-            <Text flex={1} align="center">
+            <CountButton flex={1} onClick={handleIncrement} h="100%" borderRadius={0} w="100%">
               {isThisProductAdded ? selectedProducts[index].count : count}
-            </Text>
+            </CountButton>
 
             <CountButton
               onClick={handleIncrement}

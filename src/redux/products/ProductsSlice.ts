@@ -22,13 +22,17 @@ const productSlice = createSlice({
       state.selectedProducts.push(action.payload)
     },
     setProductCount(state, action) {
-      const { id, count } = action.payload
+      const { id, count } = action.payload;
 
       const index = state.selectedProducts.findIndex(
         (item) => item.product.id === id,
-      )
+      );
       if (index !== -1) {
-        state.selectedProducts[index].count += count
+        state.selectedProducts[index].count += count;
+
+        if (state.selectedProducts[index].count <= 0) {
+          state.selectedProducts.splice(index, 1);
+        }
       }
     },
     setPersonCount(state, action) {

@@ -111,6 +111,7 @@ interface ValidatedVoucher {
 interface SelectedProduct {
   product: Product
   count: number
+  id: number
 }
 
 interface ProductsState {

@@ -26,6 +26,7 @@ const Basket = () => {
   const products = useSelector(selectBasketProducts)
   const productsCount = products.length
   const [isLessThan768] = useMediaQuery('(max-width: 768px)')
+  const [isLessThan700] = useMediaQuery('(max-height: 700px)')
 
   const renderSelectedComponent = () => {
     switch (selectedBasketType) {
@@ -95,6 +96,8 @@ const Basket = () => {
           borderRadius="16px"
           marginX={"16px"}
           maxW={{xs: "100%", xl: "31.35rem", lg: "31rem", md: "31rem", sm: "31rem"}}
+          overflowY={isLessThan700 ? "scroll" : "hidden"}
+          maxH={isLessThan700 ? '400px' : "auto"}
           // maxW={"31.35rem"}
           // style={{
           //   backgroundColor: '#FFFFFF',
