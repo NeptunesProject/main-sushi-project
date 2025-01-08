@@ -159,123 +159,128 @@ const ProductCard = ({ product }: Props) => {
         h="100%"
         justifyContent={'space-between'}
       >
-        <Text
-          onClick={() => navigate(`/product/${product.id}`)}
-          fontSize={isLargerThan768 ? "1.16rem" : "0.83rem"}
-          fontWeight={isLargerThan768 ? 500 : 600}
-          letterSpacing=".35px"
-          color="#002034"
-          fontFamily={'Rubik'}
-          // height={isLargerThan1258 ? 8 : 12}
-        >
-          {product.name}
-        </Text>
-
-        <Text
-          onClick={() => navigate(`/product/${product.id}`)}
-          fontSize={isLargerThan768 ? "0.78rem" : "0.57rem"}
-          fontWeight={isLargerThan768 ? 500 : 600}
-          opacity={0.7}
-          color="#002034"
-          fontFamily={'Rubik'}
-          // height={isLargerThan1258 ? 8 : 12}
-        >
-          {product.description}
-        </Text>
-
-        <Text
-          fontSize={14}
-          fontWeight={400}
-          color="#002034"
-          alignSelf="start"
-          flexWrap="nowrap"
-          fontFamily={'Rubik'}
-        >
-          {product.cartCount} pieces
-        </Text>
-
-        <Flex align="center" gap="8px">
+        <Flex flexDir="column" gap="12px">
           <Text
+            onClick={() => navigate(`/product/${product.id}`)}
+            fontSize={isLargerThan768 ? "1.16rem" : "0.83rem"}
+            fontWeight={isLargerThan768 ? 500 : 600}
+            letterSpacing=".35px"
             color="#002034"
-            fontSize={isLargerThan768 ? 20 : 16}
-            fontWeight={500}
-            decoration={isDiscounted ? 'line-through' : 'none'}
             fontFamily={'Rubik'}
+            // height={isLargerThan1258 ? 8 : 12}
           >
-            {product.price} zł
+            {product.name}
           </Text>
 
-          {isDiscounted && (
-            <Text
-              color="#9090A4"
-              fontWeight={400}
-              fontSize={16}
-              p="2px"
-              fontFamily={'Rubik'}
-            >
-              {discountedPrice} zł
-            </Text>
-          )}
+          <Text
+            onClick={() => navigate(`/product/${product.id}`)}
+            fontSize={isLargerThan768 ? "0.78rem" : "0.57rem"}
+            fontWeight={isLargerThan768 ? 500 : 600}
+            opacity={0.7}
+            color="#002034"
+            fontFamily={'Rubik'}
+            // height={isLargerThan1258 ? 8 : 12}
+          >
+            {product.description}
+          </Text>
         </Flex>
 
-        {!isThisProductAdded || count === 0? (
-          <Button
-            w="100%"
-            h={isLargerThan768 ? '40px' : '36px'}
-            justifyContent="center"
-            gap="8px"
-            bg="#418a91"
-            color="white"
-            borderRadius={20}
-            isDisabled={isThisProductAdded}
-            _hover={!isThisProductAdded ? { bg: 'gray.200' } : undefined}
-            onClick={() => {
-              handleAdd(product, count)
-              setCount(1)
-            }}
-            _disabled={{
-              cursor: 'not-allowed',
-            }}
+        <Flex flexDir={'column'}>
+          <Text
+            fontSize={14}
+            fontWeight={400}
+            color="#002034"
+            alignSelf="start"
+            flexWrap="nowrap"
+            fontFamily={'Rubik'}
           >
-            <Text fontSize={16} fontWeight={400} fontFamily={'Rubik'}>
-              Add to cart
-            </Text>
-            <Image src={basket} h={22} />
-          </Button>
-        ) : (
-          <Flex
-            w="100%"
-            h="40px"
-            bg="#418a91"
-            color="white"
-            borderRadius={20}
-            alignItems="center"
-            gap={{ base: 0.5, md: 1 }}
-          >
-            <CountButton
-              onClick={handleDecrement}
-              borderLeftRadius={20}
-              borderRightRadius={5}
-              bg="none"
-              h="100%"
-            >
-              -
-            </CountButton>
-            <CountButton flex={1} onClick={handleIncrement} h="100%" borderRadius={0} w="100%">
-              {isThisProductAdded ? selectedProducts[index].count : count}
-            </CountButton>
+            {product.cartCount} pieces
+          </Text>
 
-            <CountButton
-              onClick={handleIncrement}
-              borderRightRadius={20}
-              borderLeftRadius={5}
-              bg="none"
-              h="100%"
+          <Flex align="center" gap="8px">
+            <Text
+              color="#002034"
+              fontSize={isLargerThan768 ? 20 : 16}
+              fontWeight={500}
+              decoration={isDiscounted ? 'line-through' : 'none'}
+              fontFamily={'Rubik'}
             >
-              +
-            </CountButton>
+              {product.price} zł
+            </Text>
+
+            {isDiscounted && (
+              <Text
+                color="#9090A4"
+                fontWeight={400}
+                fontSize={16}
+                p="2px"
+                fontFamily={'Rubik'}
+              >
+                {discountedPrice} zł
+              </Text>
+            )}
           </Flex>
-        )}
+
+          {!isThisProductAdded || count === 0? (
+            <Button
+              mt="1vh"
+              w="100%"
+              h={isLargerThan768 ? '40px' : '36px'}
+              justifyContent="center"
+              gap="8px"
+              bg="#418a91"
+              color="white"
+              borderRadius={20}
+              isDisabled={isThisProductAdded}
+              _hover={!isThisProductAdded ? { bg: 'gray.200' } : undefined}
+              onClick={() => {
+                handleAdd(product, count)
+                setCount(1)
+              }}
+              _disabled={{
+                cursor: 'not-allowed',
+              }}
+            >
+              <Text fontSize={16} fontWeight={400} fontFamily={'Rubik'}>
+                Add to cart
+              </Text>
+              <Image src={basket} h={22} />
+            </Button>
+          ) : (
+            <Flex
+              w="100%"
+              h="40px"
+              bg="#418a91"
+              color="white"
+              borderRadius={20}
+              alignItems="center"
+              gap={{ base: 0.5, md: 1 }}
+            >
+              <CountButton
+                onClick={handleDecrement}
+                borderLeftRadius={20}
+                borderRightRadius={5}
+                bg="none"
+                h="100%"
+              >
+                -
+              </CountButton>
+              <CountButton flex={1} onClick={handleIncrement} h="100%" borderRadius={0} w="100%">
+                {isThisProductAdded ? selectedProducts[index].count : count}
+              </CountButton>
+
+              <CountButton
+                onClick={handleIncrement}
+                borderRightRadius={20}
+                borderLeftRadius={5}
+                bg="none"
+                h="100%"
+              >
+                +
+              </CountButton>
+            </Flex>
+          )}
+        </Flex>
       </Flex>
     </Flex>
   )
