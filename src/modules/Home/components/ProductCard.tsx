@@ -153,16 +153,16 @@ const ProductCard = ({ product }: Props) => {
 
       <Flex
         flexDir={'column'}
-        gap="8px"
+        gap={isLargerThan768 ? "8px" : "22px"}
         p={isLargerThan768 ? '16px' : '0'}
         w="100%"
         h="100%"
         justifyContent={'space-between'}
       >
-        <Flex flexDir="column" gap="12px">
+        <Flex flexDir="column" gap={isLargerThan768 ? "12px" : "8px"}>
           <Text
             onClick={() => navigate(`/product/${product.id}`)}
-            fontSize={isLargerThan768 ? "1.16rem" : "0.83rem"}
+            fontSize={isLargerThan768 ? "1.16rem" : "1.13rem"}
             fontWeight={isLargerThan768 ? 500 : 600}
             letterSpacing=".35px"
             color="#002034"
@@ -174,7 +174,7 @@ const ProductCard = ({ product }: Props) => {
 
           <Text
             onClick={() => navigate(`/product/${product.id}`)}
-            fontSize={isLargerThan768 ? "0.78rem" : "0.57rem"}
+            fontSize={isLargerThan768 ? "0.78rem" : "0.77rem"}
             fontWeight={isLargerThan768 ? 500 : 600}
             opacity={0.7}
             color="#002034"
@@ -187,7 +187,7 @@ const ProductCard = ({ product }: Props) => {
 
         <Flex flexDir={'column'}>
           <Text
-            fontSize={14}
+            fontSize={isLargerThan768 ? 14 : 12}
             fontWeight={400}
             color="#002034"
             alignSelf="start"
