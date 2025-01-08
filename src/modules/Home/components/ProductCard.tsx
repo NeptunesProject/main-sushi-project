@@ -125,6 +125,7 @@ const ProductCard = ({ product }: Props) => {
 
   console.log(product, 'product')
 
+  // @ts-ignore
   return (
     <Flex
       fontFamily="'Roboto', sans-serif"
@@ -227,7 +228,7 @@ const ProductCard = ({ product }: Props) => {
             color="white"
             borderRadius={20}
             isDisabled={isThisProductAdded}
-            _hover={!isThisProductAdded && { bg: 'gray.200' }}
+            _hover={!isThisProductAdded ? { bg: 'gray.200' } : undefined}
             onClick={() => {
               handleAdd(product, count)
               setCount(1)
