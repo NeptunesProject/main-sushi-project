@@ -20,10 +20,10 @@ export const IncBtn = ({ onClick, text }: Props) => {
           onClick={onClick}
           style={{
             cursor: 'pointer',
-            paddingTop: '14px',
-            paddingBottom: '14px',
+            paddingTop: isLessThan768 ? "8px" :'14px',
+            paddingBottom: isLessThan768 ? "8px" :'14px',
             paddingRight: '5px',
-            paddingLeft: '10px',
+            paddingLeft: isLessThan768 ? "5px" :'10px',
           }}
         />
       ) : (
@@ -51,10 +51,10 @@ export const DecBtn = ({ onClick, text }: Props) => {
           onClick={onClick}
           style={{
             cursor: 'pointer',
-            paddingTop: '14px',
-            paddingBottom: '14px',
+            paddingTop: isLessThan768 ? '8px' : '14px',
+            paddingBottom: isLessThan768 ? '8px' : '14px',
             paddingLeft: '5px',
-            paddingRight: '10px',
+            paddingRight: isLessThan768 ? '5px' : '10px',
           }}
         />
       ) : (

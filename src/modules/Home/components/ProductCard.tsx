@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addProduct, setProductCount } from 'redux/products/ProductsSlice'
 import { selectBasketProducts } from 'redux/products/selectors'
 import { calculateDiscountedPrice } from 'modules/Basket/OrderFuncs'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   product: Product
@@ -18,11 +19,41 @@ const ProductCard = ({ product }: Props) => {
   const dispatch = useDispatch<AppDispatch>()
   const [isLargerThan768] = useMediaQuery('(min-width: 768px)')
   const [isLargerThan650] = useMediaQuery('(min-width: 650px)')
-  const [isLargerThan1258] = useMediaQuery('(min-width: 1253px)')
   const [isLessThan325] = useMediaQuery('(max-width: 325px)')
   const [count, setCount] = useState(1)
   const [currentDiscount, setCurrentDiscount] = useState(1)
   const selectedProducts = useSelector(selectBasketProducts)
+
+  const { i18n } = useTranslation()
+
+  const currentLanguage = i18n.language
+
+  const getNameByTranslate = (product: Product) => {
+    switch (currentLanguage) {
+      case 'en':
+        return product.nameEn
+      case 'ua':
+        return product.nameUa
+      case 'pl':
+        return product.name
+      case 'ru':
+        return product.nameRu
+    }
+  }
+  const getDescriptionByTranslate = (product: Product) => {
+    switch (currentLanguage) {
+      case 'en':
+        return product.descriptionEn
+      case 'ua':
+        return product.descriptionUa
+      case 'pl':
+        return product.description
+      case 'ru':
+        return product.descriptionRu
+      default:
+        return product.description
+    }
+  }
 
   const index = selectedProducts.findIndex(
     (item) => item.product.id === product.id,
@@ -56,13 +87,6 @@ const ProductCard = ({ product }: Props) => {
     }
   }
 
-  // const handleDecrement = () => {
-  //   if (isThisProductAdded && selectedProducts[index].count > 1) {
-  //     dispatch(setProductCount({ id: product.id, count: -1 }))
-  //   } else if (count > 1) {
-  //     setCount((prevCount) => prevCount - 1)
-  //   }
-  // }
   const handleDecrement = () => {
     if (isThisProductAdded && selectedProducts[index].count > 1) {
       dispatch(setProductCount({ id: product.id, count: -1 }));
@@ -125,7 +149,6 @@ const ProductCard = ({ product }: Props) => {
 
   console.log(product, 'product')
 
-  // @ts-ignore
   return (
     <Flex
       fontFamily="'Roboto', sans-serif"
@@ -140,7 +163,6 @@ const ProductCard = ({ product }: Props) => {
       overflow={'hidden'}
       flexBasis={flexBasis}
       p={isLargerThan768 ? "0px" : "15px"}
-      // h={isLargerThan768 ? 400 : "auto"}
     >
       <Image
         fallback={<Image h={152} borderRadius={3} src={sushiImg} />}
@@ -167,9 +189,8 @@ const ProductCard = ({ product }: Props) => {
             letterSpacing=".35px"
             color="#002034"
             fontFamily={'Rubik'}
-            // height={isLargerThan1258 ? 8 : 12}
           >
-            {product.name}
+            {getNameByTranslate(product)}
           </Text>
 
           <Text
@@ -179,9 +200,8 @@ const ProductCard = ({ product }: Props) => {
             opacity={0.7}
             color="#002034"
             fontFamily={'Rubik'}
-            // height={isLargerThan1258 ? 8 : 12}
           >
-            {product.description}
+            {getDescriptionByTranslate(product)}
           </Text>
         </Flex>
 

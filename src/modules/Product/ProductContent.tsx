@@ -7,7 +7,7 @@ import {
   Button,
   Box,
   Center,
-  Spinner,
+  Spinner, useMediaQuery,
 } from '@chakra-ui/react'
 import { useParams } from 'react-router-dom'
 import { useMemo } from 'react'
@@ -18,21 +18,51 @@ import {
 } from '../../contexts/BasketContext'
 import useProduct from '../../hooks/useProduct'
 import { Product } from '../../types'
+import { useTranslation } from 'react-i18next'
 
 const ProductContent = () => {
   const { id } = useParams()
   const { product, isLoading: isProductLoading } = useProduct(String(id), {
     enabled: Boolean(id),
   })
-
+  const [isLargerThan768] = useMediaQuery('(min-width: 768px)')
   const { addProduct, isProductAdded } = useBasketDispatchContext()
   const { products } = useBasketContext()
+
+  const { i18n } = useTranslation()
+
+  const currentLanguage = i18n.language
 
   const isThisProductAdded = useMemo(
     () => isProductAdded(product ?? ({} as Product)),
     [products, product],
   )
-
+  const getNameByTranslate = (product: Product) => {
+    switch (currentLanguage) {
+      case 'en':
+        return product.nameEn
+      case 'ua':
+        return product.nameUa
+      case 'pl':
+        return product.name
+      case 'ru':
+        return product.nameRu
+    }
+  }
+  const getDescriptionByTranslate = (product: Product) => {
+    switch (currentLanguage) {
+      case 'en':
+        return product.descriptionEn
+      case 'ua':
+        return product.descriptionUa
+      case 'pl':
+        return product.description
+      case 'ru':
+        return product.descriptionRu
+      default:
+        return product.description
+    }
+  }
   if (isProductLoading)
     return (
       <Center h={600}>
@@ -45,48 +75,40 @@ const ProductContent = () => {
   return (
     <Container
       maxW="container.xl"
-      py={10}
+      pt={"14vh"}
       fontFamily="'Roboto', sans-serif"
       display="flex"
       justifyContent="center"
+      pb={!isLargerThan768 ? "30px" : 0}
     >
       <Box maxW={{ base: 500, lg: 1150 }} minW={{ base: 'auto', lg: '80%' }}>
         <Heading mb={10} color="blue.200">
-          {product.name}
+          {getNameByTranslate(product)}
         </Heading>
-
-        <Flex align="start" gap={12} flexWrap="wrap" justify="center">
+        <Flex align="center" gap={12} flexWrap={!isLargerThan768 ? "wrap" : undefined} justify="start" mt={5}>
           <Image
             src={product.img}
             fallback={<Image src={stubImg} />}
-            boxSize={{ base: 250, xs: 490 }}
+            boxSize={{ base: 250, xs: 490, xxs: "100%" }}
           />
 
-          <Flex flexDir="column" gap={5} minW={{ md: 450 }}>
-            <Text fontWeight={700} fontSize={15}>
-              <Text>Weight: {product.weight}</Text>
-              <Text>Pieces: {product.cartCount}</Text>
-            </Text>
-
-            <Flex w="100%" align="center" justify="space-between">
-              <Text fontSize={30} fontWeight={700}>
-                {product.price}{' '}
-                <Text as="span" fontSize={15}>
-                  zł
-                </Text>
+          <Flex flexDir="column" gap={15} minW={{ md: 450 }}>
+            <Flex flexDir="column" gap={15}>
+              <Text fontWeight={700} fontSize={18}>
+                {product.weight && <Text>Weight: {product.weight}</Text>}
+                <Text>{product.cartCount} pieces</Text>
               </Text>
-              <Button
-                bg="turquoise.77"
-                color="white"
-                h={10}
-                borderRadius={20}
-                onClick={() => addProduct(product)}
-              >
-                {isThisProductAdded ? 'Added to basket' : 'Buy'}
-              </Button>
+              <Flex w="100%" align="center" justify="space-between">
+                <Text fontSize={32} fontWeight={700}>
+                  {product.price}{' '}
+                  <Text as="span" fontSize={15}>
+                    zł
+                  </Text>
+                </Text>
+              </Flex>
             </Flex>
 
-            <Flex
+            <Text
               borderRadius={10}
               gap={5}
               flexDir="column"
@@ -96,12 +118,40 @@ const ProductContent = () => {
               py={5}
               px={9}
             >
-              <Text fontWeight={700} color="turquoise.77">
-                Delivery
-              </Text>
+                {getDescriptionByTranslate(product)}
+            </Text>
 
-              <Text>We offer a 10% discount for self pick-up</Text>
+            <Flex w="100%" align="center" justify="center">
+              <Button
+                w={isLargerThan768 ? '50%' : "100%"}
+                bg="turquoise.77"
+                color="white"
+                h={'50px'}
+                borderRadius={15}
+                onClick={() => addProduct(product)}
+              >
+                {isThisProductAdded ? 'Added to basket' : 'Buy'}
+              </Button>
             </Flex>
+
+            {/*<Flex*/}
+            {/*  borderRadius={10}*/}
+            {/*  gap={5}*/}
+            {/*  flexDir="column"*/}
+            {/*  w="100%"*/}
+            {/*  border="1px solid"*/}
+            {/*  borderColor="turquoise.77"*/}
+            {/*  py={5}*/}
+            {/*  px={9}*/}
+            {/*>*/}
+            {/*  /!*<Text fontWeight={700} color="turquoise.77">*!/*/}
+            {/*  /!*  Delivery*!/*/}
+            {/*  /!*</Text>*!/*/}
+
+            {/*  /!*<Text>We offer a 10% discount for self pick-up</Text>*!/*/}
+            {/*  <Text>{product.description}</Text>*/}
+
+            {/*</Flex>*/}
           </Flex>
         </Flex>
       </Box>

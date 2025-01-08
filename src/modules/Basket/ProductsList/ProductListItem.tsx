@@ -8,6 +8,7 @@ import {
   deleteSelectedProduct,
 } from 'redux/products/ProductsSlice'
 import { DecBtn, IncBtn } from '../IncDecBtn'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   item: SelectedProduct
@@ -16,6 +17,24 @@ interface Props {
 const ProductListItem = ({ item }: Props) => {
   let count: number = item.count
   const itemId: number = item.product.id
+  const { i18n } = useTranslation()
+
+  const currentLanguage = i18n.language
+
+  const getNameByTranslate = () => {
+    switch (currentLanguage) {
+      case 'en':
+        return item.product.nameEn
+      case 'ua':
+        return item.product.nameUa
+      case 'pl':
+        return item.product.name
+      case 'ru':
+        return item.product.nameRu
+      default:
+        return item.product.name
+    }
+  }
 
   const dispatch = useDispatch<AppDispatch>()
 
@@ -31,6 +50,7 @@ const ProductListItem = ({ item }: Props) => {
     count = count + 1
     handleCount(itemId, count)
   }
+
 
   const decreaseCount = () => {
     if (count > 0) {
@@ -53,31 +73,36 @@ const ProductListItem = ({ item }: Props) => {
       color="blue.200"
       backgroundColor={'#ECECF5'}
       borderRadius={'9px'}
-      pr={'16px'}
+      pr={"16px"}
+      boxSizing="border-box"
     >
-      <Flex gap={isLessThan768 ? '5px' : 3}>
-        <Image
-          src={item.product.img}
-          maxW={isLessThan768 ? "70px" : 'auto'}
-          objectFit={'cover'}
-          height={"auto"}
-          maxHeight={"92px"}
-          fallback={<Image boxSize={19} src={stubImg} />}
-          overflow={'hidden'}
-          borderLeftRadius={'9px'}
-        />
-        <Flex gap={'8px'} alignItems={'center'}>
+      <Flex gap={isLessThan768 ? '5px' : '5px'} maxW={isLessThan768 ? "65%" : '75%'}>
+        <Flex w={'120px'}>
+          <Image
+            src={item.product.img}
+            // w={isLessThan768 ? "150px" : 'auto'}
+            // maxW={isLessThan768 ? "70px" : 'auto'}
+            objectFit={'cover'}
+            // height={"auto"}
+            // maxHeight={"92px"}
+            // fallback={<Image boxSize={19} src={stubImg} />}
+            fallback={<Image src={stubImg} />}
+            overflow={'hidden'}
+            borderLeftRadius={'9px'}
+          />
+        </Flex>
+        <Flex gap={'8px'} alignItems={'center'} maxW={'65%'}>
           <Box>
             <Text
-              maxW={130}
               fontSize={isLessThan768 ? "0.72rem" : "0.83rem"}
-              lineHeight={isLessThan768 ? '1.09rem' : '24px'}
+              lineHeight={isLessThan768 ? '1.09rem' : ''}
               fontWeight={400}
               fontFamily={'Rubik'}
               color={'#002034'}
               fontStyle={'normal'}
+              maxW="91%"
             >
-              {item.product.name.trim()}
+              {getNameByTranslate()}
             </Text>
             <Text
               fontSize={isLessThan768 ? "0.62rem" : "0.83rem"}
@@ -86,6 +111,7 @@ const ProductListItem = ({ item }: Props) => {
               fontWeight={400}
               lineHeight={isLessThan768 ? '0.93rem' : '21px'}
               color={'#9090A4'}
+              maxW="91%"
             >
               {Number(item.product.weight * item.count).toFixed(2)} gram /{' '}
               {item.product.size * item.count} шт.
@@ -98,6 +124,8 @@ const ProductListItem = ({ item }: Props) => {
                 lineHeight={isLessThan768 ? '1.09rem' : '24px'}
                 color={'#002034'}
                 fontFamily={'Rubik'}
+                maxW="91%"
+
               >
                 {item.product.price * item.count} zł
               </Text>
@@ -131,7 +159,7 @@ const ProductListItem = ({ item }: Props) => {
           </Text>
           <IncBtn onClick={increaseCount} text={'+'} ></IncBtn>
         </Flex>
-        <Image cursor="pointer" src={closeIcon} onClick={handleDelete} />
+        <Image cursor="pointer" src={closeIcon} onClick={handleDelete} w={'10px'}/>
       </Flex>
     </Flex>
   )
