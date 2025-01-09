@@ -4,6 +4,7 @@ import baked from 'assets/icons/category/baked.svg'
 import cakes from 'assets/icons/category/cakes.svg'
 import sushi from 'assets/icons/category/sushi.svg'
 import futomaki from 'assets/icons/category/futomaki.svg'
+import california from 'assets/icons/category/california.svg'
 import salads from 'assets/icons/category/salads.svg'
 import bowl from 'assets/icons/category/bowl.svg'
 import desserts from 'assets/icons/category/desserts.svg'
@@ -17,7 +18,7 @@ const CATEGORY = [
         nameEn: 'California',
         route: 'California Rolls',
         translateId: 'California Rolls',
-        img: futomaki,
+        img: california,
     },
     {
         name: 'Przystawki',
@@ -26,7 +27,7 @@ const CATEGORY = [
         nameEn: 'Appetizers',
         route: 'Przystawki',
         translateId: 'Przystawki',
-        img: futomaki,
+        img: california,
     },
     {
         name: 'Futomaki',
@@ -35,7 +36,7 @@ const CATEGORY = [
         nameEn: 'Futomaki',
         route: 'Futomaki',
         translateId: 'Futomaki',
-        img: futomaki,
+        img: california,
     },
     {
         name: 'Zestawy',
@@ -44,7 +45,7 @@ const CATEGORY = [
         nameEn: 'Sets',
         route: 'Zestawy',
         translateId: 'Zestawy',
-        img: futomaki,
+        img: california,
     },
     {
         name: 'Gunkan',
@@ -53,7 +54,7 @@ const CATEGORY = [
         nameEn: 'Gunkan',
         route: 'Gunkan',
         translateId: 'Gunkan',
-        img: futomaki,
+        img: california,
     },
     {
         name: 'Sashimi',
@@ -62,7 +63,7 @@ const CATEGORY = [
         nameEn: 'Sashimi',
         route: 'Sashimi',
         translateId: 'Sashimi',
-        img: futomaki,
+        img: california,
     },
     {
         name: 'Nigiri',
@@ -71,7 +72,7 @@ const CATEGORY = [
         nameEn: 'Nigiri',
         route: 'Nigiri',
         translateId: 'Nigiri',
-        img: futomaki,
+        img: california,
     },
     {
         name: 'Hosomaki',
@@ -80,7 +81,7 @@ const CATEGORY = [
         nameEn: 'Hosomaki',
         route: 'Hosomaki',
         translateId: 'Hosomaki',
-        img: futomaki,
+        img: california,
     },
     {
         name: 'Lunch',
@@ -89,7 +90,7 @@ const CATEGORY = [
         nameEn: 'Lunch',
         route: 'Lunch',
         translateId: 'Lunch',
-        img: futomaki,
+        img: california,
     }
 ]
 
