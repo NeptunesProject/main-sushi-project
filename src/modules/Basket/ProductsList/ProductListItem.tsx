@@ -73,68 +73,66 @@ const ProductListItem = ({ item }: Props) => {
       color="blue.200"
       backgroundColor={'#ECECF5'}
       borderRadius={'9px'}
-      pr={"16px"}
+      // pr={"16px"}
       boxSizing="border-box"
     >
-      <Flex gap={isLessThan768 ? '5px' : '5px'} maxW={isLessThan768 ? "65%" : '75%'}>
-        <Flex w={'120px'}>
-          <Image
-            src={item.product.img}
-            // w={isLessThan768 ? "150px" : 'auto'}
-            // maxW={isLessThan768 ? "70px" : 'auto'}
-            objectFit={'cover'}
-            // height={"auto"}
-            // maxHeight={"92px"}
-            // fallback={<Image boxSize={19} src={stubImg} />}
-            fallback={<Image src={stubImg} />}
-            overflow={'hidden'}
-            borderLeftRadius={'9px'}
-          />
-        </Flex>
-        <Flex gap={'8px'} alignItems={'center'} maxW={'65%'}>
-          <Box>
-            <Text
-              fontSize={isLessThan768 ? "0.72rem" : "0.83rem"}
-              lineHeight={isLessThan768 ? '1.09rem' : ''}
-              fontWeight={400}
-              fontFamily={'Rubik'}
-              color={'#002034'}
-              fontStyle={'normal'}
-              maxW="91%"
-            >
-              {getNameByTranslate()}
-            </Text>
-            <Text
-              fontSize={isLessThan768 ? "0.62rem" : "0.83rem"}
-              fontFamily={'Rubik'}
-              fontStyle={'normal'}
-              fontWeight={400}
-              lineHeight={isLessThan768 ? '0.93rem' : '21px'}
-              color={'#9090A4'}
-              maxW="91%"
-            >
-              {Number(item.product.weight * item.count).toFixed(2)} gram /{' '}
-              {item.product.size * item.count} шт.
-            </Text>
-            <Flex>
-              <Text
-                fontSize={isLessThan768 ? '0.72rem' : "0.83rem"}
-                minW={10}
-                fontWeight={400}
-                lineHeight={isLessThan768 ? '1.09rem' : '24px'}
-                color={'#002034'}
-                fontFamily={'Rubik'}
-                maxW="91%"
+      <Flex flex={'0 0 23%'}>
+        <Image
+          src={item.product.img}
+          // w={isLessThan768 ? "150px" : 'auto'}
+          // maxW={isLessThan768 ? "70px" : 'auto'}
+          objectFit={'cover'}
+          // height={"auto"}
+          // maxHeight={"92px"}
+          // fallback={<Image boxSize={19} src={stubImg} />}
+          fallback={<Image src={stubImg}/>}
+          overflow={'hidden'}
+          borderLeftRadius={'9px'}
+          // width={'100px'}
+        />
+      </Flex>
 
-              >
-                {item.product.price * item.count} zł
-              </Text>
-            </Flex>
-          </Box>
+      <Flex flexDir={'column'} flex={'0 0 45%'} pl={isLessThan768 ? '' : ''}>
+        <Text
+          fontSize={isLessThan768 ? "0.62rem" : "0.83rem"}
+          lineHeight={isLessThan768 ? '' : ''}
+          fontWeight={400}
+          fontFamily={'Rubik'}
+          color={'#002034'}
+          fontStyle={'normal'}
+          maxW="91%"
+        >
+          {getNameByTranslate()}
+        </Text>
+        <Text
+          fontSize={isLessThan768 ? "0.62rem" : "0.83rem"}
+          fontFamily={'Rubik'}
+          fontStyle={'normal'}
+          fontWeight={400}
+          lineHeight={isLessThan768 ? '0.93rem' : '21px'}
+          color={'#9090A4'}
+          maxW="91%"
+        >
+          {Number(item.product.weight * item.count).toFixed(2)} gram /{' '}
+          {item.product.size * item.count} шт.
+        </Text>
+        <Flex>
+          <Text
+            fontSize={isLessThan768 ? '0.72rem' : "0.83rem"}
+            minW={10}
+            fontWeight={400}
+            lineHeight={isLessThan768 ? '1.09rem' : '24px'}
+            color={'#002034'}
+            fontFamily={'Rubik'}
+            maxW="91%"
+
+          >
+            {item.product.price * item.count} zł
+          </Text>
         </Flex>
       </Flex>
 
-      <Flex align="center" gap={3}>
+      <Flex align="center" gap={3} flex={'0 0 30%'}>
         <Flex
           align="center"
           gap={2}
@@ -146,7 +144,6 @@ const ProductListItem = ({ item }: Props) => {
           borderWidth={'1px'}
         >
           <DecBtn onClick={decreaseCount} text={'-'}></DecBtn>
-
           <Text
             fontSize={isLessThan768 ? 13 : "0.83rem"}
             fontWeight={400}
