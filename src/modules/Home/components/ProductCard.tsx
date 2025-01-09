@@ -268,6 +268,8 @@ const ProductCard = ({ product }: Props) => {
             </Button>
           ) : (
             <Flex
+              mt="1vh"
+
               w="100%"
               h="40px"
               bg="#418a91"

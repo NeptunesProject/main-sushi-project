@@ -34,21 +34,7 @@ const HomeSlider = () => {
           <Text>
             Where Every Bite Tells a Story of Tradition and Innovation
           </Text>
-          <Button
-            minWidth={isLargerThan768 ? 'max-content' : 'fit-content'}
-            py={2}
-            px={isLargerThan768 ? '4' : '2,5'}
-            fontWeight={400}
-            color="white"
-            bgColor="cyanBlue.800"
-          >
-            <Flex gap="10px" alignItems="center">
-              <Image src={gift} />
-              <Text as="p" whiteSpace={'break-spaces'}>
-                Get 10% off when you pick up in person!
-              </Text>
-            </Flex>
-          </Button>
+
         </Flex>
         {isLargerThan768 && (
           <Image
