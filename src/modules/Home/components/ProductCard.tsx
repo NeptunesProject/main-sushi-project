@@ -167,7 +167,7 @@ const ProductCard = ({ product }: Props) => {
       <Image
         fallback={<Image h={152} borderRadius={3} src={sushiImg} />}
         onClick={() => navigate(`/product/${product.id}`)}
-        minWidth="288px"
+        minWidth={isLargerThan768 ? "auto" : "288px"}
         h={isLargerThan768 ? 152 : "auto"}
         src={product.img}
         objectFit="cover"
