@@ -96,8 +96,7 @@ const Basket = () => {
           borderRadius="16px"
           marginX={"16px"}
           maxW={{xs: "100%", xl: "34.35rem", lg: "35rem", md: "35rem", sm: "35rem"}}
-          overflowY={isLessThan700 ? "scroll" : "hidden"}
-          maxH={isLessThan700 ? '400px' : "auto"}
+          maxH={isLessThan700 ? '' : "auto"}
           // maxW={"31.35rem"}
           // style={{
           //   backgroundColor: '#FFFFFF',
