@@ -113,8 +113,7 @@ const ProductListItem = ({ item }: Props) => {
           color={'#9090A4'}
           maxW="91%"
         >
-          {Number(item.product.weight * item.count).toFixed(2)} gram /{' '}
-          {item.product.size * item.count} шт.
+          {item.product.size * item.count} szt.
         </Text>
         <Flex>
           <Text

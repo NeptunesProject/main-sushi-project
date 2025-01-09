@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Flex, useBreakpointValue, chakra, Container } from '@chakra-ui/react'
+import { Flex, useBreakpointValue, chakra, Container, Text } from '@chakra-ui/react'
 import { NavLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import Logo from 'components/Logo'
@@ -72,9 +72,10 @@ const AppHeader = () => {
               {t(`navbar.${idx}`)}
             </MainNavLink>
           ))}
-          <Flex pb={2}>
-            <LanguageSelect text={'Select Language'} />
-          </Flex>
+          {/*<Flex pb={2}>*/}
+          {/*  <LanguageSelect text={'Select Language'} />*/}
+          {/*</Flex>*/}
+          <Text>{LanguageSelect.name}</Text>
         </Flex>
       )}
     </Container>

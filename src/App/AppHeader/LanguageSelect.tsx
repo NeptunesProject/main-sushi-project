@@ -31,34 +31,35 @@ const LanguageSelect = ({ text }: Props) => {
 
   return (
     <Menu>
-      <MenuButton>
-        <Flex align="center" gap={0.5} color="#343330">
-          <Text
-            textTransform={text ? undefined : 'uppercase'}
-            fontSize={16}
-            fontWeight={400}
-            fontFamily={'Rubik'}
-          >
-            {text ? text : selectedLanguage}
-          </Text>
-          {!text && <ChevronDownIcon />}
-        </Flex>
-      </MenuButton>
+      <Text>{selectedLanguage.toUpperCase()}</Text>
+      {/*<MenuButton>*/}
+      {/*  <Flex align="center" gap={0.5} color="#343330">*/}
+      {/*    <Text*/}
+      {/*      textTransform={text ? undefined : 'uppercase'}*/}
+      {/*      fontSize={16}*/}
+      {/*      fontWeight={400}*/}
+      {/*      fontFamily={'Rubik'}*/}
+      {/*    >*/}
+      {/*      {text ? text : selectedLanguage}*/}
+      {/*    </Text>*/}
+      {/*    {!text && <ChevronDownIcon />}*/}
+      {/*  </Flex>*/}
+      {/*</MenuButton>*/}
 
-      <MenuList ml={text ? 16 : -2}>
-        {LANGUAGES.filter((lang) => lang !== selectedLanguage).map(
-          (language) => (
-            <MenuItem
-              key={language}
-              onClick={() => handleLanguageChange(language)}
-              textTransform="uppercase"
-              fontFamily={'Rubik'}
-            >
-              {language}
-            </MenuItem>
-          ),
-        )}
-      </MenuList>
+      {/*<MenuList ml={text ? 16 : -2}>*/}
+      {/*  {LANGUAGES.filter((lang) => lang !== selectedLanguage).map(*/}
+      {/*    (language) => (*/}
+      {/*      <MenuItem*/}
+      {/*        key={language}*/}
+      {/*        onClick={() => handleLanguageChange(language)}*/}
+      {/*        textTransform="uppercase"*/}
+      {/*        fontFamily={'Rubik'}*/}
+      {/*      >*/}
+      {/*        {language}*/}
+      {/*      </MenuItem>*/}
+      {/*    ),*/}
+      {/*  )}*/}
+      {/*</MenuList>*/}
     </Menu>
   )
 }
