@@ -5,7 +5,7 @@ import uaTranslation from './ua/translation.json'
 import plTranslation from './pl/translation.json'
 
 i18next.use(initReactI18next).init({
-  lng: 'en',
+  lng: 'pl',
   resources: {
     en: {
       translation: enTranslation,
