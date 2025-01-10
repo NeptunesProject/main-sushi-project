@@ -82,9 +82,6 @@ const TimeBasedModal: React.FC = () => {
           </Button>
         </ModalContent>
       </Modal>
-      <Button onClick={onOpen} mt={4}>
-        Force Open Modal (For Testing)
-      </Button>
     </>
   );
 };
