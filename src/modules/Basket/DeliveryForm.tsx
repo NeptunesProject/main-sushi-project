@@ -79,14 +79,14 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
   function streetSetter(e: React.ChangeEvent<HTMLInputElement>) {
     setStreet(
       deliveryType === 'delivery'
-        ? (e.target as HTMLInputElement).value.trim()
+        ? (e.target as HTMLInputElement).value
         : '',
     )
     localStorage.setItem(
       'personInfo-Street',
       JSON.stringify(
         deliveryType === 'delivery'
-          ? (e.target as HTMLInputElement).value.trim()
+          ? (e.target as HTMLInputElement).value
           : '',
       ),
     )

@@ -12,7 +12,7 @@ const PhoneCall = () => {
       pos="relative"
       bgColor="#418a91"
     >
-      <Link href="tel:+404112">
+      <Link href="tel:+48517102069">
         <Image src={phone} w={'24px'} h={'24px'} />
       </Link>
     </Center>
