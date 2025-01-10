@@ -10,6 +10,7 @@ import AppNavBar from 'App/AppNavBar'
 import { useDispatch } from 'react-redux'
 import { fetchProducts } from 'redux/products/operations'
 import { AppDispatch } from 'types'
+import TimeBasedModal from '../../../components/SleepModal'
 
 const HomeContent = () => {
   const dispatch = useDispatch<AppDispatch>()
@@ -43,6 +44,7 @@ const HomeContent = () => {
     <Container maxW="container.xl" pt="20vh" w="100%" pos="relative">
       <Container maxW="container.md" w="100%" pl={0} pr={0}>
         {/*<HomeSlider />*/}
+        <TimeBasedModal />
         {isLoading ? (
           <Center h={400}>
             <Spinner />
