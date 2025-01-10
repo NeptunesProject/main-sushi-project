@@ -10,33 +10,62 @@ import {
   Spinner, useMediaQuery,
 } from '@chakra-ui/react'
 import { useParams } from 'react-router-dom'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import stubImg from 'assets/img/stub.jpg'
-import {
-  useBasketContext,
-  useBasketDispatchContext,
-} from '../../contexts/BasketContext'
 import useProduct from '../../hooks/useProduct'
-import { Product } from '../../types'
+import { AppDispatch, Product } from '../../types'
 import { useTranslation } from 'react-i18next'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectBasketProducts } from '../../redux/products/selectors'
+import { addProduct, setProductCount } from '../../redux/products/ProductsSlice'
+import basket from '../../assets/icons/basket.svg'
+import { CountButton } from '../../ui/CountButton'
 
 const ProductContent = () => {
+  const dispatch = useDispatch<AppDispatch>()
   const { id } = useParams()
+  const selectedProducts = useSelector(selectBasketProducts)
+  const [count, setCount] = useState(1)
+
   const { product, isLoading: isProductLoading } = useProduct(String(id), {
     enabled: Boolean(id),
   })
   const [isLargerThan768] = useMediaQuery('(min-width: 768px)')
-  const { addProduct, isProductAdded } = useBasketDispatchContext()
-  const { products } = useBasketContext()
 
   const { i18n } = useTranslation()
 
   const currentLanguage = i18n.language
 
-  const isThisProductAdded = useMemo(
-    () => isProductAdded(product ?? ({} as Product)),
-    [products, product],
+  const selectedInfoProduct = useMemo(
+    () => {
+      return selectedProducts.find((item) => String(item.product.id) === String(id))
+    },
+    [selectedProducts, id],
   )
+
+  const handleAdd = (product: Product, count: number) => {
+    dispatch(addProduct({ product, count }))
+  }
+
+  const handleIncrement = () => {
+    if (selectedInfoProduct && selectedInfoProduct.count && product?.id) {
+      dispatch(setProductCount({ id: product.id, count: 1 }))
+    } else {
+      setCount((prevCount) => prevCount + 1)
+    }
+  }
+
+  const handleDecrement = () => {
+    if (selectedInfoProduct && selectedInfoProduct.count > 1 && product?.id) {
+      dispatch(setProductCount({ id: product.id, count: -1 }));
+    } else if (selectedInfoProduct && selectedInfoProduct.count === 1 && product?.id) {
+      dispatch(setProductCount({ id: product.id, count: -1 }));
+      setCount(1);
+    } else if (count > 1) {
+      setCount((prevCount) => prevCount - 1);
+    }
+  };
+
   const getNameByTranslate = (product: Product) => {
     switch (currentLanguage) {
       case 'en':
@@ -49,6 +78,7 @@ const ProductContent = () => {
         return product.nameRu
     }
   }
+
   const getDescriptionByTranslate = (product: Product) => {
     switch (currentLanguage) {
       case 'en':
@@ -70,8 +100,9 @@ const ProductContent = () => {
       </Center>
     )
 
-  if (!product) return <Heading>product was not found</Heading>
-
+  if (!product || !product.id) return <Heading>product was not found</Heading>
+  console.log(selectedInfoProduct, 'selected info prod')
+  console.log(selectedProducts, 'selected prod')
   return (
     <Container
       maxW="container.xl"
@@ -121,18 +152,67 @@ const ProductContent = () => {
                 {getDescriptionByTranslate(product)}
             </Text>
 
-            <Flex w="100%" align="center" justify="center">
+            {!selectedInfoProduct || selectedInfoProduct.count === 0? (
               <Button
-                w={isLargerThan768 ? '50%' : "100%"}
-                bg="turquoise.77"
+                mt="1vh"
+                w="100%"
+                h={isLargerThan768 ? '40px' : '36px'}
+                justifyContent="center"
+                gap="8px"
+                bg="#418a91"
                 color="white"
-                h={'50px'}
-                borderRadius={15}
-                onClick={() => addProduct(product)}
+                borderRadius={20}
+                isDisabled={!!selectedInfoProduct}
+                _hover={!selectedInfoProduct ? { bg: 'gray.200' } : undefined}
+                onClick={() => {
+                  handleAdd(product, count)
+                  setCount(1)
+                }}
+                _disabled={{
+                  cursor: 'not-allowed',
+                }}
               >
-                {isThisProductAdded ? 'Added to basket' : 'Buy'}
+                <Text fontSize={16} fontWeight={400} fontFamily={'Rubik'}>
+                  Dodaj do koszyka
+                </Text>
+                <Image src={basket} h={22} />
               </Button>
-            </Flex>
+            ) : (
+              <Flex
+                mt="1vh"
+                w="100%"
+                h="40px"
+                bg="#418a91"
+                color="white"
+                borderRadius={20}
+                alignItems="center"
+                gap={{ base: 0.5, md: 1 }}
+              >
+                <CountButton
+                  onClick={handleDecrement}
+                  borderLeftRadius={20}
+                  borderRightRadius={5}
+                  bg="none"
+                  h="100%"
+                  variant="card"
+                >
+                  -
+                </CountButton>
+                <CountButton flex={1} onClick={handleIncrement} h="100%" borderRadius={0} w="100%" variant="card">
+                  {selectedInfoProduct ? selectedInfoProduct.count : count}
+                </CountButton>
+
+                <CountButton
+                  variant="card"
+                  onClick={handleIncrement}
+                  borderRightRadius={20}
+                  borderLeftRadius={5}
+                  h="100%"
+                >
+                  +
+                </CountButton>
+              </Flex>
+            )}
 
             {/*<Flex*/}
             {/*  borderRadius={10}*/}
