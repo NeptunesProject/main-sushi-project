@@ -2,11 +2,12 @@ import { Box, Container, Flex, Heading, Text } from '@chakra-ui/react'
 import { useTranslation } from 'react-i18next'
 
 const SuccessContent = () => {
-  const { t } = useTranslation()
+  // const { t } = useTranslation()
   return (
       <Container
           maxW="container.xl"
-          my={14}
+          mt={'22vh'}
+          my={24}
           display="flex"
           justifyContent="center"
           fontFamily="'Roboto', sans-serif"

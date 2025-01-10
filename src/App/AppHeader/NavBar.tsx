@@ -2,7 +2,7 @@ import { chakra, Flex } from '@chakra-ui/react'
 import 'i18n/config'
 import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
-import { NAV_LINKS } from '../../constants/index'
+import { NAV_LINKS } from '../../constants'
 
 const MainNavLink = chakra(NavLink, {
   baseStyle: {
@@ -30,7 +30,6 @@ const NavBar = () => {
     <Flex align="center"
     gap="24px"
     px="81.6px">
-
       {NAV_LINKS.map((route: string, idx: number) => (
         <MainNavLink to={route} key={`navbar.${idx}`}>
           {t(`navbar.${idx}`)}

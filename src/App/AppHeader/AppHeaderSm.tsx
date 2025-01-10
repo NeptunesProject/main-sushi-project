@@ -1,10 +1,10 @@
-import { chakra, Flex } from '@chakra-ui/react'
+import { chakra, Flex, Text } from '@chakra-ui/react'
 import Logo from 'components/Logo'
 import Place from './Place'
 import Burger from './Burger'
 
 import { NavLink } from 'react-router-dom'
-import { NAV_LINKS } from '../../constants/index'
+import { NAV_LINKS } from '../../constants'
 import 'i18n/config'
 import { useTranslation } from 'react-i18next'
 import { useState } from 'react'
@@ -49,7 +49,8 @@ const AppHeaderSm = () => {
             </MainNavLink>
           ))}
           <Flex alignSelf="end" pb={2}>
-            <LanguageSelect text={'Select Language'} />
+            {/*<LanguageSelect text={'Select Language'} />*/}
+            <Text>{LanguageSelect.name}</Text>
           </Flex>
         </Flex>
       )}

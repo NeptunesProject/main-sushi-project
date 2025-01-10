@@ -9,6 +9,7 @@ interface Props {
 
 export const BasketInput = ({ value, setter, placeholder, type }: Props) => {
   const [isLessThan768] = useMediaQuery('(max-width: 768px)')
+  const [isLessThan700] = useMediaQuery('(max-height: 700px)')
 
   return (
     <Input
@@ -27,7 +28,13 @@ export const BasketInput = ({ value, setter, placeholder, type }: Props) => {
         fontWeight: '400',
         fontSize: isLessThan768 ? '14px' : '16px',
         lineHeight: isLessThan768 ? '21px' : '24px',
-        height: isLessThan768 ? '36px' : '40px',
+        height: isLessThan700
+          ? isLessThan768
+            ? '28px'
+            : '28px'
+          : isLessThan768
+            ? '36px'
+            : '40px',
       }}
     />
   )

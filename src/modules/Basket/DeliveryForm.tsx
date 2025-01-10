@@ -14,7 +14,6 @@ import { BasketTypes } from '../../types'
 import InfoToPay from './InfoToPay'
 import { BasketInput } from 'components/BasketInput'
 import AdditionalProducts from './AdditionalProducts'
-import point from '../../assets/icons/point.svg'
 
 interface Props {
   setSelectedBasketType: React.Dispatch<React.SetStateAction<BasketTypes>>
@@ -111,10 +110,11 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
     )
   }
 
-  const pickupBorderColor = deliveryType === 'pickup' ? 'black' : 'grey'
+  // const pickupBorderColor = deliveryType === 'pickup' ? 'black' : 'grey'
   const deliveryBorderColor = deliveryType === 'delivery' ? 'black' : 'grey'
 
   const [isLessThan768] = useMediaQuery('(max-width: 768px)')
+  const [isLessThan700] = useMediaQuery('(max-height: 700px)')
 
   return (
     <>
@@ -143,17 +143,17 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
         flexDir="column"
       >
         <Text
-          fontSize={isLessThan768 ? 14 : 16}
+          fontSize={isLessThan700 ? 14 : 16}
           fontWeight={400}
           color={'#002034'}
-          lineHeight={isLessThan768 ? '21px' : '24px'}
+          lineHeight={isLessThan700 ? '14px' : '24px'}
           fontFamily={'Rubik'}
           fontStyle={'normal'}
           mb={'4px'}
         >
           Dane osobowe:
         </Text>
-        <Flex flexDir="column" gap={'10px'} align="start" mb={'8px'}>
+        <Flex flexDir="column" gap={isLessThan700 ? "5px" : '10px'} align="start" mb={'8px'}>
           <BasketInput
             value={name}
             setter={nameSetter}
@@ -182,10 +182,10 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
           )}
         </Flex>
         <Text
-          fontSize={isLessThan768 ? 14 : 16}
+          fontSize={isLessThan700 ? 14 : 16}
           fontWeight={400}
           color={'#002034'}
-          lineHeight={isLessThan768 ? '21px' : '24px'}
+          lineHeight={isLessThan700 ? '21px' : '24px'}
           fontFamily={'Rubik'}
           fontStyle={'normal'}
           mb={'1px'}
@@ -210,7 +210,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
               style={{
                 borderColor: deliveryBorderColor,
               }}
-              size={isLessThan768 ? 'sm' : 'md'}
+              size={isLessThan700 ? 'sm' : 'md'}
               value="delivery"
             >
               Dostawa
@@ -248,6 +248,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
         <Box w="100%" h="1px" bg="grey" opacity={0.6} mt={'10px'} mb={'13px'} />
 
         <InfoToPay />
+
         <Flex justifyContent={'center'} gap={'8px'}>
           <Button
             bg="#002034"
@@ -262,6 +263,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
             alignSelf="end"
             onClick={() => setSelectedBasketType('basket')}
             width={'99px'}
+            h={isLessThan700 ? '30px' : '40px'}
           >
             Wstecz
           </Button>
@@ -270,7 +272,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
             bg="#418a91"
             borderRadius={25}
             color={'#FFFFFF'}
-            fontSize={16}
+            fontSize={isLessThan700 ? 14 : 16}
             fontWeight={400}
             lineHeight={'24px'}
             fontFamily={'Rubik'}
@@ -279,6 +281,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
             alignSelf="end"
             onClick={() => setSelectedBasketType('pay')}
             isDisabled={getDisabledState()}
+            h={isLessThan700 ? '30px' : '40px'}
           >
             Kontynuuj
           </Button>

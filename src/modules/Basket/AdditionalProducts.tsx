@@ -31,6 +31,7 @@ const AdditionalProducts = () => {
   // }
 
   const [isLessThan768] = useMediaQuery('(max-width: 768px)')
+  const [isLessThan700] = useMediaQuery('(max-height: 700px)')
 
   return (
     <Flex flexDir="column" fontWeight={600} gap={'5px'}>
@@ -60,6 +61,7 @@ const AdditionalProducts = () => {
           borderLeftRadius={5}
           borderColor={'#B7B7B7'}
           borderWidth={'1px'}
+          maxH={isLessThan700 ? "35px" : ""}
         >
           <DecBtn onClick={handlePersonCountDecrement} text={'-'}></DecBtn>
 
