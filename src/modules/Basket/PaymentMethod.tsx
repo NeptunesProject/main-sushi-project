@@ -168,6 +168,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
   }
 
   const [isLessThan768] = useMediaQuery('(max-width: 768px)')
+  const [isLessThan730] = useMediaQuery('(max-height: 730px)')
 
   return (
     <>
@@ -204,14 +205,14 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
         <Text fontWeight={'500'} color={'#002034'} mb={'3px'}>
           Zweryfikuj szczegóły zamówienia:
         </Text>
-        <Text mb={'3px'}>{name}</Text>
-        <Text mb={'3px'}>{phoneNumber}</Text>
-        <Text mb={'3px'}>{email}</Text>
-        <Text mb={'3px'} color={'rgba(0, 0, 0, 0.28)'}>
+        <Text mb={'3px'} fontSize={isLessThan730 ? '14px' : '16px'}>{name}</Text>
+        <Text mb={'3px'} fontSize={isLessThan730 ? '14px' : '16px'}>{phoneNumber}</Text>
+        <Text mb={'3px'} fontSize={isLessThan730 ? '14px' : '16px'}>{email}</Text>
+        <Text mb={'3px'} color={'rgba(0, 0, 0, 0.28)'} fontSize={isLessThan730 ? '14px' : '16px'}>
           {street}
         </Text>
-        <Flex gap={'3px'} pt={isLessThan768 ? '11px' : '10px'}>
-          <Text fontWeight={'500'} mb={'5px'}>
+        <Flex gap={'3px'} pt={isLessThan730 ? '11px' : '10px'}>
+          <Text fontWeight={'500'} mb={'5px'} fontSize={isLessThan730 ? '14px' : '16px'}>
             Rodzaj dostawy:
           </Text>
           <Text>
@@ -234,7 +235,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
       </Flex>
 
       <Box
-        mb={isLessThan768 ? '31px' : '26px'}
+        mb={isLessThan730 ? '15px' : '26px'}
         pl={isLessThan768 ? '5px' : '0px'}
         pr={isLessThan768 ? '5px' : '0px'}
       >
@@ -248,7 +249,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
               style={{
                 borderColor: payment === 'CASH' ? 'black' : 'grey',
               }}
-              size={isLessThan768 ? 'sm' : 'md'}
+              size={isLessThan730 ? 'sm' : 'md'}
               id="cash"
               value="CASH"
             >
@@ -258,7 +259,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
               style={{
                 borderColor: payment === 'TERMINAL' ? 'black' : 'grey',
               }}
-              size={isLessThan768 ? 'sm' : 'md'}
+              size={isLessThan730 ? 'sm' : 'md'}
               id="terminal"
               value="TERMINAL"
             >
@@ -269,7 +270,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
               style={{
                 borderColor: payment === 'ONLINE' ? 'black' : 'grey',
               }}
-              size={isLessThan768 ? 'sm' : 'md'}
+              size={isLessThan730 ? 'sm' : 'md'}
               id="online"
               value="ONLINE"
             >
@@ -280,7 +281,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
         <Text
           fontWeight={'500'}
           color={'#002034'}
-          fontSize={isLessThan768 ? '14px' : '16px'}
+          fontSize={isLessThan730 ? '14px' : '16px'}
           fontFamily={'Rubik'}
           fontStyle={'normal'}
           lineHeight={isLessThan768 ? '21px' : '24px'}
@@ -293,17 +294,18 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
           mt={'2px'}
           p={isLessThan768 ? '10px' : '8px'}
           value={comment}
-          height={'91px'}
+          height={isLessThan730 ? '61px' : "91px"}
           onChange={handleTextareaChange}
           style={{ resize: 'none' }}
-          fontSize={isLessThan768 ? '14px' : '16px'}
+          fontSize={isLessThan730 ? '14px' : '16px'}
           fontFamily={'Rubik'}
           fontStyle={'normal'}
-          lineHeight={isLessThan768 ? '21px' : '24px'}
+          lineHeight={isLessThan730 ? '16px' : '24px'}
         />
       </Box>
 
       <InfoToPay />
+
       <Flex justifyContent={'center'} gap={'8px'}>
         <Button
           bg="#002034"
@@ -318,6 +320,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
           alignSelf="end"
           onClick={() => setSelectedBasketType('delivery')}
           width={'99px'}
+          h={isLessThan730 ? '30px' : '40px'}
         >
           Wstecz
         </Button>
@@ -335,6 +338,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
           alignSelf="end"
           onClick={() => createOrder()}
           isDisabled={payment === ''}
+          h={isLessThan730 ? '30px' : '40px'}
         >
           Złóż zamówienie
         </Button>

@@ -10,6 +10,7 @@ import { addProduct, setProductCount } from 'redux/products/ProductsSlice'
 import { selectBasketProducts } from 'redux/products/selectors'
 import { calculateDiscountedPrice } from 'modules/Basket/OrderFuncs'
 import { useTranslation } from 'react-i18next'
+import { Tooltip } from '@chakra-ui/react';
 
 interface Props {
   product: Product
@@ -27,6 +28,13 @@ const ProductCard = ({ product }: Props) => {
   const { i18n } = useTranslation()
 
   const currentLanguage = i18n.language
+
+  const truncateText = (text: string, maxLength: number) => {
+    if (text.length > maxLength) {
+      return `${text.substring(0, maxLength)}...`;
+    }
+    return text;
+  };
 
   const getNameByTranslate = (product: Product) => {
     switch (currentLanguage) {
@@ -192,23 +200,39 @@ const ProductCard = ({ product }: Props) => {
           >
             {getNameByTranslate(product)}
           </Text>
-
-          <Text
-            onClick={() => navigate(`/product/${product.id}`)}
-            fontSize={isLargerThan768 ? "0.78rem" : "0.77rem"}
-            fontWeight={isLargerThan768 ? 500 : 600}
-            opacity={0.7}
-            color="#002034"
-            fontFamily={'Rubik'}
-          >
-            {getDescriptionByTranslate(product)}
-          </Text>
+          {
+            isLargerThan650 ?
+              <Text
+                onClick={() => navigate(`/product/${product.id}`)}
+                fontSize={isLargerThan768 ? "0.78rem" : "0.77rem"}
+                fontWeight={isLargerThan768 ? 500 : 600}
+                opacity={0.7}
+                color="#002034"
+                fontFamily={'Rubik'}
+              >
+                {getDescriptionByTranslate(product)}
+              </Text>
+              :
+              <Tooltip label={getDescriptionByTranslate(product)} aria-label="Full description">
+                <Text
+                  onClick={() => navigate(`/product/${product.id}`)}
+                  fontSize={isLargerThan768 ? "0.78rem" : "0.77rem"}
+                  fontWeight={isLargerThan768 ? 500 : 600}
+                  opacity={0.7}
+                  color="#002034"
+                  fontFamily={'Rubik'}
+                  noOfLines={2}
+                >
+                  {truncateText(getDescriptionByTranslate(product), 100)}
+                </Text>
+              </Tooltip>
+          }
         </Flex>
 
         <Flex flexDir={'column'}>
           <Text
               fontSize={isLargerThan768 ? 14 : 12}
-              fontWeight={700}  // Changed from 400 to 700 for bold
+              fontWeight={700}
               color="#002034"
               alignSelf="start"
               flexWrap="nowrap"

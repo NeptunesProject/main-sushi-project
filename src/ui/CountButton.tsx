@@ -6,7 +6,9 @@ export const CountButton = chakra(Button, {
     borderLeftRadius: 20,
     h: "20px",
     width: 10,
-    color: 'white',
+    _hover: {
+      color: 'white',
+    },
     px: 0,
   },
 })
@@ -22,7 +24,10 @@ export const CountButtonBasketDec = chakra(Button, {
     fontWeight: '400',
     fontFamily: 'Rubik',
     lineHeight: '12px',
-    color: 'white',
+    color: 'black',
+    _hover: {
+      color: 'white',
+    },
     fontStyle: 'normal',
   },
 })
@@ -38,7 +43,10 @@ export const CountButtonBasketInc = chakra(Button, {
     fontWeight: '400',
     fontFamily: 'Rubik',
     lineHeight: '12px',
-    color: 'white',
+    color: 'black',
+    _hover: {
+      color: 'white',
+    },
     fontStyle: 'normal',
   },
 })

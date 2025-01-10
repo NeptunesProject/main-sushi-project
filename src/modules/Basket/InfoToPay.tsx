@@ -35,7 +35,7 @@ const InfoToPay = () => {
 
   const showDiscounted = isVoucherActive || isDiscounted
 
-  const [isLessThan700] = useMediaQuery('(max-height: 700px)')
+  const [isLessThan730] = useMediaQuery('(max-height: 730px)')
 
   return (
     <Flex direction="column">
@@ -46,8 +46,8 @@ const InfoToPay = () => {
             fontFamily={'Rubik'}
             fontStyle={'normal'}
             fontWeight={'500'}
-            fontSize={isLessThan700 ? '12px' : '16px'}
-            lineHeight={isLessThan700 ? '18px' : '24px'}
+            fontSize={isLessThan730 ? '12px' : '16px'}
+            lineHeight={isLessThan730 ? '18px' : '24px'}
             pr={'9px'}
           >
             Discount:
@@ -57,8 +57,8 @@ const InfoToPay = () => {
             fontFamily={'Rubik'}
             fontStyle={'normal'}
             fontWeight={'400'}
-            fontSize={isLessThan700 ? '12px' : '16px'}
-            lineHeight={isLessThan700 ? '18px' : '24px'}
+            fontSize={isLessThan730 ? '12px' : '16px'}
+            lineHeight={isLessThan730 ? '18px' : '24px'}
           >
             {Number(discount.toFixed(2))} zł
           </Text>
@@ -67,8 +67,8 @@ const InfoToPay = () => {
 
       <Flex
         alignSelf={'center'}
-        fontSize={isLessThan700 ? '12px' : '16px'}
-        lineHeight={isLessThan700 ? '18px' : '24px'}
+        fontSize={isLessThan730 ? '12px' : '16px'}
+        lineHeight={isLessThan730 ? '18px' : '24px'}
       >
         <Text
           color="#002034"

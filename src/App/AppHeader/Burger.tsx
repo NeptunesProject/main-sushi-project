@@ -43,7 +43,7 @@ const Burger = ({ isOpen, setIsOpen }: BurgerProps) => {
           alignItems={'center'}
           justifyContent={'center'}
         >
-          <Image src={close} h="10px" w="10px" />
+          <Image src={close} h="16px"/>
         </Flex>
       ) : (
         <Box onClick={handleChange}>
