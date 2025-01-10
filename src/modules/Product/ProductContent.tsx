@@ -96,7 +96,7 @@ const ProductContent = () => {
             <Flex flexDir="column" gap={15}>
               <Text fontWeight={700} fontSize={18}>
                 {product.weight && <Text>Weight: {product.weight}</Text>}
-                <Text>{product.cartCount} pieces</Text>
+                <Text>{product.cartCount} szt</Text>
               </Text>
               <Flex w="100%" align="center" justify="space-between">
                 <Text fontSize={32} fontWeight={700}>

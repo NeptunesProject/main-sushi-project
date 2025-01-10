@@ -6,8 +6,8 @@
   "place": "Warsaw",
   "work-hours": {
     "0": "Opening hours",
-    "1": "Mon-Thu 12:00-22:00",
-    "2": "Fri-Sun 12:00-23:00"
+    "1": "Poniedziałek-Czwartek 12:00-22:00",
+    "2": "Piątek-Niedziela 12:00-23:00"
   },
   "category": {
     "seasonal": "Seasonal menu",

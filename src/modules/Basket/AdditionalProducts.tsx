@@ -48,7 +48,7 @@ const AdditionalProducts = () => {
           fontFamily={'Rubik'}
           fontStyle={'normal'}
         >
-          Number of people
+          Liczba osób
         </Text>
 
         <Flex

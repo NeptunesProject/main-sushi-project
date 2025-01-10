@@ -2,6 +2,7 @@ import { SelectedProduct, AppDispatch } from 'types'
 import { Box, Flex, Image, Text, useMediaQuery } from '@chakra-ui/react'
 import stubImg from 'assets/img/stub.jpg'
 import closeIcon from 'assets/icons/delete.svg'
+import { calculateDiscountedPrice } from '../OrderFuncs'
 import { useDispatch } from 'react-redux'
 import {
   setSelectedProductCount,
@@ -62,6 +63,19 @@ const ProductListItem = ({ item }: Props) => {
     }
   };
 
+    const isDiscounted = Boolean(item.product.discount)
+
+  const discountedPrice =
+      isDiscounted &&
+      calculateDiscountedPrice(
+          item.product.price,
+          item.product.discount.discountPerQuantity,
+          item.count,
+      )
+
+  const finalDiscountedPrice = typeof discountedPrice === 'number' ? discountedPrice : 0;
+
+  const totalDiscountedPrice = Math.round(finalDiscountedPrice * item.count * 10) / 10;
 
   const [isLessThan768] = useMediaQuery('(max-width: 768px)')
 
@@ -116,18 +130,33 @@ const ProductListItem = ({ item }: Props) => {
           {item.product.size * item.count} szt.
         </Text>
         <Flex>
-          <Text
-            fontSize={isLessThan768 ? '0.72rem' : "0.83rem"}
-            minW={10}
-            fontWeight={400}
-            lineHeight={isLessThan768 ? '1.09rem' : '24px'}
-            color={'#002034'}
-            fontFamily={'Rubik'}
-            maxW="91%"
+          <Flex align="center" gap="8px">
+            <Text
+                fontSize={isLessThan768 ? '0.72rem' : "0.83rem"}
+                minW={10}
+                fontWeight={400}
+                decoration={isDiscounted ? 'line-through' : 'none'}
+                lineHeight={isLessThan768 ? '1.09rem' : '24px'}
+                color={'#002034'}
+                fontFamily={'Rubik'}
+                maxW="91%"
 
-          >
-            {item.product.price * item.count} zł
-          </Text>
+            >
+              {item.product.price * item.count} zł
+            </Text>
+
+            {isDiscounted && (
+                <Text
+                    color="#9090A4"
+                    fontWeight={400}
+                    fontSize={16}
+                    p="2px"
+                    fontFamily={'Rubik'}
+                >
+                  {totalDiscountedPrice} zł
+                </Text>
+            )}
+          </Flex>
         </Flex>
       </Flex>
 

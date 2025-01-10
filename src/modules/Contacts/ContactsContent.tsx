@@ -44,7 +44,7 @@ const ContactsContent = () => {
             <Text>{t('work-hours.1')}</Text>
             <Text>{t('work-hours.2')}</Text>
             <Text>{t('contacts.phone')}</Text>
-            <Text>+48888 619 595</Text>
+            <Text>+48517102069</Text>
           </Box>
         </Flex>
       </Box>

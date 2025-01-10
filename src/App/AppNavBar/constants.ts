@@ -1,14 +1,12 @@
-import rolls from 'assets/icons/category/rolls.svg'
-import sets from 'assets/icons/category/sets.svg'
-import baked from 'assets/icons/category/baked.svg'
-import cakes from 'assets/icons/category/cakes.svg'
-import sushi from 'assets/icons/category/sushi.svg'
 import futomaki from 'assets/icons/category/futomaki.svg'
 import california from 'assets/icons/category/california.svg'
-import salads from 'assets/icons/category/salads.svg'
-import bowl from 'assets/icons/category/bowl.svg'
-import desserts from 'assets/icons/category/desserts.svg'
-import drinks from 'assets/icons/category/drinks.svg'
+import appetisers from 'assets/icons/category/appetisers.svg'
+import sets from 'assets/icons/category/sets.svg'
+import gunkan from 'assets/icons/category/gunkan.svg'
+import sashimi from 'assets/icons/category/sashimi.svg'
+import nigiri from 'assets/icons/category/nigiri.svg'
+import hosomaki from 'assets/icons/category/hosomaki.svg'
+import lunch from 'assets/icons/category/lunch.svg'
 
 const CATEGORY = [
     {
@@ -27,7 +25,7 @@ const CATEGORY = [
         nameEn: 'Appetizers',
         route: 'Przystawki',
         translateId: 'Przystawki',
-        img: california,
+        img: appetisers,
     },
     {
         name: 'Futomaki',
@@ -36,7 +34,7 @@ const CATEGORY = [
         nameEn: 'Futomaki',
         route: 'Futomaki',
         translateId: 'Futomaki',
-        img: california,
+        img: futomaki,
     },
     {
         name: 'Zestawy',
@@ -45,7 +43,7 @@ const CATEGORY = [
         nameEn: 'Sets',
         route: 'Zestawy',
         translateId: 'Zestawy',
-        img: california,
+        img: sets,
     },
     {
         name: 'Gunkan',
@@ -54,7 +52,7 @@ const CATEGORY = [
         nameEn: 'Gunkan',
         route: 'Gunkan',
         translateId: 'Gunkan',
-        img: california,
+        img: gunkan,
     },
     {
         name: 'Sashimi',
@@ -63,7 +61,7 @@ const CATEGORY = [
         nameEn: 'Sashimi',
         route: 'Sashimi',
         translateId: 'Sashimi',
-        img: california,
+        img: sashimi,
     },
     {
         name: 'Nigiri',
@@ -72,7 +70,7 @@ const CATEGORY = [
         nameEn: 'Nigiri',
         route: 'Nigiri',
         translateId: 'Nigiri',
-        img: california,
+        img: nigiri,
     },
     {
         name: 'Hosomaki',
@@ -81,7 +79,7 @@ const CATEGORY = [
         nameEn: 'Hosomaki',
         route: 'Hosomaki',
         translateId: 'Hosomaki',
-        img: california,
+        img: hosomaki,
     },
     {
         name: 'Lunch',
@@ -90,7 +88,7 @@ const CATEGORY = [
         nameEn: 'Lunch',
         route: 'Lunch',
         translateId: 'Lunch',
-        img: california,
+        img: lunch,
     }
 ]
 

@@ -165,7 +165,7 @@ const ProductCard = ({ product }: Props) => {
       p={isLargerThan768 ? "0px" : "15px"}
     >
       <Image
-        fallback={<Image h={152} borderRadius={3} src={sushiImg} />}
+        fallback={<Image h={152} borderRadius={3} src={product.img} />}
         onClick={() => navigate(`/product/${product.id}`)}
         minWidth={isLargerThan768 ? "auto" : "288px"}
         h={isLargerThan768 ? 152 : "auto"}
@@ -207,14 +207,14 @@ const ProductCard = ({ product }: Props) => {
 
         <Flex flexDir={'column'}>
           <Text
-            fontSize={isLargerThan768 ? 14 : 12}
-            fontWeight={400}
-            color="#002034"
-            alignSelf="start"
-            flexWrap="nowrap"
-            fontFamily={'Rubik'}
+              fontSize={isLargerThan768 ? 14 : 12}
+              fontWeight={700}  // Changed from 400 to 700 for bold
+              color="#002034"
+              alignSelf="start"
+              flexWrap="nowrap"
+              fontFamily={'Rubik'}
           >
-            {product.cartCount} pieces
+            {product.cartCount} szt
           </Text>
 
           <Flex align="center" gap="8px">
@@ -232,7 +232,7 @@ const ProductCard = ({ product }: Props) => {
               <Text
                 color="#9090A4"
                 fontWeight={400}
-                fontSize={16}
+                fontSize={20}
                 p="2px"
                 fontFamily={'Rubik'}
               >
@@ -262,7 +262,7 @@ const ProductCard = ({ product }: Props) => {
               }}
             >
               <Text fontSize={16} fontWeight={400} fontFamily={'Rubik'}>
-                Add to cart
+                Dodaj do koszyka
               </Text>
               <Image src={basket} h={22} />
             </Button>

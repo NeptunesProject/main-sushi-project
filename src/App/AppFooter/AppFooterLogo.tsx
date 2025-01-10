@@ -21,9 +21,9 @@ const AppFooterLogo = () => {
             color: 'blue.100',
           }}
           mt={-1}
-          href="tel:+48888 619 595"
+          href="tel:+48517102069"
         >
-          +48888 619 595
+          +48517102069
         </FooterLink>
       </Flex>
     </Flex>

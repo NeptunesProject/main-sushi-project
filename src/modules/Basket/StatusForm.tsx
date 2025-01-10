@@ -45,12 +45,12 @@ export const StatusForm = ({ setSelectedBasketType, orderId }: Props) => {
           mt={5}
           lineHeight={'36px'}
         >
-          Thank you!
+          Dziękuję!
         </Text>
 
-        <Text> Your order №{orderId} is received</Text>
+        <Text> Twoje zamówienie №{orderId} zostało przyjęte</Text>
         <Text textAlign={'center'}>
-          Our manager will contact you as soon as possible to confirm your order
+          Nasz menedżer skontaktuje się z Tobą jak najszybciej, aby potwierdzić Twoje zamówienie
         </Text>
       </Flex>
     </>

@@ -9,8 +9,8 @@ const AppFooterAddress = () => {
       <FooterTitle>{t('footer.address.title')}:</FooterTitle>
 
       <Flex flexDir="column">
-        <Text as="span">Warsaw, Chrystiana</Text>
-        <Text as="span">Piotra Aignera 6, 00-710</Text>
+        <Text as="span">Warsaw, Mokotov</Text>
+        <Text as="span">Dolna 41, 00-773</Text>
       </Flex>
     </Flex>
   )

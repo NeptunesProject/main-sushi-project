@@ -70,7 +70,7 @@ export const PromoCode = () => {
           fontSize={isLessThan768 ? '14px' : '16px'}
           lineHeight={isLessThan768 ? '21px' : '24px'}
         >
-          Promocode
+          Kod promocyjny
         </Text>
         <Input
           value={voucherCode}
@@ -99,7 +99,7 @@ export const PromoCode = () => {
               fontFamily={'Rubik'}
               fontStyle={'normal'}
             >
-              Apply
+              Zastosuj
             </Button>
           </Flex>
         ) : (

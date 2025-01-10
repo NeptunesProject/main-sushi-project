@@ -104,16 +104,16 @@
   },
   "about": {
     "title": "O nas",
-    "firstP": "***",
-    "secondP": "***",
-    "thirdP": "***",
-    "fourthP": "***",
-    "fifthP": "***"
+    "firstP": "Jesteśmy dynamicznie rozwijającym się warszawskim startupem, który koncentruje się na przygotowywaniu premium sushi. Rozpoczynamy realizację Twojego zamówienia i będziemy się nim zajmować z najwyższą starannością.",
+    "secondP": "W razie jakichkolwiek pytań lub wątpliwości, skontaktuj się z nami:\n📞 <a href='tel:+48517102069'>+48 517 102 069</a>\n📱 Instagram: <a href='https://www.instagram.com/neptunes.sushi/'>@neptunes.sushi</a>\n📘",
+    "thirdP": "",
+    "fourthP": "",
+    "fifthP": ""
   },
   "contacts": {
     "title": "Kontakty w Warszawie",
     "heading": "Adres",
-    "place": "***",
-    "phone": "Numer telefonu:"
+    "place": "Dolna 41, 00-773 Warszawa",
+    "phone": "<a href='tel:+48517102069'>+48 517 102 069</a>"
   }
 }

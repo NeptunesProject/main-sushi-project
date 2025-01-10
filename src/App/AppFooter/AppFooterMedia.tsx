@@ -7,14 +7,14 @@ const AppFooterMedia = () => {
   return (
     <Flex gap={4}>
       <Link
-        href="https://facebook.com"
+        href="https://www.facebook.com/profile.php?id=61569663662044&locale=uk_UA"
         target="_blank"
         rel="noreferrer noopener"
       >
         <Image src={facebook} alt="facebook"></Image>
       </Link>
       <Link
-        href="https://instagram.com"
+        href="https://www.instagram.com/neptunes.sushi/"
         target="_blank"
         rel="noreferrer noopener"
       >

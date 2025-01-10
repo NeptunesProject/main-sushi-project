@@ -5,7 +5,7 @@ import FooterTitle from 'ui/FooterTitle'
 const AppFooterContacts = () => {
   return (
     <Flex flexDir="column" gap={2}>
-      <FooterTitle>Accepting Orders:</FooterTitle>
+      <FooterTitle>Przyjmowanie zamówień:</FooterTitle>
 
       <Flex flexDir="column">
         <FooterLink
@@ -15,9 +15,9 @@ const AppFooterContacts = () => {
             textDecoration: 'none',
             color: 'blue.100',
           }}
-          href="tel:+48888 619 595"
+          href="tel:+48517102069"
         >
-          +48888 619 595
+          +48517102069
         </FooterLink>
         <FooterLink
           as={Link}

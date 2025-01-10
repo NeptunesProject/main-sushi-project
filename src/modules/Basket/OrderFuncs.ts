@@ -153,15 +153,15 @@ export const handleClick: IHandleClick = async (
 }
 
 export const calculateDiscountedPrice: ICalculateDiscountedPrice = (
-  price: number,
-  discounts: Record<number, string>,
-  quantity: number,
+    price: number,
+    discounts: Record<number, string>,
+    quantity: number,
 ) => {
   let discount = 0
 
   const keys = Object.keys(discounts)
-    .map(Number)
-    .sort((a, b) => b - a)
+      .map(Number)
+      .sort((a, b) => b - a)
 
   for (const key of keys) {
     if (quantity >= key) {
@@ -170,5 +170,8 @@ export const calculateDiscountedPrice: ICalculateDiscountedPrice = (
     }
   }
 
-  return price * (1 - discount)
+  const discountedPrice = price * (1 - discount)
+
+  // Round to one decimal place
+  return Math.round(discountedPrice * 10) / 10
 }

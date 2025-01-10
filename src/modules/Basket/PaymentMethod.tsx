@@ -186,7 +186,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
           lineHeight={isLessThan768 ? '21px' : '36px'}
           color={'#002034'}
         >
-          Choose payment method
+          Wybierz metodę płatności
         </Text>
         <DrawerCloseButton pos="static" />
       </Flex>
@@ -202,7 +202,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
         pr={isLessThan768 ? '5px' : '0px'}
       >
         <Text fontWeight={'500'} color={'#002034'} mb={'3px'}>
-          Verify your order details:
+          Zweryfikuj szczegóły zamówienia:
         </Text>
         <Text mb={'3px'}>{name}</Text>
         <Text mb={'3px'}>{phoneNumber}</Text>
@@ -212,7 +212,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
         </Text>
         <Flex gap={'3px'} pt={isLessThan768 ? '11px' : '10px'}>
           <Text fontWeight={'500'} mb={'5px'}>
-            Delivery Type:
+            Rodzaj dostawy:
           </Text>
           <Text>
             {deliveryType.charAt(0).toUpperCase() + deliveryType.slice(1)}
@@ -252,7 +252,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
               id="cash"
               value="CASH"
             >
-              Cash
+              Gotówka
             </Radio>
             <Radio
               style={{
@@ -262,7 +262,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
               id="terminal"
               value="TERMINAL"
             >
-              Card
+              Kartą (terminal) przy odbiorze
             </Radio>
 
             <Radio
@@ -286,10 +286,10 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
           lineHeight={isLessThan768 ? '21px' : '24px'}
           mb={'5px'}
         >
-          Comments:
+          Komentarze:
         </Text>
         <Textarea
-          placeholder="Leave a comment"
+          placeholder="Zostaw komentarz"
           mt={'2px'}
           p={isLessThan768 ? '10px' : '8px'}
           value={comment}
@@ -319,7 +319,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
           onClick={() => setSelectedBasketType('delivery')}
           width={'99px'}
         >
-          Back
+          Wstecz
         </Button>
 
         <Button
@@ -336,7 +336,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
           onClick={() => createOrder()}
           isDisabled={payment === ''}
         >
-          Submit Order
+          Złóż zamówienie
         </Button>
       </Flex>
     </>

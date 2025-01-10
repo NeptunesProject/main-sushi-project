@@ -33,7 +33,7 @@ const BasketType = ({ setSelectedBasketType }: Props) => {
           color={'#002034'}
           pl={'5px'}
         >
-          Basket
+          Koszyk
         </Text>
         <DrawerCloseButton pos="static" />
       </Flex>
@@ -49,7 +49,7 @@ const BasketType = ({ setSelectedBasketType }: Props) => {
           mb={isLessThan768 ? '18px' : '16px'}
           pl={'5px'}
         >
-          Your order:
+          Twoje zamówienie:
         </Text>
 
         <ProductsList />
@@ -72,7 +72,7 @@ const BasketType = ({ setSelectedBasketType }: Props) => {
           fontStyle={'normal'}
           mt={'9px'}
         >
-          Checkout
+          Zamów
         </Button>
       </Flex>
     </>

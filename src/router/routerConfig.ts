@@ -4,6 +4,7 @@ import Promotions from '../pages/Promotions'
 import DeliveryInfo from '../pages/DeliveryInfo'
 import About from '../pages/About'
 import Contacts from '../pages/Contacts'
+import Success from '../pages/Success'
 
 const ROUTER_CONFIG = [
   {
@@ -40,6 +41,12 @@ const ROUTER_CONFIG = [
     name: 'Contacts',
     path: '/contacts',
     component: Contacts,
+    exact: true,
+  },
+  {
+    name: 'Success',
+    path: '/success',
+    component: Success,
     exact: true,
   },
 ]

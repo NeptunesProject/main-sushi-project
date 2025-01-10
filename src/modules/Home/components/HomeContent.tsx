@@ -30,7 +30,7 @@ const HomeContent = () => {
 
     return categories.reduce((acc, category) => {
       const categoryProducts = products.filter(
-        (product) => product.categoryId === category.id,
+          (product) => product.categoryId === category.id,
       )
       if (!categoryProducts.length) return acc
       return {
@@ -41,38 +41,38 @@ const HomeContent = () => {
   }, [categories, isDataEmpty, isLoading, products])
 
   return (
-    <Container maxW="container.xl" pt="20vh" w="100%" pos="relative">
-      <Container maxW="container.md" w="100%" pl={0} pr={0}>
-        {/*<HomeSlider />*/}
-        <TimeBasedModal />
-        {isLoading ? (
-          <Center h={400}>
-            <Spinner />
-          </Center>
-        ) : (
-          <Flex
-            maxW="container.lg"
-            w="100%"
-            flexDirection="column"
-            flexWrap={'wrap'}
-            gap={20}
-            mb={42}
-          >
-            {Object.entries(productsByCategory).map(([category, products]) => (
-              <CategoryGrid
-                key={category}
-                title={category}
-                products={products as never}
-              />
-            ))}
-          </Flex>
-        )}
-      </Container>
-      <GratitudeNote />
+      <Container maxW="container.xl" pt="20vh" w="100%" pos="relative">
+        <Container maxW="container.md" w="100%" pl={0} pr={0}>
+          {/*<HomeSlider />*/}
+          <TimeBasedModal />
+          {isLoading ? (
+              <Center h={400}>
+                <Spinner />
+              </Center>
+          ) : (
+              <Flex
+                  maxW="container.lg"
+                  w="100%"
+                  flexDirection="column"
+                  flexWrap={'wrap'}
+                  gap={20}
+                  mb={42}
+              >
+                {Object.entries(productsByCategory).map(([category, products]) => (
+                    <CategoryGrid
+                        key={category}
+                        title={category}
+                        products={products as never}
+                    />
+                ))}
+              </Flex>
+          )}
+        </Container>
+        <GratitudeNote />
 
-      <AppNavBar />
-      <ScrollToTopButton />
-    </Container>
+        <AppNavBar />
+        <ScrollToTopButton />
+      </Container>
   )
 }
 

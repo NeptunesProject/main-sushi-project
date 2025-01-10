@@ -132,7 +132,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
           lineHeight={isLessThan768 ? '21px' : '36px'}
           color={'#002034'}
         >
-          Order Details
+          Szczegóły zamówienia
         </Text>
         <DrawerCloseButton pos="static" />
       </Flex>
@@ -151,20 +151,20 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
           fontStyle={'normal'}
           mb={'4px'}
         >
-          Personal Data:
+          Dane osobowe:
         </Text>
         <Flex flexDir="column" gap={'10px'} align="start" mb={'8px'}>
           <BasketInput
             value={name}
             setter={nameSetter}
             type="text"
-            placeholder="User Name"
+            placeholder="Imię"
           />
           <BasketInput
             value={phoneNumber}
             setter={phoneSetter}
             type="tel"
-            placeholder="Phone"
+            placeholder="Telefon"
           />
           <BasketInput
             value={email}
@@ -177,7 +177,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
               value={street}
               setter={streetSetter}
               type="text"
-              placeholder="Delivery Address"
+              placeholder="Adres dostawy"
             />
           )}
         </Flex>
@@ -190,7 +190,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
           fontStyle={'normal'}
           mb={'1px'}
         >
-          Choose Delivery Type:
+          Wybierz rodzaj dostawy:
         </Text>
         <RadioGroup
           onChange={(value) => deliverySetter(value)}
@@ -213,7 +213,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
               size={isLessThan768 ? 'sm' : 'md'}
               value="delivery"
             >
-              Delivery
+              Dostawa
             </Radio>
           </Stack>
         </RadioGroup>
@@ -263,7 +263,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
             onClick={() => setSelectedBasketType('basket')}
             width={'99px'}
           >
-            Back
+            Wstecz
           </Button>
 
           <Button
@@ -280,7 +280,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
             onClick={() => setSelectedBasketType('pay')}
             isDisabled={getDisabledState()}
           >
-            Continue
+            Kontynuuj
           </Button>
         </Flex>
       </Flex>
