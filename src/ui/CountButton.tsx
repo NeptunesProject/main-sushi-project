@@ -7,9 +7,24 @@ export const CountButton = chakra(Button, {
     h: "20px",
     width: 10,
     _hover: {
+      backgroundColor: '#003E66',
       color: 'white',
     },
     px: 0,
+    variants: {
+      card: {
+        color: 'white',
+        _hover: {
+          color: 'white',
+        },
+      },
+      basket: {
+        color: 'black',
+        _hover: {
+          color: 'white',
+        },
+      },
+    },
   },
 })
 

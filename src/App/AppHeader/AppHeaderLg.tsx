@@ -21,7 +21,8 @@ const AppHeaderLg = () => {
       <NavBar />
       <Flex alignItems="center" justify="space-between" gap="24px">
         <Place />
-        <LanguageSelect />
+        {/*<LanguageSelect />*/}
+        {LanguageSelect.name}
       </Flex>
     </Flex>
   )

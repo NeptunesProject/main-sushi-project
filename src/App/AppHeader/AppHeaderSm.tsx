@@ -1,4 +1,4 @@
-import { chakra, Flex, Text } from '@chakra-ui/react'
+import { chakra, Flex } from '@chakra-ui/react'
 import Logo from 'components/Logo'
 import Place from './Place'
 import Burger from './Burger'
@@ -8,7 +8,6 @@ import { NAV_LINKS } from '../../constants'
 import 'i18n/config'
 import { useTranslation } from 'react-i18next'
 import { useState } from 'react'
-import LanguageSelect from './LanguageSelect'
 
 const MainNavLink = chakra(NavLink, {
   baseStyle: {
@@ -48,10 +47,10 @@ const AppHeaderSm = () => {
               {t(`navbar.${idx}`)}
             </MainNavLink>
           ))}
-          <Flex alignSelf="end" pb={2}>
-            {/*<LanguageSelect text={'Select Language'} />*/}
-            <Text>{LanguageSelect.name}</Text>
-          </Flex>
+          {/*<Flex alignSelf="end" pb={2}>*/}
+          {/*  /!*<LanguageSelect text={'Select Language'} />*!/*/}
+          {/*  <Text>{LanguageSelect.name}</Text>*/}
+          {/*</Flex>*/}
         </Flex>
       )}
     </>

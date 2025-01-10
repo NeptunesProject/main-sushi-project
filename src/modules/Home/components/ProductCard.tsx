@@ -3,7 +3,6 @@ import { Button, Flex, Image, Text, useMediaQuery } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import basket from 'assets/icons/basket.svg'
-import sushiImg from 'assets/img/SuhsiTestImg.jpg'
 import { CountButton } from 'ui/CountButton'
 import { useDispatch, useSelector } from 'react-redux'
 import { addProduct, setProductCount } from 'redux/products/ProductsSlice'
@@ -201,7 +200,7 @@ const ProductCard = ({ product }: Props) => {
             {getNameByTranslate(product)}
           </Text>
           {
-            isLargerThan650 ?
+            !isLargerThan650 ?
               <Text
                 onClick={() => navigate(`/product/${product.id}`)}
                 fontSize={isLargerThan768 ? "0.78rem" : "0.77rem"}
@@ -209,11 +208,12 @@ const ProductCard = ({ product }: Props) => {
                 opacity={0.7}
                 color="#002034"
                 fontFamily={'Rubik'}
+                className="not truncated"
               >
                 {getDescriptionByTranslate(product)}
               </Text>
               :
-              <Tooltip label={getDescriptionByTranslate(product)} aria-label="Full description">
+              <Tooltip label={getDescriptionByTranslate(product)} aria-label="Full description" className="truncated">
                 <Text
                   onClick={() => navigate(`/product/${product.id}`)}
                   fontSize={isLargerThan768 ? "0.78rem" : "0.77rem"}
@@ -221,9 +221,9 @@ const ProductCard = ({ product }: Props) => {
                   opacity={0.7}
                   color="#002034"
                   fontFamily={'Rubik'}
-                  noOfLines={2}
+                  noOfLines={3}
                 >
-                  {truncateText(getDescriptionByTranslate(product), 100)}
+                  {truncateText(getDescriptionByTranslate(product), 200)}
                 </Text>
               </Tooltip>
           }
@@ -308,18 +308,19 @@ const ProductCard = ({ product }: Props) => {
                 borderRightRadius={5}
                 bg="none"
                 h="100%"
+                variant="card"
               >
                 -
               </CountButton>
-              <CountButton flex={1} onClick={handleIncrement} h="100%" borderRadius={0} w="100%">
+              <CountButton flex={1} onClick={handleIncrement} h="100%" borderRadius={0} w="100%" variant="card">
                 {isThisProductAdded ? selectedProducts[index].count : count}
               </CountButton>
 
               <CountButton
+                variant="card"
                 onClick={handleIncrement}
                 borderRightRadius={20}
                 borderLeftRadius={5}
-                bg="none"
                 h="100%"
               >
                 +

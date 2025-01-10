@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
-import { Flex, useBreakpointValue, chakra, Container, Text } from '@chakra-ui/react'
+import React, { useEffect, useRef, useState } from 'react'
+import { Flex, useBreakpointValue, chakra, Container } from '@chakra-ui/react'
 import { NavLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import Logo from 'components/Logo'
 import Place from './Place'
 import Burger from './Burger'
 import LanguageSelect from './LanguageSelect'
-import { NAV_LINKS } from '../../constants/index'
+import { NAV_LINKS } from '../../constants'
 import NavBar from './NavBar'
 
 const MainNavLink = chakra(NavLink, {
@@ -31,6 +31,7 @@ const AppHeader = () => {
   const { t } = useTranslation()
   const [isOpen, setIsOpen] = useState(false)
   const isLargerScreen = useBreakpointValue({ base: false, lg: true })
+  const burgerRef = useRef<HTMLDivElement | null>(null)
 
   const stickyStyle = {
     top: 0,
@@ -38,9 +39,24 @@ const AppHeader = () => {
     backgroundColor: 'white',
     borderBottom: '1px solid #b8b9ba',
   }
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (burgerRef.current && !burgerRef.current.contains(event.target as Node)) {
+        setIsOpen(false)
+      }
+    }
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [isOpen])
 
   return (
-    <Container pos="fixed" as="header" maxWidth="100%" style={stickyStyle}>
+    <Container pos="fixed" as="header" maxWidth="100%" style={stickyStyle} ref={burgerRef}>
       <Flex
         align="center"
         justifyContent="space-between"
@@ -61,7 +77,7 @@ const AppHeader = () => {
         ) : (
           <>
             <Place />
-            <Burger isOpen={isOpen} setIsOpen={setIsOpen} />
+            <Burger isOpen={isOpen} setIsOpen={setIsOpen}/>
           </>
         )}
       </Flex>
@@ -75,7 +91,7 @@ const AppHeader = () => {
           {/*<Flex pb={2}>*/}
           {/*  <LanguageSelect text={'Select Language'} />*/}
           {/*</Flex>*/}
-          <Text>{LanguageSelect.name}</Text>
+          {/*<Text>{LanguageSelect.name}</Text>*/}
         </Flex>
       )}
     </Container>
