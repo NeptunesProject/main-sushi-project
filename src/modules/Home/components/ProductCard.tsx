@@ -154,6 +154,10 @@ const ProductCard = ({ product }: Props) => {
     return `calc((100% - ${indent}px * (${items} - 1)) / ${items})`
   }, [isLargerThan650, isLargerThan768, isLessThan325])
 
+  const handleNav = (productId: number, categoryId: number) => {
+    localStorage.setItem("setCategory", product.name.split(' ')[0])
+    navigate(`/product/${productId}?category=${categoryId}`);
+  };
   return (
     <Flex
       fontFamily="'Roboto', sans-serif"
@@ -171,7 +175,7 @@ const ProductCard = ({ product }: Props) => {
     >
       <Image
         fallback={<Image h={152} borderRadius={3} src={product.img} />}
-        onClick={() => navigate(`/product/${product.id}`)}
+        onClick={() => handleNav(product.id, product.categoryId)}
         minWidth={isLargerThan768 ? "auto" : "288px"}
         h={isLargerThan768 ? 152 : "auto"}
         src={product.img}

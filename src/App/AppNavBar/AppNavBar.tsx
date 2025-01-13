@@ -1,7 +1,7 @@
 import { Flex, Image, Text } from '@chakra-ui/react'
 import { CATEGORY } from './constants'
 import { useTranslation } from 'react-i18next'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { ConstCategory } from '../../types'
 
 const AppNavBar = () => {
@@ -14,6 +14,7 @@ const AppNavBar = () => {
   const scrollToSection = (categoryName: string) => {
     const sectionId = `${categoryName}`
     const section = document.getElementById(sectionId)
+    console.log(sectionId, 'sectionId')
 
     if (section && sidebarRef.current) {
       section.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -32,6 +33,14 @@ const AppNavBar = () => {
         return category.nameRu
     }
   }
+
+  useEffect(() => {
+    const categoryToScroll = localStorage.getItem("setCategory")
+    if(categoryToScroll) {
+      setTimeout(() => scrollToSection(categoryToScroll), 2000)
+    }
+    console.log(categoryToScroll, 'categoryToScroll')
+  }, []);
 
   return (
     <Flex

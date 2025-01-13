@@ -63,7 +63,7 @@ const ProductListItem = ({ item }: Props) => {
     }
   };
 
-    const isDiscounted = Boolean(item.product.discount)
+  const isDiscounted = Boolean(item.product.discount)
 
   const discountedPrice =
       isDiscounted &&

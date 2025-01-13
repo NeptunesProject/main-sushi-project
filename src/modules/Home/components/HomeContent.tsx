@@ -14,12 +14,14 @@ import TimeBasedModal from '../../../components/SleepModal'
 
 const HomeContent = () => {
   const dispatch = useDispatch<AppDispatch>()
+  const { products, isProductsLoading } = useProducts()
 
   useEffect(() => {
-    dispatch(fetchProducts())
-  }, [dispatch])
+    if(!products.length) {
+      dispatch(fetchProducts())
+    }
+  }, [dispatch, products])
 
-  const { products, isProductsLoading } = useProducts()
   const { categories, isCategoriesLoading } = useCategories()
 
   const isLoading = isProductsLoading || isCategoriesLoading
