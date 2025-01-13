@@ -31,7 +31,7 @@ const ProductContent = () => {
     enabled: Boolean(id),
   })
   const [isLargerThan768] = useMediaQuery('(min-width: 768px)')
-
+  const [isLargerThan700] = useMediaQuery('(min-height: 700px)')
   const { i18n } = useTranslation()
 
   const currentLanguage = i18n.language
@@ -113,24 +113,25 @@ const ProductContent = () => {
       pb={!isLargerThan768 ? "30px" : 0}
     >
       <Box maxW={{ base: 500, lg: 1150 }} minW={{ base: 'auto', lg: '80%' }}>
-        <Heading mb={10} color="blue.200">
+        <Heading mb={isLargerThan700 ? 10 : 0} color="blue.200" fontSize={isLargerThan700 ? "36px" : "20px"}>
           {getNameByTranslate(product)}
         </Heading>
         <Flex align="center" gap={12} flexWrap={!isLargerThan768 ? "wrap" : undefined} justify="start" mt={5}>
           <Image
             src={product.img}
-            fallback={<Image src={stubImg} />}
-            boxSize={{ base: 250, xs: 490, xxs: "100%" }}
+            fallback={<Image src={stubImg}/>}
+            boxSize={'40vh'}
+            // boxSize={isLargerThan700 ? { base: 250, xs: 440, xxs: "100%" } : { base: 170, xs: 200, xxs: "80%" }}
           />
 
           <Flex flexDir="column" gap={15} minW={{ md: 450 }}>
             <Flex flexDir="column" gap={15}>
-              <Text fontWeight={700} fontSize={18}>
+              <Text fontWeight={700} fontSize={18} color={'#002034'}>
                 {product.weight && <Text>Weight: {product.weight}</Text>}
                 <Text>{product.cartCount} szt</Text>
               </Text>
               <Flex w="100%" align="center" justify="space-between">
-                <Text fontSize={32} fontWeight={700}>
+                <Text fontSize={32} fontWeight={700} color={'#002034'}>
                   {product.price}{' '}
                   <Text as="span" fontSize={15}>
                     zł

@@ -154,8 +154,6 @@ const ProductCard = ({ product }: Props) => {
     return `calc((100% - ${indent}px * (${items} - 1)) / ${items})`
   }, [isLargerThan650, isLargerThan768, isLessThan325])
 
-  console.log(product, 'product')
-
   return (
     <Flex
       fontFamily="'Roboto', sans-serif"
@@ -243,7 +241,7 @@ const ProductCard = ({ product }: Props) => {
 
           <Flex align="center" gap="8px">
             <Text
-              color="#002034"
+              color="#9090A4"
               fontSize={isLargerThan768 ? 20 : 16}
               fontWeight={500}
               decoration={isDiscounted ? 'line-through' : 'none'}
@@ -254,8 +252,8 @@ const ProductCard = ({ product }: Props) => {
 
             {isDiscounted && (
               <Text
-                color="#9090A4"
-                fontWeight={400}
+                color="#002034"
+                fontWeight={900}
                 fontSize={20}
                 p="2px"
                 fontFamily={'Rubik'}

@@ -122,9 +122,9 @@ const ProductListItem = ({ item }: Props) => {
           fontSize={isLessThan768 ? "0.62rem" : "0.83rem"}
           fontFamily={'Rubik'}
           fontStyle={'normal'}
-          fontWeight={400}
+          fontWeight={500}
           lineHeight={isLessThan768 ? '0.93rem' : '21px'}
-          color={'#9090A4'}
+          color={'#002034'}
           maxW="91%"
         >
           {item.product.size * item.count} szt.
@@ -134,12 +134,12 @@ const ProductListItem = ({ item }: Props) => {
             <Text
                 fontSize={isLessThan768 ? '0.72rem' : "0.83rem"}
                 minW={10}
-                fontWeight={400}
+                fontWeight={500}
                 decoration={isDiscounted ? 'line-through' : 'none'}
                 lineHeight={isLessThan768 ? '1.09rem' : '24px'}
-                color={'#002034'}
                 fontFamily={'Rubik'}
                 maxW="91%"
+                color="#9090A4"
 
             >
               {item.product.price * item.count} zł
@@ -147,8 +147,8 @@ const ProductListItem = ({ item }: Props) => {
 
             {isDiscounted && (
                 <Text
-                    color="#9090A4"
-                    fontWeight={400}
+                    color={'#002034'}
+                    fontWeight={500}
                     fontSize={16}
                     p="2px"
                     fontFamily={'Rubik'}

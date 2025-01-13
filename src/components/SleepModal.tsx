@@ -15,7 +15,7 @@ import CustomSVG from '../assets/icons/sleep'
 const TimeBasedModal: React.FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isTimeMatched, setIsTimeMatched] = useState(false);
-  console.log(isTimeMatched, "time modal match");
+  console.log(isTimeMatched);
 
   useEffect(() => {
     const checkTime = () => {
