@@ -75,7 +75,7 @@ const ProductListItem = ({ item }: Props) => {
 
   const finalDiscountedPrice = typeof discountedPrice === 'number' ? discountedPrice : 0;
 
-  const totalDiscountedPrice = Math.round(finalDiscountedPrice * item.count * 10) / 10;
+  const totalDiscountedPrice = Math.round(finalDiscountedPrice * item.count) ;
 
   const [isLessThan768] = useMediaQuery('(max-width: 768px)')
 

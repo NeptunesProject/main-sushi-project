@@ -149,7 +149,7 @@ const BasketProvider = ({ children }: { children: ReactNode }) => {
         const discountedPrice = price * (1 - discount)
 
         // Round to one decimal place
-        return Math.round(discountedPrice * 10) / 10
+        return Math.round(discountedPrice)
       },
       [],
   )
