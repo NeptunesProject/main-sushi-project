@@ -21,6 +21,7 @@ import { addProduct, setProductCount } from '../../redux/products/ProductsSlice'
 import basket from '../../assets/icons/basket.svg'
 import { CountButton } from '../../ui/CountButton'
 
+
 const ProductContent = () => {
   const dispatch = useDispatch<AppDispatch>()
   const { id } = useParams()
@@ -57,6 +58,7 @@ const ProductContent = () => {
 
   const handleDecrement = () => {
     if (selectedInfoProduct && selectedInfoProduct.count > 1 && product?.id) {
+      console.log(selectedInfoProduct, "selected info product")
       dispatch(setProductCount({ id: product.id, count: -1 }));
     } else if (selectedInfoProduct && selectedInfoProduct.count === 1 && product?.id) {
       dispatch(setProductCount({ id: product.id, count: -1 }));
@@ -65,6 +67,37 @@ const ProductContent = () => {
       setCount((prevCount) => prevCount - 1);
     }
   };
+
+  const isDiscounted = Boolean(product?.discount)
+  console.log(product, 'product')
+
+  const calculateDiscountedPrice = (
+    price: number,
+    discountPerQuantity: any,
+    count: number
+  ): number | null => {
+    if (!discountPerQuantity || !Object.keys(discountPerQuantity).length) return null;
+    const numericDiscountPerQuantity = Object.fromEntries(
+      Object.entries(discountPerQuantity).map(([key, value]) => [Number(key), value])
+    ) as Record<number, number>;
+    const applicableDiscount = numericDiscountPerQuantity[count] || 0; // Default to 0 if no specific discount for quantity
+    const discountedPrice = price * (1 - applicableDiscount); // Apply discount
+    return discountedPrice > 0 ? discountedPrice : 0; // Ensure non-negative price
+  };
+
+  const discountedPrice = isDiscounted
+    ? calculateDiscountedPrice(
+      Number(product?.price),
+      product?.discount.discountPerQuantity,
+      count
+    )
+    : null;
+
+  const totalDiscountedPrice = discountedPrice
+    ? Math.round(discountedPrice * (selectedInfoProduct?.count || count))
+    : null;
+
+  console.log(totalDiscountedPrice, 'Total Discounted Price');
 
   const getNameByTranslate = (product: Product) => {
     switch (currentLanguage) {
@@ -130,13 +163,22 @@ const ProductContent = () => {
                 {product.weight && <Text>Weight: {product.weight}</Text>}
                 <Text>{product.cartCount} szt</Text>
               </Text>
-              <Flex w="100%" align="center" justify="space-between">
-                <Text fontSize={32} fontWeight={700} color={'#002034'}>
-                  {product.price}{' '}
-                  <Text as="span" fontSize={15}>
-                    zł
-                  </Text>
+              <Flex w="100%" align="center">
+                <Text fontSize={32} fontWeight={700} color="blue.200" decoration={isDiscounted ? 'line-through' : 'none'}>
+                  {product.price} zł
                 </Text>
+                {isDiscounted && totalDiscountedPrice !== null && (
+                  <Text
+                    color={'#002034'}
+                    fontWeight={500}
+                    fontSize={32}
+                    p="2px"
+                    ml={3}
+                    fontFamily={'Rubik'}
+                  >
+                    {totalDiscountedPrice} zł
+                  </Text>
+                )}
               </Flex>
             </Flex>
 

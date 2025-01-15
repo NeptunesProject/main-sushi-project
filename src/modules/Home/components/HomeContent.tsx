@@ -71,7 +71,6 @@ const HomeContent = () => {
           )}
         </Container>
         <GratitudeNote />
-
         <AppNavBar />
         <ScrollToTopButton />
       </Container>

@@ -19,6 +19,7 @@ const AppNavBar = () => {
     if (section && sidebarRef.current) {
       section.scrollIntoView({ behavior: 'smooth', block: 'start' })
     }
+    localStorage.removeItem("setCategory")
   }
 
   const getNameByTranslate = (category: ConstCategory) => {
@@ -35,9 +36,15 @@ const AppNavBar = () => {
   }
 
   useEffect(() => {
+    const initialCategory = window.location.hash.slice(1)
+    console.log(initialCategory, 'initial category')
     const categoryToScroll = localStorage.getItem("setCategory")
     if(categoryToScroll) {
       setTimeout(() => scrollToSection(categoryToScroll), 2000)
+      return
+    }
+    if(initialCategory) {
+      setTimeout(() => scrollToSection(initialCategory), 2000)
     }
     console.log(categoryToScroll, 'categoryToScroll')
   }, []);
