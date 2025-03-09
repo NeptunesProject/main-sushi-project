@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import {
   Button,
   DrawerCloseButton,
@@ -12,6 +12,9 @@ import { BasketTypes } from 'types'
 import { useSelector } from 'react-redux'
 import { selectBasketProducts } from 'redux/products/selectors'
 import { PromoCode } from './PromoCode'
+import MinimumPriceWarning from '../../components/MinimumPriceWarning'
+import { calculateTotalPrice } from '../../utils/calculateDiscountedPrice'
+import { minimalPrice } from '../../constants'
 
 interface Props {
   setSelectedBasketType: React.Dispatch<React.SetStateAction<BasketTypes>>
@@ -19,8 +22,9 @@ interface Props {
 
 const BasketType = ({ setSelectedBasketType }: Props) => {
   const products = useSelector(selectBasketProducts)
+  const totalPrice = useMemo(() => calculateTotalPrice(products), [products])
+  const isMinimumPriceReached = useMemo(() =>  totalPrice >= minimalPrice , [totalPrice]);
   const [isLessThan768] = useMediaQuery('(max-width: 768px)')
-
   return (
     <>
       <Flex justifyContent="space-between" alignItems="center">
@@ -58,11 +62,13 @@ const BasketType = ({ setSelectedBasketType }: Props) => {
 
         <InfoToPay />
 
+        {!isMinimumPriceReached && <MinimumPriceWarning />}
+
         <Button
           alignSelf="center"
           bg="#418a91"
           borderRadius={25}
-          isDisabled={!products.length}
+          isDisabled={!products.length || !isMinimumPriceReached}
           onClick={() => setSelectedBasketType('delivery')}
           color={'#FFFFFF'}
           fontSize={16}

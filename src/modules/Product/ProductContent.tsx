@@ -12,7 +12,6 @@ import {
   UnorderedList,
   ListItem,
   Link,
-  useTheme,
 } from '@chakra-ui/react'
 import { Link as RouterLink } from 'react-router-dom'
 import { useParams } from 'react-router-dom'

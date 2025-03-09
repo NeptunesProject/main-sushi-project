@@ -13,3 +13,4 @@ export {NAV_LINKS, THANK_NOTE_TEXT}
 
 
 export const openingHours = {open: 10, closed: 22}
+export const minimalPrice = 90
