@@ -40,7 +40,7 @@ const AppNavBar = () => {
     console.log(initialCategory, 'initial category')
     const categoryToScroll = localStorage.getItem("setCategory")
     if(categoryToScroll) {
-      setTimeout(() => scrollToSection(categoryToScroll), 2000)
+      setTimeout(() => scrollToSection(categoryToScroll), 100)
       return
     }
     if(initialCategory) {
