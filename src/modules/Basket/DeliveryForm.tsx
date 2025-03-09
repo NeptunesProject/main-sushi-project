@@ -14,6 +14,8 @@ import { BasketTypes } from '../../types'
 import InfoToPay from './InfoToPay'
 import { BasketInput } from 'components/BasketInput'
 import AdditionalProducts from './AdditionalProducts'
+import BasketSelectTime from '../../components/BasketSelectTime'
+import { getObjectFromLocalStorage } from '../../utils/functions'
 
 interface Props {
   setSelectedBasketType: React.Dispatch<React.SetStateAction<BasketTypes>>
@@ -44,6 +46,12 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
   )
   const [email, setEmail] = useState(() =>
     getFromLocaleStorage('personInfo-Email', ''),
+  )
+  const [deliveryDate, setDeliveryDate] = useState(() =>
+    getObjectFromLocalStorage('personInfo-delivery-date', {
+      day: 'Dzisiaj',
+      time: 'Jak najszybciej',
+    }),
   )
   const getDisabledState = () => {
     let isDisabled = false
@@ -78,16 +86,12 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
   }
   function streetSetter(e: React.ChangeEvent<HTMLInputElement>) {
     setStreet(
-      deliveryType === 'delivery'
-        ? (e.target as HTMLInputElement).value
-        : '',
+      deliveryType === 'delivery' ? (e.target as HTMLInputElement).value : '',
     )
     localStorage.setItem(
       'personInfo-Street',
       JSON.stringify(
-        deliveryType === 'delivery'
-          ? (e.target as HTMLInputElement).value
-          : '',
+        deliveryType === 'delivery' ? (e.target as HTMLInputElement).value : '',
       ),
     )
   }
@@ -153,7 +157,12 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
         >
           Dane osobowe:
         </Text>
-        <Flex flexDir="column" gap={isLessThan700 ? "5px" : '10px'} align="start" mb={'8px'}>
+        <Flex
+          flexDir="column"
+          gap={isLessThan700 ? '5px' : '10px'}
+          align="start"
+          mb={'8px'}
+        >
           <BasketInput
             value={name}
             setter={nameSetter}
@@ -180,6 +189,18 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
               placeholder="Adres dostawy"
             />
           )}
+          <Text
+            fontSize={isLessThan700 ? 14 : 16}
+            fontWeight={400}
+            color={'#002034'}
+            lineHeight={isLessThan700 ? '14px' : '24px'}
+            fontFamily={'Rubik'}
+            fontStyle={'normal'}
+            mb={'4px'}
+          >
+            Сzas dostawy:
+          </Text>
+          <BasketSelectTime deliveryDate={deliveryDate} setDeliveryDate={setDeliveryDate}  />
         </Flex>
         <Text
           fontSize={isLessThan700 ? 14 : 16}

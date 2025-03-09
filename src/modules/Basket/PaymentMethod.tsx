@@ -27,6 +27,7 @@ import {
 } from 'redux/products/selectors'
 import { useTotalPrice } from './InfoToPayHooks'
 import { eraseAfterOrder } from 'redux/products/ProductsSlice'
+import { formatTime, getISOSDate, getObjectFromLocalStorage } from '../../utils/functions'
 
 interface Props {
   setSelectedBasketType: React.Dispatch<React.SetStateAction<BasketTypes>>
@@ -77,7 +78,12 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
   const [email, setEmail] = useState(() =>
     getFromLocaleStorage('personInfo-Email', ''),
   )
-
+  const [deliveryDate, setDeliveryDate] = useState(() =>
+    getObjectFromLocalStorage('personInfo-delivery-date', {
+      day: 'Dzisiaj',
+      time: 'Jak najszybciej',
+    }),
+  )
   const totalPrice = useTotalPrice(selectedProducts, calculateDiscountedPrice)
 
   const personCount = useSelector(selectPersonCount)
@@ -131,6 +137,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
       voucher.code,
       email,
       selectedProducts,
+      deliveryDate,
     )
     handleClick(
       order.id,
@@ -142,17 +149,18 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
       setStreet,
       setPayment as React.Dispatch<React.SetStateAction<string>>,
       setEmail,
+      setDeliveryDate,
     )
     dispatch(eraseAfterOrder())
     if (order && order.paymentType === 'ONLINE') {
-      console.log(order, "order");
+      console.log(order, 'order')
       if (order.urlForPayment) {
-        window.location.href = order.urlForPayment;
+        window.location.href = order.urlForPayment
       } else {
-        createSession(order);
+        createSession(order)
       }
     } else {
-      console.log('Order is not ONLINE or failed to create.');
+      console.log('Order is not ONLINE or failed to create.')
     }
     nullifyVoucher()
   }
@@ -169,7 +177,6 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
 
   const [isLessThan768] = useMediaQuery('(max-width: 768px)')
   const [isLessThan730] = useMediaQuery('(max-height: 730px)')
-
   return (
     <>
       <Flex
@@ -205,14 +212,35 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
         <Text fontWeight={'500'} color={'#002034'} mb={'3px'}>
           Zweryfikuj szczegóły zamówienia:
         </Text>
-        <Text mb={'3px'} fontSize={isLessThan730 ? '14px' : '16px'}>{name}</Text>
-        <Text mb={'3px'} fontSize={isLessThan730 ? '14px' : '16px'}>{phoneNumber}</Text>
-        <Text mb={'3px'} fontSize={isLessThan730 ? '14px' : '16px'}>{email}</Text>
-        <Text mb={'3px'} color={'rgba(0, 0, 0, 0.28)'} fontSize={isLessThan730 ? '14px' : '16px'}>
+        <Text mb={'3px'} fontSize={isLessThan730 ? '14px' : '16px'}>
+          {name}
+        </Text>
+        <Text mb={'3px'} fontSize={isLessThan730 ? '14px' : '16px'}>
+          {phoneNumber}
+        </Text>
+        <Text mb={'3px'} fontSize={isLessThan730 ? '14px' : '16px'}>
+          {email}
+        </Text>
+        <Text mb={'3px'} fontSize={isLessThan730 ? '14px' : '16px'}>{`${
+          deliveryDate.day
+        }, ${
+          deliveryDate.time === 'Jak najszybciej'
+            ? deliveryDate.time
+            : formatTime(+deliveryDate.time)
+        }`}</Text>
+        <Text
+          mb={'3px'}
+          color={'rgba(0, 0, 0, 0.28)'}
+          fontSize={isLessThan730 ? '14px' : '16px'}
+        >
           {street}
         </Text>
         <Flex gap={'3px'} pt={isLessThan730 ? '11px' : '10px'}>
-          <Text fontWeight={'500'} mb={'5px'} fontSize={isLessThan730 ? '14px' : '16px'}>
+          <Text
+            fontWeight={'500'}
+            mb={'5px'}
+            fontSize={isLessThan730 ? '14px' : '16px'}
+          >
             Rodzaj dostawy:
           </Text>
           <Text>
@@ -294,7 +322,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
           mt={'2px'}
           p={isLessThan768 ? '10px' : '8px'}
           value={comment}
-          height={isLessThan730 ? '61px' : "91px"}
+          height={isLessThan730 ? '61px' : '91px'}
           onChange={handleTextareaChange}
           style={{ resize: 'none' }}
           fontSize={isLessThan730 ? '14px' : '16px'}

@@ -1,5 +1,6 @@
 import { postOrder } from 'api'
 import { BasketTypes, CartItem, ReturnedOrder, SelectedProduct } from 'types'
+import { getISOSDate } from '../../utils/functions'
 
 type DispatchSetter<T> = React.Dispatch<React.SetStateAction<T>>
 
@@ -17,6 +18,7 @@ interface IMakeOrder {
     voucherCode: string,
     email: string,
     selectedProducts: SelectedProduct[],
+    deliveryDate: {day: string, time: string},
   ): Promise<ReturnedOrder>
 }
 
@@ -28,6 +30,10 @@ interface IClearCard {
     setStreet: DispatchSetter<string>,
     setPayment: DispatchSetter<string>,
     setEmail: DispatchSetter<string>,
+    setDeliveryDate: DispatchSetter<{
+      day: string
+      time: string
+    }>,
   ): void
 }
 
@@ -42,6 +48,10 @@ interface IHandleClick {
     setStreet: DispatchSetter<string>,
     setPayment: DispatchSetter<string>,
     setEmail: DispatchSetter<string>,
+    setDeliveryDate: DispatchSetter<{
+      day: string
+      time: string
+    }>,
   ): void
 }
 
@@ -66,6 +76,7 @@ export const makeOrder: IMakeOrder = async (
   voucherCode,
   email,
   selectedProducts,
+  deliveryDate
 ) => {
   setSelectedBasketType('delivery')
 
@@ -78,7 +89,7 @@ export const makeOrder: IMakeOrder = async (
 
   try {
     const order = await postOrder({
-      toDateTime: new Date().toISOString(),
+      toDateTime: getISOSDate(deliveryDate),
       clientInfo: {
         name,
         phoneNumber,
@@ -110,6 +121,7 @@ export const clearCard: IClearCard = (
   setStreet,
   setPayment,
   setEmail,
+  setDeliveryDate,
 ) => {
   setName('')
   setPhoneNumber('')
@@ -117,6 +129,10 @@ export const clearCard: IClearCard = (
   setStreet('')
   setPayment('')
   setEmail('')
+  setDeliveryDate({
+    day: 'Dzisiaj',
+    time: 'Jak najszybciej',
+  })
 }
 
 export const clearLocaleStorage = () => {
@@ -126,6 +142,13 @@ export const clearLocaleStorage = () => {
   localStorage.setItem('personInfo-Street', JSON.stringify(''))
   localStorage.setItem('personInfo-Email', JSON.stringify(''))
   localStorage.setItem('paymentType', JSON.stringify(''))
+  localStorage.setItem(
+    'personInfo-delivery-date',
+    JSON.stringify({
+      day: 'Dzisiaj',
+      time: 'Jak najszybciej',
+    }),
+  )
 }
 
 export const handleClick: IHandleClick = async (
@@ -138,6 +161,7 @@ export const handleClick: IHandleClick = async (
   setStreet,
   setPayment,
   setEmail,
+  setDeliveryDate,
 ) => {
   setOrderId(orderId)
   clearCard(
@@ -147,21 +171,22 @@ export const handleClick: IHandleClick = async (
     setStreet,
     setPayment,
     setEmail,
+    setDeliveryDate
   )
   clearLocaleStorage()
   setSelectedBasketType('orderResponse')
 }
 
 export const calculateDiscountedPrice: ICalculateDiscountedPrice = (
-    price: number,
-    discounts: Record<number, string>,
-    quantity: number,
+  price: number,
+  discounts: Record<number, string>,
+  quantity: number,
 ) => {
   let discount = 0
 
   const keys = Object.keys(discounts)
-      .map(Number)
-      .sort((a, b) => b - a)
+    .map(Number)
+    .sort((a, b) => b - a)
 
   for (const key of keys) {
     if (quantity >= key) {
