@@ -5,6 +5,8 @@ import DeliveryInfo from '../pages/DeliveryInfo'
 import About from '../pages/About'
 import Contacts from '../pages/Contacts'
 import Success from '../pages/Success'
+import News from '../pages/News'
+import NewsItemPage from '../modules/News/components/NewsItemPage'
 
 const ROUTER_CONFIG = [
   {
@@ -49,6 +51,18 @@ const ROUTER_CONFIG = [
     component: Success,
     exact: true,
   },
+  {
+    name: 'News',
+    path: '/news',
+    component: News,
+    exact: true,
+  },
+  {
+    name: 'News',
+    path: '/news/:id',
+    component: NewsItemPage,
+    exact: true,
+  }
 ]
 
 export default ROUTER_CONFIG

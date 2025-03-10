@@ -1,6 +1,5 @@
 import { Center, Container, Flex, Spinner, useMediaQuery } from '@chakra-ui/react'
 import CategoryGrid from './CategoryGrid'
-import HomeSlider from './HomeSlider'
 import GratitudeNote from './GratitudeNote'
 import useProducts from 'hooks/useProducts'
 import { useEffect, useMemo } from 'react'
@@ -15,7 +14,7 @@ import Carousel from './Carousel'
 
 const HomeContent = () => {
   const dispatch = useDispatch<AppDispatch>()
-  const [isLargerThan350] = useMediaQuery('(min-width: 350px)')
+  const [isLargerThan1024] = useMediaQuery('(min-width: 1025px)')
   const { products, isProductsLoading } = useProducts()
 
   useEffect(() => {
@@ -45,7 +44,7 @@ const HomeContent = () => {
   }, [categories, isDataEmpty, isLoading, products])
 
   return (
-    <Container maxW="container.xl" pt={isLargerThan350? '20vh' : '10vh'} w="100%" pos="relative">
+    <Container maxW="container.xl" pt={isLargerThan1024? '80px' : '60px'} w="100%" pos="relative">
       <Carousel />
       <Container maxW="container.md" w="100%" pl={0} pr={0}>
         {/*<HomeSlider />*/}
