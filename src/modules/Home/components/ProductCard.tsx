@@ -155,7 +155,7 @@ const ProductCard = ({ product }: Props) => {
   }, [isLargerThan650, isLargerThan768, isLessThan325])
 
   const handleNav = (productId: number, categoryId: number) => {
-    localStorage.setItem("setCategory", product.name.split(' ')[0])
+    // localStorage.setItem("setCategory", product.name.split(' ')[0])
     navigate(`/product/${productId}?category=${categoryId}`);
   };
   return (

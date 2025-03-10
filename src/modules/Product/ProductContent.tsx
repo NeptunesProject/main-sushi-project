@@ -38,8 +38,8 @@ const ProductContent = () => {
     enabled: Boolean(id),
   })
 
-  const [isLargerThan768] = useMediaQuery('(min-width: 768px)')
-  const [isLargerThan700] = useMediaQuery('(min-height: 700px)')
+  const [isLargerThan768] = useMediaQuery('(min-width: 769px)')
+  const [isLargerThan900] = useMediaQuery('(min-height: 900px)')
   const [isLargerThan1025] = useMediaQuery('(min-width: 1025px)')
 
   const { i18n } = useTranslation()
@@ -181,9 +181,9 @@ const ProductContent = () => {
     >
       <Box maxW={{ base: 500, lg: 1150 }} minW={{ base: 'auto', lg: '80%' }}>
         <Heading
-          mb={isLargerThan700 ? 10 : 0}
+          mb={isLargerThan900 ? 10 : 0}
           color="blue.200"
-          fontSize={isLargerThan700 ? '36px' : '20px'}
+          fontSize={isLargerThan900 ? '36px' : '20px'}
         >
           {getNameByTranslate(product)}
         </Heading>
@@ -197,7 +197,6 @@ const ProductContent = () => {
               },
             }}
             color="gray"
-            onClick={() => localStorage.removeItem('setCategory')}
           >
             Strona główna
           </Link>
@@ -212,6 +211,7 @@ const ProductContent = () => {
             as={RouterLink}
             _hover="none"
             color="gray"
+            onClick={()=>localStorage.setItem('setCategory', category ?? 'Other')}
           >
             {category}
           </Link>
@@ -228,16 +228,12 @@ const ProductContent = () => {
           <Image
             src={product.img}
             fallback={<Image src={stubImg} />}
-            boxSize={'50vh'}
-            mb={isLargerThan768? '50px' : 0}
-            // boxSize={isLargerThan700 ? { base: 250, xs: 440, xxs: "100%" } : { base: 170, xs: 200, xxs: "80%" }}
+            w={isLargerThan768 ? '50vh' :'95vw'}
+            objectFit="contain"
+            mb={isLargerThan768 ? '50px' : 0}
+             //boxSize={isLargerThan700 ? { base: 250, xs: 440, xxs: "100%" } : { base: 170, xs: 200, xxs: "80%" }}
           />
-          <Flex
-            w={'100%'}
-            flexDir="column"
-            gap={15}
-            minW={{ md: 450 }}
-          >
+          <Flex w={'100%'} flexDir="column" gap={15} minW={{ md: 450 }}>
             <UnorderedList
               display="flex"
               flexDir="column"
@@ -262,34 +258,38 @@ const ProductContent = () => {
                 <Text>Sztuk: {product.cartCount} szt</Text>
               </Text>
               <Flex
-                justifyContent={isLargerThan768 ? 'start' : 'space-between'}
+                justifyContent={ 'space-between'}
                 mb={10}
-                w="100%"
+                w={isLargerThan768? 'auto' : '90vw'}
                 align="center"
               >
-                <Text
-                  fontSize={isLargerThan768 ? 32 : 14}
-                  fontWeight={700}
-                  color="blue.200"
-                  decoration={isDiscounted ? 'line-through' : 'none'}
-                >
-                  {product.price} zł
-                </Text>
-                {isDiscounted && totalDiscountedPrice !== null && (
+                <Flex align="center">
                   <Text
-                    color={'#002034'}
-                    fontWeight={500}
                     fontSize={isLargerThan768 ? 32 : 14}
-                    p="2px"
-                    ml={3}
-                    fontFamily={'Rubik'}
+                    fontWeight={700}
+                    color="blue.200"
+                    decoration={isDiscounted ? 'line-through' : 'none'}
+                    isTruncated
                   >
-                    {totalDiscountedPrice} zł
+                    {product.price} zł
                   </Text>
-                )}
+                  {isDiscounted && totalDiscountedPrice !== null && (
+                    <Text
+                      color={'#002034'}
+                      fontWeight={500}
+                      fontSize={isLargerThan768 ? 32 : 14}
+                      p="2px"
+                      ml={3}
+                      fontFamily={'Rubik'}
+                      isTruncated
+                    >
+                      {totalDiscountedPrice} zł
+                    </Text>
+                  )}
+                </Flex>
                 {!selectedInfoProduct || selectedInfoProduct.count === 0 ? (
                   <Button
-                    ml={10}
+                   // ml={10}
                     w={isLargerThan768 ? '180px' : '160px'}
                     h={isLargerThan768 ? '40px' : '36px'}
                     justifyContent="center"
@@ -320,7 +320,7 @@ const ProductContent = () => {
                   </Button>
                 ) : (
                   <Flex
-                    ml={10}
+                   // ml={10}
                     w={isLargerThan768 ? '180px' : '160px'}
                     h="40px"
                     bg="#418a91"

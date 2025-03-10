@@ -30,7 +30,7 @@ export const formatTime = (time: number): string => {
 
 export const getAvailableHours = (deliveryDay: string) => {
   let timeFrom
-  if (deliveryDay !== 'Dzisiaj') {
+  if (deliveryDay !== 'Dzisiaj' || new Date().getHours() < openingHours.open ) {
     timeFrom = openingHours.open
   } else {
     const now = new Date()
