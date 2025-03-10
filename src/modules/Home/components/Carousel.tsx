@@ -73,7 +73,7 @@ const Carousel = () => {
     dotsClass: 'slick-dots slick-dots-custom',
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
-    appendDots: (dots) => (
+    appendDots: (dots: any) => (
       <div
         style={{
           bottom: '10px',
