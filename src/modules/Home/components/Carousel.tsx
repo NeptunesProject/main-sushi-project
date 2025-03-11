@@ -7,9 +7,9 @@ import { Box, useMediaQuery } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 
 const images = [
-  'https://d3mvlk4okvy3v4.cloudfront.net/sushi_pl/content/2f5bb65b-1c6a-4418-b68b-8f38a9c3c19b/1310-577-desktop-slider.webp',
-  'https://d3mvlk4okvy3v4.cloudfront.net/sushi_pl/content/2af2b60d-d067-4c76-9b71-b6afcd1adf10/1310-577-desktop-slider.webp',
-  'https://d3mvlk4okvy3v4.cloudfront.net/sushi_pl/content/bcfe2d7f-ef8d-4166-9e2d-16f1ecc821f7/1310_577_pl.webp',
+  'https://i.imgur.com/JMp0yO9.jpeg',
+  'https://i.imgur.com/JMp0yO9.jpeg',
+  'https://i.imgur.com/JMp0yO9.jpeg',
 ]
 interface ArrowProps {
   className?: string
