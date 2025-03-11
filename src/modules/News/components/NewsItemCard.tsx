@@ -1,7 +1,7 @@
 import { Box, Flex, Image, Text, useMediaQuery } from '@chakra-ui/react'
 import { NavLink } from 'react-router-dom'
 const src =
-  'https://d3mvlk4okvy3v4.cloudfront.net/sushi_pl/content/2f5bb65b-1c6a-4418-b68b-8f38a9c3c19b/1310-577-desktop-slider.webp'
+  'https://i.imgur.com/JMp0yO9.jpeg'
 interface Props {
   isLarge?: boolean
 }
