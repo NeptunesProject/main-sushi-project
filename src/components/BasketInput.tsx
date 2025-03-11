@@ -5,9 +5,10 @@ interface Props {
   setter: React.ChangeEventHandler<HTMLInputElement>
   placeholder: string
   type: string
+  required?: boolean
 }
 
-export const BasketInput = ({ value, setter, placeholder, type }: Props) => {
+export const BasketInput = ({ value, setter, placeholder, type, required=false }: Props) => {
   const [isLessThan768] = useMediaQuery('(max-width: 768px)')
   const [isLessThan700] = useMediaQuery('(max-height: 700px)')
 
@@ -19,7 +20,7 @@ export const BasketInput = ({ value, setter, placeholder, type }: Props) => {
       placeholder={placeholder}
       _invalid={{ borderColor: "red.500" }}
       _focus={{ borderColor: "#B7B7B7" }}
-      isInvalid={value.trim() === ""}
+      isInvalid={value.trim() === "" && required}
       border="1px solid"
       style={{
         borderRadius: '4px',

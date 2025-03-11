@@ -28,7 +28,7 @@ const NewsItemPage = () => {
         </Flex>
       </Flex>
       <Flex flexDirection="column" align="center" gap="30px">
-        <Image objectFit="cover" src={src} alt="NewsItemCard" w="80vw" />
+        <Image objectFit="cover" borderRadius='20px' src={src} alt="NewsItemCard" w="80vw" />
         <Text w="60vw" mb="30px">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius eveniet
           ipsum libero maiores nisi placeat ratione saepe tempore totam vero.

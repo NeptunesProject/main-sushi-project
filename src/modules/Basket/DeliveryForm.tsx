@@ -63,7 +63,6 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
     switch (true) {
       case name.length === 0:
       case !phoneNumber.isValid:
-      case email.length === 0:
       case deliveryType !== 'pickup' && street.length === 0:
         isDisabled = true
         break
@@ -169,6 +168,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
           mb={'8px'}
         >
           <BasketInput
+            required
             value={name}
             setter={nameSetter}
             type="text"
@@ -189,6 +189,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
           />
           {deliveryType === 'delivery' && (
             <BasketInput
+              required
               value={street}
               setter={streetSetter}
               type="text"
