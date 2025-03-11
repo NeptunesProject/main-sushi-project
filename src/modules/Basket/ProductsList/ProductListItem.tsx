@@ -59,7 +59,7 @@ const ProductListItem = ({ item }: Props) => {
       handleCount(itemId, count);
     }
     if (count === 0) {
-      dispatch(deleteSelectedProduct({ id: item.product.id }));
+      dispatch(deleteSelectedProduct({ itemId: item.product.id }));
     }
   };
 

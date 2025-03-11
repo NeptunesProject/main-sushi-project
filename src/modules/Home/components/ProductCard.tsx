@@ -212,7 +212,7 @@ const ProductCard = ({ product }: Props) => {
                 fontFamily={'Rubik'}
                 className="not truncated"
               >
-                {getDescriptionByTranslate(product)}
+                {truncateText(getDescriptionByTranslate(product), 200)}
               </Text>
               :
               <Tooltip label={getDescriptionByTranslate(product)} aria-label="Full description" className="truncated">

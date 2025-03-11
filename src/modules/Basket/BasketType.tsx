@@ -55,7 +55,6 @@ const BasketType = ({ setSelectedBasketType }: Props) => {
         >
           Twoje zamówienie:
         </Text>
-
         <ProductsList />
 
         <PromoCode />

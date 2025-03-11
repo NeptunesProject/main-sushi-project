@@ -17,8 +17,11 @@ export const BasketInput = ({ value, setter, placeholder, type }: Props) => {
       onChange={setter}
       type={type}
       placeholder={placeholder}
+      _invalid={{ borderColor: "red.500" }}
+      _focus={{ borderColor: "#B7B7B7" }}
+      isInvalid={value.trim() === ""}
+      border="1px solid"
       style={{
-        border: '1px solid #B7B7B7',
         borderRadius: '4px',
         padding: isLessThan768 ? '4px' : '6px',
         maxWidth: '297px',

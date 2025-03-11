@@ -37,10 +37,12 @@ const ProductContent = () => {
   const { product, isLoading: isProductLoading } = useProduct(String(id), {
     enabled: Boolean(id),
   })
-
+  const [isLargerThan1800] = useMediaQuery('(min-width: 1800px)')
+  const [isLargerThan425] = useMediaQuery('(min-width: 425px)')
   const [isLargerThan768] = useMediaQuery('(min-width: 769px)')
   const [isLargerThan900] = useMediaQuery('(min-height: 900px)')
   const [isLargerThan1025] = useMediaQuery('(min-width: 1025px)')
+  const [isLargerThan1024] = useMediaQuery('(min-width: 1024px)')
 
   const { i18n } = useTranslation()
 
@@ -211,7 +213,9 @@ const ProductContent = () => {
             as={RouterLink}
             _hover="none"
             color="gray"
-            onClick={()=>localStorage.setItem('setCategory', category ?? 'Other')}
+            onClick={() =>
+              localStorage.setItem('setCategory', category ?? 'Other')
+            }
           >
             {category}
           </Link>
@@ -221,20 +225,21 @@ const ProductContent = () => {
         <Flex
           align={'start'}
           gap={12}
-          flexWrap={!isLargerThan768 ? 'wrap' : undefined}
+          flexWrap={!isLargerThan1024 ? 'wrap' : undefined}
           justify="start"
           mt={5}
         >
           <Image
             src={product.img}
             fallback={<Image src={stubImg} />}
-            w={isLargerThan768 ? '50vh' :'95vw'}
+            w={isLargerThan768 ? '50vh' : '95vw'}
             objectFit="contain"
             mb={isLargerThan768 ? '50px' : 0}
-             //boxSize={isLargerThan700 ? { base: 250, xs: 440, xxs: "100%" } : { base: 170, xs: 200, xxs: "80%" }}
+            //boxSize={isLargerThan700 ? { base: 250, xs: 440, xxs: "100%" } : { base: 170, xs: 200, xxs: "80%" }}
           />
           <Flex w={'100%'} flexDir="column" gap={15} minW={{ md: 450 }}>
             <UnorderedList
+              minH="95px"
               display="flex"
               flexDir="column"
               flexWrap="wrap"
@@ -258,14 +263,15 @@ const ProductContent = () => {
                 <Text>Sztuk: {product.cartCount} szt</Text>
               </Text>
               <Flex
-                justifyContent={ 'space-between'}
+                 flexDir={isLargerThan1800 ? 'column' : 'row'}
+                justifyContent={'space-between'}
                 mb={10}
-                w={isLargerThan768? 'auto' : '90vw'}
-                align="center"
+                w={isLargerThan768 ? 'auto' : '90vw'}
+                align={isLargerThan1800 ?'start':'center'}
               >
                 <Flex align="center">
                   <Text
-                    fontSize={isLargerThan768 ? 32 : 14}
+                    fontSize={isLargerThan768 ? 30 : 18}
                     fontWeight={700}
                     color="blue.200"
                     decoration={isDiscounted ? 'line-through' : 'none'}
@@ -277,7 +283,7 @@ const ProductContent = () => {
                     <Text
                       color={'#002034'}
                       fontWeight={500}
-                      fontSize={isLargerThan768 ? 32 : 14}
+                      fontSize={isLargerThan768 ? 30 : 18}
                       p="2px"
                       ml={3}
                       fontFamily={'Rubik'}
@@ -289,9 +295,13 @@ const ProductContent = () => {
                 </Flex>
                 {!selectedInfoProduct || selectedInfoProduct.count === 0 ? (
                   <Button
-                   // ml={10}
-                    w={isLargerThan768 ? '180px' : '160px'}
-                    h={isLargerThan768 ? '40px' : '36px'}
+                    // ml={10}
+                    w={
+                      isLargerThan425
+                        ? '230px'
+                        : '160px'
+                    }
+                    h={'50px' }
                     justifyContent="center"
                     gap="8px"
                     bg="#418a91"
@@ -320,9 +330,13 @@ const ProductContent = () => {
                   </Button>
                 ) : (
                   <Flex
-                   // ml={10}
-                    w={isLargerThan768 ? '180px' : '160px'}
-                    h="40px"
+                    // ml={10}
+                    w={
+                      isLargerThan425
+                        ? '230px'
+                        : '160px'
+                    }
+                    h={'50px'}
                     bg="#418a91"
                     color="white"
                     borderRadius={20}

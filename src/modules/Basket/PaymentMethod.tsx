@@ -27,7 +27,7 @@ import {
 } from 'redux/products/selectors'
 import { useTotalPrice } from './InfoToPayHooks'
 import { eraseAfterOrder } from 'redux/products/ProductsSlice'
-import { formatTime, getISOSDate, getObjectFromLocalStorage } from '../../utils/functions'
+import { formatTime, getObjectFromLocalStorage } from '../../utils/functions'
 
 interface Props {
   setSelectedBasketType: React.Dispatch<React.SetStateAction<BasketTypes>>
@@ -63,7 +63,10 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
     getFromLocaleStorage('personInfo-Name', ''),
   )
   const [phoneNumber, setPhoneNumber] = useState(() =>
-    getFromLocaleStorage('personInfo-Number', ''),
+    getObjectFromLocalStorage('personInfo-Number', {
+      phoneNumber: '',
+      isValid: false,
+    }),
   )
   const [deliveryType, setDeliveryType] = useState(() =>
     getFromLocaleStorage('personInfo-Delivery', 'delivery'),
@@ -129,7 +132,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
       name,
       street,
       deliveryType,
-      phoneNumber,
+      phoneNumber.phoneNumber,
       personCount,
       studySticks,
       payment,
@@ -216,7 +219,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
           {name}
         </Text>
         <Text mb={'3px'} fontSize={isLessThan730 ? '14px' : '16px'}>
-          {phoneNumber}
+          +{phoneNumber.phoneNumber}
         </Text>
         <Text mb={'3px'} fontSize={isLessThan730 ? '14px' : '16px'}>
           {email}

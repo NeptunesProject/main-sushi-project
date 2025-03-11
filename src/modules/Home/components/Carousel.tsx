@@ -60,25 +60,30 @@ const Carousel = () => {
   const navigate = useNavigate()
   const [isLargerThan430] = useMediaQuery('(min-width: 431px)')
   const [isLargerThan360] = useMediaQuery('(min-width: 361px)')
-  const [isLargerThan1440] = useMediaQuery('(min-width: 1441px)')
+  const [isLargerThan768] = useMediaQuery('(min-width: 768px)')
+  const [isLargerThan1440] = useMediaQuery('(min-width: 1440px)')
+
+
 
   const settings = {
+    gap: 12, // ?
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    //autoplay: true,
-    autoplaySpeed: 3000,
+    autoplay: true,
+    autoplaySpeed: 5000, // autoplay interval 5s
     dotsClass: 'slick-dots slick-dots-custom',
+    arrows: isLargerThan430,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
     appendDots: (dots: any) => (
       <div
         style={{
-          bottom: '10px',
+          bottom: isLargerThan430? '10px': '5px',
           borderRadius: '10px',
-          padding: '10px',
+          padding: isLargerThan768? '10px' : 0 ,
         }}
       >
         <ul style={{ margin: '0px' }}> {dots} </ul>
@@ -89,18 +94,14 @@ const Carousel = () => {
   return (
     <Box
       mt={isLargerThan360 ? '100px' : '10px'}
-      w={isLargerThan1440 ? '60vw' : '80vw'}
+      w={isLargerThan1440? '60vw' : isLargerThan768 ? '80vw' : '100%'}
       mx="auto"
       mb={10}
       sx={{
-        '.slick-slide': { padding: '0 10px' },
-        '.slick-dots': {
-          bottom: '-30px',
-          listStyle: 'none',
-        },
+        // '.slick-slide': { gap: '10px' },
         '.slick-dots li button': {
-          width: isLargerThan430 ? '16px' : '8px',
-          height: isLargerThan430 ? '16px' : '8px',
+          width: isLargerThan430 ? '16px' : '6px',
+          height: isLargerThan430 ? '16px' : '6px',
           borderRadius: '50%',
           backgroundColor: 'gray',
           border: 'none',
@@ -118,7 +119,6 @@ const Carousel = () => {
           <Box
             key={index}
             w="full"
-            // h="400px"
             display="flex"
           >
             <Image
@@ -128,7 +128,6 @@ const Carousel = () => {
               h="100%"
               objectFit="cover"
               alt={`Slide ${index}`}
-              // fallback
               borderRadius={35}
               onClick={() => navigate(`/news/${index}`)}
             />

@@ -25,7 +25,10 @@ interface IMakeOrder {
 interface IClearCard {
   (
     setName: DispatchSetter<string>,
-    setPhoneNumber: DispatchSetter<string>,
+    setPhoneNumber: DispatchSetter<{
+      phoneNumber: string,
+      isValid: boolean,
+    }>,
     setDeliveryType: DispatchSetter<string>,
     setStreet: DispatchSetter<string>,
     setPayment: DispatchSetter<string>,
@@ -43,7 +46,10 @@ interface IHandleClick {
     setSelectedBasketType: DispatchSetter<BasketTypes>,
     setOrderId: DispatchSetter<number>,
     setName: DispatchSetter<string>,
-    setPhoneNumber: DispatchSetter<string>,
+    setPhoneNumber: DispatchSetter<{
+      phoneNumber: string,
+      isValid: boolean,
+    }>,
     setDeliveryType: DispatchSetter<string>,
     setStreet: DispatchSetter<string>,
     setPayment: DispatchSetter<string>,
@@ -86,7 +92,6 @@ export const makeOrder: IMakeOrder = async (
       quantity: item.count,
     }
   })
-
   try {
     const order = await postOrder({
       toDateTime: getISOSDate(deliveryDate),
@@ -124,7 +129,10 @@ export const clearCard: IClearCard = (
   setDeliveryDate,
 ) => {
   setName('')
-  setPhoneNumber('')
+  setPhoneNumber({
+    phoneNumber: '',
+    isValid: false,
+  })
   setDeliveryType('delivery')
   setStreet('')
   setPayment('')
@@ -137,7 +145,10 @@ export const clearCard: IClearCard = (
 
 export const clearLocaleStorage = () => {
   localStorage.setItem('personInfo-Name', JSON.stringify(''))
-  localStorage.setItem('personInfo-Number', JSON.stringify(''))
+  localStorage.setItem('personInfo-Number', JSON.stringify({
+    phoneNumber: '',
+    isValid: false,
+  }))
   localStorage.setItem('personInfo-Delivery', JSON.stringify('delivery'))
   localStorage.setItem('personInfo-Street', JSON.stringify(''))
   localStorage.setItem('personInfo-Email', JSON.stringify(''))

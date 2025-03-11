@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { fetchProducts } from 'redux/products/operations'
 import { ProductsState } from 'types'
 
@@ -54,10 +54,10 @@ const productSlice = createSlice({
         state.selectedProducts[index].count = count
       }
     },
-    deleteSelectedProduct(state, action) {
-      const { id } = action.payload
+    deleteSelectedProduct(state, action: PayloadAction<{ itemId: number }>) {
+      const { itemId } = action.payload
       const index = state.selectedProducts.findIndex(
-        (item) => item.product.id === id,
+        (item) => item.product.id === itemId,
       )
       state.selectedProducts.splice(index, 1)
     },

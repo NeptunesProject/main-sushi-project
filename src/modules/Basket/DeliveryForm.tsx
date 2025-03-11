@@ -16,6 +16,7 @@ import { BasketInput } from 'components/BasketInput'
 import AdditionalProducts from './AdditionalProducts'
 import BasketSelectTime from '../../components/BasketSelectTime'
 import { getObjectFromLocalStorage } from '../../utils/functions'
+import { PhoneNumberInput } from './PhoneNumberIntup'
 
 interface Props {
   setSelectedBasketType: React.Dispatch<React.SetStateAction<BasketTypes>>
@@ -35,7 +36,10 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
     getFromLocaleStorage('personInfo-Name', ''),
   )
   const [phoneNumber, setPhoneNumber] = useState(() =>
-    getFromLocaleStorage('personInfo-Number', ''),
+    getObjectFromLocalStorage('personInfo-Number', {
+      phoneNumber: '',
+      isValid: false,
+    }),
   )
   // DEFAULT VALUE SELECTED! Remove it from braces if multiple options available yet
   const [deliveryType, setDeliveryType] = useState(() =>
@@ -58,7 +62,8 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
 
     switch (true) {
       case name.length === 0:
-      case phoneNumber.length === 0:
+      case !phoneNumber.isValid:
+      case email.length === 0:
       case deliveryType !== 'pickup' && street.length === 0:
         isDisabled = true
         break
@@ -77,11 +82,11 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
       JSON.stringify((e.target as HTMLInputElement).value.trim()),
     )
   }
-  function phoneSetter(e: React.ChangeEvent<HTMLInputElement>) {
-    setPhoneNumber((e.target as HTMLInputElement).value.trim())
+  function phoneSetter(phoneNumber: string, isValid: boolean) {
+    setPhoneNumber({ phoneNumber: phoneNumber.trim(), isValid })
     localStorage.setItem(
       'personInfo-Number',
-      JSON.stringify((e.target as HTMLInputElement).value.trim()),
+      JSON.stringify({ phoneNumber: phoneNumber.trim(), isValid }),
     )
   }
   function streetSetter(e: React.ChangeEvent<HTMLInputElement>) {
@@ -155,7 +160,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
           fontStyle={'normal'}
           mb={'4px'}
         >
-          Dane osobowe:
+          Dane osobowe <span style={{ color: 'red' }}>*</span>:
         </Text>
         <Flex
           flexDir="column"
@@ -169,12 +174,13 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
             type="text"
             placeholder="Imię"
           />
-          <BasketInput
-            value={phoneNumber}
-            setter={phoneSetter}
-            type="tel"
-            placeholder="Telefon"
-          />
+          <PhoneNumberInput value={phoneNumber.phoneNumber} setter={phoneSetter} />
+          {/*<BasketInput*/}
+          {/*  value={phoneNumber}*/}
+          {/*  setter={phoneSetter}*/}
+          {/*  type="tel"*/}
+          {/*  placeholder="Telefon"*/}
+          {/*/>*/}
           <BasketInput
             value={email}
             setter={emailSetter}
@@ -200,7 +206,10 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
           >
             Сzas dostawy:
           </Text>
-          <BasketSelectTime deliveryDate={deliveryDate} setDeliveryDate={setDeliveryDate}  />
+          <BasketSelectTime
+            deliveryDate={deliveryDate}
+            setDeliveryDate={setDeliveryDate}
+          />
         </Flex>
         <Text
           fontSize={isLessThan700 ? 14 : 16}

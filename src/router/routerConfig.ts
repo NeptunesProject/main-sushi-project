@@ -58,7 +58,7 @@ const ROUTER_CONFIG = [
     exact: true,
   },
   {
-    name: 'News',
+    name: 'NewsItem',
     path: '/news/:id',
     component: NewsItemPage,
     exact: true,
