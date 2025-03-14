@@ -1,10 +1,10 @@
 import axios from 'axios'
 import {
-  Category,
+  Category, FetchedWorkingHours,
   OrderToPost,
   Product,
   ReturnedOrder,
-  ValidatedVoucher,
+  ValidatedVoucher, WorkingHours,
 } from '../types'
 
 const BASE_URL = import.meta.env.VITE_APP_MAIN_API
@@ -79,4 +79,17 @@ const getCategories = async (): Promise<Category[]> => {
   })
 }
 
-export { getProducts, getCategories, getProduct, postOrder, postVoucher }
+const getWorkingHours = async (): Promise<FetchedWorkingHours> => {
+  return new Promise((resolve, reject) => {
+    apiClient
+      .get('/working-hours')
+      .then((response) => {
+        resolve(response.data)
+      })
+      .catch((error) => {
+        reject(error)
+      })
+  })
+}
+
+export { getProducts, getCategories, getProduct, postOrder, postVoucher, getWorkingHours }

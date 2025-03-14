@@ -15,8 +15,13 @@ import InfoToPay from './InfoToPay'
 import { BasketInput } from 'components/BasketInput'
 import AdditionalProducts from './AdditionalProducts'
 import BasketSelectTime from '../../components/BasketSelectTime'
-import { getObjectFromLocalStorage } from '../../utils/functions'
+import {
+  getObjectFromLocalStorage,
+  parseDeliveryDay,
+} from '../../utils/functions'
 import { PhoneNumberInput } from './PhoneNumberIntup'
+import TimeBasedModal from '../../components/SleepModal'
+import useWorkingHours from '../../hooks/useWorkingHours'
 
 interface Props {
   setSelectedBasketType: React.Dispatch<React.SetStateAction<BasketTypes>>
@@ -32,9 +37,15 @@ const getFromLocaleStorage = (key: string, defaultValue: string): string => {
 }
 
 const DeliveryForm = ({ setSelectedBasketType }: Props) => {
+  const { isClosed } = useWorkingHours()
+  const [isLessThan768] = useMediaQuery('(max-width: 768px)')
+  const [isLessThan700] = useMediaQuery('(max-height: 700px)')
+
   const [name, setName] = useState(() =>
     getFromLocaleStorage('personInfo-Name', ''),
   )
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false)
+
   const [phoneNumber, setPhoneNumber] = useState(() =>
     getObjectFromLocalStorage('personInfo-Number', {
       phoneNumber: '',
@@ -121,11 +132,21 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
   // const pickupBorderColor = deliveryType === 'pickup' ? 'black' : 'grey'
   const deliveryBorderColor = deliveryType === 'delivery' ? 'black' : 'grey'
 
-  const [isLessThan768] = useMediaQuery('(max-width: 768px)')
-  const [isLessThan700] = useMediaQuery('(max-height: 700px)')
-
+  const onContinueHandler = () => {
+    const today = new Date().getDate()
+    const deliveryDay = parseDeliveryDay(deliveryDate.day).getDate()
+    if (today === deliveryDay && isClosed) setModalIsOpen(true)
+    else setSelectedBasketType('pay')
+  }
   return (
     <>
+      <TimeBasedModal
+        openSignal={modalIsOpen}
+        setModalIsOpen={setModalIsOpen}
+        header="Niestety nasze godziny pracy dobiegły końca."
+      >
+        W międzyczasie możesz złożyć zamówienie w przedsprzedaży...
+      </TimeBasedModal>
       <Flex
         pl={isLessThan768 ? '5px' : '0px'}
         pr={isLessThan768 ? '5px' : '0px'}
@@ -174,7 +195,10 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
             type="text"
             placeholder="Imię"
           />
-          <PhoneNumberInput value={phoneNumber.phoneNumber} setter={phoneSetter} />
+          <PhoneNumberInput
+            value={phoneNumber.phoneNumber}
+            setter={phoneSetter}
+          />
           {/*<BasketInput*/}
           {/*  value={phoneNumber}*/}
           {/*  setter={phoneSetter}*/}
@@ -310,7 +334,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
             fontStyle={'normal'}
             mt={'9px'}
             alignSelf="end"
-            onClick={() => setSelectedBasketType('pay')}
+            onClick={onContinueHandler}
             isDisabled={getDisabledState()}
             h={isLessThan700 ? '30px' : '40px'}
           >

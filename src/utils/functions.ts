@@ -1,5 +1,24 @@
-import { openingHours } from '../constants'
+import { WorkingHours } from '../types'
+export const getPolandTime = () => {
+  const now = new Date();
+  const polandTime = new Intl.DateTimeFormat("en-US", {
+    timeZone: "Europe/Warsaw",
+    hour: "numeric",
+    minute: "numeric",
+    hour12: false,
+  }).formatToParts(now);
 
+  const hour = Number(
+    polandTime.find((part) => part.type === "hour")?.value || 0
+  );
+  const minute = Number(
+    polandTime.find((part) => part.type === "minute")?.value || 0
+  );
+
+  now.setHours(hour);
+  now.setMinutes(minute);
+  return now;
+}
 export const getObjectFromLocalStorage = <T>(
   key: string,
   defaultValue: T,
@@ -27,13 +46,41 @@ export const formatTime = (time: number): string => {
   const minutes = time % 1 === 0 ? '00' : (time % 1) * 60
   return `${hours}:${minutes}`
 }
+const parseWorkingTime = (time: string) => {
+  const [open, close] = time.split(' : ');
+  const [openHour, openMin] = open.split(':');
+  const [closeHour, closeMin] = close.split(':');
 
-export const getAvailableHours = (deliveryDay: string) => {
+  return {open: Number(openHour) + Number(openMin) / 60, close: Number(closeHour) + Number(closeMin) / 60 }
+}
+export const parseDeliveryDay = (day: string): Date =>{
+  const today = new Date();
+  if(day ==='Dzisiaj') {
+    return today
+  }else if(day === 'Jutro') {
+    today.setDate(today.getDate() + 1)
+    return today
+  }else{
+    const deliveryDay = day.split('.')[0]
+    today.setDate(+deliveryDay)
+    return today
+  }
+}
+export const getAvailableHours = (deliveryDay: string, workingHours: WorkingHours ) => {
   let timeFrom
-  if (deliveryDay !== 'Dzisiaj' || new Date().getHours() < openingHours.open ) {
-    timeFrom = openingHours.open
+  const todaysDay = new Date()
+  let deliveryWeekDay = parseDeliveryDay(deliveryDay).getDay()
+  if(!deliveryWeekDay){
+    todaysDay.setDate(+deliveryDay.split('.')[0])
+    todaysDay.setMonth(+deliveryDay.split('.')[1] - 1)
+    deliveryWeekDay = todaysDay.getDay();
+  }
+  const todayWorkingTime = workingHours[deliveryWeekDay.toString() as keyof WorkingHours]
+  const {open, close} = parseWorkingTime(todayWorkingTime)
+  if (deliveryDay !== 'Dzisiaj' || new Date().getHours() < open ) {
+    timeFrom = open
   } else {
-    const now = new Date()
+    const now = getPolandTime();
     const hours = now.getHours()
     const minutes = now.getMinutes()
     const decimalTime = hours + minutes / 60
@@ -41,13 +88,20 @@ export const getAvailableHours = (deliveryDay: string) => {
   }
 
   const hours: number[] = []
-  for (let i = timeFrom; i < openingHours.closed; i += 0.25) {
+  for (let i = timeFrom; i < close; i += 0.25) {
     hours.push(i)
   }
   return hours
 }
-export const getISOSDate = (date: { day: string; time: string }): string => {
-  const now = new Date()
+export const getISOSDate = (date: { day: string; time: string }, workingHours: WorkingHours): string => {
+  const now = getPolandTime()
+
+  const deliveryDay = parseDeliveryDay(date.day);
+
+  const todayWorkingTime = workingHours[deliveryDay.getDay().toString() as keyof WorkingHours]
+
+  const {open} = parseWorkingTime(todayWorkingTime)
+
   const isASAP = date.time === 'Jak najszybciej'
   if (date.day === 'Dzisiaj') {
     if (!isASAP) {
@@ -60,7 +114,7 @@ export const getISOSDate = (date: { day: string; time: string }): string => {
   }
   if (date.day === 'Jutro') {
     if (isASAP) {
-      now.setHours(openingHours.open)
+      now.setHours(open)
     } else {
       now.setHours(Math.floor(+date.time))
     }
@@ -77,7 +131,7 @@ export const getISOSDate = (date: { day: string; time: string }): string => {
     year,
     month - 1,
     day,
-    isASAP ? openingHours.open : Math.floor(+date.time),
+    isASAP ? open : Math.floor(+date.time),
     isASAP ? 0 : (+date.time % 1) * 60,
   ).toISOString()
 }

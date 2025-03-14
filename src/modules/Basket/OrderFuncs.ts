@@ -1,5 +1,5 @@
 import { postOrder } from 'api'
-import { BasketTypes, CartItem, ReturnedOrder, SelectedProduct } from 'types'
+import { BasketTypes, CartItem, ReturnedOrder, SelectedProduct, WorkingHours } from 'types'
 import { getISOSDate } from '../../utils/functions'
 
 type DispatchSetter<T> = React.Dispatch<React.SetStateAction<T>>
@@ -19,6 +19,7 @@ interface IMakeOrder {
     email: string,
     selectedProducts: SelectedProduct[],
     deliveryDate: {day: string, time: string},
+    workingHours: WorkingHours,
   ): Promise<ReturnedOrder>
 }
 
@@ -82,7 +83,9 @@ export const makeOrder: IMakeOrder = async (
   voucherCode,
   email,
   selectedProducts,
-  deliveryDate
+  deliveryDate,
+  workingHours
+
 ) => {
   setSelectedBasketType('delivery')
 
@@ -94,7 +97,7 @@ export const makeOrder: IMakeOrder = async (
   })
   try {
     const order = await postOrder({
-      toDateTime: getISOSDate(deliveryDate),
+      toDateTime: getISOSDate(deliveryDate, workingHours),
       clientInfo: {
         name,
         phoneNumber,

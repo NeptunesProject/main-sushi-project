@@ -28,6 +28,8 @@ import {
 import { useTotalPrice } from './InfoToPayHooks'
 import { eraseAfterOrder } from 'redux/products/ProductsSlice'
 import { formatTime, getObjectFromLocalStorage } from '../../utils/functions'
+import useWorkingHours from '../../hooks/useWorkingHours'
+import { openingHoursFallBack } from '../../constants'
 
 interface Props {
   setSelectedBasketType: React.Dispatch<React.SetStateAction<BasketTypes>>
@@ -36,7 +38,7 @@ interface Props {
 
 const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
   const dispatch = useDispatch<AppDispatch>()
-
+  const  { workingHours } = useWorkingHours();
   const [comment, setComment] = useState('')
 
   const selectedProducts = useSelector(selectBasketProducts)
@@ -141,6 +143,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
       email,
       selectedProducts,
       deliveryDate,
+      workingHours ?? openingHoursFallBack
     )
     handleClick(
       order.id,

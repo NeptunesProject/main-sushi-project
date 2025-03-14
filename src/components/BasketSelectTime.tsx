@@ -6,7 +6,7 @@ import {
   getAvailableDays,
   getAvailableHours,
 } from '../utils/functions'
-import { openingHours } from '../constants'
+import useWorkingHours from '../hooks/useWorkingHours'
 
 interface Props {
   deliveryDate: { day: string; time: string }
@@ -16,10 +16,11 @@ interface Props {
 }
 
 const BasketSelectTime = ({ deliveryDate, setDeliveryDate }: Props) => {
+  const { workingHours } = useWorkingHours()
   const availableDays = useMemo(() => getAvailableDays(), [])
   const availableHours: number[] = useMemo(() => {
-    return getAvailableHours(deliveryDate.day)
-  }, [deliveryDate])
+    return workingHours? getAvailableHours(deliveryDate.day, workingHours) : []
+  }, [deliveryDate , workingHours])
   return (
     <Flex w="full" gap={5}>
       <BasketSelect

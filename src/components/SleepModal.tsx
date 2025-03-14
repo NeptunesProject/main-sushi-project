@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -11,42 +11,32 @@ import {
   Text, Flex,
 } from '@chakra-ui/react'
 import CustomSVG from '../assets/icons/sleep'
+import useWorkingHours from '../hooks/useWorkingHours'
 
-const TimeBasedModal: React.FC = () => {
+interface Props {
+  children: React.ReactNode
+  header: string
+  openSignal?: boolean
+  setModalIsOpen?: React.Dispatch<React.SetStateAction<boolean>>
+}
+const TimeBasedModal = ({children , header, openSignal=true, setModalIsOpen=undefined}:Props) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [isTimeMatched, setIsTimeMatched] = useState(false);
-  console.log(isTimeMatched);
+ //  const [isTimeMatched, setIsTimeMatched] = useState(false);
+  const { todayWorkingHours, isClosed } = useWorkingHours()
+  useEffect(() => {
+      if (isClosed && openSignal) {
+       // setIsTimeMatched(true);
+        onOpen();
+      }
+
+  }, [onOpen, isClosed]);
 
   useEffect(() => {
-    const checkTime = () => {
-      const now = new Date();
-      const polandTime = new Intl.DateTimeFormat("en-US", {
-        timeZone: "Europe/Warsaw",
-        hour: "numeric",
-        minute: "numeric",
-        hour12: false,
-      }).formatToParts(now);
-
-      const hour = Number(
-        polandTime.find((part) => part.type === "hour")?.value || 0
-      );
-      const minute = Number(
-        polandTime.find((part) => part.type === "minute")?.value || 0
-      );
-
-      console.log(`Poland Time: ${hour}:${minute}`);
-
-      if (hour < 10 || hour >= 22) {
-        setIsTimeMatched(true);
-        onOpen();
-      } else {
-        setIsTimeMatched(false);
-        onClose();
-      }
-    };
-
-    checkTime();
-  }, [onOpen, onClose]);
+    if(openSignal && setModalIsOpen){
+      onOpen();
+      setModalIsOpen(false)
+    }
+  }, [onOpen, openSignal])
 
   return (
     <>
@@ -63,18 +53,18 @@ const TimeBasedModal: React.FC = () => {
           gap="15px"
           w={["90%", "80%", "80%"]}
         >
-          <ModalHeader textAlign="center" mt="3vh">Niestety nasze godziny pracy dobiegły końca.</ModalHeader>
+          <ModalHeader textAlign="center" mt="3vh">{header}</ModalHeader>
           <ModalCloseButton />
           <ModalBody flexDir="column">
             <Flex alignItems="center" gap="5%">
               <CustomSVG />
               <Flex flexDirection="column">
                 <Text>Na pewno wrócimy między</Text>
-                <Text fontSize="30px" fontWeight="700" alignSelf="center">11:00 do 23:00</Text>
+                <Text fontSize="30px" fontWeight="700" alignSelf="center">{todayWorkingHours.open} do {todayWorkingHours.closed}</Text>
               </Flex>
             </Flex>
             <Text mt="2vh">
-              W międzyczasie możesz złożyć zamówienie w przedsprzedaży...
+              {children}
             </Text>
           </ModalBody>
           <Button color="white" onClick={onClose} bg="#418a91" w="60% 80%" alignSelf="center">

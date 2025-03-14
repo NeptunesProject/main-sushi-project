@@ -47,6 +47,24 @@ interface Category {
   url: string
   img: string
 }
+interface WorkingHours {
+  '1': string
+  '2': string
+  '3': string
+  '4': string
+  '5': string
+  '6': string
+  '0': string
+}
+interface FetchedWorkingHours {
+  '1': string
+  '2': string
+  '3': string
+  '4': string
+  '5': string
+  '6': string
+  '7': string
+}
 
 interface ConstCategory extends Omit<Category, 'id' | 'url'> {
   route: string
@@ -135,6 +153,7 @@ type BasketTypes = 'basket' | 'delivery' | 'pay' | 'orderResponse'
 type AppDispatch = typeof store.dispatch
 
 export type {
+  WorkingHours,
   Languages,
   Product,
   ChakraFactoryComponent,
@@ -151,4 +170,5 @@ export type {
   RootState,
   SelectedProduct,
   ConstCategory,
+  FetchedWorkingHours,
 }

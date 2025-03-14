@@ -48,7 +48,9 @@ const HomeContent = () => {
       <Carousel />
       <Container maxW="container.md" w="100%" pl={0} pr={0}>
         {/*<HomeSlider />*/}
-        <TimeBasedModal />
+        <TimeBasedModal header='Niestety nasze godziny pracy dobiegły końca.' >
+          W międzyczasie możesz złożyć zamówienie w przedsprzedaży...
+        </TimeBasedModal>
         {isLoading ? (
           <Center h={400}>
             <Spinner />
