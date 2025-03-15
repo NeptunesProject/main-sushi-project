@@ -22,7 +22,7 @@ const MainNavLink = chakra(NavLink, {
     },
   },
 })
-const ExternalLink = chakra(Link, {
+export const ExternalLink = chakra(Link, {
   baseStyle: {
     fontSize: "0.83rem",
     transition: 'all 0.24s',

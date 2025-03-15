@@ -39,7 +39,8 @@ const getFromLocaleStorage = (key: string, defaultValue: string): string => {
 const DeliveryForm = ({ setSelectedBasketType }: Props) => {
   const { isClosed } = useWorkingHours()
   const [isLessThan768] = useMediaQuery('(max-width: 768px)')
-  const [isLessThan700] = useMediaQuery('(max-height: 700px)')
+  const [isLessThan768h] = useMediaQuery('(max-height: 768px)')
+
 
   const [name, setName] = useState(() =>
     getFromLocaleStorage('personInfo-Name', ''),
@@ -172,10 +173,10 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
         flexDir="column"
       >
         <Text
-          fontSize={isLessThan700 ? 14 : 16}
+          fontSize={isLessThan768h ? 14 : 16}
           fontWeight={400}
           color={'#002034'}
-          lineHeight={isLessThan700 ? '14px' : '24px'}
+          lineHeight={isLessThan768h ? '14px' : '24px'}
           fontFamily={'Rubik'}
           fontStyle={'normal'}
           mb={'4px'}
@@ -184,7 +185,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
         </Text>
         <Flex
           flexDir="column"
-          gap={isLessThan700 ? '5px' : '10px'}
+          gap={isLessThan768h ? '5px' : '10px'}
           align="start"
           mb={'8px'}
         >
@@ -216,10 +217,10 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
             placeholder="Email"
           />
           <Text
-            fontSize={isLessThan700 ? 14 : 16}
+            fontSize={isLessThan768h ? 14 : 16}
             fontWeight={400}
             color={'#002034'}
-            lineHeight={isLessThan700 ? '14px' : '24px'}
+            lineHeight={isLessThan768h ? '14px' : '24px'}
             fontFamily={'Rubik'}
             fontStyle={'normal'}
             mb={'4px'}
@@ -232,10 +233,10 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
           />
         </Flex>
         <Text
-          fontSize={isLessThan700 ? 14 : 16}
+          fontSize={isLessThan768h ? 14 : 16}
           fontWeight={400}
           color={'#002034'}
-          lineHeight={isLessThan700 ? '21px' : '24px'}
+          lineHeight={isLessThan768h ? '21px' : '24px'}
           fontFamily={'Rubik'}
           fontStyle={'normal'}
           mb={'1px'}
@@ -260,7 +261,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
               style={{
                 borderColor: deliveryBorderColor,
               }}
-              size={isLessThan700 ? 'sm' : 'md'}
+              size={isLessThan768h ? 'sm' : 'md'}
               value="delivery"
             >
               Dostawa
@@ -313,7 +314,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
             alignSelf="end"
             onClick={() => setSelectedBasketType('basket')}
             width={'99px'}
-            h={isLessThan700 ? '30px' : '40px'}
+            h={isLessThan768h ? '30px' : '40px'}
           >
             Wstecz
           </Button>
@@ -322,7 +323,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
             bg="#418a91"
             borderRadius={25}
             color={'#FFFFFF'}
-            fontSize={isLessThan700 ? 14 : 16}
+            fontSize={isLessThan768h ? 14 : 16}
             fontWeight={400}
             lineHeight={'24px'}
             fontFamily={'Rubik'}
@@ -331,7 +332,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
             alignSelf="end"
             onClick={onContinueHandler}
             isDisabled={getDisabledState()}
-            h={isLessThan700 ? '30px' : '40px'}
+            h={isLessThan768h ? '30px' : '40px'}
           >
             Kontynuuj
           </Button>

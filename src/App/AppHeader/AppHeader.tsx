@@ -6,8 +6,8 @@ import Logo from 'components/Logo'
 import Place from './Place'
 import Burger from './Burger'
 import LanguageSelect from './LanguageSelect'
-import { NAV_LINKS } from '../../constants'
-import NavBar from './NavBar'
+import { EXTERNAL_LINKS, NAV_LINKS } from '../../constants'
+import NavBar, { ExternalLink } from './NavBar'
 
 const MainNavLink = chakra(NavLink, {
   baseStyle: {
@@ -70,13 +70,15 @@ const AppHeader = () => {
           <>
             <NavBar />
             <Flex alignItems="center" gap="24px">
-              <Place />
+              <Place isLargerScreen={isLargerScreen}/>
               <LanguageSelect />
             </Flex>
           </>
         ) : (
           <>
-            <Place />
+            <ExternalLink href={EXTERNAL_LINKS[0]} isExternal>
+              {t(`navbar.l0`)}
+            </ExternalLink>
             <Burger isOpen={isOpen} setIsOpen={setIsOpen}/>
           </>
         )}
@@ -88,6 +90,11 @@ const AppHeader = () => {
               {t(`navbar.${idx}`)}
             </MainNavLink>
           ))}
+          <ExternalLink href={EXTERNAL_LINKS[1]} isExternal>
+            {t(`navbar.l1`)}
+          </ExternalLink>
+          <Place isLargerScreen={isLargerScreen}/>
+
           {/*<Flex pb={2}>*/}
           {/*  <LanguageSelect text={'Select Language'} />*/}
           {/*</Flex>*/}

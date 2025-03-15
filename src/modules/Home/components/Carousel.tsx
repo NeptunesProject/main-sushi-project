@@ -56,11 +56,10 @@ function PrevArrow(props: ArrowProps) {
 }
 
 const Carousel = () => {
-  const navigate = useNavigate()
+ // const navigate = useNavigate()
   const [isLargerThan430] = useMediaQuery('(min-width: 431px)')
   const [isLargerThan360] = useMediaQuery('(min-width: 361px)')
   const [isLargerThan800] = useMediaQuery('(min-width: 800px)')
-
   const [isLargerThan768] = useMediaQuery('(min-width: 768px)')
   const [isLargerThan1440] = useMediaQuery('(min-width: 1440px)')
 
@@ -69,11 +68,11 @@ const Carousel = () => {
   const settings = {
     gap: 12, // ?
     dots: true,
-    infinite: true,
+    infinite: images.length > 1,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: images.length > 1,
     autoplaySpeed: 5000, // autoplay interval 5s
     dotsClass: 'slick-dots slick-dots-custom',
     arrows: isLargerThan800,
@@ -115,7 +114,7 @@ const Carousel = () => {
         },
       }}
     >
-      <Slider {...settings}>
+      {images.length > 1 ?  <Slider {...settings}>
         {images.map((src, index) => (
           <Box
             key={index}
@@ -123,7 +122,6 @@ const Carousel = () => {
             display="flex"
           >
             <Image
-              key={index}
               src={src}
               w="100%"
               h="100%"
@@ -134,7 +132,20 @@ const Carousel = () => {
             />
           </Box>
         ))}
-      </Slider>
+      </Slider> :  <Box
+        w="full"
+        display="flex"
+      >
+        <Image
+          src={images[0]}
+          w="100%"
+          h="100%"
+          objectFit="cover"
+          alt='Slide 1'
+          borderRadius={35}
+          //  onClick={() => navigate(`/news/${index}`)}
+        />
+      </Box>}
     </Box>
   )
 }

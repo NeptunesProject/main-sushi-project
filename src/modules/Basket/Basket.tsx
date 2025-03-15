@@ -27,6 +27,10 @@ const Basket = () => {
   const productsCount = products.length
   const [isLessThan768] = useMediaQuery('(max-width: 768px)')
   const [isLessThan700] = useMediaQuery('(max-height: 700px)')
+  const [isLessThan680] = useMediaQuery('(max-height: 680px)')
+  const [isLessThan600] = useMediaQuery('(max-height: 600px)')
+
+
 
   const renderSelectedComponent = () => {
     switch (selectedBasketType) {
@@ -89,7 +93,7 @@ const Basket = () => {
         {isLessThan768 && <ModalOverlay />}
         <ModalContent
           position={isLessThan768 ? "relative" : "fixed"}
-          top={isLessThan768 ? "5vh" : '12vh'}
+          top={isLessThan768 || isLessThan680 ? isLessThan600? '-2vh' : "2vh" : '12vh'}
           right={{xs: '0px', lg: "6vh", xl: "7vh"}}
           bgColor="white"
           padding={3}
