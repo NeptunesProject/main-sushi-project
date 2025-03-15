@@ -178,6 +178,7 @@ const ProductCard = ({ product }: Props) => {
         onClick={() => handleNav(product.id, product.categoryId)}
         minWidth={isLargerThan768 ? "auto" : "288px"}
         h={isLargerThan768 ? 152 : "auto"}
+        w={228}
         src={product.img}
         objectFit="cover"
       />

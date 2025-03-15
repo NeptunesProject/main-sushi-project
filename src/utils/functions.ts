@@ -68,14 +68,10 @@ export const parseDeliveryDay = (day: string): Date =>{
 }
 export const getAvailableHours = (deliveryDay: string, workingHours: WorkingHours ) => {
   let timeFrom
-  const todaysDay = new Date()
-  let deliveryWeekDay = parseDeliveryDay(deliveryDay).getDay()
-  if(!deliveryWeekDay){
-    todaysDay.setDate(+deliveryDay.split('.')[0])
-    todaysDay.setMonth(+deliveryDay.split('.')[1] - 1)
-    deliveryWeekDay = todaysDay.getDay();
-  }
+  const deliveryWeekDay = parseDeliveryDay(deliveryDay).getDay()
+
   const todayWorkingTime = workingHours[deliveryWeekDay.toString() as keyof WorkingHours]
+
   const {open, close} = parseWorkingTime(todayWorkingTime)
   if (deliveryDay !== 'Dzisiaj' || new Date().getHours() < open ) {
     timeFrom = open
