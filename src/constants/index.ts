@@ -1,7 +1,7 @@
 import { WorkingHours } from '../types'
 
 const NAV_LINKS = ['/', '/about']
-
+const EXTERNAL_LINKS =['https://www.instagram.com/neptunes.sushi/','tel:+48517102069' ];
 const THANK_NOTE_TEXT = [
     'Świeże składniki: Używamy tylko najświeższych składników, zapewniając wysoką jakość i smak naszych sushi.',
     'Bogate menu: Nasze menu oferuje szeroki wybór sushi, zapewniająccoś dla każdego, bez względu na preferencje smakowe.',
@@ -10,7 +10,7 @@ const THANK_NOTE_TEXT = [
     'Wysoka jakość obsługi klienta: Dbamy o naszych klientów i zawsze staramy się zapewnić im najlepsze doświadczenie związane z zamawianiem i spożywaniem naszego sushi.',
 ]
 
-export {NAV_LINKS, THANK_NOTE_TEXT}
+export {NAV_LINKS, THANK_NOTE_TEXT, EXTERNAL_LINKS}
 
 
 

@@ -1,5 +1,5 @@
 import { AppDispatch, Product } from 'types'
-import { Button, Flex, Image, Text, useMediaQuery } from '@chakra-ui/react'
+import { Box, Button, Flex, Image, Text, useMediaQuery } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import basket from 'assets/icons/basket.svg'
@@ -9,7 +9,7 @@ import { addProduct, setProductCount } from 'redux/products/ProductsSlice'
 import { selectBasketProducts } from 'redux/products/selectors'
 import { calculateDiscountedPrice } from 'modules/Basket/OrderFuncs'
 import { useTranslation } from 'react-i18next'
-import { Tooltip } from '@chakra-ui/react';
+import { Tooltip } from '@chakra-ui/react'
 
 interface Props {
   product: Product
@@ -30,10 +30,10 @@ const ProductCard = ({ product }: Props) => {
 
   const truncateText = (text: string, maxLength: number) => {
     if (text.length > maxLength) {
-      return `${text.substring(0, maxLength)}...`;
+      return `${text.substring(0, maxLength)}...`
     }
-    return text;
-  };
+    return text
+  }
 
   const getNameByTranslate = (product: Product) => {
     switch (currentLanguage) {
@@ -96,15 +96,14 @@ const ProductCard = ({ product }: Props) => {
 
   const handleDecrement = () => {
     if (isThisProductAdded && selectedProducts[index].count > 1) {
-      dispatch(setProductCount({ id: product.id, count: -1 }));
+      dispatch(setProductCount({ id: product.id, count: -1 }))
     } else if (isThisProductAdded && selectedProducts[index].count === 1) {
-      dispatch(setProductCount({ id: product.id, count: -1 }));
-      setCount(1);
+      dispatch(setProductCount({ id: product.id, count: -1 }))
+      setCount(1)
     } else if (count > 1) {
-      setCount((prevCount) => prevCount - 1);
+      setCount((prevCount) => prevCount - 1)
     }
-  };
-
+  }
 
   const isDiscounted =
     product.discount &&
@@ -156,8 +155,8 @@ const ProductCard = ({ product }: Props) => {
 
   const handleNav = (productId: number, categoryId: number) => {
     // localStorage.setItem("setCategory", product.name.split(' ')[0])
-    navigate(`/product/${productId}?category=${categoryId}`);
-  };
+    navigate(`/product/${productId}?category=${categoryId}`)
+  }
   return (
     <Flex
       fontFamily="'Roboto', sans-serif"
@@ -171,30 +170,38 @@ const ProductCard = ({ product }: Props) => {
       borderRightRadius={10}
       overflow={'hidden'}
       flexBasis={flexBasis}
-      p={isLargerThan768 ? "0px" : "15px"}
+      p={isLargerThan768 ? '0px' : '15px'}
     >
-      <Image
-        fallback={<Image h={152} borderRadius={3} src={product.img} />}
-        onClick={() => handleNav(product.id, product.categoryId)}
-        minWidth={isLargerThan768 ? "auto" : "288px"}
-        h={isLargerThan768 ? 152 : "auto"}
-        w={228}
-        src={product.img}
-        objectFit="cover"
-      />
-
+      <Box minH={isLargerThan768 ? 152 : 'auto'}>
+        <Image
+          fallback={
+            <Image
+              minH={152}
+              borderRadius={3}
+              filter="blur(20px)"
+              src={'/images/fallback.jpg'}
+              onClick={() => handleNav(product.id, product.categoryId)}
+            />
+          }
+          onClick={() => handleNav(product.id, product.categoryId)}
+          minWidth={isLargerThan768 ? 'auto' : '288px'}
+          h={isLargerThan768 ? 152 : 'auto'}
+          src={product.img}
+          objectFit="cover"
+        />
+      </Box>
       <Flex
         flexDir={'column'}
-        gap={isLargerThan768 ? "8px" : "22px"}
+        gap={isLargerThan768 ? '8px' : '22px'}
         p={isLargerThan768 ? '16px' : '0'}
         w="100%"
         h="100%"
         justifyContent={'space-between'}
       >
-        <Flex flexDir="column" gap={isLargerThan768 ? "12px" : "8px"}>
+        <Flex flexDir="column" gap={isLargerThan768 ? '12px' : '8px'}>
           <Text
             onClick={() => navigate(`/product/${product.id}`)}
-            fontSize={isLargerThan768 ? "1.16rem" : "1.13rem"}
+            fontSize={isLargerThan768 ? '1.16rem' : '1.13rem'}
             fontWeight={isLargerThan768 ? 500 : 600}
             letterSpacing=".35px"
             color="#002034"
@@ -202,51 +209,54 @@ const ProductCard = ({ product }: Props) => {
           >
             {getNameByTranslate(product)}
           </Text>
-          {
-            !isLargerThan650 ?
+          {!isLargerThan650 ? (
+            <Text
+              onClick={() => navigate(`/product/${product.id}`)}
+              fontSize={isLargerThan768 ? '0.78rem' : '0.77rem'}
+              fontWeight={isLargerThan768 ? 500 : 600}
+              opacity={0.7}
+              color="#002034"
+              fontFamily={'Rubik'}
+              className="not truncated"
+            >
+              {truncateText(getDescriptionByTranslate(product), 200)}
+            </Text>
+          ) : (
+            <Tooltip
+              label={getDescriptionByTranslate(product)}
+              aria-label="Full description"
+              className="truncated"
+            >
               <Text
                 onClick={() => navigate(`/product/${product.id}`)}
-                fontSize={isLargerThan768 ? "0.78rem" : "0.77rem"}
+                fontSize={isLargerThan768 ? '0.78rem' : '0.77rem'}
                 fontWeight={isLargerThan768 ? 500 : 600}
                 opacity={0.7}
                 color="#002034"
                 fontFamily={'Rubik'}
-                className="not truncated"
+                noOfLines={3}
               >
                 {truncateText(getDescriptionByTranslate(product), 200)}
               </Text>
-              :
-              <Tooltip label={getDescriptionByTranslate(product)} aria-label="Full description" className="truncated">
-                <Text
-                  onClick={() => navigate(`/product/${product.id}`)}
-                  fontSize={isLargerThan768 ? "0.78rem" : "0.77rem"}
-                  fontWeight={isLargerThan768 ? 500 : 600}
-                  opacity={0.7}
-                  color="#002034"
-                  fontFamily={'Rubik'}
-                  noOfLines={3}
-                >
-                  {truncateText(getDescriptionByTranslate(product), 200)}
-                </Text>
-              </Tooltip>
-          }
+            </Tooltip>
+          )}
         </Flex>
 
         <Flex flexDir={'column'}>
           <Text
-              fontSize={isLargerThan768 ? 14 : 12}
-              fontWeight={700}
-              color="#002034"
-              alignSelf="start"
-              flexWrap="nowrap"
-              fontFamily={'Rubik'}
+            fontSize={isLargerThan768 ? 14 : 12}
+            fontWeight={700}
+            color="#002034"
+            alignSelf="start"
+            flexWrap="nowrap"
+            fontFamily={'Rubik'}
           >
             {product.cartCount} szt
           </Text>
 
           <Flex align="center" gap="8px">
             <Text
-              color="#9090A4"
+              color="#418a91"
               fontSize={isLargerThan768 ? 20 : 16}
               fontWeight={500}
               decoration={isDiscounted ? 'line-through' : 'none'}
@@ -268,7 +278,7 @@ const ProductCard = ({ product }: Props) => {
             )}
           </Flex>
 
-          {!isThisProductAdded || count === 0? (
+          {!isThisProductAdded || count === 0 ? (
             <Button
               mt="1vh"
               w="100%"
@@ -296,7 +306,6 @@ const ProductCard = ({ product }: Props) => {
           ) : (
             <Flex
               mt="1vh"
-
               w="100%"
               h="40px"
               bg="#418a91"
@@ -315,7 +324,14 @@ const ProductCard = ({ product }: Props) => {
               >
                 -
               </CountButton>
-              <CountButton flex={1} onClick={handleIncrement} h="100%" borderRadius={0} w="100%" variant="card">
+              <CountButton
+                flex={1}
+                onClick={handleIncrement}
+                h="100%"
+                borderRadius={0}
+                w="100%"
+                variant="card"
+              >
                 {isThisProductAdded ? selectedProducts[index].count : count}
               </CountButton>
 

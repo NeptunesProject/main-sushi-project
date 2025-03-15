@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
-import { useMediaQuery } from '@chakra-ui/react' // Стили
+import { Flex, useMediaQuery } from '@chakra-ui/react' // Стили
 import { CountryCode, parsePhoneNumber } from 'libphonenumber-js/max'
+import { BsAsterisk } from 'react-icons/bs'
 
 interface Props {
   setter: (phoneNumber: string, isValid: boolean) => void
@@ -31,9 +32,7 @@ export const PhoneNumberInput = ({ setter, value }: Props) => {
       phoneData.countryCode.toUpperCase() as CountryCode,
     ),
   )
-  const [borderColor, setBorderColor] = useState<string>(
-    isValid ? '#468C92' : 'red',
-  )
+  const [borderColor, setBorderColor] = useState<string>('#468C92')
   const handleChange = (value: string, data: any) => {
     setPhoneData({ phone: value, countryCode: data.countryCode })
   }
@@ -48,36 +47,42 @@ export const PhoneNumberInput = ({ setter, value }: Props) => {
   }, [phoneData])
 
   return (
-    <PhoneInput
-      country={phoneData.countryCode}
-      value={phoneData.phone}
-      onChange={handleChange}
-      onFocus={(e) => {
-        e.target.style.boxShadow = '0 0 0 0.84px #3182CEd6'
-        setBorderColor('#468C92')
-      }}
-      onBlur={(e) => {
-        e.target.style.boxShadow = 'none'
-        setBorderColor(isValid ? '#468C92' : 'red')
-      }}
-      inputStyle={{
-        borderColor: borderColor,
-        boxShadow: '0 0 0 1px #B7B7B7',
-        width:'100%',
-        maxWidth: '297px',
-        fontSize: '16px',
-        borderRadius: '4px',
-        height: isLessThan700
-          ? isLessThan768
-            ? '28px'
-            : '28px'
-          : isLessThan768
-          ? '36px'
-          : '40px',
-      }}
-      buttonStyle={{
-        borderRadius: '6px',
-      }}
-    />
+    <Flex position="relative" maxW="297px" w="100%">
+      <PhoneInput
+        country={phoneData.countryCode}
+        value={phoneData.phone}
+        onChange={handleChange}
+        onFocus={(e) => {
+          e.target.style.boxShadow = '0 0 0 0.84px #3182CEd6'
+          setBorderColor('#468C92')
+        }}
+        onBlur={(e) => {
+          e.target.style.boxShadow = 'none'
+          setBorderColor(isValid ? '#468C92' : 'red')
+        }}
+        inputStyle={{
+          borderColor: borderColor,
+          boxShadow: '0 0 0 1px #B7B7B7',
+          width: '100%',
+          fontSize: '16px',
+          borderRadius: '4px',
+          height: isLessThan700
+            ? isLessThan768
+              ? '28px'
+              : '28px'
+            : isLessThan768
+            ? '36px'
+            : '40px',
+        }}
+        buttonStyle={{
+          borderRadius: '6px',
+        }}
+      />
+      <BsAsterisk
+        size={10}
+        style={{ position: 'absolute', right: -12 }}
+        color="#d66503"
+      />{' '}
+    </Flex>
   )
 }

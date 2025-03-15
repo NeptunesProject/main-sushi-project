@@ -22,7 +22,7 @@ const NewsItemPage = () => {
             color="#686870"
             borderRadius="5px"
           >
-            Wiadomości o Ninja
+            Wiadomości o Neptunes
           </Text>
           <Text>09.03.2025</Text>
         </Flex>

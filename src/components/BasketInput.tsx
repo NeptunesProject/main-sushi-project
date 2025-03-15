@@ -1,4 +1,6 @@
-import { Input, useMediaQuery } from '@chakra-ui/react'
+import { Flex, Input, useMediaQuery } from '@chakra-ui/react'
+import React, { useState } from 'react'
+import { BsAsterisk } from 'react-icons/bs'
 
 interface Props {
   value: string
@@ -11,21 +13,25 @@ interface Props {
 export const BasketInput = ({ value, setter, placeholder, type, required=false }: Props) => {
   const [isLessThan768] = useMediaQuery('(max-width: 768px)')
   const [isLessThan700] = useMediaQuery('(max-height: 700px)')
-
+  const [isUserTaped, setIsUserTaped] = useState<boolean>(false)
+  const onChangeHandler = ( event: React.ChangeEvent<HTMLInputElement>) => {
+    setter(event)
+    setIsUserTaped(true)
+  }
   return (
+    <Flex position='relative' maxW='297px' w='100%'>
     <Input
       value={value}
-      onChange={setter}
+      onChange={onChangeHandler}
       type={type}
       placeholder={placeholder}
       _invalid={{ borderColor: "red.500" }}
       _focus={{ borderColor: "#B7B7B7" }}
-      isInvalid={value.trim() === "" && required}
+      isInvalid={ isUserTaped ? value.trim() === "" && required : false }
       border="1px solid"
       style={{
         borderRadius: '4px',
         padding: isLessThan768 ? '4px' : '6px',
-        maxWidth: '297px',
         boxSizing: 'border-box',
         fontFamily: 'Rubik',
         fontStyle: 'normal',
@@ -40,6 +46,8 @@ export const BasketInput = ({ value, setter, placeholder, type, required=false }
             ? '36px'
             : '40px',
       }}
-    />
+    />    {required &&  <BsAsterisk size={10} style={{ position: 'absolute', right: -12 }}  color="#d66503" />}
+
+    </Flex>
   )
 }

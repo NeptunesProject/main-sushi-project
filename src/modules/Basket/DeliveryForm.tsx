@@ -180,7 +180,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
           fontStyle={'normal'}
           mb={'4px'}
         >
-          Dane osobowe <span style={{ color: 'red' }}>*</span>:
+          Dane osobowe:
         </Text>
         <Flex
           flexDir="column"
@@ -199,18 +199,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
             value={phoneNumber.phoneNumber}
             setter={phoneSetter}
           />
-          {/*<BasketInput*/}
-          {/*  value={phoneNumber}*/}
-          {/*  setter={phoneSetter}*/}
-          {/*  type="tel"*/}
-          {/*  placeholder="Telefon"*/}
-          {/*/>*/}
-          <BasketInput
-            value={email}
-            setter={emailSetter}
-            type="email"
-            placeholder="Email"
-          />
+
           {deliveryType === 'delivery' && (
             <BasketInput
               required
@@ -220,6 +209,12 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
               placeholder="Adres dostawy"
             />
           )}
+          <BasketInput
+            value={email}
+            setter={emailSetter}
+            type="email"
+            placeholder="Email"
+          />
           <Text
             fontSize={isLessThan700 ? 14 : 16}
             fontWeight={400}

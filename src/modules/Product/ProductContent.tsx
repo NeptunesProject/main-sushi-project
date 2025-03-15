@@ -230,8 +230,15 @@ const ProductContent = () => {
           mt={5}
         >
           <Image
+            fallback={
+              <Image
+                maxW={400}
+                borderRadius={3}
+                filter="blur(20px)"
+                src={'/images/fallback.jpg'}
+              />
+            }
             src={product.img}
-            fallback={<Image src={stubImg} />}
             w={isLargerThan768 ? '50vh' : '95vw'}
             objectFit="contain"
             mb={isLargerThan768 ? '50px' : 0}

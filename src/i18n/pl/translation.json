@@ -1,7 +1,9 @@
 {
   "navbar": {
     "0": "Strona główna",
-    "1": "O nas"
+    "1": "O nas",
+    "l0": "Instagram",
+    "l1": "+48517102069"
   },
   "place": "Warszawa",
   "work-hours": {
