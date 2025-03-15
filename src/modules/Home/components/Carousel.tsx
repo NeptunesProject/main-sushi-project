@@ -130,7 +130,7 @@ const Carousel = () => {
               objectFit="cover"
               alt={`Slide ${index}`}
               borderRadius={35}
-              onClick={() => navigate(`/news/${index}`)}
+            //  onClick={() => navigate(`/news/${index}`)}
             />
           </Box>
         ))}
