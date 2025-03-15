@@ -59,6 +59,8 @@ const Carousel = () => {
   const navigate = useNavigate()
   const [isLargerThan430] = useMediaQuery('(min-width: 431px)')
   const [isLargerThan360] = useMediaQuery('(min-width: 361px)')
+  const [isLargerThan800] = useMediaQuery('(min-width: 800px)')
+
   const [isLargerThan768] = useMediaQuery('(min-width: 768px)')
   const [isLargerThan1440] = useMediaQuery('(min-width: 1440px)')
 
@@ -74,7 +76,7 @@ const Carousel = () => {
     autoplay: true,
     autoplaySpeed: 5000, // autoplay interval 5s
     dotsClass: 'slick-dots slick-dots-custom',
-    arrows: isLargerThan430,
+    arrows: isLargerThan800,
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
     appendDots: (dots: any) => (
@@ -93,7 +95,7 @@ const Carousel = () => {
   return (
     <Box
       mt={isLargerThan360 ? '100px' : '10px'}
-      w={isLargerThan1440? '60vw' : isLargerThan768 ? '80vw' : '100%'}
+      w={isLargerThan1440? '60vw' : isLargerThan800 ? '80vw' : '100%'}
       mx="auto"
       mb={10}
       sx={{
