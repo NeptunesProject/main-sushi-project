@@ -3,7 +3,7 @@ import point from 'assets/icons/point.svg'
 import { useTranslation } from 'react-i18next'
 
 interface Props {
-  isLargerScreen: boolean | undefined
+  isLargerScreen?: boolean | undefined
 }
 const Place = ({isLargerScreen}: Props) => {
   const { t } = useTranslation()
