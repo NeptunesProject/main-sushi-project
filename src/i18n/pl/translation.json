@@ -1,15 +1,14 @@
 {
   "navbar": {
     "0": "Strona główna",
-    "1": "O nas",
     "l0": "Instagram",
     "l1": "+48517102069"
   },
   "place": "Warszawa",
   "work-hours": {
     "0": "Godziny pracy",
-    "1": "Ndz-Cz 12:00-22:00",
-    "2": "Ptn-Sb 12:00-23:00"
+    "1": "Ndz-Cz 12:00-23:00",
+    "2": "Ptn-Sb 12:00-24:00"
   },
   "category": {
     "seasonal": "Sezonowe menu",
