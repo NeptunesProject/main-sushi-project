@@ -1,6 +1,6 @@
 import { WorkingHours } from '../types'
 
-const NAV_LINKS = ['/', '/about']
+const NAV_LINKS = ['/']
 const EXTERNAL_LINKS =['https://www.instagram.com/neptunes.sushi/','tel:+48517102069' ];
 const THANK_NOTE_TEXT = [
     'Świeże składniki: Używamy tylko najświeższych składników, zapewniając wysoką jakość i smak naszych sushi.',
