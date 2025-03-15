@@ -4,7 +4,7 @@ import {
   OrderToPost,
   Product,
   ReturnedOrder,
-  ValidatedVoucher, WorkingHours,
+  ValidatedVoucher,
 } from '../types'
 
 const BASE_URL = import.meta.env.VITE_APP_MAIN_API
