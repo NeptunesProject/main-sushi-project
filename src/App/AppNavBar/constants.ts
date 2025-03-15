@@ -3,7 +3,6 @@ import california from 'assets/icons/category/california.svg'
 import appetisers from 'assets/icons/category/appetisers.svg'
 import sets from 'assets/icons/category/sets.svg'
 import gunkan from 'assets/icons/category/gunkan.svg'
-import sashimi from 'assets/icons/category/sashimi.svg'
 import nigiri from 'assets/icons/category/nigiri.svg'
 import hosomaki from 'assets/icons/category/hosomaki.svg'
 import lunch from 'assets/icons/category/lunch.svg'
@@ -55,15 +54,6 @@ const CATEGORY = [
         img: gunkan,
     },
     {
-        name: 'Sashimi',
-        nameUa: 'Сашимі',
-        nameRu: 'Сашими',
-        nameEn: 'Sashimi',
-        route: 'Sashimi',
-        translateId: 'Sashimi',
-        img: sashimi,
-    },
-    {
         name: 'Nigiri',
         nameUa: 'Нігірі',
         nameRu: 'Нигири',
@@ -82,12 +72,12 @@ const CATEGORY = [
         img: hosomaki,
     },
     {
-        name: 'Lunch',
-        nameUa: 'Ланч',
-        nameRu: 'Ланч',
-        nameEn: 'Lunch',
-        route: 'Lunch',
-        translateId: 'Lunch',
+        name: 'Tempura',
+        nameUa: 'Tempura',
+        nameRu: 'Tempura',
+        nameEn: 'Tempura',
+        route: 'Tempura',
+        translateId: 'Tempura',
         img: lunch,
     }
 ]
