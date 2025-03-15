@@ -2,39 +2,11 @@ import futomaki from 'assets/icons/category/futomaki.svg'
 import california from 'assets/icons/category/california.svg'
 import appetisers from 'assets/icons/category/appetisers.svg'
 import sets from 'assets/icons/category/sets.svg'
-import gunkan from 'assets/icons/category/gunkan.svg'
 import nigiri from 'assets/icons/category/nigiri.svg'
 import hosomaki from 'assets/icons/category/hosomaki.svg'
-import lunch from 'assets/icons/category/lunch.svg'
+import tempura from 'assets/icons/category/tempura.jpg'
 
 const CATEGORY = [
-    {
-        name: 'California',
-        nameUa: 'Каліфорнія ',
-        nameRu: 'Калифорния',
-        nameEn: 'California',
-        route: 'California Rolls',
-        translateId: 'California Rolls',
-        img: california,
-    },
-    {
-        name: 'Przystawki',
-        nameUa: 'Закуски',
-        nameRu: 'Закуски',
-        nameEn: 'Appetizers',
-        route: 'Przystawki',
-        translateId: 'Przystawki',
-        img: appetisers,
-    },
-    {
-        name: 'Futomaki',
-        nameUa: 'Футомакі',
-        nameRu: 'Футомаки',
-        nameEn: 'Futomaki',
-        route: 'Futomaki',
-        translateId: 'Futomaki',
-        img: futomaki,
-    },
     {
         name: 'Zestawy',
         nameUa: 'Набори',
@@ -45,13 +17,31 @@ const CATEGORY = [
         img: sets,
     },
     {
-        name: 'Gunkan',
-        nameUa: 'Гункан',
-        nameRu: 'Гункан',
-        nameEn: 'Gunkan',
-        route: 'Gunkan',
-        translateId: 'Gunkan',
-        img: gunkan,
+        name: 'Tempura',
+        nameUa: 'Tempura',
+        nameRu: 'Tempura',
+        nameEn: 'Tempura',
+        route: 'Tempura',
+        translateId: 'Tempura',
+        img: tempura,
+    },
+    {
+        name: 'California',
+        nameUa: 'Каліфорнія ',
+        nameRu: 'Калифорния',
+        nameEn: 'California',
+        route: 'California Rolls',
+        translateId: 'California Rolls',
+        img: california,
+    },
+    {
+        name: 'Futomaki',
+        nameUa: 'Футомакі',
+        nameRu: 'Футомаки',
+        nameEn: 'Futomaki',
+        route: 'Futomaki',
+        translateId: 'Futomaki',
+        img: futomaki,
     },
     {
         name: 'Nigiri',
@@ -72,13 +62,13 @@ const CATEGORY = [
         img: hosomaki,
     },
     {
-        name: 'Tempura',
-        nameUa: 'Tempura',
-        nameRu: 'Tempura',
-        nameEn: 'Tempura',
-        route: 'Tempura',
-        translateId: 'Tempura',
-        img: lunch,
+        name: 'Przystawki',
+        nameUa: 'Закуски',
+        nameRu: 'Закуски',
+        nameEn: 'Appetizers',
+        route: 'Przystawki',
+        translateId: 'Przystawki',
+        img: appetisers,
     }
 ]
 
