@@ -159,6 +159,7 @@ const ProductCard = ({ product }: Props) => {
   }
   return (
     <Flex
+      maxW='400px'
       fontFamily="'Roboto', sans-serif"
       flexDir="column"
       alignItems="center"
