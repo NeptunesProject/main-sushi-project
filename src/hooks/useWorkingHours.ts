@@ -14,7 +14,6 @@ const checkIfClosed = (closedTime: string) => {
   const now = getPolandTime()
   const nowTime = now.getHours() + now.getMinutes() / 60
   const [hour, min] = closedTime.split(':').map(n=> +n)
-  console.log(now, nowTime, hour, min )
   return nowTime > hour + min / 60
 }
 
@@ -36,7 +35,6 @@ const useWorkingHours = () => {
       const { '7': value, ...rest } = data
       setWorkingHours({ ...rest, '0': value })
       const todaysWorkingHours = getTodaysWorkingHours({ ...rest, '0': value })
-      console.log(todaysWorkingHours)
       setIsClosed(checkIfClosed(todaysWorkingHours.closed))
       setTodayWorkingHours(todaysWorkingHours)
     }

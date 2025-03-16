@@ -14,7 +14,6 @@ export const getPolandTime = () => {
   const minute = Number(
     polandTime.find((part) => part.type === "minute")?.value || 0
   );
-
   now.setHours(hour);
   now.setMinutes(minute);
   return now;

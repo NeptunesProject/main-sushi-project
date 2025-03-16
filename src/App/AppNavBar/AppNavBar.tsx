@@ -14,7 +14,6 @@ const AppNavBar = () => {
   const scrollToSection = (categoryName: string) => {
     const sectionId = `${categoryName}`
     const section = document.getElementById(sectionId)
-    console.log(sectionId, 'sectionId')
 
     if (section && sidebarRef.current) {
       section.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -37,7 +36,6 @@ const AppNavBar = () => {
 
   useEffect(() => {
     const initialCategory = window.location.hash.slice(1)
-    console.log(initialCategory, 'initial category')
     const categoryToScroll = localStorage.getItem("setCategory")
     if(categoryToScroll) {
       setTimeout(() => scrollToSection(categoryToScroll), 100)
