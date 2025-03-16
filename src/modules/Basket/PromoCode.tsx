@@ -116,7 +116,7 @@ export const PromoCode = () => {
               fontFamily={'Rubik'}
               fontStyle={'normal'}
             >
-              Remove
+              Usunąć
             </Button>
           </Flex>
         )}

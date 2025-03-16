@@ -139,7 +139,7 @@ const ProductListItem = ({ item }: Props) => {
                 lineHeight={isLessThan768 ? '1.09rem' : '24px'}
                 fontFamily={'Rubik'}
                 maxW="91%"
-                color="#9090A4"
+                color="#418a91"
 
             >
               {item.product.price * item.count} zł
