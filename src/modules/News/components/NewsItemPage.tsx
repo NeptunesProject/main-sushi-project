@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { Container, Flex, Heading, Image, Text } from '@chakra-ui/react'
 
 const src =
-  'https://i.imgur.com/JMp0yO9.jpeg'
+  ''
 
 const NewsItemPage = () => {
   const { id } = useParams()
@@ -29,19 +29,7 @@ const NewsItemPage = () => {
       </Flex>
       <Flex flexDirection="column" align="center" gap="30px">
         <Image objectFit="cover" borderRadius='20px' src={src} alt="NewsItemCard" w="80vw" />
-        <Text w="60vw" mb="30px">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eius eveniet
-          ipsum libero maiores nisi placeat ratione saepe tempore totam vero.
-          Beatae consequatur cum deserunt ducimus esse laborum molestias
-          perferendis quaerat quasi quos reprehenderit sit vero, vitae.
-          Doloremque officiis porro possimus soluta tenetur. A alias aliquid cum
-          delectus dolor, esse excepturi facere fuga impedit iusto maiores nobis
-          odio perferendis praesentium quam qui quis rem repudiandae sapiente
-          similique suscipit tempore totam veniam! A minima nulla quo? Ad
-          aliquam at commodi dolorem exercitationem fugit, ipsa iure laboriosam
-          nostrum nulla odit omnis quae, quibusdam quos ratione rerum, sunt
-          velit voluptates? Eius mollitia porro veniam!
-        </Text>
+        <Text w="60vw" mb="30px">text</Text>
       </Flex>
     </Container>
   )

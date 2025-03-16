@@ -1,7 +1,7 @@
 import { Box, Flex, Image, Text, useMediaQuery } from '@chakra-ui/react'
 import { NavLink } from 'react-router-dom'
 const src =
-  'https://i.imgur.com/JMp0yO9.jpeg'
+  ''
 interface Props {
   isLarge?: boolean
 }
@@ -34,12 +34,12 @@ const NewsItemCard = ({isLarge = true}: Props) => {
               color="#686870"
               borderRadius="5px"
             >
-              Wiadomości o Ninja
+              Wiadomości o Neptunes Sushi
             </Text>
             <Text>09.03.2025</Text>
           </Flex>
           <Text mt="10px" fontWeight="bold">
-            Ninja Sushi x SoBeauty: Dream On
+            Neptunes Sushi text
           </Text>
           <Text color="#00cc2d">Dowiedz się więcej</Text>
         </Flex>
