@@ -16,3 +16,4 @@ export {NAV_LINKS, THANK_NOTE_TEXT, EXTERNAL_LINKS}
 
 export const openingHoursFallBack: WorkingHours = {"1":"12:00 : 22:30","2":"12:00 : 22:30","3":"12:00 : 22:30","4":"12:00 : 22:30","5":"12:00 : 22:30","6":"12:00 : 22:30","0":"12:00 : 22:30"}
 export const minimalPrice = 65
+export const storageVersion = 'v0'
