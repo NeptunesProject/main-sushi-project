@@ -9,7 +9,7 @@ import React, { useEffect, useMemo } from 'react'
 import { minimalPrice } from '../../constants'
 
 interface Props {
-  setIsButtonDisabled:  React.Dispatch<React.SetStateAction<boolean>>
+  setIsButtonDisabled?:  React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const InfoToPay = ({setIsButtonDisabled}: Props) => {
@@ -33,6 +33,7 @@ const InfoToPay = ({setIsButtonDisabled}: Props) => {
   const isMinimumPriceReached = useMemo(() =>  priceWithVoucher >= minimalPrice , [priceWithVoucher]);
 
   useEffect(() => {
+    if(setIsButtonDisabled)
     setIsButtonDisabled(!isMinimumPriceReached)
   }, [isMinimumPriceReached])
   console.log(totalPriceWithDiscount, isMinimumPriceReached)
