@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { SelectedProduct } from 'types'
 import { calculateDiscountedPrice } from './OrderFuncs'
 import { useSelector } from 'react-redux'
@@ -13,52 +13,39 @@ export function useTotalPrice() {
   const voucher = useSelector(selectVoucher)
   const selectedProducts: SelectedProduct[] = useSelector(selectBasketProducts)
   const totalPrice = calculateTotalPrice(selectedProducts)
+  const [discountMessage, setDiscountMessage] = useState<number>(0)
   const totalPriceWithDiscount = useMemo(() => {
-    return Object.values(selectedProducts).reduce((acc, item) => {
-      let price = item.product.price
-
-      if (item.product.discount) {
-        price = calculateDiscountedPrice(
-          price,
-          item.product.discount.discountPerQuantity,
-          item.count,
-        )
-      }
-
-      return acc + price * item.count
+    return selectedProducts.reduce((acc, item) => {
+      const { price, discount } = item.product
+      const discountedPrice = discount
+        ? calculateDiscountedPrice(price, discount.discountPerQuantity, item.count)
+        : price
+      return acc + discountedPrice * item.count
     }, 0)
-  }, [selectedProducts, calculateDiscountedPrice])
-  let isDiscounted = false
+  }, [selectedProducts])
+  console.log(voucher)
+  const isDiscounted = totalPrice > totalPriceWithDiscount
+  const priceWithVoucher = (isDiscounted ? totalPriceWithDiscount : totalPrice) * voucher.discount
+  const isMinimumPriceReached = priceWithVoucher >= minimalPrice
+  const isVoucherActive = totalPrice !== 0 && voucher.discount !== 1
+  const discount = isVoucherActive
+    ? totalPrice - priceWithVoucher
+    : isDiscounted
+      ? totalPrice - totalPriceWithDiscount
+      : 0
 
-  if (totalPrice - totalPriceWithDiscount > 0) isDiscounted = true
-
-  const priceWithVoucher = isDiscounted
-    ? totalPriceWithDiscount * voucher.discount
-    : totalPrice * voucher.discount
-  console.log(voucher.discount)
-  const isMinimumPriceReached = useMemo(
-    () => priceWithVoucher >= minimalPrice,
-    [priceWithVoucher],
-  )
-  let isVoucherActive = false
-
-  if (totalPrice !== 0 && voucher.discount !== 1) {
-    isVoucherActive = true
-  }
-
-  let discount = 0
-
-  if (isVoucherActive) discount = totalPrice - priceWithVoucher
-  else if (isDiscounted) discount = totalPrice - totalPriceWithDiscount
-
-  const showDiscounted = isVoucherActive || isDiscounted
+  useEffect(() => {
+    const voucherPercent = (1 - voucher.discount) * 100
+    setDiscountMessage(Math.round(voucherPercent))
+  },[isVoucherActive])
 
   return {
     finalPrice: priceWithVoucher,
     totalPrice,
     isMinimumPriceReached,
     discount,
-    showDiscounted,
+    showDiscounted: isVoucherActive || isDiscounted,
+    discountMessage
   }
 }
 

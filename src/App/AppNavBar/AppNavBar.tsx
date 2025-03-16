@@ -44,7 +44,6 @@ const AppNavBar = () => {
     if(initialCategory) {
       setTimeout(() => scrollToSection(initialCategory), 2000)
     }
-    console.log(categoryToScroll, 'categoryToScroll')
   }, []);
 
   return (

@@ -14,6 +14,7 @@ const InfoToPay = ({ setIsButtonDisabled }: Props) => {
     isMinimumPriceReached,
     discount,
     showDiscounted,
+    discountMessage,
   } = useTotalPrice()
 
   useEffect(() => {
@@ -25,7 +26,23 @@ const InfoToPay = ({ setIsButtonDisabled }: Props) => {
   return (
     <>
       <Flex direction="column">
+
         {showDiscounted && (
+          <Flex direction="column" justify='center' align='center'>
+            {discountMessage !== 0 && (
+              <Text
+                color="#002034"
+                fontFamily={'Rubik'}
+                fontStyle={'normal'}
+                fontWeight={'500'}
+                fontSize={isLessThan730 ? '14px' : '18px'}
+                lineHeight={isLessThan730 ? '18px' : '24px'}
+                pr={'9px'}
+                textAlign='center'
+              >
+                Aktywowany kod promocyjny ! <span style={{color:'#418a91'}}  >{discountMessage}%</span> rabatu
+              </Text>
+            )}
           <Flex alignSelf={'center'}>
             <Text
               color="#002034"
@@ -36,7 +53,7 @@ const InfoToPay = ({ setIsButtonDisabled }: Props) => {
               lineHeight={isLessThan730 ? '18px' : '24px'}
               pr={'9px'}
             >
-              Discount:
+              Rabat:
             </Text>
             <Text
               color="#418a91"
@@ -48,6 +65,7 @@ const InfoToPay = ({ setIsButtonDisabled }: Props) => {
             >
               {Number(discount.toFixed(2))} zł
             </Text>
+          </Flex>
           </Flex>
         )}
 
@@ -63,7 +81,7 @@ const InfoToPay = ({ setIsButtonDisabled }: Props) => {
             fontWeight={'500'}
             pr={'5px'}
           >
-            Total:
+            Całkowity:
           </Text>
           <Text
             fontFamily={'Rubik'}
