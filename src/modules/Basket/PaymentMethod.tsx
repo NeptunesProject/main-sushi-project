@@ -89,7 +89,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
       time: 'Jak najszybciej',
     }),
   )
-  const totalPrice = useTotalPrice(selectedProducts, calculateDiscountedPrice)
+  const {totalPrice} = useTotalPrice()
 
   const personCount = useSelector(selectPersonCount)
   const studySticks = useSelector(selectStudySticks)
