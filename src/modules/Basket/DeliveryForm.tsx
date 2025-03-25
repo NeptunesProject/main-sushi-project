@@ -160,7 +160,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
           fontStyle={'normal'}
           fontWeight={'600'}
           lineHeight={isLessThan768 ? '21px' : '36px'}
-          color={'#002034'}
+          color='blue.300'
         >
           Szczegóły zamówienia
         </Text>
@@ -175,7 +175,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
         <Text
           fontSize={isLessThan768h ? 14 : 16}
           fontWeight={400}
-          color={'#002034'}
+          color='blue.300'
           lineHeight={isLessThan768h ? '14px' : '24px'}
           fontFamily={'Rubik'}
           fontStyle={'normal'}
@@ -219,7 +219,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
           <Text
             fontSize={isLessThan768h ? 14 : 16}
             fontWeight={400}
-            color={'#002034'}
+            color='blue.300'
             lineHeight={isLessThan768h ? '14px' : '24px'}
             fontFamily={'Rubik'}
             fontStyle={'normal'}
@@ -235,7 +235,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
         <Text
           fontSize={isLessThan768h ? 14 : 16}
           fontWeight={400}
-          color={'#002034'}
+          color='blue.300'
           lineHeight={isLessThan768h ? '21px' : '24px'}
           fontFamily={'Rubik'}
           fontStyle={'normal'}
@@ -288,7 +288,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
         <Box
           w="100%"
           h="1px"
-          bg="grey"
+          bg="grey.100"
           opacity={0.6}
           mb={'10px'}
           mt={isLessThan768 ? '19px' : '10px'}
@@ -302,9 +302,9 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
 
         <Flex justifyContent={'center'} gap={'8px'}>
           <Button
-            bg="#002034"
+            bg="blue.300"
             borderRadius={25}
-            color={'#FFFFFF'}
+            color='white.200'
             fontSize={16}
             fontWeight={400}
             lineHeight={'24px'}
@@ -320,9 +320,9 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
           </Button>
 
           <Button
-            bg="#418a91"
+            bg="blue.100"
             borderRadius={25}
-            color={'#FFFFFF'}
+            color='white.200'
             fontSize={isLessThan768h ? 14 : 16}
             fontWeight={400}
             lineHeight={'24px'}

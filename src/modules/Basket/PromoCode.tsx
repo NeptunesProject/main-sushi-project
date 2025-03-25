@@ -63,7 +63,7 @@ export const PromoCode = () => {
         mb={'12px'}
       >
         <Text
-          color="#002034"
+          color="blue.300"
           fontFamily={'Rubik'}
           fontStyle={'normal'}
           fontWeight={'500'}
@@ -76,7 +76,7 @@ export const PromoCode = () => {
           value={voucherCode}
           onChange={handleInputChange}
           style={{
-            border: '1px solid #B7B7B7',
+            border: '1px solid gray.50',
             borderRadius: '4px',
             padding: '6px',
             maxWidth: isLessThan768 ? '114px' : '128px',
@@ -90,7 +90,7 @@ export const PromoCode = () => {
             <Button
               float={'right'}
               onClick={validateVoucher}
-              bg="#418a91"
+              bg="blue.100"
               borderRadius={25}
               color={'#FFFFFF'}
               fontSize={isLessThan768 ? 14 : 16}
@@ -107,7 +107,7 @@ export const PromoCode = () => {
             <Button
               onClick={CancelVoucher}
               float={'right'}
-              bg="#002034"
+              bg="blue.300"
               borderRadius={25}
               color={'#FFFFFF'}
               fontSize={16}

@@ -17,7 +17,7 @@ export const StatusForm = ({ setSelectedBasketType, orderId }: Props) => {
         alignItems={'center'}
         fontWeight={400}
         fontFamily={'Rubik'}
-        color={'#002034'}
+        color='blue.300'
         lineHeight={'24px'}
         fontSize={'16px'}
         gap={'23px'}

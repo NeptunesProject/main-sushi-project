@@ -205,7 +205,7 @@ const ProductCard = ({ product }: Props) => {
             fontSize={isLargerThan768 ? '1.16rem' : '1.13rem'}
             fontWeight={isLargerThan768 ? 500 : 600}
             letterSpacing=".35px"
-            color="#002034"
+            color="blue.300"
             fontFamily={'Rubik'}
           >
             {getNameByTranslate(product)}
@@ -216,7 +216,7 @@ const ProductCard = ({ product }: Props) => {
               fontSize={isLargerThan768 ? '0.78rem' : '0.77rem'}
               fontWeight={isLargerThan768 ? 500 : 600}
               opacity={0.7}
-              color="#002034"
+              color="blue.300"
               fontFamily={'Rubik'}
               className="not truncated"
             >
@@ -233,7 +233,7 @@ const ProductCard = ({ product }: Props) => {
                 fontSize={isLargerThan768 ? '0.78rem' : '0.77rem'}
                 fontWeight={isLargerThan768 ? 500 : 600}
                 opacity={0.7}
-                color="#002034"
+                color="blue.300"
                 fontFamily={'Rubik'}
                 noOfLines={3}
               >
@@ -247,7 +247,7 @@ const ProductCard = ({ product }: Props) => {
           <Text
             fontSize={isLargerThan768 ? 14 : 12}
             fontWeight={700}
-            color="#002034"
+            color="#blue.300"
             alignSelf="start"
             flexWrap="nowrap"
             fontFamily={'Rubik'}
@@ -257,7 +257,7 @@ const ProductCard = ({ product }: Props) => {
 
           <Flex align="center" gap="8px">
             <Text
-              color="#418a91"
+              color="blue.100"
               fontSize={isLargerThan768 ? 20 : 16}
               fontWeight={500}
               decoration={isDiscounted ? 'line-through' : 'none'}
@@ -268,7 +268,7 @@ const ProductCard = ({ product }: Props) => {
 
             {isDiscounted && (
               <Text
-                color="#002034"
+                color="blue.300"
                 fontWeight={900}
                 fontSize={20}
                 p="2px"
@@ -286,7 +286,7 @@ const ProductCard = ({ product }: Props) => {
               h={isLargerThan768 ? '40px' : '36px'}
               justifyContent="center"
               gap="8px"
-              bg="#418a91"
+              bg="blue.100"
               color="white"
               borderRadius={20}
               isDisabled={isThisProductAdded}
@@ -309,7 +309,7 @@ const ProductCard = ({ product }: Props) => {
               mt="1vh"
               w="100%"
               h="40px"
-              bg="#418a91"
+              bg="blue.100"
               color="white"
               borderRadius={20}
               alignItems="center"
@@ -330,6 +330,7 @@ const ProductCard = ({ product }: Props) => {
                 onClick={handleIncrement}
                 h="100%"
                 borderRadius={0}
+                bg='none'
                 w="100%"
                 variant="card"
               >
@@ -341,6 +342,7 @@ const ProductCard = ({ product }: Props) => {
                 onClick={handleIncrement}
                 borderRightRadius={20}
                 borderLeftRadius={5}
+                bg='none'
                 h="100%"
               >
                 +

@@ -10,11 +10,13 @@ const getTodaysWorkingHours = (schadule: WorkingHours) => {
   return {open, closed}
 }
 
-const checkIfClosed = (closedTime: string) => {
+const checkIfClosed = (todaysWorkingHours: { open: string; closed: string}) => {
   const now = getPolandTime()
   const nowTime = now.getHours() + now.getMinutes() / 60
-  const [hour, min] = closedTime.split(':').map(n=> +n)
-  return nowTime > hour + min / 60
+  const [closeHour, closeMin] = todaysWorkingHours.closed.split(':').map(n=> +n)
+  const [openHour, openMin] = todaysWorkingHours.open.split(':').map(n=> +n)
+
+  return nowTime > closeHour + closeMin / 60 || nowTime < openHour + openMin
 }
 
 const useWorkingHours = () => {
@@ -35,7 +37,7 @@ const useWorkingHours = () => {
       const { '7': value, ...rest } = data
       setWorkingHours({ ...rest, '0': value })
       const todaysWorkingHours = getTodaysWorkingHours({ ...rest, '0': value })
-      setIsClosed(checkIfClosed(todaysWorkingHours.closed))
+      setIsClosed(checkIfClosed(todaysWorkingHours))
       setTodayWorkingHours(todaysWorkingHours)
     }
   }, [data])

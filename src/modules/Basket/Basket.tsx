@@ -67,7 +67,7 @@ const Basket = () => {
         boxShadow="2px 7px 11px rgba(0,0,0,.28)"
         onClick={onOpen}
         pos="relative"
-        bgColor="#418a91"
+        bgColor="blue.100"
       >
         <Image boxSize="24px" src={basket} />
         {productsCount > 0 && (

@@ -139,7 +139,7 @@ const ProductListItem = ({ item }: Props) => {
                 lineHeight={isLessThan768 ? '1.09rem' : '24px'}
                 fontFamily={'Rubik'}
                 maxW="91%"
-                color="#418a91"
+                color="blue.100"
 
             >
               {item.product.price * item.count} zł
@@ -147,7 +147,7 @@ const ProductListItem = ({ item }: Props) => {
 
             {isDiscounted && (
                 <Text
-                    color={'#002034'}
+                    color='blue.300'
                     fontWeight={500}
                     fontSize={16}
                     p="2px"
@@ -164,11 +164,11 @@ const ProductListItem = ({ item }: Props) => {
         <Flex
           align="center"
           gap={2}
-          backgroundColor={'#FFFFFF'}
+          backgroundColor='white.200'
           overflow={'hidden'}
           borderRightRadius={5}
           borderLeftRadius={5}
-          borderColor={'#B7B7B7'}
+          borderColor='gray.50'
           borderWidth={'1px'}
         >
           <DecBtn onClick={decreaseCount} text={'-'}></DecBtn>

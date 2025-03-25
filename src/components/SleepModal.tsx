@@ -23,6 +23,7 @@ const TimeBasedModal = ({children , header, openSignal=true, setModalIsOpen=unde
   const { isOpen, onOpen, onClose } = useDisclosure();
  //  const [isTimeMatched, setIsTimeMatched] = useState(false);
   const { todayWorkingHours, isClosed } = useWorkingHours()
+  console.log(isClosed)
   useEffect(() => {
       if (isClosed && openSignal) {
        // setIsTimeMatched(true);
@@ -43,7 +44,7 @@ const TimeBasedModal = ({children , header, openSignal=true, setModalIsOpen=unde
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent
-          background="white"
+          background="white.200"
           margin="auto"
           display="flex"
           flexDirection="column"
@@ -67,7 +68,7 @@ const TimeBasedModal = ({children , header, openSignal=true, setModalIsOpen=unde
               {children}
             </Text>
           </ModalBody>
-          <Button color="white" onClick={onClose} bg="#418a91" w="60% 80%" alignSelf="center">
+          <Button color="white" onClick={onClose} bg="blue.100" w="60% 80%" alignSelf="center">
             Zamów w przedsprzedaży
           </Button>
         </ModalContent>

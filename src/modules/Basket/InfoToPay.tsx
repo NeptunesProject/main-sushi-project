@@ -31,7 +31,7 @@ const InfoToPay = ({ setIsButtonDisabled }: Props) => {
           <Flex direction="column" justify='center' align='center'>
             {discountMessage !== 0 && (
               <Text
-                color="#002034"
+                color="blue.300"
                 fontFamily={'Rubik'}
                 fontStyle={'normal'}
                 fontWeight={'500'}
@@ -45,7 +45,7 @@ const InfoToPay = ({ setIsButtonDisabled }: Props) => {
             )}
           <Flex alignSelf={'center'}>
             <Text
-              color="#002034"
+              color="blue.300"
               fontFamily={'Rubik'}
               fontStyle={'normal'}
               fontWeight={'500'}
@@ -56,7 +56,7 @@ const InfoToPay = ({ setIsButtonDisabled }: Props) => {
               Rabat:
             </Text>
             <Text
-              color="#418a91"
+              color="blue.100"
               fontFamily={'Rubik'}
               fontStyle={'normal'}
               fontWeight={'400'}
@@ -75,7 +75,7 @@ const InfoToPay = ({ setIsButtonDisabled }: Props) => {
           lineHeight={isLessThan730 ? '18px' : '24px'}
         >
           <Text
-            color="#002034"
+            color="blue.300"
             fontFamily={'Rubik'}
             fontStyle={'normal'}
             fontWeight={'500'}
@@ -85,7 +85,7 @@ const InfoToPay = ({ setIsButtonDisabled }: Props) => {
           </Text>
           <Text
             fontFamily={'Rubik'}
-            color={showDiscounted ? '#9090A4' : '#418a91'}
+            color={showDiscounted ? 'gray.100' : 'blue.100'}
             fontWeight={400}
             decoration={showDiscounted ? 'line-through' : 'none'}
             pr={'5px'}
@@ -96,7 +96,7 @@ const InfoToPay = ({ setIsButtonDisabled }: Props) => {
           {showDiscounted && (
             <Text
               fontFamily={'Rubik'}
-              color={'#418a91'}
+              color='blue.100'
               fontWeight={400}
               decoration={'none'}
             >

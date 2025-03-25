@@ -16,7 +16,7 @@ import InfoToPay from './InfoToPay'
 import Stripe from 'stripe'
 
 import { ReturnedOrder } from '../../types'
-import { calculateDiscountedPrice, handleClick, makeOrder } from './OrderFuncs'
+import {  handleClick, makeOrder } from './OrderFuncs'
 import { setVoucher } from 'redux/products/ProductsSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import {
