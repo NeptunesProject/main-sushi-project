@@ -23,7 +23,6 @@ const TimeBasedModal = ({children , header, openSignal=true, setModalIsOpen=unde
   const { isOpen, onOpen, onClose } = useDisclosure();
  //  const [isTimeMatched, setIsTimeMatched] = useState(false);
   const { todayWorkingHours, isClosed } = useWorkingHours()
-  console.log(isClosed)
   useEffect(() => {
       if (isClosed && openSignal) {
        // setIsTimeMatched(true);
