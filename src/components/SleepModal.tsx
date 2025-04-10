@@ -37,6 +37,7 @@ const TimeBasedModal = ({children , header, openSignal=true, setModalIsOpen=unde
       setModalIsOpen(false)
     }
   }, [onOpen, openSignal])
+
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
