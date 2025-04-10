@@ -262,19 +262,17 @@ const ProductContent = () => {
             </UnorderedList>
             <Flex flexDir="column" gap={15}>
               <Text fontWeight={700} fontSize={18} color={'#002034'}>
-                {product.weight && <Text>Weight: {product.weight}</Text>}
-                <Text>Waga: {product.weight} gram</Text>
+                {product.weight && <Text>Waga: {product.weight} gram</Text>}
               </Text>
               <Text fontWeight={700} fontSize={18} color={'#002034'}>
-                {product.weight && <Text>Weight: {product.weight}</Text>}
                 <Text>Sztuk: {product.cartCount} szt</Text>
               </Text>
               <Flex
-                 flexDir={isLargerThan1800 ? 'column' : 'row'}
+                flexDir={isLargerThan1800 ? 'column' : 'row'}
                 justifyContent={'space-between'}
                 mb={10}
                 w={isLargerThan768 ? 'auto' : '90vw'}
-                align={isLargerThan1800 ?'start':'center'}
+                align={isLargerThan1800 ? 'start' : 'center'}
               >
                 <Flex align="center">
                   <Text
@@ -303,12 +301,8 @@ const ProductContent = () => {
                 {!selectedInfoProduct || selectedInfoProduct.count === 0 ? (
                   <Button
                     // ml={10}
-                    w={
-                      isLargerThan425
-                        ? '230px'
-                        : '160px'
-                    }
-                    h={'50px' }
+                    w={isLargerThan425 ? '230px' : '160px'}
+                    h={'50px'}
                     justifyContent="center"
                     gap="8px"
                     bg="#418a91"
@@ -338,11 +332,7 @@ const ProductContent = () => {
                 ) : (
                   <Flex
                     // ml={10}
-                    w={
-                      isLargerThan425
-                        ? '230px'
-                        : '160px'
-                    }
+                    w={isLargerThan425 ? '230px' : '160px'}
                     h={'50px'}
                     bg="#418a91"
                     color="white"
