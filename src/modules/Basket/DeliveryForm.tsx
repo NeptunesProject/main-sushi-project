@@ -22,7 +22,7 @@ import {
 import { PhoneNumberInput } from './PhoneNumberIntup'
 import TimeBasedModal from '../../components/SleepModal'
 import useWorkingHours from '../../hooks/useWorkingHours'
-
+import point from '../../assets/icons/point.svg'
 interface Props {
   setSelectedBasketType: React.Dispatch<React.SetStateAction<BasketTypes>>
 }
@@ -130,7 +130,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
     )
   }
 
-  // const pickupBorderColor = deliveryType === 'pickup' ? 'black' : 'grey'
+  const pickupBorderColor = deliveryType === 'pickup' ? 'black' : 'grey'
   const deliveryBorderColor = deliveryType === 'delivery' ? 'black' : 'grey'
 
   const onContinueHandler = () => {
@@ -248,15 +248,15 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
           value={deliveryType}
         >
           <Stack direction="column" spacing={'3px'}>
-            {/*<Radio*/}
-            {/*  style={{*/}
-            {/*    borderColor: pickupBorderColor,*/}
-            {/*  }}*/}
-            {/*  size={isLessThan768 ? 'sm' : 'md'}*/}
-            {/*  value="pickup"*/}
-            {/*>*/}
-            {/*  Self pick-up*/}
-            {/*</Radio>*/}
+            <Radio
+              style={{
+                borderColor: pickupBorderColor,
+              }}
+              size={isLessThan768 ? 'sm' : 'md'}
+              value="pickup"
+            >
+              Odbiór osobisty
+            </Radio>
             <Radio
               style={{
                 borderColor: deliveryBorderColor,
@@ -268,22 +268,22 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
             </Radio>
           </Stack>
         </RadioGroup>
-        {/*{deliveryType === 'pickup' && (*/}
-        {/*  <Flex gap={'3px'}>*/}
-        {/*    <img width={isLessThan768 ? '13px' : '18px'} src={point}></img>*/}
-        {/*    <Text*/}
-        {/*      fontSize={isLessThan768 ? 14 : 16}*/}
-        {/*      fontWeight={400}*/}
-        {/*      color={'#002034'}*/}
-        {/*      lineHeight={isLessThan768 ? '21px' : '24px'}*/}
-        {/*      fontFamily={'Rubik'}*/}
-        {/*      fontStyle={'normal'}*/}
-        {/*      mb={'1px'}*/}
-        {/*    >*/}
-        {/*      Warsaw, Chrystiana Piotra Aignera 6, 00-710*/}
-        {/*    </Text>*/}
-        {/*  </Flex>*/}
-        {/*)}*/}
+        {deliveryType === 'pickup' && (
+          <Flex gap={'3px'}>
+            <img width={isLessThan768 ? '13px' : '18px'} src={point}></img>
+            <Text
+              fontSize={isLessThan768 ? 14 : 16}
+              fontWeight={400}
+              color={'#002034'}
+              lineHeight={isLessThan768 ? '21px' : '24px'}
+              fontFamily={'Rubik'}
+              fontStyle={'normal'}
+              mb={'1px'}
+            >
+              Warsaw, Chrystiana Piotra Aignera 6, 00-710
+            </Text>
+          </Flex>
+        )}
 
         <Box
           w="100%"

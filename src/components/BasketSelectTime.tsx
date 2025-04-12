@@ -21,6 +21,7 @@ const BasketSelectTime = ({ deliveryDate, setDeliveryDate }: Props) => {
   const availableHours: number[] = useMemo(() => {
     return workingHours? getAvailableHours(deliveryDate.day, workingHours) : []
   }, [deliveryDate , workingHours])
+
   return (
     <Flex w="full" gap={5}>
       <BasketSelect

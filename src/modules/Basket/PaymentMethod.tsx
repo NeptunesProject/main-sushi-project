@@ -158,16 +158,16 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
       setDeliveryDate,
     )
     dispatch(eraseAfterOrder())
-    if (order && order.paymentType === 'ONLINE') {
-      console.log(order, 'order')
-      if (order.urlForPayment) {
-        window.location.href = order.urlForPayment
-      } else {
-        createSession(order)
-      }
-    } else {
-      console.log('Order is not ONLINE or failed to create.')
-    }
+    // if (order && order.paymentType === 'ONLINE') {
+    //   console.log(order, 'order')
+    //   if (order.urlForPayment) {
+    //     window.location.href = order.urlForPayment
+    //   } else {
+    //     createSession(order)
+    //   }
+    // } else {
+    //   console.log('Order is not ONLINE or failed to create.')
+    // }
     nullifyVoucher()
   }
 
@@ -300,16 +300,16 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
               Kartą (terminal) przy odbiorze
             </Radio>
 
-            <Radio
-              style={{
-                borderColor: payment === 'ONLINE' ? 'black' : 'grey',
-              }}
-              size={isLessThan730 ? 'sm' : 'md'}
-              id="online"
-              value="ONLINE"
-            >
-              Online
-            </Radio>
+            {/*<Radio*/}
+            {/*  style={{*/}
+            {/*    borderColor: payment === 'ONLINE' ? 'black' : 'grey',*/}
+            {/*  }}*/}
+            {/*  size={isLessThan730 ? 'sm' : 'md'}*/}
+            {/*  id="online"*/}
+            {/*  value="ONLINE"*/}
+            {/*>*/}
+            {/*  Online*/}
+            {/*</Radio>*/}
           </Stack>
         </RadioGroup>
         <Text
