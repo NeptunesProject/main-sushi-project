@@ -40,8 +40,6 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
   const { isClosed } = useWorkingHours()
   const [isLessThan768] = useMediaQuery('(max-width: 768px)')
   const [isLessThan768h] = useMediaQuery('(max-height: 768px)')
-
-
   const [name, setName] = useState(() =>
     getFromLocaleStorage('personInfo-Name', ''),
   )
@@ -136,8 +134,13 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
   const onContinueHandler = () => {
     const today = new Date().getDate()
     const deliveryDay = parseDeliveryDay(deliveryDate.day).getDate()
-    if (today === deliveryDay && isClosed) setModalIsOpen(true)
-    else setSelectedBasketType('pay')
+    if (
+      today === deliveryDay &&
+      isClosed &&
+      deliveryDate.time === 'Jak najszybciej'
+    ) {
+      setModalIsOpen(true)
+    } else setSelectedBasketType('pay')
   }
   return (
     <>
@@ -160,7 +163,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
           fontStyle={'normal'}
           fontWeight={'600'}
           lineHeight={isLessThan768 ? '21px' : '36px'}
-          color='blue.300'
+          color="blue.300"
         >
           Szczegóły zamówienia
         </Text>
@@ -175,7 +178,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
         <Text
           fontSize={isLessThan768h ? 14 : 16}
           fontWeight={400}
-          color='blue.300'
+          color="blue.300"
           lineHeight={isLessThan768h ? '14px' : '24px'}
           fontFamily={'Rubik'}
           fontStyle={'normal'}
@@ -219,7 +222,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
           <Text
             fontSize={isLessThan768h ? 14 : 16}
             fontWeight={400}
-            color='blue.300'
+            color="blue.300"
             lineHeight={isLessThan768h ? '14px' : '24px'}
             fontFamily={'Rubik'}
             fontStyle={'normal'}
@@ -235,7 +238,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
         <Text
           fontSize={isLessThan768h ? 14 : 16}
           fontWeight={400}
-          color='blue.300'
+          color="blue.300"
           lineHeight={isLessThan768h ? '21px' : '24px'}
           fontFamily={'Rubik'}
           fontStyle={'normal'}
@@ -261,7 +264,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
               style={{
                 borderColor: deliveryBorderColor,
               }}
-              size={isLessThan768h ? 'sm' : 'md'}
+              size={isLessThan768 ? 'sm' : 'md'}
               value="delivery"
             >
               Dostawa
@@ -280,7 +283,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
               fontStyle={'normal'}
               mb={'1px'}
             >
-              Warsaw, Chrystiana Piotra Aignera 6, 00-710
+              Dolna 41, Mokotow, 00-773 Warszawa
             </Text>
           </Flex>
         )}
@@ -304,7 +307,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
           <Button
             bg="blue.300"
             borderRadius={25}
-            color='white.200'
+            color="white.200"
             fontSize={16}
             fontWeight={400}
             lineHeight={'24px'}
@@ -322,7 +325,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
           <Button
             bg="blue.100"
             borderRadius={25}
-            color='white.200'
+            color="white.200"
             fontSize={isLessThan768h ? 14 : 16}
             fontWeight={400}
             lineHeight={'24px'}

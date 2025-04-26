@@ -61,6 +61,9 @@ const productSlice = createSlice({
       )
       state.selectedProducts.splice(index, 1)
     },
+    deleteFreeProduct(state) {
+      state.selectedProducts = state.selectedProducts.filter((item) => !item.isFree)
+    },
     eraseAfterOrder(state) {
       state.selectedProducts = []
       state.additionalInfo.personCount = 1
@@ -92,6 +95,7 @@ export const {
   setSticks,
   setStudySticks,
   setVoucher,
+  deleteFreeProduct
 } = productSlice.actions
 
 export default productSlice.reducer

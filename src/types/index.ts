@@ -117,6 +117,7 @@ interface ProductObj {
 interface Voucher {
   discount: number
   error: string
+  code: string
 }
 
 interface ValidatedVoucher {
@@ -124,9 +125,11 @@ interface ValidatedVoucher {
   dateUntilValid: number
   quantityOfUse: number
   discountPercentage: number
+  freeProduct?: Product
 }
 
 interface SelectedProduct {
+  isFree?: boolean
   product: Product
   count: number
   id: number

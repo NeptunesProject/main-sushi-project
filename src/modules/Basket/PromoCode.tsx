@@ -2,14 +2,26 @@ import { Button, Flex, Input, Text, useMediaQuery } from '@chakra-ui/react'
 import { postVoucher } from 'api'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setVoucher } from 'redux/products/ProductsSlice'
+import {
+  addProduct,
+  deleteFreeProduct,
+  setVoucher,
+} from 'redux/products/ProductsSlice'
 import { selectVoucher } from 'redux/products/selectors'
 import { AppDispatch } from 'types'
+import {
+  useBasketContext,
+  useBasketDispatchContext,
+} from '../../contexts/BasketContext'
 
 export const PromoCode = () => {
+  const { voucher: contextVoucher } = useBasketContext()
+  const { setVoucher: setContextVoucher } = useBasketDispatchContext()
   const dispatch = useDispatch<AppDispatch>()
   const voucher = useSelector(selectVoucher)
-  const [voucherCode, setVoucherCode] = useState('')
+
+  const [voucherCode, setVoucherCode] = useState(contextVoucher.code)
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setVoucherCode(e.target.value)
   }
@@ -20,6 +32,11 @@ export const PromoCode = () => {
         const result = await postVoucher(voucherCode)
         if (result) {
           setVoucherCode(result.code)
+          setContextVoucher({
+            discount: 1 - result.discountPercentage,
+            error: '',
+            code: result.code,
+          })
           dispatch(
             setVoucher({
               discount: 1 - result.discountPercentage,
@@ -27,10 +44,27 @@ export const PromoCode = () => {
               code: result.code,
             }),
           )
+          if (result.freeProduct) {
+            dispatch(
+              addProduct({
+                product: {
+                  ...result.freeProduct,
+                  id: +(result.freeProduct.id + '777'),
+                  discount: {
+                    ...result.freeProduct.discount,
+                    discountPerQuantity: { '1': '1' },
+                  },
+                },
+                count: 1,
+                isFree: true,
+              }),
+            )
+          }
         }
       }
     } catch (error) {
       console.error(error)
+
       if (error === 'Voucher not found.') {
         dispatch(setVoucher({ discount: 1, error, code: '' }))
       }
@@ -38,6 +72,8 @@ export const PromoCode = () => {
   }
 
   const CancelVoucher = () => {
+    setContextVoucher({ discount: 1, error: '', code: '' })
+    setVoucherCode('')
     dispatch(
       setVoucher({
         discount: 1,
@@ -45,8 +81,8 @@ export const PromoCode = () => {
         code: '',
       }),
     )
+    dispatch(deleteFreeProduct())
   }
-
   useEffect(() => {
     setVoucher({ discount: voucher.discount, error: '', code: voucher.code })
   }, [voucher])
@@ -85,7 +121,7 @@ export const PromoCode = () => {
           }}
         />
 
-        {voucher.discount === 1 ? (
+        {!contextVoucher.code ? (
           <Flex alignItems="center" justifyContent="flex-end">
             <Button
               float={'right'}

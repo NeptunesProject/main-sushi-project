@@ -1,5 +1,5 @@
 import { SelectedProduct, AppDispatch } from 'types'
-import { Box, Flex, Image, Text, useMediaQuery } from '@chakra-ui/react'
+import { Flex, Image, Text, useMediaQuery } from '@chakra-ui/react'
 import stubImg from 'assets/img/stub.jpg'
 import closeIcon from 'assets/icons/delete.svg'
 import { calculateDiscountedPrice } from '../OrderFuncs'
@@ -52,33 +52,32 @@ const ProductListItem = ({ item }: Props) => {
     handleCount(itemId, count)
   }
 
-
   const decreaseCount = () => {
     if (count > 0) {
-      count -= 1;
-      handleCount(itemId, count);
+      count -= 1
+      handleCount(itemId, count)
     }
     if (count === 0) {
-      dispatch(deleteSelectedProduct({ itemId: item.product.id }));
+      dispatch(deleteSelectedProduct({ itemId: item.product.id }))
     }
-  };
+  }
 
   const isDiscounted = Boolean(item.product.discount)
 
   const discountedPrice =
-      isDiscounted &&
-      calculateDiscountedPrice(
-          item.product.price,
-          item.product.discount.discountPerQuantity,
-          item.count,
-      )
+    isDiscounted &&
+    calculateDiscountedPrice(
+      item.product.price,
+      item.product.discount.discountPerQuantity,
+      item.count,
+    )
 
-  const finalDiscountedPrice = typeof discountedPrice === 'number' ? discountedPrice : 0;
+  const finalDiscountedPrice =
+    typeof discountedPrice === 'number' ? discountedPrice : 0
 
-  const totalDiscountedPrice = Math.round(finalDiscountedPrice * item.count) ;
+  const totalDiscountedPrice = Math.round(finalDiscountedPrice * item.count)
 
   const [isLessThan768] = useMediaQuery('(max-width: 768px)')
-
   return (
     <Flex
       align="center"
@@ -99,7 +98,7 @@ const ProductListItem = ({ item }: Props) => {
           // height={"auto"}
           // maxHeight={"92px"}
           // fallback={<Image boxSize={19} src={stubImg} />}
-          fallback={<Image src={stubImg}/>}
+          fallback={<Image src={stubImg} />}
           overflow={'hidden'}
           borderLeftRadius={'9px'}
           // width={'100px'}
@@ -108,7 +107,7 @@ const ProductListItem = ({ item }: Props) => {
 
       <Flex flexDir={'column'} flex={'0 0 45%'} pl={isLessThan768 ? '' : ''}>
         <Text
-          fontSize={isLessThan768 ? "0.62rem" : "0.83rem"}
+          fontSize={isLessThan768 ? '0.62rem' : '0.83rem'}
           lineHeight={isLessThan768 ? '' : ''}
           fontWeight={400}
           fontFamily={'Rubik'}
@@ -119,7 +118,7 @@ const ProductListItem = ({ item }: Props) => {
           {getNameByTranslate()}
         </Text>
         <Text
-          fontSize={isLessThan768 ? "0.62rem" : "0.83rem"}
+          fontSize={isLessThan768 ? '0.62rem' : '0.83rem'}
           fontFamily={'Rubik'}
           fontStyle={'normal'}
           fontWeight={500}
@@ -132,29 +131,28 @@ const ProductListItem = ({ item }: Props) => {
         <Flex>
           <Flex align="center" gap="8px">
             <Text
-                fontSize={isLessThan768 ? '0.72rem' : "0.83rem"}
-                minW={10}
-                fontWeight={500}
-                decoration={isDiscounted ? 'line-through' : 'none'}
-                lineHeight={isLessThan768 ? '1.09rem' : '24px'}
-                fontFamily={'Rubik'}
-                maxW="91%"
-                color="blue.100"
-
+              fontSize={isLessThan768 ? '0.72rem' : '0.83rem'}
+              minW={10}
+              fontWeight={500}
+              decoration={isDiscounted ? 'line-through' : 'none'}
+              lineHeight={isLessThan768 ? '1.09rem' : '24px'}
+              fontFamily={'Rubik'}
+              maxW="91%"
+              color="blue.100"
             >
               {item.product.price * item.count} zł
             </Text>
 
             {isDiscounted && (
-                <Text
-                    color='blue.300'
-                    fontWeight={500}
-                    fontSize={16}
-                    p="2px"
-                    fontFamily={'Rubik'}
-                >
-                  {totalDiscountedPrice} zł
-                </Text>
+              <Text
+                color="blue.300"
+                fontWeight={500}
+                fontSize={16}
+                p="2px"
+                fontFamily={'Rubik'}
+              >
+                {totalDiscountedPrice} zł
+              </Text>
             )}
           </Flex>
         </Flex>
@@ -164,16 +162,16 @@ const ProductListItem = ({ item }: Props) => {
         <Flex
           align="center"
           gap={2}
-          backgroundColor='white.200'
+          backgroundColor="white.200"
           overflow={'hidden'}
           borderRightRadius={5}
           borderLeftRadius={5}
-          borderColor='gray.50'
+          borderColor="gray.50"
           borderWidth={'1px'}
         >
           <DecBtn onClick={decreaseCount} text={'-'}></DecBtn>
           <Text
-            fontSize={isLessThan768 ? 13 : "0.83rem"}
+            fontSize={isLessThan768 ? 13 : '0.83rem'}
             fontWeight={400}
             fontFamily={'Rubik'}
             lineHeight={isLessThan768 ? '14px' : '24px'}
@@ -182,9 +180,17 @@ const ProductListItem = ({ item }: Props) => {
           >
             {item.count}
           </Text>
-          <IncBtn onClick={increaseCount} text={'+'} ></IncBtn>
+          <IncBtn
+            onClick={!item.isFree ? increaseCount : () => {}}
+            text={'+'}
+          ></IncBtn>
         </Flex>
-        <Image cursor="pointer" src={closeIcon} onClick={handleDelete} w={'10px'}/>
+        <Image
+          cursor="pointer"
+          src={closeIcon}
+          onClick={handleDelete}
+          w={'10px'}
+        />
       </Flex>
     </Flex>
   )

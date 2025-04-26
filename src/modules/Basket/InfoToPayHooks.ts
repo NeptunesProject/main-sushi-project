@@ -23,7 +23,6 @@ export function useTotalPrice() {
       return acc + discountedPrice * item.count
     }, 0)
   }, [selectedProducts])
-  console.log(voucher)
   const isDiscounted = totalPrice > totalPriceWithDiscount
   const priceWithVoucher = (isDiscounted ? totalPriceWithDiscount : totalPrice) * voucher.discount
   const isMinimumPriceReached = priceWithVoucher >= minimalPrice

@@ -15,7 +15,7 @@ interface ProductObj {
 }
 
 interface BasketContextState {
-  products: (Product & { count: number })[]
+  products: (Product & { count: number})[]
   totalWeight: number
   totalPrice: number
   productsCount: number
@@ -313,3 +313,4 @@ const BasketProvider = ({ children }: { children: ReactNode }) => {
 }
 
 export { useBasketContext, useBasketDispatchContext, BasketProvider }
+

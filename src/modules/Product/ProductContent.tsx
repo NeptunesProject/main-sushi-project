@@ -16,7 +16,6 @@ import {
 import { Link as RouterLink } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
 import { useEffect, useMemo, useState } from 'react'
-import stubImg from 'assets/img/stub.jpg'
 import useProduct from '../../hooks/useProduct'
 import { AppDispatch, Product } from '../../types'
 import { useTranslation } from 'react-i18next'

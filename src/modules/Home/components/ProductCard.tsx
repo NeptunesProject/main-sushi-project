@@ -73,7 +73,7 @@ const ProductCard = ({ product }: Props) => {
   }
 
   const isThisProductAdded = useMemo(() => {
-    return selectedProducts.some((item) => item.product.id === product.id)
+    return selectedProducts.some((item) => item.product.id === product.id && !item.isFree)
   }, [selectedProducts, product.id])
 
   const quantity = selectedProducts[index]?.count

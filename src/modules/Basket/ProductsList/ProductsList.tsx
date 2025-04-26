@@ -15,7 +15,7 @@ const ProductsList = () => {
       maxHeight={isLessThan700 ? "34vh" : "42vh"}
     >
       {selectedProducts.map((item) => (
-        <ProductListItem key={item.product.id} item={item} />
+        <ProductListItem key={item.isFree? item.product.id + 'free' : item.product.id} item={item} />
       ))}
     </Flex>
   )
