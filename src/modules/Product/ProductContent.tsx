@@ -261,9 +261,9 @@ const ProductContent = () => {
               ))}
             </UnorderedList>
             <Flex flexDir="column" gap={15}>
-              <Text fontWeight={700} fontSize={18} color={'#002034'}>
-                {product.weight && <Text>Waga: {product.weight} gram</Text>}
-              </Text>
+              {/*<Text fontWeight={700} fontSize={18} color={'#002034'}>*/}
+              {/*  {product.weight && <Text>Waga: {product.weight} gram</Text>}*/}
+              {/*</Text>*/}
               <Text fontWeight={700} fontSize={18} color={'#002034'}>
                 <Text>Sztuk: {product.cartCount} szt</Text>
               </Text>
