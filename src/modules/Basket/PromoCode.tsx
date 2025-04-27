@@ -19,7 +19,6 @@ export const PromoCode = () => {
   const { setVoucher: setContextVoucher } = useBasketDispatchContext()
   const dispatch = useDispatch<AppDispatch>()
   const voucher = useSelector(selectVoucher)
-
   const [voucherCode, setVoucherCode] = useState(contextVoucher.code)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -157,19 +156,36 @@ export const PromoCode = () => {
           </Flex>
         )}
       </Flex>
-      {voucher.error !== '' && (
-        <Text
-          color="red.400"
-          fontFamily="Rubik"
-          fontStyle="normal"
-          fontWeight="400"
-          fontSize={isLessThan768 ? '14px' : '16px'}
-          lineHeight={isLessThan768 ? '21px' : '24px'}
-          pl={'40px'}
-        >
-          {voucher.error}
-        </Text>
-      )}
+      <Flex justifyContent={'center'} alignItems={'center'}>
+        {voucher.error !== '' && (
+          <Text
+            color="red.400"
+            fontFamily="Rubik"
+            fontStyle="normal"
+            fontWeight="400"
+            fontSize={isLessThan768 ? '14px' : '16px'}
+            lineHeight={isLessThan768 ? '21px' : '24px'}
+          >
+            {voucher.error}
+          </Text>
+        )}
+        {contextVoucher.code && (
+          <Text
+            color="blue.300"
+            fontFamily="Rubik"
+            fontStyle="normal"
+            fontWeight="400"
+            fontSize={isLessThan768 ? '14px' : '16px'}
+            lineHeight={isLessThan768 ? '21px' : '24px'}
+          >
+            kod promocyjny{' '}
+            <Text as="span" fontWeight="700">
+              {voucher.code}
+            </Text>{' '}
+            aktywowany
+          </Text>
+        )}
+      </Flex>
     </>
   )
 }

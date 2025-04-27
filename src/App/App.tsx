@@ -5,11 +5,11 @@ import AppContainer from './AppContainer'
 import theme from 'theme'
 import { storageVersion } from '../constants'
 
-const storedVersion = localStorage.getItem("storageVersion");
+const storedVersion = localStorage.getItem('storageVersion')
 
-if (!storedVersion || storedVersion && storedVersion !== storageVersion) {
-  localStorage.clear();
-  localStorage.setItem("storageVersion", storageVersion);
+if (!storedVersion || (storedVersion && storedVersion !== storageVersion)) {
+  localStorage.clear()
+  localStorage.setItem('storageVersion', storageVersion)
 }
 
 const queryClient = new QueryClient()

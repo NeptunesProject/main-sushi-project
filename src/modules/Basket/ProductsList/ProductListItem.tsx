@@ -116,6 +116,12 @@ const ProductListItem = ({ item }: Props) => {
           maxW="91%"
         >
           {getNameByTranslate()}
+          {item.isFree && (
+            <Text color='blue.100' as="span" fontWeight="700">
+              {' '}
+              (FREE)
+            </Text>
+          )}
         </Text>
         <Text
           fontSize={isLessThan768 ? '0.62rem' : '0.83rem'}
