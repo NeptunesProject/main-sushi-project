@@ -61,9 +61,8 @@ const ProductListItem = ({ item }: Props) => {
       dispatch(deleteSelectedProduct({ itemId: item.product.id }))
     }
   }
-
-  const isDiscounted = Boolean(item.product.discount)
-
+  console.log(Object.keys(item.product.discount.discountPerQuantity), item.count)
+  const isDiscounted = Boolean(item.product.discount) && Object.keys(item.product.discount.discountPerQuantity).some((key) => +key <= item.count)
   const discountedPrice =
     isDiscounted &&
     calculateDiscountedPrice(
@@ -117,7 +116,7 @@ const ProductListItem = ({ item }: Props) => {
         >
           {getNameByTranslate()}
           {item.isFree && (
-            <Text color='blue.100' as="span" fontWeight="700">
+            <Text color="blue.100" as="span" fontWeight="700">
               {' '}
               (FREE)
             </Text>
@@ -153,7 +152,7 @@ const ProductListItem = ({ item }: Props) => {
               <Text
                 color="blue.300"
                 fontWeight={500}
-                fontSize={16}
+                fontSize={isLessThan768 ? '0.72rem' : '0.83rem'}
                 p="2px"
                 fontFamily={'Rubik'}
               >
