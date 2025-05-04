@@ -153,3 +153,13 @@ export const getISOSDate = (
     isASAP ? 0 : (+date.time % 1) * 60,
   ).toISOString()
 }
+
+
+export const getFromLocaleStorage = (key: string, defaultValue: string): string => {
+  const storedValue = localStorage.getItem(key)
+  if (storedValue) {
+    return JSON.parse(storedValue)
+  }
+
+  return defaultValue
+}

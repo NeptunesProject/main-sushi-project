@@ -93,7 +93,7 @@ const Basket = () => {
         {isLessThan768 && <ModalOverlay />}
         <ModalContent
           position={isLessThan768 ? "relative" : "fixed"}
-          top={isLessThan768 || isLessThan680 ? isLessThan600? '-2vh' : "2vh" : '12vh'}
+          top={isLessThan768 || isLessThan680 ? isLessThan600? '-7vh' : 0 : '1vh'}
           right={{xs: '0px', lg: "6vh", xl: "7vh"}}
           bgColor="white"
           padding={3}

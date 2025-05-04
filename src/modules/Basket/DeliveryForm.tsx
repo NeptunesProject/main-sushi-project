@@ -10,12 +10,13 @@ import {
   Text,
   useMediaQuery,
 } from '@chakra-ui/react'
-import { BasketTypes } from '../../types'
+import { AppDispatch, BasketTypes } from '../../types'
 import InfoToPay from './InfoToPay'
 import { BasketInput } from 'components/BasketInput'
 import AdditionalProducts from './AdditionalProducts'
 import BasketSelectTime from '../../components/BasketSelectTime'
 import {
+  getFromLocaleStorage,
   getObjectFromLocalStorage,
   parseDeliveryDay,
 } from '../../utils/functions'
@@ -23,23 +24,20 @@ import { PhoneNumberInput } from './PhoneNumberIntup'
 import TimeBasedModal from '../../components/SleepModal'
 import useWorkingHours from '../../hooks/useWorkingHours'
 import point from '../../assets/icons/point.svg'
+import { PromoCode } from './PromoCode'
+import { useDispatch } from 'react-redux'
+import { setDeliveryCost } from '../../redux/products/ProductsSlice'
+import { deliveryCost } from '../../constants'
 interface Props {
   setSelectedBasketType: React.Dispatch<React.SetStateAction<BasketTypes>>
-}
-
-const getFromLocaleStorage = (key: string, defaultValue: string): string => {
-  const storedValue = localStorage.getItem(key)
-  if (storedValue) {
-    return JSON.parse(storedValue)
-  }
-
-  return defaultValue
 }
 
 const DeliveryForm = ({ setSelectedBasketType }: Props) => {
   const { isClosed } = useWorkingHours()
   const [isLessThan768] = useMediaQuery('(max-width: 768px)')
   const [isLessThan768h] = useMediaQuery('(max-height: 768px)')
+  const dispatch = useDispatch<AppDispatch>()
+
   const [name, setName] = useState(() =>
     getFromLocaleStorage('personInfo-Name', ''),
   )
@@ -115,6 +113,9 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
     if (value === 'pickup') {
       setStreet('')
       localStorage.setItem('personInfo-Street', JSON.stringify(''))
+      dispatch(setDeliveryCost(undefined))
+    } else {
+      dispatch(setDeliveryCost(deliveryCost))
     }
 
     localStorage.setItem('personInfo-Delivery', JSON.stringify('delivery'))
@@ -300,6 +301,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
         <AdditionalProducts />
 
         <Box w="100%" h="1px" bg="grey" opacity={0.6} mt={'10px'} mb={'13px'} />
+        <PromoCode />
 
         <InfoToPay />
 

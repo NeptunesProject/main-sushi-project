@@ -71,6 +71,7 @@ const getCategories = async (): Promise<Category[]> => {
     apiClient
       .get('/category')
       .then((response) => {
+        console.log(response.data)
         resolve(response.data)
       })
       .catch((error) => {

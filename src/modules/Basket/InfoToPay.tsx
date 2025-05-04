@@ -2,12 +2,17 @@ import { Flex, Text, useMediaQuery } from '@chakra-ui/react'
 import { useTotalPrice } from './InfoToPayHooks'
 import MinimumPriceWarning from '../../components/MinimumPriceWarning'
 import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { selectDeliveryCost } from '../../redux/products/selectors'
 
 interface Props {
   setIsButtonDisabled?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const InfoToPay = ({ setIsButtonDisabled }: Props) => {
+
+  const deliveryCost = useSelector(selectDeliveryCost)
+
   const {
     finalPrice,
     totalPrice,
@@ -26,7 +31,6 @@ const InfoToPay = ({ setIsButtonDisabled }: Props) => {
   return (
     <>
       <Flex direction="column">
-
         {showDiscounted && (
           <Flex direction="column" justify='center' align='center'>
             {discountMessage !== 0 && (
@@ -68,7 +72,29 @@ const InfoToPay = ({ setIsButtonDisabled }: Props) => {
           </Flex>
           </Flex>
         )}
-
+        {deliveryCost && <Flex alignSelf={'center'}>
+          <Text
+            color="blue.300"
+            fontFamily={'Rubik'}
+            fontStyle={'normal'}
+            fontWeight={'500'}
+            fontSize={isLessThan730 ? '14px' : '18px'}
+            lineHeight={isLessThan730 ? '18px' : '24px'}
+            pr={'9px'}
+          >
+            Dostawa:
+          </Text>
+          <Text
+            color="blue.100"
+            fontFamily={'Rubik'}
+            fontStyle={'normal'}
+            fontWeight={'400'}
+            fontSize={isLessThan730 ? '12px' : '16px'}
+            lineHeight={isLessThan730 ? '18px' : '24px'}
+          >
+            {deliveryCost} zł
+          </Text>
+        </Flex>}
         <Flex
           alignSelf={'center'}
           fontSize={isLessThan730 ? '15px' : '19px'}

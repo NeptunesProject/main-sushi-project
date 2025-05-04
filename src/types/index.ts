@@ -141,6 +141,7 @@ interface ProductsState {
     personCount: number
     sticks: number
     studySticks: number
+    deliveryCost: number | undefined
   }
   voucher: { discount: number; error: string; code: string }
   products: Product[]

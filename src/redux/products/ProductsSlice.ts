@@ -8,6 +8,7 @@ export const initialState: ProductsState = {
     personCount: 1,
     sticks: 0,
     studySticks: 0,
+    deliveryCost: undefined,
   },
   voucher: { discount: 1, error: '', code: '' },
   products: [],
@@ -22,18 +23,21 @@ const productSlice = createSlice({
       state.selectedProducts.push(action.payload)
     },
     setProductCount(state, action) {
-      const { id, count } = action.payload;
+      const { id, count } = action.payload
 
       const index = state.selectedProducts.findIndex(
         (item) => item.product.id === id,
-      );
+      )
       if (index !== -1) {
-        state.selectedProducts[index].count += count;
+        state.selectedProducts[index].count += count
 
         if (state.selectedProducts[index].count <= 0) {
-          state.selectedProducts.splice(index, 1);
+          state.selectedProducts.splice(index, 1)
         }
       }
+    },
+    setDeliveryCost(state, action) {
+      state.additionalInfo.deliveryCost = action.payload
     },
     setPersonCount(state, action) {
       state.additionalInfo.personCount += action.payload
@@ -62,7 +66,9 @@ const productSlice = createSlice({
       state.selectedProducts.splice(index, 1)
     },
     deleteFreeProduct(state) {
-      state.selectedProducts = state.selectedProducts.filter((item) => !item.isFree)
+      state.selectedProducts = state.selectedProducts.filter(
+        (item) => !item.isFree,
+      )
     },
     eraseAfterOrder(state) {
       state.selectedProducts = []
@@ -95,7 +101,8 @@ export const {
   setSticks,
   setStudySticks,
   setVoucher,
-  deleteFreeProduct
+  deleteFreeProduct,
+  setDeliveryCost,
 } = productSlice.actions
 
 export default productSlice.reducer
