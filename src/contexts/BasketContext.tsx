@@ -15,7 +15,7 @@ interface ProductObj {
 }
 
 interface BasketContextState {
-  products: (Product & { count: number})[]
+  products: (Product & { count: number })[]
   totalWeight: number
   totalPrice: number
   productsCount: number
@@ -132,26 +132,26 @@ const BasketProvider = ({ children }: { children: ReactNode }) => {
   }, [selectedProducts, additionalProducts, voucher])
 
   const calculateDiscountedPrice = useCallback(
-      (price: number, discounts: Record<number, string>, quantity: number) => {
-        let discount = 0
+    (price: number, discounts: Record<number, string>, quantity: number) => {
+      let discount = 0
 
-        const keys = Object.keys(discounts)
-            .map(Number)
-            .sort((a, b) => b - a)
+      const keys = Object.keys(discounts)
+        .map(Number)
+        .sort((a, b) => b - a)
 
-        for (const key of keys) {
-          if (quantity >= key) {
-            discount = parseFloat(discounts[key])
-            break
-          }
+      for (const key of keys) {
+        if (quantity >= key) {
+          discount = parseFloat(discounts[key])
+          break
         }
+      }
 
-        const discountedPrice = price * (1 - discount)
+      const discountedPrice = price * (1 - discount)
 
-        // Round to one decimal place
-        return Math.round(discountedPrice)
-      },
-      [],
+      // Round to one decimal place
+      return Math.round(discountedPrice)
+    },
+    [],
   )
 
   const addProduct = useCallback(
@@ -313,4 +313,3 @@ const BasketProvider = ({ children }: { children: ReactNode }) => {
 }
 
 export { useBasketContext, useBasketDispatchContext, BasketProvider }
-

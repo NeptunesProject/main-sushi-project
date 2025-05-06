@@ -23,7 +23,6 @@ const ProductCard = ({ product }: Props) => {
   const [count, setCount] = useState(1)
   const [currentDiscount, setCurrentDiscount] = useState(1)
   const selectedProducts = useSelector(selectBasketProducts)
-
   const { i18n } = useTranslation()
 
   const currentLanguage = i18n.language

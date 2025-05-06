@@ -61,7 +61,6 @@ const ProductListItem = ({ item }: Props) => {
       dispatch(deleteSelectedProduct({ itemId: item.product.id }))
     }
   }
-  console.log(Object.keys(item.product.discount.discountPerQuantity), item.count)
   const isDiscounted = Boolean(item.product.discount) && Object.keys(item.product.discount.discountPerQuantity).some((key) => +key <= item.count)
   const discountedPrice =
     isDiscounted &&

@@ -25,9 +25,10 @@ import TimeBasedModal from '../../components/SleepModal'
 import useWorkingHours from '../../hooks/useWorkingHours'
 import point from '../../assets/icons/point.svg'
 import { PromoCode } from './PromoCode'
-import { useDispatch } from 'react-redux'
-import { setDeliveryCost } from '../../redux/products/ProductsSlice'
-import { deliveryCost } from '../../constants'
+import { useDispatch, useSelector } from 'react-redux'
+import { setIsDelivery } from '../../redux/products/ProductsSlice'
+import { selectIsDelivery } from '../../redux/products/selectors'
+
 interface Props {
   setSelectedBasketType: React.Dispatch<React.SetStateAction<BasketTypes>>
 }
@@ -49,10 +50,9 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
       isValid: false,
     }),
   )
-  // DEFAULT VALUE SELECTED! Remove it from braces if multiple options available yet
-  const [deliveryType, setDeliveryType] = useState(() =>
-    getFromLocaleStorage('personInfo-Delivery', 'delivery'),
-  )
+
+  const isDelivery = useSelector(selectIsDelivery)
+
   const [street, setStreet] = useState(() =>
     getFromLocaleStorage('personInfo-Street', ''),
   )
@@ -71,7 +71,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
     switch (true) {
       case name.length === 0:
       case !phoneNumber.isValid:
-      case deliveryType !== 'pickup' && street.length === 0:
+      case isDelivery && street.length === 0:
         isDisabled = true
         break
       default:
@@ -97,28 +97,21 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
     )
   }
   function streetSetter(e: React.ChangeEvent<HTMLInputElement>) {
-    setStreet(
-      deliveryType === 'delivery' ? (e.target as HTMLInputElement).value : '',
-    )
+    setStreet(isDelivery ? (e.target as HTMLInputElement).value : '')
     localStorage.setItem(
       'personInfo-Street',
-      JSON.stringify(
-        deliveryType === 'delivery' ? (e.target as HTMLInputElement).value : '',
-      ),
+      JSON.stringify(isDelivery ? (e.target as HTMLInputElement).value : ''),
     )
   }
 
   function deliverySetter(value: string) {
-    setDeliveryType(value)
     if (value === 'pickup') {
       setStreet('')
       localStorage.setItem('personInfo-Street', JSON.stringify(''))
-      dispatch(setDeliveryCost(undefined))
+      dispatch(setIsDelivery(false))
     } else {
-      dispatch(setDeliveryCost(deliveryCost))
+      dispatch(setIsDelivery(true))
     }
-
-    localStorage.setItem('personInfo-Delivery', JSON.stringify('delivery'))
   }
 
   function emailSetter(e: React.ChangeEvent<HTMLInputElement>) {
@@ -129,8 +122,8 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
     )
   }
 
-  const pickupBorderColor = deliveryType === 'pickup' ? 'black' : 'grey'
-  const deliveryBorderColor = deliveryType === 'delivery' ? 'black' : 'grey'
+  const pickupBorderColor = !isDelivery ? 'black' : 'grey'
+  const deliveryBorderColor = isDelivery ? 'black' : 'grey'
 
   const onContinueHandler = () => {
     const today = new Date().getDate()
@@ -205,7 +198,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
             setter={phoneSetter}
           />
 
-          {deliveryType === 'delivery' && (
+          {isDelivery && (
             <BasketInput
               required
               value={street}
@@ -249,7 +242,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
         </Text>
         <RadioGroup
           onChange={(value) => deliverySetter(value)}
-          value={deliveryType}
+          value={isDelivery ? 'delivery' : 'pickup'}
         >
           <Stack direction="column" spacing={'3px'}>
             <Radio
@@ -272,7 +265,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
             </Radio>
           </Stack>
         </RadioGroup>
-        {deliveryType === 'pickup' && (
+        {!isDelivery && (
           <Flex gap={'3px'}>
             <img width={isLessThan768 ? '13px' : '18px'} src={point}></img>
             <Text
@@ -301,6 +294,7 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
         <AdditionalProducts />
 
         <Box w="100%" h="1px" bg="grey" opacity={0.6} mt={'10px'} mb={'13px'} />
+
         <PromoCode />
 
         <InfoToPay />

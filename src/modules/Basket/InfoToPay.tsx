@@ -3,7 +3,9 @@ import { useTotalPrice } from './InfoToPayHooks'
 import MinimumPriceWarning from '../../components/MinimumPriceWarning'
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { selectDeliveryCost } from '../../redux/products/selectors'
+import { selectBasketProducts, selectIsDelivery } from '../../redux/products/selectors'
+import { deliveryCost } from '../../constants'
+import { SelectedProduct } from '../../types'
 
 interface Props {
   setIsButtonDisabled?: React.Dispatch<React.SetStateAction<boolean>>
@@ -11,7 +13,8 @@ interface Props {
 
 const InfoToPay = ({ setIsButtonDisabled }: Props) => {
 
-  const deliveryCost = useSelector(selectDeliveryCost)
+  const isDelivery = useSelector(selectIsDelivery)
+  const selectedProducts: SelectedProduct[] = useSelector(selectBasketProducts)
 
   const {
     finalPrice,
@@ -72,7 +75,7 @@ const InfoToPay = ({ setIsButtonDisabled }: Props) => {
           </Flex>
           </Flex>
         )}
-        {deliveryCost && <Flex alignSelf={'center'}>
+        {isDelivery && selectedProducts.length > 0 &&  <Flex alignSelf={'center'}>
           <Text
             color="blue.300"
             fontFamily={'Rubik'}

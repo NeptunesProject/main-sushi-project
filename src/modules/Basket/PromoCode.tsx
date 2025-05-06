@@ -15,6 +15,7 @@ import {
 } from '../../contexts/BasketContext'
 
 export const PromoCode = () => {
+
   const { voucher: contextVoucher } = useBasketContext()
   const { setVoucher: setContextVoucher } = useBasketDispatchContext()
   const dispatch = useDispatch<AppDispatch>()
@@ -87,6 +88,7 @@ export const PromoCode = () => {
   }, [voucher])
 
   const [isLessThan768] = useMediaQuery('(max-width: 768px)')
+  const [isLessThan768h] = useMediaQuery('(max-height: 768px)')
 
   return (
     <>
@@ -94,7 +96,6 @@ export const PromoCode = () => {
         justifyContent={'center'}
         alignItems={'center'}
         gap={'10px'}
-        mt={'16px'}
         mb={'12px'}
       >
         <Text
@@ -115,7 +116,7 @@ export const PromoCode = () => {
             borderRadius: '4px',
             padding: '6px',
             maxWidth: isLessThan768 ? '114px' : '128px',
-            maxHeight: isLessThan768 ? '36px' : '40px',
+            maxHeight: isLessThan768 ? '26px' : '30px',
             boxSizing: 'border-box',
           }}
         />
@@ -128,11 +129,12 @@ export const PromoCode = () => {
               bg="blue.100"
               borderRadius={25}
               color={'#FFFFFF'}
-              fontSize={isLessThan768 ? 14 : 16}
               fontWeight={400}
               lineHeight={'24px'}
               fontFamily={'Rubik'}
               fontStyle={'normal'}
+              fontSize={isLessThan768h ? 14 : 16}
+              h={isLessThan768h ? '30px' : '40px'}
             >
               Zastosuj
             </Button>
@@ -145,11 +147,12 @@ export const PromoCode = () => {
               bg="blue.300"
               borderRadius={25}
               color={'#FFFFFF'}
-              fontSize={16}
               fontWeight={400}
               lineHeight={'24px'}
               fontFamily={'Rubik'}
               fontStyle={'normal'}
+              fontSize={isLessThan768h ? 14 : 16}
+              h={isLessThan768h ? '30px' : '40px'}
             >
               Usunąć
             </Button>

@@ -8,8 +8,8 @@ export const initialState: ProductsState = {
     personCount: 1,
     sticks: 0,
     studySticks: 0,
-    deliveryCost: undefined,
   },
+  isDelivery: true,
   voucher: { discount: 1, error: '', code: '' },
   products: [],
   isProductsLoading: false,
@@ -36,8 +36,8 @@ const productSlice = createSlice({
         }
       }
     },
-    setDeliveryCost(state, action) {
-      state.additionalInfo.deliveryCost = action.payload
+    setIsDelivery(state, action) {
+      state.isDelivery = action.payload
     },
     setPersonCount(state, action) {
       state.additionalInfo.personCount += action.payload
@@ -102,7 +102,7 @@ export const {
   setStudySticks,
   setVoucher,
   deleteFreeProduct,
-  setDeliveryCost,
+  setIsDelivery,
 } = productSlice.actions
 
 export default productSlice.reducer

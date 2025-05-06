@@ -4,18 +4,19 @@ import { calculateDiscountedPrice } from './OrderFuncs'
 import { useSelector } from 'react-redux'
 import {
   selectBasketProducts,
-  selectDeliveryCost,
+  selectIsDelivery,
   selectVoucher,
 } from '../../redux/products/selectors'
 import { calculateTotalPrice } from '../../utils/calculateDiscountedPrice'
-import { minimalPrice } from '../../constants'
+import { deliveryCost, minimalPrice } from '../../constants'
 
 export function useTotalPrice() {
   const voucher = useSelector(selectVoucher)
-  const deliveryCost = useSelector(selectDeliveryCost)
+  const isDelivery = useSelector(selectIsDelivery)
   const selectedProducts: SelectedProduct[] = useSelector(selectBasketProducts)
   const totalPrice = calculateTotalPrice(selectedProducts)
   const [discountMessage, setDiscountMessage] = useState<number>(0)
+
   const totalPriceWithDiscount = useMemo(() => {
     return selectedProducts.reduce((acc, item) => {
       const { price, discount } = item.product
@@ -29,12 +30,16 @@ export function useTotalPrice() {
       return acc + discountedPrice * item.count
     }, 0)
   }, [selectedProducts])
+
   const isDiscounted = totalPrice > totalPriceWithDiscount
+
   const priceWithVoucher =
     (isDiscounted ? totalPriceWithDiscount : totalPrice) * voucher.discount +
-    (deliveryCost ?? 0)
+    +(isDelivery && deliveryCost)
   const isMinimumPriceReached = priceWithVoucher >= minimalPrice
+
   const isVoucherActive = totalPrice !== 0 && voucher.discount !== 1
+
   const discount = isVoucherActive
     ? totalPrice - priceWithVoucher
     : isDiscounted
