@@ -55,7 +55,7 @@ const BasketType = ({ setSelectedBasketType }: Props) => {
 
         <PromoCode />
 
-        <InfoToPay setIsButtonDisabled={setIsButtonDisabled} />
+        <InfoToPay deliveryShown={false} setIsButtonDisabled={setIsButtonDisabled} />
 
         <Button
           alignSelf="center"
