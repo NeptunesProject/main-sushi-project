@@ -30,7 +30,7 @@ const BasketType = ({ setSelectedBasketType }: Props) => {
           fontStyle={'normal'}
           fontWeight={'600'}
           lineHeight={isLessThan768 ? '19px' : '36px'}
-          color='blue.300'
+          color="blue.300"
           pl={'5px'}
         >
           Koszyk
@@ -42,7 +42,7 @@ const BasketType = ({ setSelectedBasketType }: Props) => {
         <Text
           fontSize={isLessThan768 ? 14 : 16}
           fontWeight={400}
-          color='blue.300'
+          color="blue.300"
           lineHeight={isLessThan768 ? '21px' : '24px'}
           fontFamily={'Rubik'}
           fontStyle={'normal'}
@@ -55,7 +55,7 @@ const BasketType = ({ setSelectedBasketType }: Props) => {
 
         <PromoCode />
 
-        <InfoToPay isDeliveryIncluded={false} setIsButtonDisabled={setIsButtonDisabled} />
+        <InfoToPay setIsButtonDisabled={setIsButtonDisabled} />
 
         <Button
           alignSelf="center"
