@@ -8,14 +8,13 @@ import { useDeliveryCost } from '../../hooks/useDeliveryCost'
 
 interface Props {
   setIsButtonDisabled?: React.Dispatch<React.SetStateAction<boolean>>
-  isDeliveryIncluded?: boolean
 }
 
 const InfoToPay = ({
   setIsButtonDisabled,
-  isDeliveryIncluded = true,
 }: Props) => {
-  const isDelivery = useSelector(selectIsDelivery)
+
+  const isDeliveryIncluded = useSelector(selectIsDelivery)
   const deliveryCost = useDeliveryCost()
   const {
     finalPrice,
@@ -24,7 +23,7 @@ const InfoToPay = ({
     discount,
     showDiscounted,
     discountMessage,
-  } = useTotalPrice({ deliveryCost, isDeliveryIncluded })
+  } = useTotalPrice({ isDeliveryIncluded })
 
   useEffect(() => {
     if (setIsButtonDisabled) setIsButtonDisabled(!isMinimumPriceReached)
@@ -78,7 +77,7 @@ const InfoToPay = ({
             </Flex>
           </Flex>
         )}
-        {isDelivery && isDeliveryIncluded && deliveryCost && (
+        {isDeliveryIncluded && isDeliveryIncluded && deliveryCost && (
           <Flex alignSelf={'center'}>
             <Text
               color="blue.300"

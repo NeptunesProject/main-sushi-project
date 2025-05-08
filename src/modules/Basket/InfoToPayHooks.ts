@@ -9,14 +9,13 @@ import {
 } from '../../redux/products/selectors'
 import { calculateTotalPrice } from '../../utils/calculateDiscountedPrice'
 import { minimalPrice } from '../../constants'
+import { useDeliveryCost } from '../../hooks/useDeliveryCost'
 
 interface Props {
   isDeliveryIncluded?: boolean
-  deliveryCost: number | undefined
 }
 
 export function useTotalPrice({
-  deliveryCost,
   isDeliveryIncluded = true,
 }: Props) {
   const voucher = useSelector(selectVoucher)
@@ -24,6 +23,7 @@ export function useTotalPrice({
   const selectedProducts: SelectedProduct[] = useSelector(selectBasketProducts)
   const totalPrice = calculateTotalPrice(selectedProducts)
   const [discountMessage, setDiscountMessage] = useState<number>(0)
+  const deliveryCost = useDeliveryCost()
 
   const totalPriceWithDiscount = useMemo(() => {
     return selectedProducts.reduce((acc, item) => {

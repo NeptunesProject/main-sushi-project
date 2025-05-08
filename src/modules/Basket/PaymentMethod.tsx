@@ -13,9 +13,7 @@ import {
 } from '@chakra-ui/react'
 import { AppDispatch, BasketTypes } from '../../types'
 import InfoToPay from './InfoToPay'
-import Stripe from 'stripe'
 
-import { ReturnedOrder } from '../../types'
 import {  handleClick, makeOrder } from './OrderFuncs'
 import { setVoucher } from 'redux/products/ProductsSlice'
 import { useDispatch, useSelector } from 'react-redux'
@@ -25,7 +23,6 @@ import {
   selectStudySticks,
   selectVoucher,
 } from 'redux/products/selectors'
-import { useTotalPrice } from './InfoToPayHooks'
 import { eraseAfterOrder } from 'redux/products/ProductsSlice'
 import { formatTime, getObjectFromLocalStorage } from '../../utils/functions'
 import useWorkingHours from '../../hooks/useWorkingHours'
@@ -47,9 +44,9 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
     setComment(e.target.value)
   }
 
-  const STRIPE_SK = import.meta.env.VITE_STRIPE_SECRET_KEY
-  const BASE_URL = import.meta.env.VITE_APP_BASE_URL
-  const stripe = new Stripe(STRIPE_SK)
+  // const STRIPE_SK = import.meta.env.VITE_STRIPE_SECRET_KEY
+  // const BASE_URL = import.meta.env.VITE_APP_BASE_URL
+  // const stripe = new Stripe(STRIPE_SK)
 
   const getFromLocaleStorage = (key: string, defaultValue: string): string => {
     const storedValue = localStorage.getItem(key)
@@ -89,7 +86,6 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
       time: 'Jak najszybciej',
     }),
   )
-  const {totalPrice} = useTotalPrice()
 
   const personCount = useSelector(selectPersonCount)
   const studySticks = useSelector(selectStudySticks)
@@ -99,34 +95,34 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
     setVoucher({ discount: voucher.discount, error: '' })
   }, [voucher])
 
-  async function createSession(order: ReturnedOrder) {
-    try {
-      const session = await stripe.checkout.sessions.create({
-        line_items: [
-          {
-            price_data: {
-              currency: 'pln',
-              product_data: {
-                name: `Order #${order.id}`,
-              },
-              unit_amount: totalPrice * voucher.discount * 100,
-            },
-            quantity: 1,
-          },
-        ],
-        mode: 'payment',
-        success_url: `${BASE_URL}?success=true&session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${BASE_URL}?cancel=true&session_id={CHECKOUT_SESSION_ID}`,
-      })
-      if (session && session.url) {
-        window.location.replace(session.url)
-      }
-    } catch (error) {
-      console.error(error)
-    } finally {
-      console.log(order, 'order')
-    }
-  }
+  // async function createSession(order: ReturnedOrder) {
+  //   try {
+  //     const session = await stripe.checkout.sessions.create({
+  //       line_items: [
+  //         {
+  //           price_data: {
+  //             currency: 'pln',
+  //             product_data: {
+  //               name: `Order #${order.id}`,
+  //             },
+  //             unit_amount: totalPrice * voucher.discount * 100,
+  //           },
+  //           quantity: 1,
+  //         },
+  //       ],
+  //       mode: 'payment',
+  //       success_url: `${BASE_URL}?success=true&session_id={CHECKOUT_SESSION_ID}`,
+  //       cancel_url: `${BASE_URL}?cancel=true&session_id={CHECKOUT_SESSION_ID}`,
+  //     })
+  //     if (session && session.url) {
+  //       window.location.replace(session.url)
+  //     }
+  //   } catch (error) {
+  //     console.error(error)
+  //   } finally {
+  //     console.log(order, 'order')
+  //   }
+  // }
 
   async function createOrder() {
     const order = await makeOrder(
