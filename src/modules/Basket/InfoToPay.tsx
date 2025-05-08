@@ -3,19 +3,20 @@ import { useTotalPrice } from './InfoToPayHooks'
 import MinimumPriceWarning from '../../components/MinimumPriceWarning'
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { selectBasketProducts, selectIsDelivery } from '../../redux/products/selectors'
-import { deliveryCost } from '../../constants'
-import { SelectedProduct } from '../../types'
+import { selectIsDelivery } from '../../redux/products/selectors'
+import { useDeliveryCost } from '../../hooks/useDeliveryCost'
 
 interface Props {
   setIsButtonDisabled?: React.Dispatch<React.SetStateAction<boolean>>
+  isDeliveryIncluded?: boolean
 }
 
-const InfoToPay = ({ setIsButtonDisabled }: Props) => {
-
+const InfoToPay = ({
+  setIsButtonDisabled,
+  isDeliveryIncluded = true,
+}: Props) => {
   const isDelivery = useSelector(selectIsDelivery)
-  const selectedProducts: SelectedProduct[] = useSelector(selectBasketProducts)
-
+  const deliveryCost = useDeliveryCost()
   const {
     finalPrice,
     totalPrice,
@@ -23,7 +24,7 @@ const InfoToPay = ({ setIsButtonDisabled }: Props) => {
     discount,
     showDiscounted,
     discountMessage,
-  } = useTotalPrice()
+  } = useTotalPrice({ deliveryCost, isDeliveryIncluded })
 
   useEffect(() => {
     if (setIsButtonDisabled) setIsButtonDisabled(!isMinimumPriceReached)
@@ -35,7 +36,7 @@ const InfoToPay = ({ setIsButtonDisabled }: Props) => {
     <>
       <Flex direction="column">
         {showDiscounted && (
-          <Flex direction="column" justify='center' align='center'>
+          <Flex direction="column" justify="center" align="center">
             {discountMessage !== 0 && (
               <Text
                 color="blue.300"
@@ -45,11 +46,39 @@ const InfoToPay = ({ setIsButtonDisabled }: Props) => {
                 fontSize={isLessThan730 ? '14px' : '18px'}
                 lineHeight={isLessThan730 ? '18px' : '24px'}
                 pr={'9px'}
-                textAlign='center'
+                textAlign="center"
               >
-                Aktywowany kod promocyjny ! <span style={{color:'#418a91'}}  >{discountMessage}%</span> rabatu
+                Aktywowany kod promocyjny !{' '}
+                <span style={{ color: '#418a91' }}>{discountMessage}%</span>{' '}
+                rabatu
               </Text>
             )}
+            <Flex alignSelf={'center'}>
+              <Text
+                color="blue.300"
+                fontFamily={'Rubik'}
+                fontStyle={'normal'}
+                fontWeight={'500'}
+                fontSize={isLessThan730 ? '14px' : '18px'}
+                lineHeight={isLessThan730 ? '18px' : '24px'}
+                pr={'9px'}
+              >
+                Rabat:
+              </Text>
+              <Text
+                color="blue.100"
+                fontFamily={'Rubik'}
+                fontStyle={'normal'}
+                fontWeight={'400'}
+                fontSize={isLessThan730 ? '12px' : '16px'}
+                lineHeight={isLessThan730 ? '18px' : '24px'}
+              >
+                {Number(discount.toFixed(2))} zł
+              </Text>
+            </Flex>
+          </Flex>
+        )}
+        {isDelivery && isDeliveryIncluded && deliveryCost && (
           <Flex alignSelf={'center'}>
             <Text
               color="blue.300"
@@ -60,7 +89,7 @@ const InfoToPay = ({ setIsButtonDisabled }: Props) => {
               lineHeight={isLessThan730 ? '18px' : '24px'}
               pr={'9px'}
             >
-              Rabat:
+              Dostawa:
             </Text>
             <Text
               color="blue.100"
@@ -70,34 +99,10 @@ const InfoToPay = ({ setIsButtonDisabled }: Props) => {
               fontSize={isLessThan730 ? '12px' : '16px'}
               lineHeight={isLessThan730 ? '18px' : '24px'}
             >
-              {Number(discount.toFixed(2))} zł
+              {deliveryCost} zł
             </Text>
           </Flex>
-          </Flex>
         )}
-        {isDelivery && selectedProducts.length > 0 &&  <Flex alignSelf={'center'}>
-          <Text
-            color="blue.300"
-            fontFamily={'Rubik'}
-            fontStyle={'normal'}
-            fontWeight={'500'}
-            fontSize={isLessThan730 ? '14px' : '18px'}
-            lineHeight={isLessThan730 ? '18px' : '24px'}
-            pr={'9px'}
-          >
-            Dostawa:
-          </Text>
-          <Text
-            color="blue.100"
-            fontFamily={'Rubik'}
-            fontStyle={'normal'}
-            fontWeight={'400'}
-            fontSize={isLessThan730 ? '12px' : '16px'}
-            lineHeight={isLessThan730 ? '18px' : '24px'}
-          >
-            {deliveryCost} zł
-          </Text>
-        </Flex>}
         <Flex
           alignSelf={'center'}
           fontSize={isLessThan730 ? '15px' : '19px'}
@@ -125,7 +130,7 @@ const InfoToPay = ({ setIsButtonDisabled }: Props) => {
           {showDiscounted && (
             <Text
               fontFamily={'Rubik'}
-              color='blue.100'
+              color="blue.100"
               fontWeight={400}
               decoration={'none'}
             >

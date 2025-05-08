@@ -97,6 +97,7 @@ export const PromoCode = () => {
         alignItems={'center'}
         gap={'10px'}
         mb={'12px'}
+        mt={'12px'}
       >
         <Text
           color="blue.300"

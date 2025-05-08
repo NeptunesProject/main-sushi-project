@@ -26,4 +26,3 @@ export const openingHoursFallBack: WorkingHours = {
 }
 export const minimalPrice = 65
 export const storageVersion = 'v2'
-export const deliveryCost = 10

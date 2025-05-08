@@ -71,7 +71,6 @@ const getCategories = async (): Promise<Category[]> => {
     apiClient
       .get('/category')
       .then((response) => {
-        console.log(response.data)
         resolve(response.data)
       })
       .catch((error) => {
@@ -93,4 +92,17 @@ const getWorkingHours = async (): Promise<FetchedWorkingHours> => {
   })
 }
 
-export { getProducts, getCategories, getProduct, postOrder, postVoucher, getWorkingHours }
+const getDeliveryCost = async (): Promise<{deliveryPrice: number}> => {
+  return new Promise((resolve, reject) => {
+    apiClient
+      .get('/orders/delivery')
+      .then((response) => {
+        resolve(response.data)
+      })
+      .catch((error) => {
+        reject(error)
+      })
+  })
+}
+
+export { getProducts, getCategories, getProduct, postOrder, postVoucher, getWorkingHours, getDeliveryCost }

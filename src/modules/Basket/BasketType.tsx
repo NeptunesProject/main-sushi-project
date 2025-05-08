@@ -11,6 +11,7 @@ import InfoToPay from './InfoToPay'
 import { BasketTypes } from 'types'
 import { useSelector } from 'react-redux'
 import { selectBasketProducts } from 'redux/products/selectors'
+import { PromoCode } from './PromoCode'
 
 interface Props {
   setSelectedBasketType: React.Dispatch<React.SetStateAction<BasketTypes>>
@@ -52,8 +53,9 @@ const BasketType = ({ setSelectedBasketType }: Props) => {
         </Text>
         <ProductsList />
 
-        <InfoToPay setIsButtonDisabled={setIsButtonDisabled} />
+        <PromoCode />
 
+        <InfoToPay isDeliveryIncluded={false} setIsButtonDisabled={setIsButtonDisabled} />
 
         <Button
           alignSelf="center"

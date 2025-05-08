@@ -8,9 +8,17 @@ import {
   selectVoucher,
 } from '../../redux/products/selectors'
 import { calculateTotalPrice } from '../../utils/calculateDiscountedPrice'
-import { deliveryCost, minimalPrice } from '../../constants'
+import { minimalPrice } from '../../constants'
 
-export function useTotalPrice() {
+interface Props {
+  isDeliveryIncluded?: boolean
+  deliveryCost: number | undefined
+}
+
+export function useTotalPrice({
+  deliveryCost,
+  isDeliveryIncluded = true,
+}: Props) {
   const voucher = useSelector(selectVoucher)
   const isDelivery = useSelector(selectIsDelivery)
   const selectedProducts: SelectedProduct[] = useSelector(selectBasketProducts)
@@ -32,10 +40,11 @@ export function useTotalPrice() {
   }, [selectedProducts])
 
   const isDiscounted = totalPrice > totalPriceWithDiscount
-
+  const deliveryPrice =
+    isDelivery && isDeliveryIncluded && deliveryCost ? deliveryCost : 0
   const priceWithVoucher =
     (isDiscounted ? totalPriceWithDiscount : totalPrice) * voucher.discount +
-    +(isDelivery && deliveryCost)
+    +deliveryPrice
   const isMinimumPriceReached = priceWithVoucher >= minimalPrice
 
   const isVoucherActive = totalPrice !== 0 && voucher.discount !== 1

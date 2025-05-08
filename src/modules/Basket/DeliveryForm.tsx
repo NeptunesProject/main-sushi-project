@@ -295,8 +295,6 @@ const DeliveryForm = ({ setSelectedBasketType }: Props) => {
 
         <Box w="100%" h="1px" bg="grey" opacity={0.6} mt={'10px'} mb={'13px'} />
 
-        <PromoCode />
-
         <InfoToPay />
 
         <Flex justifyContent={'center'} gap={'8px'}>
