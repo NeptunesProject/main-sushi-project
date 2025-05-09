@@ -49,7 +49,7 @@ export const PromoCode = () => {
               addProduct({
                 product: {
                   ...result.freeProduct,
-                  id: +(result.freeProduct.id + '777'),
+                  id: 777,
                   discount: {
                     ...result.freeProduct.discount,
                     discountPerQuantity: { '1': '1' },

@@ -1,5 +1,11 @@
 import { postOrder } from 'api'
-import { BasketTypes, CartItem, ReturnedOrder, SelectedProduct, WorkingHours } from 'types'
+import {
+  BasketTypes,
+  CartItem,
+  ReturnedOrder,
+  SelectedProduct, Voucher,
+  WorkingHours,
+} from 'types'
 import { getISOSDate } from '../../utils/functions'
 
 type DispatchSetter<T> = React.Dispatch<React.SetStateAction<T>>
@@ -18,7 +24,7 @@ interface IMakeOrder {
     voucherCode: string,
     email: string,
     selectedProducts: SelectedProduct[],
-    deliveryDate: {day: string, time: string},
+    deliveryDate: { day: string; time: string },
     workingHours: WorkingHours,
   ): Promise<ReturnedOrder>
 }
@@ -27,8 +33,8 @@ interface IClearCard {
   (
     setName: DispatchSetter<string>,
     setPhoneNumber: DispatchSetter<{
-      phoneNumber: string,
-      isValid: boolean,
+      phoneNumber: string
+      isValid: boolean
     }>,
     setDeliveryType: DispatchSetter<string>,
     setStreet: DispatchSetter<string>,
@@ -38,6 +44,7 @@ interface IClearCard {
       day: string
       time: string
     }>,
+    setVoucher:(voucher: Voucher) => void
   ): void
 }
 
@@ -48,8 +55,8 @@ interface IHandleClick {
     setOrderId: DispatchSetter<number>,
     setName: DispatchSetter<string>,
     setPhoneNumber: DispatchSetter<{
-      phoneNumber: string,
-      isValid: boolean,
+      phoneNumber: string
+      isValid: boolean
     }>,
     setDeliveryType: DispatchSetter<string>,
     setStreet: DispatchSetter<string>,
@@ -59,6 +66,7 @@ interface IHandleClick {
       day: string
       time: string
     }>,
+    setVoucher: (voucher: Voucher) => void
   ): void
 }
 
@@ -84,17 +92,18 @@ export const makeOrder: IMakeOrder = async (
   email,
   selectedProducts,
   deliveryDate,
-  workingHours
-
+  workingHours,
 ) => {
   setSelectedBasketType('delivery')
 
-  const cartItems: CartItem[] = selectedProducts.map((item) => {
-    return {
-      id: item.product.id.toString(),
-      quantity: item.count,
-    }
-  })
+  const cartItems: CartItem[] = selectedProducts
+    .filter((i) => !i.isFree)
+    .map((item) => {
+      return {
+        id: item.product.id.toString(),
+        quantity: item.count,
+      }
+    })
   try {
     const order = await postOrder({
       toDateTime: getISOSDate(deliveryDate, workingHours),
@@ -130,12 +139,14 @@ export const clearCard: IClearCard = (
   setPayment,
   setEmail,
   setDeliveryDate,
+  setVoucher
 ) => {
   setName('')
   setPhoneNumber({
     phoneNumber: '',
     isValid: false,
   })
+
   setDeliveryType('delivery')
   setStreet('')
   setPayment('')
@@ -144,18 +155,27 @@ export const clearCard: IClearCard = (
     day: 'Dzisiaj',
     time: 'Jak najszybciej',
   })
+  setVoucher({
+    discount: 1,
+    error: '',
+    code: '',
+  })
 }
 
 export const clearLocaleStorage = () => {
   localStorage.setItem('personInfo-Name', JSON.stringify(''))
-  localStorage.setItem('personInfo-Number', JSON.stringify({
-    phoneNumber: '',
-    isValid: false,
-  }))
+  localStorage.setItem(
+    'personInfo-Number',
+    JSON.stringify({
+      phoneNumber: '',
+      isValid: false,
+    }),
+  )
   localStorage.setItem('personInfo-Delivery', JSON.stringify('delivery'))
   localStorage.setItem('personInfo-Street', JSON.stringify(''))
   localStorage.setItem('personInfo-Email', JSON.stringify(''))
   localStorage.setItem('paymentType', JSON.stringify(''))
+  localStorage.setItem('voucher', JSON.stringify(''))
   localStorage.setItem(
     'personInfo-delivery-date',
     JSON.stringify({
@@ -176,6 +196,7 @@ export const handleClick: IHandleClick = async (
   setPayment,
   setEmail,
   setDeliveryDate,
+  setVoucher
 ) => {
   setOrderId(orderId)
   clearCard(
@@ -185,7 +206,8 @@ export const handleClick: IHandleClick = async (
     setStreet,
     setPayment,
     setEmail,
-    setDeliveryDate
+    setDeliveryDate,
+    setVoucher
   )
   clearLocaleStorage()
   setSelectedBasketType('orderResponse')

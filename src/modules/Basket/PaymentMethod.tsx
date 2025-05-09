@@ -15,7 +15,7 @@ import { AppDispatch, BasketTypes } from '../../types'
 import InfoToPay from './InfoToPay'
 
 import {  handleClick, makeOrder } from './OrderFuncs'
-import { setVoucher } from 'redux/products/ProductsSlice'
+import { setVoucher as setVoucherRedux } from 'redux/products/ProductsSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   selectBasketProducts,
@@ -27,6 +27,7 @@ import { eraseAfterOrder } from 'redux/products/ProductsSlice'
 import { formatTime, getObjectFromLocalStorage } from '../../utils/functions'
 import useWorkingHours from '../../hooks/useWorkingHours'
 import { openingHoursFallBack } from '../../constants'
+import { useBasketDispatchContext } from '../../contexts/BasketContext'
 
 interface Props {
   setSelectedBasketType: React.Dispatch<React.SetStateAction<BasketTypes>>
@@ -37,6 +38,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
   const dispatch = useDispatch<AppDispatch>()
   const  { workingHours } = useWorkingHours();
   const [comment, setComment] = useState('')
+  const { setVoucher } = useBasketDispatchContext()
 
   const selectedProducts = useSelector(selectBasketProducts)
 
@@ -92,7 +94,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
   const voucher = useSelector(selectVoucher)
 
   useEffect(() => {
-    setVoucher({ discount: voucher.discount, error: '' })
+    setVoucher({ discount: voucher.discount, error: '', code: '' })
   }, [voucher])
 
   // async function createSession(order: ReturnedOrder) {
@@ -152,6 +154,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
       setPayment as React.Dispatch<React.SetStateAction<string>>,
       setEmail,
       setDeliveryDate,
+      setVoucher
     )
     dispatch(eraseAfterOrder())
     // if (order && order.paymentType === 'ONLINE') {
@@ -169,7 +172,7 @@ const PaymentMethod = ({ setSelectedBasketType, setOrderId }: Props) => {
 
   function nullifyVoucher() {
     dispatch(
-      setVoucher({
+      setVoucherRedux({
         discount: 1,
         error: '',
         code: '',
