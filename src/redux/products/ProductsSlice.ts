@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { fetchProducts } from 'redux/products/operations'
-import { ProductsState } from 'types'
+import { ProductsState, VoucherProps } from 'types'
 
 export const initialState: ProductsState = {
   selectedProducts: [],
@@ -11,6 +11,7 @@ export const initialState: ProductsState = {
   },
   isDelivery: true,
   voucher: { discount: 1, error: '', code: '' },
+  enteredVoucher: '',
   products: [],
   isProductsLoading: false,
 }
@@ -76,9 +77,12 @@ const productSlice = createSlice({
       state.additionalInfo.sticks = 0
       state.additionalInfo.studySticks = 0
     },
-    setVoucher(state, action) {
+    setVoucher(state, action: PayloadAction<VoucherProps>) {
       state.voucher = action.payload
     },
+    setEnteredVoucher(state, action: PayloadAction<string>) {
+      state.enteredVoucher = action.payload
+    }
   },
   extraReducers: (builder) =>
     builder
@@ -103,6 +107,7 @@ export const {
   setVoucher,
   deleteFreeProduct,
   setIsDelivery,
+  setEnteredVoucher
 } = productSlice.actions
 
 export default productSlice.reducer

@@ -12,6 +12,7 @@ import { BasketTypes } from 'types'
 import { useSelector } from 'react-redux'
 import { selectBasketProducts } from 'redux/products/selectors'
 import { PromoCode } from './PromoCode'
+import { useVoucher } from '../../hooks/useVoucher'
 
 interface Props {
   setSelectedBasketType: React.Dispatch<React.SetStateAction<BasketTypes>>
@@ -21,6 +22,13 @@ const BasketType = ({ setSelectedBasketType }: Props) => {
   const products = useSelector(selectBasketProducts)
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false)
   const [isLessThan768] = useMediaQuery('(max-width: 768px)')
+  const { validateVoucher, voucher } = useVoucher()
+
+  const orderClickHandler = () => {
+    if(!voucher.code) validateVoucher()
+    setSelectedBasketType('delivery')
+  }
+
   return (
     <>
       <Flex justifyContent="space-between" alignItems="center">
@@ -55,14 +63,17 @@ const BasketType = ({ setSelectedBasketType }: Props) => {
 
         <PromoCode />
 
-        <InfoToPay deliveryShown={false} setIsButtonDisabled={setIsButtonDisabled} />
+        <InfoToPay
+          deliveryShown={false}
+          setIsButtonDisabled={setIsButtonDisabled}
+        />
 
         <Button
           alignSelf="center"
           bg="blue.100"
           borderRadius={25}
           isDisabled={!products.length || isButtonDisabled}
-          onClick={() => setSelectedBasketType('delivery')}
+          onClick={orderClickHandler}
           color={'#FFFFFF'}
           fontSize={16}
           fontWeight={400}

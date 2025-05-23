@@ -130,7 +130,7 @@ const ProductListItem = ({ item }: Props) => {
           color={'#002034'}
           maxW="91%"
         >
-          {item.product.size * item.count} szt.
+          {item.product.weight && `${item.product.weight} gram / `}{item.product.size * item.count} szt.
         </Text>
         <Flex>
           <Flex align="center" gap="8px">

@@ -135,6 +135,12 @@ interface SelectedProduct {
   id: number
 }
 
+interface VoucherProps {
+  discount: number
+  error: string
+  code: string
+}
+
 interface ProductsState {
   selectedProducts: SelectedProduct[]
   additionalInfo: {
@@ -143,7 +149,8 @@ interface ProductsState {
     studySticks: number
   }
   isDelivery: boolean
-  voucher: { discount: number; error: string; code: string }
+  voucher: VoucherProps
+  enteredVoucher: string
   products: Product[]
   isProductsLoading: boolean
 }
@@ -175,4 +182,5 @@ export type {
   SelectedProduct,
   ConstCategory,
   FetchedWorkingHours,
+  VoucherProps
 }

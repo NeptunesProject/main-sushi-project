@@ -70,12 +70,12 @@ export function useTotalPrice({
   }
 }
 
-// export function useTotalWeight(selectedProducts: SelectedProduct[]) {
-//   const totalWeight = useMemo(() => {
-//     return Object.values(selectedProducts).reduce((acc, item) => {
-//       return acc + item.product.weight * item.count
-//     }, 0)
-//   }, [selectedProducts])
-//
-//   return totalWeight
-// }
+export function useTotalWeight() {
+  const selectedProducts: SelectedProduct[] = useSelector(selectBasketProducts)
+
+  return useMemo(() => {
+    return Object.values(selectedProducts).reduce((acc, item) => {
+      return acc + item.product.weight * item.count
+    }, 0)
+  }, [selectedProducts])
+}

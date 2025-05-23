@@ -1,5 +1,5 @@
 import { Flex, Text, useMediaQuery } from '@chakra-ui/react'
-import { useTotalPrice } from './InfoToPayHooks'
+import { useTotalPrice, useTotalWeight } from './InfoToPayHooks'
 import MinimumPriceWarning from '../../components/MinimumPriceWarning'
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
@@ -11,11 +11,8 @@ interface Props {
   deliveryShown?: boolean
 }
 
-const InfoToPay = ({
-  setIsButtonDisabled,
-  deliveryShown = true
-}: Props) => {
-
+const InfoToPay = ({ setIsButtonDisabled, deliveryShown = true }: Props) => {
+  const totalWeight = useTotalWeight()
   const isDeliveryIncluded = useSelector(selectIsDelivery)
   const deliveryCost = useDeliveryCost()
   const {
@@ -77,6 +74,29 @@ const InfoToPay = ({
                 {Number(discount.toFixed(2))} zł
               </Text>
             </Flex>
+            <Flex alignSelf={'center'}>
+              <Text
+                color="blue.300"
+                fontFamily={'Rubik'}
+                fontStyle={'normal'}
+                fontWeight={'500'}
+                fontSize={isLessThan730 ? '14px' : '18px'}
+                lineHeight={isLessThan730 ? '18px' : '24px'}
+                pr={'9px'}
+              >
+                Waga:
+              </Text>
+              <Text
+                color="blue.100"
+                fontFamily={'Rubik'}
+                fontStyle={'normal'}
+                fontWeight={'400'}
+                fontSize={isLessThan730 ? '12px' : '16px'}
+                lineHeight={isLessThan730 ? '18px' : '24px'}
+              >
+                {totalWeight} gram
+              </Text>
+            </Flex>
           </Flex>
         )}
         {isDeliveryIncluded && deliveryShown && deliveryCost && (
@@ -104,6 +124,7 @@ const InfoToPay = ({
             </Text>
           </Flex>
         )}
+
         <Flex
           alignSelf={'center'}
           fontSize={isLessThan730 ? '15px' : '19px'}

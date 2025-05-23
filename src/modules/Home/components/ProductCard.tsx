@@ -251,7 +251,7 @@ const ProductCard = ({ product }: Props) => {
             flexWrap="nowrap"
             fontFamily={'Rubik'}
           >
-            {product.cartCount} szt
+            {product.weight && `${product.weight} gram / `}  {product.cartCount} szt
           </Text>
 
           <Flex align="center" gap="8px">

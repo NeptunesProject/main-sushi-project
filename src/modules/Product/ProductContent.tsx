@@ -40,7 +40,6 @@ const ProductContent = () => {
   const [isLargerThan425] = useMediaQuery('(min-width: 425px)')
   const [isLargerThan768] = useMediaQuery('(min-width: 769px)')
   const [isLargerThan900] = useMediaQuery('(min-height: 900px)')
-  const [isLargerThan1025] = useMediaQuery('(min-width: 1025px)')
   const [isLargerThan1024] = useMediaQuery('(min-width: 1024px)')
 
   const { i18n } = useTranslation()
@@ -171,7 +170,7 @@ const ProductContent = () => {
 
   return (
     <Container
-      maxW={isLargerThan1025 ? 'container' : undefined}
+      maxW={'container'}
       pt={'14vh'}
       fontFamily="'Roboto', sans-serif"
       display="flex"
@@ -180,7 +179,7 @@ const ProductContent = () => {
       ml={0}
       mr={0}
     >
-      <Box maxW={{ base: 500, lg: 1150 }} minW={{ base: 'auto', lg: '80%' }}>
+      <Box pl={isLargerThan1024 ? '10vh' : 0} pr={isLargerThan1024 ? '10vh' : 0} >
         <Heading
           mb={isLargerThan900 ? 10 : 0}
           color="blue.200"
@@ -223,7 +222,7 @@ const ProductContent = () => {
         </Flex>
         <Flex
           align={'start'}
-          gap={12}
+          gap={16}
           flexWrap={!isLargerThan1024 ? 'wrap' : undefined}
           justify="start"
           mt={5}
@@ -238,38 +237,39 @@ const ProductContent = () => {
               />
             }
             src={product.img}
-            w={isLargerThan768 ? '50vh' : '95vw'}
+            w={isLargerThan768 ? '50%' : '95vw'}
             objectFit="contain"
-            mb={isLargerThan768 ? '50px' : 0}
+            mb={isLargerThan1024 ? '50px' : 0}
             //boxSize={isLargerThan700 ? { base: 250, xs: 440, xxs: "100%" } : { base: 170, xs: 200, xxs: "80%" }}
           />
           <Flex w={'100%'} flexDir="column" gap={15} minW={{ md: 450 }}>
-            <UnorderedList
+            <Flex
               minH="95px"
-              display="flex"
-              flexDir="column"
               flexWrap="wrap"
               maxH={isLargerThan768 ? '200px' : 'auto'}
               ml="0"
               listStyleType="none"
             >
-              {ingredients.map((ingredient) => (
-                <ListItem mr="25px" key={ingredient}>
-                  {ingredient}
-                </ListItem>
-              ))}
-            </UnorderedList>
+              <Text>{ingredients.join(', ')}</Text>
+              {/*{ingredients.map((ingredient) => (*/}
+              {/*  <ListItem mr="25px" key={ingredient}>*/}
+              {/*    {ingredient}*/}
+              {/*  </ListItem>*/}
+              {/*))}*/}
+            </Flex>
             <Flex flexDir="column" gap={15}>
-              {/*<Text fontWeight={700} fontSize={18} color={'#002034'}>*/}
-              {/*  {product.weight && <Text>Waga: {product.weight} gram</Text>}*/}
-              {/*</Text>*/}
-              <Text fontWeight={700} fontSize={18} color={'#002034'}>
+              <Flex
+                flexDir="column"
+                fontWeight={700}
+                fontSize={18}
+                color="#blue.300"
+              >
                 <Text>Sztuk: {product.cartCount} szt</Text>
-              </Text>
+                <Text>Waga: {product.weight} szt</Text>
+              </Flex>
               <Flex
                 flexDir={isLargerThan1800 ? 'column' : 'row'}
                 justifyContent={'space-between'}
-                mb={10}
                 w={isLargerThan768 ? 'auto' : '90vw'}
                 align={isLargerThan1800 ? 'start' : 'center'}
               >
@@ -281,7 +281,7 @@ const ProductContent = () => {
                     decoration={isDiscounted ? 'line-through' : 'none'}
                     isTruncated
                   >
-                    {product.price} zł
+                    {product.price * (selectedInfoProduct?.count ?? 1)} zł
                   </Text>
                   {isDiscounted && totalDiscountedPrice !== null && (
                     <Text
@@ -374,24 +374,21 @@ const ProductContent = () => {
               </Flex>
             </Flex>
 
-            {/*<Flex*/}
-            {/*  borderRadius={10}*/}
-            {/*  gap={5}*/}
-            {/*  flexDir="column"*/}
-            {/*  w="100%"*/}
-            {/*  border="1px solid"*/}
-            {/*  borderColor="turquoise.77"*/}
-            {/*  py={5}*/}
-            {/*  px={9}*/}
-            {/*>*/}
-            {/*  /!*<Text fontWeight={700} color="turquoise.77">*!/*/}
-            {/*  /!*  Delivery*!/*/}
-            {/*  /!*</Text>*!/*/}
-
-            {/*  /!*<Text>We offer a 10% discount for self pick-up</Text>*!/*/}
-            {/*  <Text>{product.description}</Text>*/}
-
-            {/*</Flex>*/}
+            <Flex
+              borderRadius={10}
+              gap={5}
+              flexDir="column"
+              w="100%"
+              border="1px solid"
+              borderColor="turquoise.77"
+              py={5}
+              px={9}
+            >
+              <Text fontWeight={700} color="turquoise.77">
+                Dostawa
+              </Text>
+              <Text>Oferujemy 10% zniżki na odbiór osobisty</Text>
+            </Flex>
           </Flex>
         </Flex>
       </Box>

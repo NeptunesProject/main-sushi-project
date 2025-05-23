@@ -1,91 +1,23 @@
 import { Button, Flex, Input, Text, useMediaQuery } from '@chakra-ui/react'
-import { postVoucher } from 'api'
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import {
-  addProduct,
-  deleteFreeProduct,
-  setVoucher,
-} from 'redux/products/ProductsSlice'
-import { selectVoucher } from 'redux/products/selectors'
-import { AppDispatch } from 'types'
-import {
-  useBasketContext,
-  useBasketDispatchContext,
-} from '../../contexts/BasketContext'
+import { ChangeEvent } from 'react'
+import { useVoucher } from '../../hooks/useVoucher'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '../../types'
+import { setEnteredVoucher } from '../../redux/products/ProductsSlice'
 
 export const PromoCode = () => {
-
-  const { voucher: contextVoucher } = useBasketContext()
-  const { setVoucher: setContextVoucher } = useBasketDispatchContext()
   const dispatch = useDispatch<AppDispatch>()
-  const voucher = useSelector(selectVoucher)
-  const [voucherCode, setVoucherCode] = useState(contextVoucher.code)
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setVoucherCode(e.target.value)
+  const {
+    CancelVoucher,
+    validateVoucher,
+    voucher,
+    enteredVoucher
+  } = useVoucher()
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch(setEnteredVoucher(e.target.value))
   }
-
-  async function validateVoucher() {
-    try {
-      if (voucherCode !== '') {
-        const result = await postVoucher(voucherCode)
-        if (result) {
-          setVoucherCode(result.code)
-          setContextVoucher({
-            discount: 1 - result.discountPercentage,
-            error: '',
-            code: result.code,
-          })
-          dispatch(
-            setVoucher({
-              discount: 1 - result.discountPercentage,
-              error: '',
-              code: result.code,
-            }),
-          )
-          if (result.freeProduct) {
-            dispatch(
-              addProduct({
-                product: {
-                  ...result.freeProduct,
-                  id: 777,
-                  discount: {
-                    ...result.freeProduct.discount,
-                    discountPerQuantity: { '1': '1' },
-                  },
-                },
-                count: 1,
-                isFree: true,
-              }),
-            )
-          }
-        }
-      }
-    } catch (error) {
-      console.error(error)
-
-      if (error === 'Voucher not found.') {
-        dispatch(setVoucher({ discount: 1, error, code: '' }))
-      }
-    }
-  }
-
-  const CancelVoucher = () => {
-    setContextVoucher({ discount: 1, error: '', code: '' })
-    setVoucherCode('')
-    dispatch(
-      setVoucher({
-        discount: 1,
-        error: '',
-        code: '',
-      }),
-    )
-    dispatch(deleteFreeProduct())
-  }
-  useEffect(() => {
-    setVoucher({ discount: voucher.discount, error: '', code: voucher.code })
-  }, [voucher])
 
   const [isLessThan768] = useMediaQuery('(max-width: 768px)')
   const [isLessThan768h] = useMediaQuery('(max-height: 768px)')
@@ -110,7 +42,7 @@ export const PromoCode = () => {
           Kod promocyjny
         </Text>
         <Input
-          value={voucherCode}
+          value={enteredVoucher}
           onChange={handleInputChange}
           style={{
             border: '1px solid gray.50',
@@ -122,7 +54,7 @@ export const PromoCode = () => {
           }}
         />
 
-        {!contextVoucher.code ? (
+        {!voucher.code ? (
           <Flex alignItems="center" justifyContent="flex-end">
             <Button
               float={'right'}
@@ -173,7 +105,7 @@ export const PromoCode = () => {
             {voucher.error}
           </Text>
         )}
-        {contextVoucher.code && (
+        {voucher.code && (
           <Text
             color="blue.300"
             fontFamily="Rubik"
