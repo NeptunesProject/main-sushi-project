@@ -7,8 +7,7 @@ import { Box, useMediaQuery } from '@chakra-ui/react'
 import { useNavigate } from 'react-router-dom'
 
 const images = [
-  'https://neptunessushi.com/images/posts/1.jpg',
-  'https://neptunessushi.com/images/posts/2.jpg'
+  'https://neptunessushi.com/images/posts/1.jpg'
 ]
 interface ArrowProps {
   className?: string
