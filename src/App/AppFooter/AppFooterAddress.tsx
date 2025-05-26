@@ -1,6 +1,8 @@
-import { Flex, Text } from '@chakra-ui/react'
+import { Flex, Text, Link } from '@chakra-ui/react'
 import FooterTitle from 'ui/FooterTitle'
 import { useTranslation } from 'react-i18next'
+import { Link as RouterLink } from 'react-router-dom'
+import FooterLink from "../../ui/FooterLink";
 
 const AppFooterAddress = () => {
   const { t } = useTranslation()
@@ -12,6 +14,7 @@ const AppFooterAddress = () => {
         <Text as="span">Warsaw, Mokotov</Text>
         <Text as="span">Dolna 41, 00-773</Text>
       </Flex>
+        <FooterLink to="/regulamin">{t('footer.reglamentLink')}</FooterLink>
     </Flex>
   )
 }

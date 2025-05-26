@@ -26,9 +26,9 @@ const AppFooterContacts = () => {
             textDecoration: 'none',
             color: 'blue.100',
           }}
-          href="mailto:info@neptunessushi.com"
+          href="mailto:neptunessushi@gmail.com"
         >
-          info@neptunessushi.com
+          neptunessushi@gmail.com
         </FooterLink>
       </Flex>
     </Flex>

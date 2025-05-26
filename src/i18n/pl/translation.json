@@ -40,7 +40,8 @@
     "social": {
       "title": "Jesteśmy w mediach społecznościowych",
       "payment": "Metody płatności"
-    }
+    },
+    "reglamentLink": "Zobacz regulamin"
   },
   "homeSlider": {
     "title": "Poznaj nowe menu"
@@ -116,5 +117,19 @@
     "heading": "Adres",
     "place": "Dolna 41, 00-773 Warszawa",
     "phone": "<a href='tel:+48517102069'>+48 517 102 069</a>"
+  },
+  "reglament": {
+    "title": "Regulamin Sklepu",
+    "preamble": "Niniejszy Regulamin określa zasady korzystania ze sklepu internetowego dostępnego pod adresem neptunessushi.com oraz warunki sprzedaży produktów oferowanych przez firmę NEPTUNES SUSHI DELIVERY SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ.",
+    "companyDataTitle": "§1. Informacje Rejestrowe o Firmie",
+    "companyData": "NEPTUNES SUSHI DELIVERY SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ\nNIP: 5242990546\nREGON: 527002488\nKRS: 0001070660\nAdres rejestracyjny: Michała Kleofasa Ogińskiego 11/9, 03-318 Warszawa\nAdres fizyczny: Dolna 41, 00-773 Warszawa, kuchnia 3\nEmail: neptunessushi@gmail.com\nTelefon: +48 517 102 069\nStrona internetowa: neptunessushi.com",
+    "productsTitle": "§2. Produkty i Usługi",
+    "products": "Sklep oferuje produkty gastronomiczne w formie:\na) Odbioru osobistego,\nb) Dostawy – realizowanej przez firmę bezpośrednio lub za pośrednictwem firm kurierskich (np. Glovo, Bolt Food, Uber Eats, Pyszne.pl).\n\nWszystkie produkty są prezentowane na stronie wraz z opisem, zdjęciem i ceną.\n\nZamówienia można składać:\na) przez stronę internetową neptunessushi.com,\nb) telefonicznie,\nc) osobiście w punkcie sprzedaży.\n\nZłożenie zamówienia wymaga:\n- podania danych osobowych,\n- akceptacji Regulaminu,\n- dokonania płatności.\n\nDostępne metody płatności:\na) płatność online przez system Przelewy24,\nb) płatność gotówką lub kartą przy odbiorze (jeśli dostępna).\n\nW przypadku niezatwierdzenia płatności elektronicznej przez system, zamówienie nie zostanie zrealizowane.\n\nNie przyjmujemy zamówień na składniki spoza menu ani indywidualne modyfikacje dań.\n\nCzas realizacji zamówienia nie przekracza 1 dnia roboczego.",
+    "returnsTitle": "§3. Polityka Zwrotów",
+    "returns": "1. Klient ma prawo do odstąpienia od umowy i zwrotu środków wyłącznie w przypadkach określonych w niniejszym Regulaminie.\n2. Klient ponosi pełną odpowiedzialność za błędne złożenie zamówienia. Zwrot środków w takich przypadkach nie jest możliwy.\n3. Zwrot środków nie jest możliwy po zweryfikowaniu Klienta i rozpoczęciu realizacji zamówienia.\n4. W przypadku wad jakościowych lub błędów w zamówieniu, Klient ma prawo do zgłoszenia reklamacji zgodnie z §4.",
+    "complaintsTitle": "§4. Reklamacje",
+    "complaints": "1. Klient ma prawo do złożenia reklamacji w przypadku stwierdzenia wad towaru.\n2. Reklamację należy zgłosić w ciągu 24 godzin od otrzymania towaru.\n3. Reklamacja dotyczy jedynie wad jakościowych lub błędów po stronie Sprzedawcy.\n4. Reklamacje wynikające z błędów Klienta nie będą rozpatrywane.\n5. Klient może żądać: a) wymiany produktu, b) zwrotu środków.\n6. Warunkiem rozpatrzenia reklamacji jest przedstawienie dowodu zakupu oraz zdjęć.\n7. Reklamacje należy kierować na email: neptunessushi@gmail.com\n8. Klient zostanie poinformowany o wyniku reklamacji w ciągu 14 dni roboczych.\n9. Zwrot środków nastąpi tą samą metodą płatności.",
+    "finalTitle": "§5. Postanowienia Końcowe",
+    "final": "1. Regulamin jest dostępny na stronie sklepu i musi zostać zaakceptowany przed zakupem.\n2. Zmiany w Regulaminie będą publikowane na stronie neptunessushi.com i wchodzą w życie z dniem publikacji.\n3. W sprawach nieuregulowanych Regulaminem obowiązuje prawo polskie.\n4. Treści strony, w tym zdjęcia i logo, są własnością NEPTUNES SUSHI DELIVERY i chronione prawem autorskim.\n5. Akceptacja Regulaminu oznacza akceptację wszystkich warunków sprzedaży."
   }
 }

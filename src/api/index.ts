@@ -80,6 +80,7 @@ const getCategories = async (): Promise<Category[]> => {
 }
 
 const getWorkingHours = async (): Promise<FetchedWorkingHours> => {
+    console.log('BASE_URL:', BASE_URL)
   return new Promise((resolve, reject) => {
     apiClient
       .get('/working-hours')

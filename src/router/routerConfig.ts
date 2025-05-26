@@ -7,6 +7,7 @@ import Contacts from '../pages/Contacts'
 import Success from '../pages/Success'
 import News from '../pages/News'
 import NewsItemPage from '../modules/News/components/NewsItemPage'
+import Reglament from "../pages/Reglament";
 
 const ROUTER_CONFIG = [
   {
@@ -62,7 +63,13 @@ const ROUTER_CONFIG = [
     path: '/news/:id',
     component: NewsItemPage,
     exact: true,
-  }
+  },
+    {
+        name: 'Regulamin',
+        path: '/regulamin',
+        component: Reglament,
+        exact: true,
+    }
 ]
 
 export default ROUTER_CONFIG

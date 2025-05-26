@@ -6,7 +6,8 @@
   "place": "Warsaw",
   "work-hours": {
     "0": "Opening hours",
-    "1": "Poniedziałek-Czwartek 16:00-2:30"
+    "1": "Niedziela-Czwartek 15:00-2:00",
+    "2": "Piątek-Sobota 15:00-2:00"
   },
   "category": {
     "seasonal": "Seasonal menu",
@@ -37,7 +38,8 @@
     "social": {
       "title": "We are in social networks",
       "payment": "Payment Methods"
-    }
+    },
+    "reglamentLink": "View terms and conditions"
   },
   "homeSlider": {
     "title": "Introducing our new menu"
@@ -113,6 +115,20 @@
     "heading": "Address",
     "place": "city of Warsaw",
     "phone": "Phone number: +48-888-619-595"
+  },
+  "reglament": {
+    "title": "Store Regulations",
+    "preamble": "These Regulations define the rules for using the online store available at neptunessushi.com and the terms of sale of products offered by NEPTUNES SUSHI DELIVERY SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ.",
+    "companyDataTitle": "§1. Company Registration Information",
+    "companyData": "NEPTUNES SUSHI DELIVERY SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ\nNIP: 5242990546\nREGON: 527002488\nKRS: 0001070660\nRegistered address: Michała Kleofasa Ogińskiego 11/9, 03-318 Warsaw\nPhysical address: Dolna 41, 00-773 Warsaw, kitchen 3\nEmail: neptunessushi@gmail.com\nPhone: +48 517 102 069\nWebsite: neptunessushi.com",
+    "productsTitle": "§2. Products and Services",
+    "products": "The store offers food products in the form of:\na) Personal pickup,\nb) Delivery – carried out by the company directly or via courier services (e.g., Glovo, Bolt Food, Uber Eats, Pyszne.pl).\n\nAll products are presented on the website with a description, photo, and price.\n\nOrders can be placed:\na) via the website neptunessushi.com,\nb) by phone,\nc) in person at the sales point.\n\nPlacing an order requires:\n- providing personal data,\n- accepting the Regulations,\n- making a payment.\n\nAvailable payment methods:\na) online payment via Przelewy24,\nb) cash or card payment on delivery (if available).\n\nIf the electronic payment is not approved by the system, the order will not be fulfilled.\n\nWe do not accept orders for ingredients outside the menu or individual dish modifications.\n\nThe order fulfillment time does not exceed 1 business day.",
+    "returnsTitle": "§3. Return Policy",
+    "returns": "1. The customer has the right to withdraw from the contract and receive a refund only in cases specified in these Regulations.\n2. The customer bears full responsibility for incorrect order placement. Refunds are not possible in such cases.\n3. A refund is not possible after the customer has been verified and the order has begun processing.\n4. In the case of quality defects or order errors, the customer has the right to file a complaint in accordance with §4.",
+    "complaintsTitle": "§4. Complaints",
+    "complaints": "1. The customer has the right to file a complaint in case of product defects.\n2. The complaint must be submitted within 24 hours of receiving the product.\n3. The complaint applies only to quality defects or seller errors.\n4. Complaints resulting from customer mistakes will not be considered.\n5. The customer may request: a) product replacement, b) refund.\n6. The condition for considering the complaint is presenting proof of purchase and photos.\n7. Complaints should be sent to: neptunessushi@gmail.com\n8. The customer will be informed of the complaint outcome within 14 business days.\n9. Refunds will be made using the same payment method.",
+    "finalTitle": "§5. Final Provisions",
+    "final": "1. The Regulations are available on the store's website and must be accepted before purchase.\n2. Changes to the Regulations will be published on neptunessushi.com and take effect upon publication.\n3. In matters not regulated by the Regulations, Polish law applies.\n4. The website content, including photos and logo, is the property of NEPTUNES SUSHI DELIVERY and is protected by copyright.\n5. Acceptance of the Regulations means acceptance of all sales conditions."
   }
 
 
