@@ -28,7 +28,6 @@ const BasketType = ({ setSelectedBasketType }: Props) => {
     if(!voucher.code) validateVoucher()
     setSelectedBasketType('delivery')
   }
-
   return (
     <>
       <Flex justifyContent="space-between" alignItems="center">

@@ -61,7 +61,11 @@ const ProductListItem = ({ item }: Props) => {
       dispatch(deleteSelectedProduct({ itemId: item.product.id }))
     }
   }
-  const isDiscounted = Boolean(item.product.discount) && Object.keys(item.product.discount.discountPerQuantity).some((key) => +key <= item.count)
+  const isDiscounted =
+    Boolean(item.product.discount) &&
+    Object.keys(item.product.discount.discountPerQuantity).some(
+      (key) => +key <= item.count,
+    )
   const discountedPrice =
     isDiscounted &&
     calculateDiscountedPrice(
@@ -76,6 +80,7 @@ const ProductListItem = ({ item }: Props) => {
   const totalDiscountedPrice = Math.round(finalDiscountedPrice * item.count)
 
   const [isLessThan768] = useMediaQuery('(max-width: 768px)')
+
   return (
     <Flex
       align="center"
@@ -130,7 +135,8 @@ const ProductListItem = ({ item }: Props) => {
           color={'#002034'}
           maxW="91%"
         >
-          {item.product.weight && `${item.product.weight} gram / `}{item.product.size * item.count} szt.
+          {item.product.weight && `${item.product.weight} gram / `}
+          {item.product.cartCount * item.count} szt.
         </Text>
         <Flex>
           <Flex align="center" gap="8px">

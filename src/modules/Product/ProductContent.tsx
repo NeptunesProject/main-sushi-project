@@ -9,8 +9,6 @@ import {
   Center,
   Spinner,
   useMediaQuery,
-  UnorderedList,
-  ListItem,
   Link,
 } from '@chakra-ui/react'
 import { Link as RouterLink } from 'react-router-dom'
@@ -81,7 +79,6 @@ const ProductContent = () => {
   }
 
   const isDiscounted = Boolean(product?.discount)
-  console.log(product, 'product')
 
   const calculateDiscountedPrice = (
     price: number,
@@ -112,8 +109,6 @@ const ProductContent = () => {
   const totalDiscountedPrice = discountedPrice
     ? Math.round(discountedPrice * (selectedInfoProduct?.count || count))
     : null
-
-  console.log(totalDiscountedPrice, 'Total Discounted Price')
 
   const getNameByTranslate = (product: Product) => {
     switch (currentLanguage) {
