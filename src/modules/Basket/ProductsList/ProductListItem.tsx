@@ -136,7 +136,7 @@ const ProductListItem = ({ item }: Props) => {
           maxW="91%"
         >
           {item.product.weight && `${item.product.weight} gram / `}
-          {item.product.cartCount * item.count} szt.
+          {item.product.cartCount} szt.
         </Text>
         <Flex>
           <Flex align="center" gap="8px">
