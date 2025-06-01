@@ -14,7 +14,7 @@ const ReglamentContent = () => {
                     as="h2"
                     fontSize={36}
                     fontWeight={700}
-                    color="turquoise.77"
+                    color="cyanBlue.800"
                     mb={8}
                     fontFamily="'Roboto', sans-serif"
                 >
@@ -28,7 +28,7 @@ const ReglamentContent = () => {
                     maxW={900}
                     bg="rgba(255, 255, 255, 0.7)"
                     p={4}
-                    color="#333"
+                    color="cyanBlue.800"
                     fontWeight={600}
                 >
                     <Text>
@@ -85,10 +85,12 @@ Czas realizacji zamówienia nie przekracza 1 dnia roboczego.`}
                         §3. Polityka Zwrotów
                     </Heading>
                     <Text whiteSpace="pre-line">
-                        {`1. Klient ma prawo do odstąpienia od umowy i zwrotu środków wyłącznie w przypadkach określonych w niniejszym Regulaminie.
-2. Klient ponosi pełną odpowiedzialność za błędne złożenie zamówienia. Zwrot środków w takich przypadkach nie jest możliwy.
-3. Zwrot środków nie jest możliwy po zweryfikowaniu Klienta i rozpoczęciu realizacji zamówienia.
-4. W przypadku wad jakościowych lub błędów w zamówieniu, Klient ma prawo do zgłoszenia reklamacji zgodnie z §4.`}
+                        {`1. W związku z art. 38 ustawy z dnia 30 maja 2014 r. o prawach konsumenta, Klient nie ma prawa odstąpić od umowy zawartej na odległość w ciągu 14 dni kalendarzowych. Jednakże w przypadku dostawy towarów szybko psujących się lub mających krótki termin przydatności do użycia, takich jak produkty oferowane przez NEPTUNES SUSHI DELIVERY SP. Z O.O., Klient nie ma prawa do odstąpienia od umowy.
+2. Zgodnie z art. 38 ustawy z dnia 30 maja 2014 r. o prawach konsumenta, Klient ma prawo do anulowania lub zmiany zamówienia tylko do momentu rozpoczęcia jego przygotowania przez Sprzedawcę.
+3. Klient ponosi pełną odpowiedzialność za błędne złożenie zamówienia. Zwrot środków w takich przypadkach nie jest możliwy.
+4. Zwrot środków nie jest możliwy po zweryfikowaniu Klienta i rozpoczęciu realizacji zamówienia.
+5. W przypadku wad jakościowych lub błędów w zamówieniu, Klient ma prawo do zgłoszenia reklamacji zgodnie z §4.
+6. Klient ma prawo do odstąpienia od umowy w ciągu 14 dni kalendarzowych, z wyjątkiem przypadków wskazanych w punkcie 1.`}
                     </Text>
 
                     <Heading as="h3" fontSize={28} mt={6}>
@@ -102,7 +104,7 @@ Czas realizacji zamówienia nie przekracza 1 dnia roboczego.`}
 5. Klient może żądać: a) wymiany produktu, b) zwrotu środków.
 6. Warunkiem rozpatrzenia reklamacji jest przedstawienie dowodu zakupu oraz zdjęć.
 7. Reklamacje należy kierować na email: neptunessushi@gmail.com
-8. Klient zostanie poinformowany o wyniku reklamacji w ciągu 14 dni roboczych.
+8. Klient zostanie poinformowany o wyniku reklamacji w ciągu 14 dni KALENDARZOWYCH.
 9. Zwrot środków nastąpi tą samą metodą płatności.`}
                     </Text>
 

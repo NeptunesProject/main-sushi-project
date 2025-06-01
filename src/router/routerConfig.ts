@@ -8,6 +8,7 @@ import Success from '../pages/Success'
 import News from '../pages/News'
 import NewsItemPage from '../modules/News/components/NewsItemPage'
 import Reglament from "../pages/Reglament";
+import Privacy from "../pages/Privacy";
 
 const ROUTER_CONFIG = [
   {
@@ -68,6 +69,12 @@ const ROUTER_CONFIG = [
         name: 'Regulamin',
         path: '/regulamin',
         component: Reglament,
+        exact: true,
+    },
+    {
+        name: 'Polityka Prywatności',
+        path: '/privacy',
+        component: Privacy,
         exact: true,
     }
 ]

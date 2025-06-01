@@ -1,5 +1,5 @@
-import futomaki from 'assets/icons/category/futomaki.svg'
 import california from 'assets/icons/category/california.svg'
+import futomaki from 'assets/icons/category/futomaki.svg'
 import appetisers from 'assets/icons/category/appetisers.svg'
 import sets from 'assets/icons/category/sets.svg'
 import nigiri from 'assets/icons/category/nigiri.svg'
@@ -17,15 +17,6 @@ const CATEGORY = [
         img: sets,
     },
     {
-        name: 'Futomaki',
-        nameUa: 'Футомакі',
-        nameRu: 'Футомаки',
-        nameEn: 'Futomaki',
-        route: 'Futomaki',
-        translateId: 'Futomaki',
-        img: futomaki,
-    },
-    {
         name: 'California',
         nameUa: 'Каліфорнія ',
         nameRu: 'Калифорния',
@@ -33,6 +24,15 @@ const CATEGORY = [
         route: 'California Rolls',
         translateId: 'California Rolls',
         img: california,
+    },
+    {
+        name: 'Futomaki',
+        nameUa: 'Футомакі',
+        nameRu: 'Футомаки',
+        nameEn: 'Futomaki',
+        route: 'Futomaki',
+        translateId: 'Futomaki',
+        img: futomaki,
     },
     {
         name: 'Tempura',
